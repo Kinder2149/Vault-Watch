@@ -1283,4 +1283,28 @@ Une étape à la fois ; la suivante ne commence qu'après l'essai de Kinder sur 
 
 **Décisions à prendre par Kinder (pas avant F3)**
 - ~~Bannière « À la une »~~ : **abandonnée par Kinder le 2026-10-06** (facultative, jamais construite).
-- Deux branches en ligne non fusionnées : `ccr-4569a491-6d776u` (notification : un clic ouvre la fiche) et `claude/api-limits-scalability-check-40exfk` (cadrage du remplacement de la clé TMDB en dur). À examiner une par une avant toute suppression.
+- ~~Deux branches en ligne~~ : **réglées le 2026-10-06**. Notification cliquable reprise dans `correctif-ce-soir` ; cadrage de la clé TMDB fusionné ci-dessous (décidé, **non construit**, hors 2.3.1).
+
+## Clé TMDB : retrait du dur, relais Cloudflare + clé personnelle (cadrage du 2026-09-26)
+
+**Point de départ** : la clé TMDB de Kinder est embarquée dans l'application (`VITE_TMDB_API_KEY`,
+`client/src/tmdb.js`), partagée par tous les utilisateurs. Risque identifié : une clé embarquée
+dans un APK ne peut pas être réellement cachée (obfuscation = retarder une extraction, pas
+l'empêcher) ; si elle est extraite et détournée, TMDB peut la bloquer et couper l'application pour
+**tout le monde** d'un coup. Une clé propre à chaque utilisateur (impossible à provisionner
+automatiquement — TMDB n'a pas d'API pour créer une clé, la connexion Google de l'app n'a aucun
+lien avec un compte TMDB) élimine ce risque pour qui la configure.
+
+**Décision (voir aussi `PROJET_CONTEXTE.md` section 6)** : deux mécanismes complémentaires.
+1. **Relais Cloudflare Workers**, gratuit et sans période de veille (contrairement à Render :
+   pas de délai de réveil après inactivité ; contrairement à Supabase : pas de projet complet à
+   maintenir pour un simple relais). Garde la clé de Kinder côté serveur ; l'application l'appelle
+   à la place de TMDB.
+2. **Clé TMDB personnelle**, en option, réglable dans les paramètres via un écran qui explique pas
+   à pas comment la créer (liens, informations à saisir). Une fois renseignée, elle remplace
+   définitivement le relais pour cet utilisateur. Stockée comme un champ du **profil** : elle est
+   donc emportée automatiquement par l'export/import déjà existant (`backup.js`), et voyage avec la
+   sauvegarde Drive (dossier caché `drive.appdata`, déjà en place) sans mécanisme nouveau.
+
+**Statut** : décisions tranchées, doc mise à jour. Le découpage en étapes (cadrage d'étape par
+étape, tranche testée avant la suivante) reste à faire.
