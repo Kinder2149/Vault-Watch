@@ -1258,3 +1258,29 @@ comme base d'une mise en ligne éventuelle, non planifiée à ce jour.
 
 **2026-09-11** : passe de corrections issue des retours du 10 septembre (voir « Idées pour les
 versions suivantes »), à essayer sur l'appareil puis à publier en 2.2.
+
+## Plan de finition — « app propre et finie » (établi le 2026-10-06)
+Une étape à la fois ; la suivante ne commence qu'après l'essai de Kinder sur téléphone.
+
+| # | Étape | Qui | Sortie attendue |
+|---|---|---|---|
+| F1 | Correctif « Ce soir » (balayage + « Tout voir ») — codé, commit `672c768` sur `correctif-ce-soir` | Claude Code | ✅ codé, ☐ vu à l'écran |
+| F2 | APK de test construit depuis `correctif-ce-soir` (ne touche pas la 2.3 en examen) | Claude Code | `apk-test/vault-watch-test-2.3.1.apk` |
+| F3 | **Essai complet sur téléphone** — grille ci-dessous | Kinder | Liste des défauts restants, par capture |
+| F4 | Correction des défauts de F3, un par un, testés | Claude Code (cadrage avec Claude si complexe) | Défauts fermés |
+| F5 | Accord de Kinder → fusion dans `main` → suppression de la branche | Claude Code | `main` à jour |
+| F6 | Après validation de la 2.3 par Google : 2.3.1 (versionCode 8), paquet signé, notes de version, publication | Kinder (Play Console) + Claude Code | 2.3.1 publiée |
+| F7 | Clôture : docs à jour, branches distantes triées, chantier refonte déclaré clos | Claude Code | `PROJET_CONTEXTE.md` « finie » |
+
+**Grille d'essai F3** (tout ce qui est resté « à confirmer sur l'appareil » dans ce plan) :
+- *Ce soir* : défilement des rangées sans changement d'onglet ; « Tout voir » plein écran ; balayage sur zone vide.
+- *Mouvement (M7)* : aucune saccade entre onglets ; vibration sur « Marquer vu ».
+- *Thème* : Automatique suit le téléphone en direct (clair ↔ sombre).
+- *Gestes téléphone* : appui long, photo d'avatar, bouton retour Android (fiche, filmographie), geste sur les puces de filtres.
+- *Drive* : connexion, sauvegarde, restauration, conflit entre deux appareils.
+- *Moteur Android* : liste avec couvertures, Statistiques (`group_concat`), notifications de sortie (apparition immédiate).
+- *Amis* : ajout par code, avatar miniature, rayon « Chez tes amis ».
+
+**Décisions à prendre par Kinder (pas avant F3)**
+- Bannière « À la une » (M7, facultative) : la faire ou l'abandonner. *Recommandation : abandonner* — son poids ne se juge que sur téléphone, et rien ne la réclame.
+- Deux branches en ligne non fusionnées : `ccr-4569a491-6d776u` (notification : un clic ouvre la fiche) et `claude/api-limits-scalability-check-40exfk` (cadrage du remplacement de la clé TMDB en dur). À examiner une par une avant toute suppression.
