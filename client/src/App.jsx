@@ -678,7 +678,7 @@ export default function App() {
     else if (showAmis && openDetail) closeDetail(); // la fiche d'un titre ouverte depuis un ami
     else if (showPartage) setShowPartage(false);
     else if (showProfiles) setShowProfiles(false);
-    else if (surcouche) surcouche.fermer();
+    else if (surcouche && !openDetail) surcouche.fermer(); // une fiche ouverte par-dessus se ferme d'abord
     else if (showAmis) setShowAmis(false);
     else if (showBackup) setShowBackup(false);
     else if (showNotifications) setShowNotifications(false);
@@ -1139,6 +1139,7 @@ export default function App() {
           onSubTab={setTonightTab}
           onSearch={() => goTo('search')}
           profileId={activeProfile}
+          onSurcouche={setSurcouche}
         />
       )}
 
@@ -1172,6 +1173,7 @@ export default function App() {
           dejaChezMoi={dejaChezMoi}
           cardProps={cardProps}
           resetKey={catalogLang}
+          onSurcouche={setSurcouche}
         />
       )}
       </div>

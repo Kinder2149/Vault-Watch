@@ -1265,12 +1265,19 @@ Une étape à la fois ; la suivante ne commence qu'après l'essai de Kinder sur 
 | # | Étape | Qui | Sortie attendue |
 |---|---|---|---|
 | F1 | Correctif « Ce soir » (balayage + « Tout voir ») — codé, commit `672c768` sur `correctif-ce-soir` | Claude Code | ✅ codé, ☐ vu à l'écran |
-| F2 | APK de test construit depuis `correctif-ce-soir` (ne touche pas la 2.3 en examen) | Claude Code | `apk-test/vault-watch-test-2.3.1.apk` |
+| F2 | **Essai sur émulateur Android** (API 36.1, 6 Go de mémoire — avec 2 Go l'émulateur sature et l'appli semble « ne plus répondre ») | Claude Code | ✅ fait le 2026-10-06, voir ci-dessous |
 | F3 | **Essai complet sur téléphone** — grille ci-dessous | Kinder | Liste des défauts restants, par capture |
 | F4 | Correction des défauts de F3, un par un, testés | Claude Code (cadrage avec Claude si complexe) | Défauts fermés |
 | F5 | Accord de Kinder → fusion dans `main` → suppression de la branche | Claude Code | `main` à jour |
 | F6 | Après validation de la 2.3 par Google : 2.3.1 (versionCode 8), paquet signé, notes de version, publication | Kinder (Play Console) + Claude Code | 2.3.1 publiée |
 | F7 | Clôture : docs à jour, branches distantes triées, chantier refonte déclaré clos | Claude Code | `PROJET_CONTEXTE.md` « finie » |
+
+**Résultat de l'essai émulateur (2026-10-06, APK debug de la branche)** : ✅ « Tout voir » de « Ce soir » et de « Découvrir » en plein
+écran (plus de marges, de vide ni de barre du bas) ; ✅ balayage horizontal sur une rangée ou dans « Tout voir » : aucun changement d'onglet ;
+✅ fiche, recherche, Découvrir, Reprendre, thème sombre corrects. **Défaut trouvé et corrigé** : le bouton retour d'Android changeait d'onglet au
+lieu de fermer « Tout voir » (corrigé, revérifié : le retour ferme la grille, puis la fiche ouverte par-dessus avant elle).
+**Non couvert par l'émulateur** : vibration, appui long, photo d'avatar, Drive réel, notifications, ressenti de fluidité. Point mineur à juger sur
+téléphone : l'heure de la barre d'état est peu lisible sur fond sombre.
 
 **Grille d'essai F3** (tout ce qui est resté « à confirmer sur l'appareil » dans ce plan) :
 - *Ce soir* : défilement des rangées sans changement d'onglet ; « Tout voir » plein écran ; balayage sur zone vide.

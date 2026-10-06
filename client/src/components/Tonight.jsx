@@ -39,6 +39,7 @@ export default function Tonight({
   onSubTab,
   onSearch,
   profileId,
+  onSurcouche,
 }) {
   // « Pas encore sorti » part replié : rien à y regarder ce soir. On retient s'il a été ouvert.
   const [sortiesOuvert, setSortiesOuvert] = useState(() => {
@@ -60,6 +61,13 @@ export default function Tonight({
   }
 
   const [toutVoir, setToutVoir] = useState(false);
+
+  // « Tout voir » est une surcouche : le bouton retour d'Android la ferme avant de changer d'onglet.
+  useEffect(() => {
+    if (!toutVoir) return undefined;
+    onSurcouche?.({ fermer: () => setToutVoir(false) });
+    return () => onSurcouche?.(null);
+  }, [toutVoir]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Position de lecture de chaque sous-onglet (la page entière défile).
   const scrollPos = useRef({ attente: 0, decouverte: 0, suggestion: 0 });

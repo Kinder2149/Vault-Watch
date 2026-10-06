@@ -64,7 +64,7 @@ const legendeAmis = (item) =>
         .join(' · ') + (item.amis.length > 2 ? ` +${item.amis.length - 2}` : '')
     : null;
 
-export default function Decouvrir({ items, suivi, dejaChezMoi, cardProps, resetKey }) {
+export default function Decouvrir({ items, suivi, dejaChezMoi, cardProps, resetKey, onSurcouche }) {
   const enLigne = useEnLigne();
   const [essai, setEssai] = useState(0); // « Réessayer » : on remonte les rangées
   const [moods, setMoods] = useState([]);
@@ -73,6 +73,13 @@ export default function Decouvrir({ items, suivi, dejaChezMoi, cardProps, resetK
   const [filtreOuvert, setFiltreOuvert] = useState(false);
   const [nbAmis, setNbAmis] = useState(0);
   const [ouvert, setOuvert] = useState(null); // rayon affiché en grille
+
+  // La grille d'un rayon est une surcouche : le bouton retour d'Android la ferme avant de changer d'onglet.
+  useEffect(() => {
+    if (!ouvert) return undefined;
+    onSurcouche?.({ fermer: () => setOuvert(null) });
+    return () => onSurcouche?.(null);
+  }, [ouvert]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     getMoods().then(setMoods).catch(() => {});

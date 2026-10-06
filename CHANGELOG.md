@@ -11,7 +11,10 @@
 - **« Tout voir » décalé** (marges sur les côtés, vide en haut, barre du bas visible) : l'animation d'entrée ajoutée en M7
   gardait son état final (`both`), ce qui enfermait les écrans plein écran dans la page. Elle ne le garde plus
   (`backwards`) ; visuellement rien ne change. Cause probable, non mesurée (navigateur de test masqué).
-- Fichiers : `Tonight.jsx`, `styles.css`. 322 tests verts, construction OK. **À publier après la validation de la 2.3
+- **Bouton retour d'Android sur « Tout voir »** (trouvé à l'essai sur émulateur, 2026-10-06) : il ne fermait pas l'écran, il
+  changeait d'onglet (retour vers Recherche). Les grilles « Tout voir » de « Ce soir » et de « Découvrir » se déclarent
+  maintenant comme surcouches (mécanisme déjà utilisé par Amis et Mes listes) ; une fiche ouverte par-dessus se ferme avant.
+- Fichiers : `Tonight.jsx`, `Decouvrir.jsx`, `App.jsx`, `styles.css`. 322 tests verts, construction OK. **À publier après la validation de la 2.3
   par Google** (la 2.3 est en examen et ne se modifie pas). Branche `correctif-ce-soir`, rien fusionné.
 
 ## Version 2.3 (versionCode 7) — préparée le 2026-10-03, à publier
