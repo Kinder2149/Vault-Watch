@@ -17,6 +17,12 @@ dans un SQLite embarqué, et la sauvegarde va dans le Google Drive de l'utilisat
 Le dossier `server/` est conservé dans le dépôt comme base d'une éventuelle mise en ligne
 future — il n'est plus utilisé par l'application.
 
+### Point du 2026-10-06
+- **2.3 envoyée en examen chez Google** (en attente de validation ; ne plus la modifier).
+- **Correctif « Ce soir » codé** sur la branche `correctif-ce-soir` (balayage trop sensible, « Tout voir » décalé) :
+  tests verts, mais **jamais vu à l'écran**. Sera la 2.3.1. Détail : `CHANGELOG.md`.
+- Reste : APK de test → essai de Kinder sur téléphone → accord → fusion → 2.3.1 après validation de la 2.3.
+
 ## Utilisateur & horizon
 - **Aujourd'hui** : usage personnel, sur téléphone, hors ligne pour le suivi (le réseau ne
   sert qu'au catalogue). Gestion de **profils locaux** : plusieurs profils sur le même

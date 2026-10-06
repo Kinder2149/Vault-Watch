@@ -79,6 +79,12 @@ export default function Tonight({
   const touch = useRef(null);
   const swipe = {
     onTouchStart: (e) => {
+      // Un geste commencé sur une rangée ou des puces qui défilent, ou dans un écran ouvert
+      // par-dessus (« Tout voir »), leur appartient : il ne change pas d'onglet.
+      if (e.target.closest('.rail, .chips-scroll, .overlay, .seg')) {
+        touch.current = null;
+        return;
+      }
       const t = e.touches[0];
       touch.current = { x: t.clientX, y: t.clientY };
     },
@@ -88,7 +94,7 @@ export default function Tonight({
       const dx = t.clientX - touch.current.x;
       const dy = t.clientY - touch.current.y;
       touch.current = null;
-      if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+      if (Math.abs(dx) < 80 || Math.abs(dx) < Math.abs(dy) * 2) return;
       const i = SOUS_ONGLETS.findIndex(([v]) => v === subTab);
       const suivant = SOUS_ONGLETS[i + (dx < 0 ? 1 : -1)];
       if (suivant) switchTo(suivant[0]);
