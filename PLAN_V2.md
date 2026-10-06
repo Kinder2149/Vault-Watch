@@ -523,7 +523,7 @@ une sauvegarde »).
 | M4 | Mes listes + Statistiques | ✅ codée et vérifiée (2026-10-03) — APK à essayer sur téléphone |
 | M5 | Recherche + états partout | ✅ codée et vérifiée (2026-10-03) |
 | M6 | Réglages et données | ✅ codée et vérifiée (2026-10-03) |
-| M7 | Dynamique | ✅ codée (2026-10-03) — bannière « À la une » non faite (facultative) |
+| M7 | Dynamique | ✅ codée (2026-10-03) — bannière « À la une » ABANDONNÉE (décision de Kinder, 2026-10-06) |
 Règle : **une mission à la fois**, essayée sur téléphone par Kinder avant la suivante. Une mission
 n'est « finie » que si toutes ses cases du « Critère de fin » sont cochées.
 
@@ -1282,5 +1282,5 @@ Une étape à la fois ; la suivante ne commence qu'après l'essai de Kinder sur 
 - *Amis* : ajout par code, avatar miniature, rayon « Chez tes amis ».
 
 **Décisions à prendre par Kinder (pas avant F3)**
-- Bannière « À la une » (M7, facultative) : la faire ou l'abandonner. *Recommandation : abandonner* — son poids ne se juge que sur téléphone, et rien ne la réclame.
+- ~~Bannière « À la une »~~ : **abandonnée par Kinder le 2026-10-06** (facultative, jamais construite).
 - Deux branches en ligne non fusionnées : `ccr-4569a491-6d776u` (notification : un clic ouvre la fiche) et `claude/api-limits-scalability-check-40exfk` (cadrage du remplacement de la clé TMDB en dur). À examiner une par une avant toute suppression.
