@@ -11,5 +11,5 @@ reel-plan.json | plan de montage du Reel (séquences, textes, écran de fin) | 2
 2026-10-24_defilement-tendances.mp4 | vidéo d'écran : défilement rapide des tendances (le « problème » : trop de choix) | 24/10/2026
 2026-10-24_fiche-ou-regarder.mp4 | vidéo d'écran : idée du soir, fiche du film, « Où le regarder » | 24/10/2026
 2026-10-24_note-etoiles.mp4 | vidéo d'écran : note en étoiles d'un film | 24/10/2026
-2026-10-24_reel-decouverte-v2.mp4 | Reel vertical v2, 25 s : accroche « POV », coupes franches, zooms, textes mot à mot | 24/10/2026
+2026-10-24_reel-decouverte-v2.mp4 | Reel vertical v2, 26 s : accroche « POV », coupes franches, zooms, textes mot à mot, logo et couleurs de la marque | 24/10/2026
 reel-plan-v2.json | plan de montage du Reel v2 | 24/10/2026
