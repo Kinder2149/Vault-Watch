@@ -10,17 +10,16 @@
       "video": "2026-10-24_defilement-tendances.mp4",
       "style": "plein_ecran",
       "debut": 0.3,
-      "fin": 3.4,
-      "vitesse": 1.3,
+      "vitesse": 1.4,
       "accroche": {
         "texte": "POV : 21h, et *toujours* rien à regarder",
-        "duree": 2.38
-      }
+        "battements": 4
+      },
+      "battements": 4
     },
     {
       "video": "2026-10-24_ce-soir.mp4",
       "debut": 0.8,
-      "texte": "[logo] Vault Watch *choisit* pour toi",
       "zooms": [
         {
           "debut": 1.0,
@@ -30,30 +29,37 @@
             901
           ]
         }
+      ],
+      "battements": 8,
+      "textes": [
+        "[logo] Vault Watch",
+        "*choisit* pour toi"
       ]
     },
     {
       "video": "2026-10-24_fiche-ou-regarder.mp4",
       "debut": 1.6,
-      "fin": 7.5,
-      "vitesse": 1.2,
-      "texte": "*Où* le regarder, en un coup d'œil",
+      "vitesse": 1.3,
       "zooms": [
         {
-          "debut": 2.2,
+          "debut": 1.6,
           "facteur": 1.35,
           "centre": [
             539,
             1000
           ]
         }
+      ],
+      "battements": 8,
+      "textes": [
+        "Tu sais *où* le regarder",
+        "en un coup d'œil"
       ]
     },
     {
       "video": "2026-10-24_note-etoiles.mp4",
       "style": "plein_ecran",
       "debut": 0.6,
-      "texte": "Tu *notes*, il retient tes goûts",
       "zooms": [
         {
           "debut": 0.2,
@@ -63,14 +69,17 @@
             924
           ]
         }
+      ],
+      "battements": 6,
+      "textes": [
+        "Tu *notes*",
+        "il retient tes goûts"
       ]
     },
     {
       "video": "2026-10-24_decouvrir.mp4",
       "debut": 1.0,
-      "fin": 6.0,
-      "vitesse": 1.2,
-      "texte": "Des idées *pour toi*, chaque soir",
+      "vitesse": 1.4,
       "zooms": [
         {
           "debut": 0.0,
@@ -80,15 +89,22 @@
             960
           ]
         }
+      ],
+      "battements": 6,
+      "textes": [
+        "Des idées *pour toi*",
+        "chaque soir"
       ]
     },
     {
       "video": "2026-10-24_mes-listes.mp4",
       "style": "plein_ecran",
       "debut": 1.0,
-      "fin": 5.5,
-      "vitesse": 1.3,
-      "texte": "Tout ce que tu as vu, *rangé*"
+      "vitesse": 1.4,
+      "battements": 4,
+      "textes": [
+        "Tout ce que tu as vu, *rangé*"
+      ]
     }
   ],
   "fin": {
@@ -96,8 +112,15 @@
     "slogan": "Vos films et séries, épisode par épisode.",
     "sous_titre": "*Gratuit* sur Google Play",
     "appel": "Lien en bio",
-    "duree": 3.0
+    "battements": 6
   },
   "logo": "../play-store/icone-512.png",
-  "mention": "Données et images : TMDB"
+  "mention": "Données et images : TMDB",
+  "tempo": 120,
+  "cadence_mots": 0.06,
+  "musique": {
+    "fichier": "thisisbeatkitchen_fly-away-120bpm.mp3",
+    "debut": 19.5,
+    "volume": 0.9
+  }
 }
