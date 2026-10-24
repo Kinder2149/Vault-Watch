@@ -1,0 +1,13 @@
+{
+  "sortie": "2026-10-24_reel-decouverte.mp4",
+  "ratio_ecran": 0.45,
+  "fond": "#0B0D14",
+  "accent": "#E8B04A",
+  "sequences": [
+    {"video": "2026-10-24_ce-soir.mp4", "accroche": {"texte": "Tu passes plus de temps à choisir qu'à regarder ?", "duree": 3.0}, "texte": "Une idée pour ce soir, en un geste"},
+    {"video": "2026-10-24_recherche-ajout.mp4", "debut": 0.6, "texte": "Trouve un film, ajoute-le à ta liste"},
+    {"video": "2026-10-24_mes-listes.mp4", "debut": 1.0, "fin": 6.8, "texte": "Toute ta bibliothèque, bien rangée"},
+    {"video": "2026-10-24_decouvrir.mp4", "debut": 1.0, "fin": 6.8, "texte": "Des idées choisies pour toi"}
+  ],
+  "fin": {"titre": "Vault Watch", "sous_titre": "Gratuit sur Google Play", "appel": "Lien en bio", "duree": 3.0}
+}

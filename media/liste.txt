@@ -1,0 +1,10 @@
+2026-10-24_accueil-tendances.png | écran d'accueil, recherche et tendances (profil de démonstration) | 24/10/2026
+2026-10-24_ce-soir.png | onglet « Ce soir » avec l'idée du soir et les séries à reprendre | 24/10/2026
+2026-10-24_mes-listes.png | onglet « Mes listes » : compteurs, statuts, listes personnalisées | 24/10/2026
+2026-10-24_decouvrir.png | onglet « Découvrir » : suggestions « Comme Oppenheimer », « Comme Inception » | 24/10/2026
+2026-10-24_ce-soir.mp4 | vidéo d'écran : « Autre idée » change la suggestion du soir | 24/10/2026
+2026-10-24_recherche-ajout.mp4 | vidéo d'écran : recherche « Dune » puis ajout d'un titre à la liste | 24/10/2026
+2026-10-24_mes-listes.mp4 | vidéo d'écran : défilement de « Mes listes » | 24/10/2026
+2026-10-24_decouvrir.mp4 | vidéo d'écran : défilement de « Découvrir » | 24/10/2026
+2026-10-24_reel-decouverte.mp4 | Reel vertical 1080x1920, 28 s, monté automatiquement (instagram/montage.py d'Hermès) | 24/10/2026
+reel-plan.json | plan de montage du Reel (séquences, textes, écran de fin) | 24/10/2026
