@@ -1,0 +1,22 @@
+{
+  "sortie": "2026-10-24_reel-decouverte-v2.mp4",
+  "ratio_ecran": 0.45,
+  "fond": "#0B0D14",
+  "accent": "#E8B04A",
+  "style_texte": "kinetique",
+  "transition": "coupe",
+  "sequences": [
+    {"video": "2026-10-24_defilement-tendances.mp4", "style": "plein_ecran", "debut": 0.3, "fin": 3.4, "vitesse": 1.3,
+     "accroche": {"texte": "POV : 21h, et *toujours* rien à regarder", "duree": 2.38}},
+    {"video": "2026-10-24_ce-soir.mp4", "debut": 0.8, "texte": "Vault Watch *choisit* pour toi",
+     "zooms": [{"debut": 1.0, "facteur": 1.6, "centre": [539, 901]}]},
+    {"video": "2026-10-24_fiche-ou-regarder.mp4", "debut": 1.6, "fin": 7.5, "vitesse": 1.2, "texte": "*Où* le regarder, en un coup d'œil",
+     "zooms": [{"debut": 2.2, "facteur": 1.35, "centre": [539, 1000]}]},
+    {"video": "2026-10-24_note-etoiles.mp4", "style": "plein_ecran", "debut": 0.6, "texte": "Tu *notes*, il retient tes goûts",
+     "zooms": [{"debut": 0.2, "facteur": 1.8, "centre": [330, 924]}]},
+    {"video": "2026-10-24_decouvrir.mp4", "debut": 1.0, "fin": 6.0, "vitesse": 1.2, "texte": "Des idées *pour toi*, chaque soir",
+     "zooms": [{"debut": 0.0, "facteur": 1.12, "centre": [540, 960]}]},
+    {"video": "2026-10-24_mes-listes.mp4", "style": "plein_ecran", "debut": 1.0, "fin": 5.5, "vitesse": 1.3, "texte": "Tout ce que tu as vu, *rangé*"}
+  ],
+  "fin": {"titre": "Vault Watch", "sous_titre": "*Gratuit* sur Google Play", "appel": "Lien en bio", "duree": 2.5}
+}
