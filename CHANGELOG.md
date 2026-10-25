@@ -4,6 +4,10 @@
 > `PLAN_ANDROID.md` et `PROJET_CONTEXTE.md`. Écrit le 2026-09-19 à partir de ces fichiers et de
 > l'historique de versions.
 
+## Retours d'essai de la 2.3 (2026-10-25) — notés, pas encore traités
+- 18 points relevés par Kinder (sauvegarde automatique, recherche, navigation, listes, découvertes, suivi des
+  épisodes, fusion Drive…). Aucun code modifié. Liste complète dans `PLAN_V2.md`, « Retours d'essai du 2026-10-25 ».
+
 ## Version 2.3 (versionCode 7) — préparée le 2026-10-03, à publier
 - Regroupe la refonte visuelle, les amis par code (partage allumé dans la version publiée), les notifications
   corrigées et la miniature d'avatar. Règles Firebase déployées, politique de confidentialité mise à jour.

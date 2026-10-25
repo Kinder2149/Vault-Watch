@@ -142,6 +142,9 @@ l'autorisation Drive sans réafficher l'écran de compte Google.
   2026-09-19 (détail dans `PLAN_V2.md`, point 13). **Reste l'essai sur l'appareil** pour les
   gestes propres au téléphone, puis publication en 2.2.
 
+- **Retours d'essai du 2026-10-25** : 18 points notés (11 anomalies, 7 nouveautés), **rien de
+  codé**. Liste, ordre proposé et cases à cocher dans `PLAN_V2.md`, « Retours d'essai du 2026-10-25 ».
+
 ## Décision du 2026-10-03 — la 2.3 publie les amis
 Le partage (amis par code) est allumé dans la version publiée (`client/.env.production`). Les deux décisions figées
 « aucun serveur » et « données sur l'appareil » sont donc modifiées pour cette seule fiche facultative (Firebase).

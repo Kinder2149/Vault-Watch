@@ -1241,6 +1241,59 @@ automatique qui ne demande rien, chacun des deux choix.
 
 **Ce qui reste non vérifiable ici** : le comportement réel de Drive avec deux vrais appareils.
 
+## Retours d'essai du 2026-10-25 — 18 points notés, RIEN DE CODÉ
+
+> Source : essai de Kinder sur téléphone après la 2.3. Ce bloc sert de mémoire : aucun point n'est
+> encore cadré ni corrigé. On y revient mission par mission (phase 5 : cadrage d'étape, critère écrit
+> par Kinder, puis code). Case à cocher quand un point est corrigé **et** validé à l'écran.
+
+### A. Anomalies (comportement attendu clair)
+- [ ] **A1. Sauvegarde automatique défaillante** : elle ne s'exécute pas. À vérifier puis tester
+  (tests + navigateur en largeur téléphone ; émulateur indisponible dans l'environnement cloud, essai
+  final sur l'appareil de Kinder).
+- [ ] **A2. Notification de sauvegarde automatique affichée en permanence** : symptôme probable de A1
+  (même cause à confirmer).
+- [ ] **A3. Film au cinéma affiché « pas encore sorti »** : il devrait être signalé comme en salle.
+- [ ] **A4. Série ajoutée comme « vue »** : tous les épisodes (toutes les saisons) doivent être cochés
+  d'office, dans la limite de ce qui est diffusé.
+- [ ] **A5. Découvertes : l'élément ajouté disparaît** et la liste se met à jour sous les doigts de
+  l'utilisateur.
+- [ ] **A6. Liste d'un ami : vue cassée** (capture de Kinder du 2026-10-25, à rejoindre au cadrage).
+- [ ] **A7. « À voir ce soir » (Ce soir / En attente) : vue cassée**, et le bouton retour ramène aux
+  listes au lieu de l'onglet précédent.
+- [ ] **A8. Recherche : pas de bouton pour effacer la saisie.**
+- [ ] **A9. Recherche par titre limitée** : toujours un nombre restreint de propositions (pagination à
+  vérifier).
+- [ ] **A10. Il faut mettre le titre au pluriel pour qu'il soit proposé** : recherche trop stricte
+  (probablement liée à A9).
+- [ ] **A11. Navigation latérale par glissement entre onglets** : elle fait « bugger » l'utilisation,
+  à retirer.
+
+### B. Nouveautés (choix à trancher au cadrage)
+- [ ] **B1. Découvertes : tri par plateforme** (Disney+, Canal+, Netflix, Prime Video). Source : TMDB,
+  fournisseurs de streaming du pays.
+- [ ] **B2. Recherche : retirer l'onglet « Explorer »** et le remplacer par une **recherche par
+  thème** (ex. « marvel » renvoie tout ce qui s'y rattache). À trancher : ce que « thème » recouvre
+  (studio, saga, mot-clé).
+- [ ] **B3. Listes : regrouper les sagas** entre elles, et **tri** par date d'ajout, ordre
+  alphabétique ou date de sortie.
+- [ ] **B4. Ce soir / En attente : afficher l'affiche** du film proposé dans l'idée du soir.
+- [ ] **B5. Épisode coché au milieu d'une saison** : fenêtre « Voulez-vous ajouter également tous les
+  épisodes précédents ? ».
+- [ ] **B6. Conflit avec le Drive** : proposer de **fusionner** les résultats quand c'est possible.
+  Vigilance : risque de perte de données, règles de fusion à écrire avant tout code.
+- [ ] **B7. Sagas de type manga** : elles ne remontent pas les films de la saga ; Kinder voudrait
+  afficher l'**ordre de lecture**. ⚠️ TMDB ne fournit pas l'ordre de lecture : sujet à cadrer à part,
+  **hors de la première série de missions**.
+
+### Ordre proposé (non validé)
+1. **Sauvegarde** : A1, A2, puis B6.
+2. **Navigation et affichage** : A6, A7, A11, A5.
+3. **Recherche** : A8, A9, A10, puis B2.
+4. **Suivi** : A4, B5, A3.
+5. **Listes et Découvertes** : B3, B1, B4.
+6. **À part** : B7.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
