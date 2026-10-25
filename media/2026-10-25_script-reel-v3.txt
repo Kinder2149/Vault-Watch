@@ -1,5 +1,5 @@
 SCRIPT — Reel Vault Watch V3 « 21h, rien à regarder »
-Écrit par Claude Code le 25/10/2026. Statut : À VALIDER PAR KINDER.
+Écrit par Claude Code le 25/10/2026. Statut : VALIDÉ PAR KINDER le 25/10/2026.
 L'agent Instagram monte exactement ce script. Il ne réécrit aucun texte,
 ne change ni l'ordre, ni les durées, ni les captures. S'il ne peut pas
 respecter un point, il s'arrête et le signale à Kinder.
