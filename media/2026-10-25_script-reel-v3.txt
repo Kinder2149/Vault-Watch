@@ -1,0 +1,147 @@
+SCRIPT — Reel Vault Watch V3.1 « 21h, rien à regarder »
+Écrit par Claude Code le 25/10/2026. V3 validée par Kinder le 25/10/2026.
+V3.1 (retour de Kinder sur l'essai R2 : trop zoomé, trop court) : écran
+entier au lieu de plein écran, zooms ramenés à 1,2 et centrés, plans
+allongés (18 s). Statut V3.1 : VALIDÉE PAR KINDER le 25/10/2026.
+L'agent Instagram monte exactement ce script. Il ne réécrit aucun texte,
+ne change ni l'ordre, ni les durées, ni les captures. S'il ne peut pas
+respecter un point, il s'arrête et le signale à Kinder.
+
+======================================================================
+1. L'IDÉE (une seule)
+======================================================================
+Problème : il est 21h, on scrolle, on ne trouve rien.
+Réponse : Vault Watch choisit pour toi, et te dit où le regarder.
+Chute : la soirée est réglée.
+Tout ce qui n'aide pas cette idée est retiré (notes, listes, découvrir).
+
+======================================================================
+2. RÉGLAGES GÉNÉRAUX
+======================================================================
+- Format : vertical 1080x1920, 30 images/s.
+- Durée : 18 s (36 temps à 120 BPM, 1 temps = 0,5 s).
+- Musique : « Fly Away (120 BPM) » — ThisIsBeatKitchen (Pixabay),
+  à partir de 19,5 s, volume 0,9. Chaque coupe tombe sur un temps.
+- Pas de voix. Le texte à l'écran raconte toute l'histoire : le Reel
+  se comprend sans le son.
+- Images de l'appli : ÉCRAN ENTIER, sans cadre de téléphone : tout
+  l'écran de l'appli est visible, barre de l'appli et logo compris,
+  fond #0F1018 sur les côtés. Rien de l'appli n'est coupé.
+- Zooms : 1,2 au plus, toujours centrés en largeur, pour qu'aucun mot
+  de l'appli ne soit coupé sur les côtés. Le zoom monte en douceur.
+- Textes : police Inter, gras, grande taille (au moins 64 px de haut).
+  Un bandeau sombre presque opaque (85 %) sous chaque texte. Mot clé
+  en doré #D4AF37 (noté *ainsi* ci-dessous). Les mots apparaissent
+  vite, sur le temps.
+- Emplacement des textes : dans la zone sûre (jamais dans les 220 px
+  du haut, ni dans les 380 px du bas), et JAMAIS sur la zone zoomée
+  ni sur un autre texte de l'appli. Si le zoom vise le haut, le texte
+  va en bas de la zone sûre, et inversement.
+- Couleurs : fond #0F1018, accent doré #D4AF37.
+- Logo : play-store/icone-512.png (dépôt Vault Watch).
+
+======================================================================
+3. DÉROULÉ, PLAN PAR PLAN
+======================================================================
+Les heures « dans la capture » renvoient à la vidéo d'écran source.
+
+PLAN 1 — L'accroche (0 → 2,5 s, 5 temps)
+  Capture : 2026-10-24_defilement-tendances.mp4, de 0,3 s à 4,0 s,
+            accélérée x1,5 (défilement frénétique des affiches).
+  Texte (présent DÈS la première image, sans attendre) :
+            « 21h. Toujours *rien* à regarder. »
+  Emplacement : centre de la zone sûre.
+
+PLAN 2 — La réponse (2,5 → 5,5 s, 6 temps)
+  Capture : 2026-10-24_ce-soir.mp4, de 0,0 s à 2,4 s, ralentie x0,8
+            (idée du soir : Game of Thrones).
+  Zoom : x1,2, centré en largeur, sur la carte « Idée du soir »
+         (haut de l'écran de l'appli).
+  Texte : « [logo] Vault Watch *choisit* pour toi »
+  Emplacement : bas de la zone sûre (le zoom est en haut).
+
+PLAN 3 — Le choix change (5,5 → 8,5 s, 6 temps)
+  Capture : 2026-10-24_ce-soir.mp4, de 2,3 s à la fin (5,26 s), vitesse normale
+            (« Autre idée » : Parasite, puis Le Seigneur des anneaux).
+  Zoom : le même que le plan 2, déjà en place dès la première image.
+  Texte : « Pas convaincu ? *Autre idée.* »
+  Emplacement : bas de la zone sûre.
+
+PLAN 4 — Où le regarder (8,5 → 12,5 s, 8 temps)
+  Capture : 2026-10-24_fiche-ou-regarder.mp4, de 3,0 s à 7,0 s,
+            vitesse normale (fiche de Parasite, logos des plateformes).
+  Zoom : x1,2, centré en largeur, sur le bloc « Où le regarder ».
+  Texte : « Et tu vois *où* le regarder. »
+  Emplacement : à l'opposé du bloc zoomé (haut ou bas de la zone sûre).
+
+PLAN 5 — La chute (12,5 → 15 s, 5 temps)
+  Capture : 2026-10-24_fiche-ou-regarder.mp4, de 1,0 s à 3,5 s,
+            vitesse normale (« Voir la fiche » touché, la fiche de
+            Parasite s'ouvre, affiche en haut).
+  Zoom : aucun.
+  Texte : « Ce soir, c'est *réglé*. »
+  Emplacement : bas de la zone sûre.
+
+PLAN 6 — Fin, sans écran noir (15 → 18 s, 6 temps)
+  Fond : la dernière image du plan 5, assombrie et floutée (on voit
+         encore l'appli derrière). PAS d'écran noir vide.
+  Par-dessus, centrés dans la zone sûre :
+    - le logo Vault Watch (grand) ;
+    - « Vault Watch » (Caladea, doré) ;
+    - « *Gratuit* sur Google Play » ;
+    - « Lien en bio » ;
+    - en petit, sous le reste : « Données et images : TMDB ».
+  La vidéo s'arrête net sur le dernier temps : la boucle relance
+  directement l'accroche « 21h. Toujours rien à regarder. »
+  La mention TMDB n'apparaît QUE sur ce plan (jamais sur l'appli).
+
+======================================================================
+4. LÉGENDE (à copier telle quelle)
+======================================================================
+21h, 40 minutes à scroller, et toujours rien à regarder ? 🎬
+
+J'ai créé Vault Watch pour ça. Chaque soir, il pioche dans ta liste et te propose un film ou une série. Pas convaincu ? Une autre idée. Et tu vois tout de suite où le regarder.
+
+Gratuit sur Google Play. Lien en bio.
+
+Données et images : TMDB.
+
+#film #series #quoiregarder #appandroid #indiedev
+
+======================================================================
+5. LISTE DES CAPTURES ET FICHIERS
+======================================================================
+Toutes déjà présentes sur la branche instagram-media du dépôt
+Vault Watch (dossier media/). Aucune nouvelle capture nécessaire.
+  - media/2026-10-24_defilement-tendances.mp4   (plan 1)
+  - media/2026-10-24_ce-soir.mp4                (plans 2 et 3)
+  - media/2026-10-24_fiche-ou-regarder.mp4      (plans 4, 5 et 6)
+  - play-store/icone-512.png                    (logo, plans 2 et 6)
+  - Musique : thisisbeatkitchen_fly-away-120bpm.mp3
+    (hors GitHub, sur le serveur : ~/montage-instagram/musique/)
+
+======================================================================
+6. CONTRÔLE AVANT DE SOUMETTRE À KINDER (par l'agent)
+======================================================================
+[ ] Le texte d'accroche est lisible sur la toute première image.
+[ ] Aucun cadre de téléphone ; tout l'écran de l'appli est visible,
+    aucun mot de l'appli coupé sur les côtés, zooms 1,2 au plus.
+[ ] Aucun texte ne chevauche un texte de l'appli ou un autre texte.
+[ ] Rien d'important dans les 220 px du haut ni les 380 px du bas.
+[ ] Mention TMDB présente, seulement sur le plan de fin.
+[ ] Pas d'écran noir vide à la fin ; la vidéo boucle sur l'accroche.
+[ ] Durée 18 s ; coupes sur les temps de la musique.
+[ ] Légende et hashtags identiques au point 4.
+[ ] Aucune donnée personnelle visible.
+
+======================================================================
+7. RÈGLES SUIVIES ET LIMITES
+======================================================================
+Suivies : charte @keamder_dev (recette du Reel, légende, interdits),
+règles relevées par Recherche le 24/10 (accroche dans les 125
+premiers caractères, 3 à 5 hashtags, lien en bio, 15 à 30 s).
+Limite : aucune veille des tendances récentes n'a été faite pour ce
+Reel (choix de Kinder du 25/10 : on reprend l'existant).
+Note pour le montage : l'outil actuel ne sait pas encore poser la
+fin sur une image floutée, ni choisir l'emplacement de chaque texte.
+C'est au montage de s'adapter, pas au script.

@@ -1,0 +1,126 @@
+{
+  "sortie": "2026-10-24_reel-decouverte-v2.mp4",
+  "ratio_ecran": 0.45,
+  "fond": "#0F1018",
+  "accent": "#D4AF37",
+  "style_texte": "kinetique",
+  "transition": "coupe",
+  "sequences": [
+    {
+      "video": "2026-10-24_defilement-tendances.mp4",
+      "style": "plein_ecran",
+      "debut": 0.3,
+      "vitesse": 1.4,
+      "accroche": {
+        "texte": "POV : 21h, et *toujours* rien à regarder",
+        "battements": 4
+      },
+      "battements": 4
+    },
+    {
+      "video": "2026-10-24_ce-soir.mp4",
+      "debut": 0.8,
+      "zooms": [
+        {
+          "debut": 1.0,
+          "facteur": 1.6,
+          "centre": [
+            539,
+            901
+          ]
+        }
+      ],
+      "battements": 8,
+      "textes": [
+        "[logo] Vault Watch",
+        "*choisit* pour toi"
+      ]
+    },
+    {
+      "video": "2026-10-24_fiche-ou-regarder.mp4",
+      "debut": 1.6,
+      "vitesse": 1.3,
+      "zooms": [
+        {
+          "debut": 1.6,
+          "facteur": 1.35,
+          "centre": [
+            539,
+            1000
+          ]
+        }
+      ],
+      "battements": 8,
+      "textes": [
+        "Tu sais *où* le regarder",
+        "en un coup d'œil"
+      ]
+    },
+    {
+      "video": "2026-10-24_note-etoiles.mp4",
+      "style": "plein_ecran",
+      "debut": 0.6,
+      "zooms": [
+        {
+          "debut": 0.2,
+          "facteur": 1.8,
+          "centre": [
+            330,
+            924
+          ]
+        }
+      ],
+      "battements": 6,
+      "textes": [
+        "Tu *notes*",
+        "il retient tes goûts"
+      ]
+    },
+    {
+      "video": "2026-10-24_decouvrir.mp4",
+      "debut": 1.0,
+      "vitesse": 1.4,
+      "zooms": [
+        {
+          "debut": 0.0,
+          "facteur": 1.12,
+          "centre": [
+            540,
+            960
+          ]
+        }
+      ],
+      "battements": 6,
+      "textes": [
+        "Des idées *pour toi*",
+        "chaque soir"
+      ]
+    },
+    {
+      "video": "2026-10-24_mes-listes.mp4",
+      "style": "plein_ecran",
+      "debut": 1.0,
+      "vitesse": 1.4,
+      "battements": 4,
+      "textes": [
+        "Tout ce que tu as vu, *rangé*"
+      ]
+    }
+  ],
+  "fin": {
+    "titre": "Vault Watch",
+    "slogan": "Vos films et séries, épisode par épisode.",
+    "sous_titre": "*Gratuit* sur Google Play",
+    "appel": "Lien en bio",
+    "battements": 6
+  },
+  "logo": "../play-store/icone-512.png",
+  "mention": "Données et images : TMDB",
+  "tempo": 120,
+  "cadence_mots": 0.06,
+  "musique": {
+    "fichier": "thisisbeatkitchen_fly-away-120bpm.mp3",
+    "debut": 19.5,
+    "volume": 0.9
+  }
+}
