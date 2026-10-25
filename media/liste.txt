@@ -13,3 +13,4 @@ reel-plan.json | plan de montage du Reel (séquences, textes, écran de fin) | 2
 2026-10-24_note-etoiles.mp4 | vidéo d'écran : note en étoiles d'un film | 24/10/2026
 2026-10-24_reel-decouverte-v2.mp4 | Reel vertical v2, 21 s, musique « Fly Away » (ThisIsBeatKitchen, Pixabay) calée à 120 BPM, textes rythmés, logo, mention TMDB ; monté par le serveur bigbertha | 24/10/2026
 reel-plan-v2.json | plan de montage du Reel v2 | 24/10/2026
+2026-10-25_script-reel-v3.txt | script du Reel V3 « 21h, rien à regarder » (textes, légende, hashtags, captures), à valider par Kinder | 25/10/2026
