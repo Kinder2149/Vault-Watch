@@ -1,5 +1,8 @@
-SCRIPT — Reel Vault Watch V3 « 21h, rien à regarder »
-Écrit par Claude Code le 25/10/2026. Statut : VALIDÉ PAR KINDER le 25/10/2026.
+SCRIPT — Reel Vault Watch V3.1 « 21h, rien à regarder »
+Écrit par Claude Code le 25/10/2026. V3 validée par Kinder le 25/10/2026.
+V3.1 (retour de Kinder sur l'essai R2 : trop zoomé, trop court) : écran
+entier au lieu de plein écran, zooms ramenés à 1,2 et centrés, plans
+allongés (18 s). Statut V3.1 : VALIDÉE PAR KINDER le 25/10/2026.
 L'agent Instagram monte exactement ce script. Il ne réécrit aucun texte,
 ne change ni l'ordre, ni les durées, ni les captures. S'il ne peut pas
 respecter un point, il s'arrête et le signale à Kinder.
@@ -16,13 +19,16 @@ Tout ce qui n'aide pas cette idée est retiré (notes, listes, découvrir).
 2. RÉGLAGES GÉNÉRAUX
 ======================================================================
 - Format : vertical 1080x1920, 30 images/s.
-- Durée : 16 s (32 temps à 120 BPM, 1 temps = 0,5 s).
+- Durée : 18 s (36 temps à 120 BPM, 1 temps = 0,5 s).
 - Musique : « Fly Away (120 BPM) » — ThisIsBeatKitchen (Pixabay),
   à partir de 19,5 s, volume 0,9. Chaque coupe tombe sur un temps.
 - Pas de voix. Le texte à l'écran raconte toute l'histoire : le Reel
   se comprend sans le son.
-- Images de l'appli : PLEIN ÉCRAN, sans cadre de téléphone. La barre
-  d'état (en haut) et la barre de navigation (en bas) sont coupées.
+- Images de l'appli : ÉCRAN ENTIER, sans cadre de téléphone : tout
+  l'écran de l'appli est visible, barre de l'appli et logo compris,
+  fond #0F1018 sur les côtés. Rien de l'appli n'est coupé.
+- Zooms : 1,2 au plus, toujours centrés en largeur, pour qu'aucun mot
+  de l'appli ne soit coupé sur les côtés. Le zoom monte en douceur.
 - Textes : police Inter, gras, grande taille (au moins 64 px de haut).
   Un bandeau sombre presque opaque (85 %) sous chaque texte. Mot clé
   en doré #D4AF37 (noté *ainsi* ci-dessous). Les mots apparaissent
@@ -46,37 +52,37 @@ PLAN 1 — L'accroche (0 → 2,5 s, 5 temps)
             « 21h. Toujours *rien* à regarder. »
   Emplacement : centre de la zone sûre.
 
-PLAN 2 — La réponse (2,5 → 5 s, 5 temps)
-  Capture : 2026-10-24_ce-soir.mp4, de 0,0 s à 2,4 s (idée du soir :
-            Game of Thrones).
-  Zoom : x1,6 dès le début, sur la carte « Idée du soir »
+PLAN 2 — La réponse (2,5 → 5,5 s, 6 temps)
+  Capture : 2026-10-24_ce-soir.mp4, de 0,0 s à 2,4 s, ralentie x0,8
+            (idée du soir : Game of Thrones).
+  Zoom : x1,2, centré en largeur, sur la carte « Idée du soir »
          (haut de l'écran de l'appli).
   Texte : « [logo] Vault Watch *choisit* pour toi »
   Emplacement : bas de la zone sûre (le zoom est en haut).
 
-PLAN 3 — Le choix change (5 → 7 s, 4 temps)
-  Capture : 2026-10-24_ce-soir.mp4, de 2,4 s à 5,2 s, accélérée x1,4
+PLAN 3 — Le choix change (5,5 → 8,5 s, 6 temps)
+  Capture : 2026-10-24_ce-soir.mp4, de 2,3 s à la fin (5,26 s), vitesse normale
             (« Autre idée » : Parasite, puis Le Seigneur des anneaux).
-  Zoom : le même que le plan 2 (carte « Idée du soir »).
+  Zoom : le même que le plan 2, déjà en place dès la première image.
   Texte : « Pas convaincu ? *Autre idée.* »
   Emplacement : bas de la zone sûre.
 
-PLAN 4 — Où le regarder (7 → 10 s, 6 temps)
+PLAN 4 — Où le regarder (8,5 → 12,5 s, 8 temps)
   Capture : 2026-10-24_fiche-ou-regarder.mp4, de 3,0 s à 7,0 s,
-            accélérée x1,3 (fiche de Parasite, logos des plateformes).
-  Zoom : x1,5 sur le bloc « Où le regarder » et ses logos.
+            vitesse normale (fiche de Parasite, logos des plateformes).
+  Zoom : x1,2, centré en largeur, sur le bloc « Où le regarder ».
   Texte : « Et tu vois *où* le regarder. »
   Emplacement : à l'opposé du bloc zoomé (haut ou bas de la zone sûre).
 
-PLAN 5 — La chute (10 → 13 s, 6 temps)
-  Capture : 2026-10-24_fiche-ou-regarder.mp4, de 2,0 s à 3,5 s,
-            vitesse normale (la fiche de Parasite qui s'ouvre, affiche
-            en haut).
-  Zoom : x1,3 sur l'affiche et le titre « Parasite ».
+PLAN 5 — La chute (12,5 → 15 s, 5 temps)
+  Capture : 2026-10-24_fiche-ou-regarder.mp4, de 1,0 s à 3,5 s,
+            vitesse normale (« Voir la fiche » touché, la fiche de
+            Parasite s'ouvre, affiche en haut).
+  Zoom : aucun.
   Texte : « Ce soir, c'est *réglé*. »
   Emplacement : bas de la zone sûre.
 
-PLAN 6 — Fin, sans écran noir (13 → 16 s, 6 temps)
+PLAN 6 — Fin, sans écran noir (15 → 18 s, 6 temps)
   Fond : la dernière image du plan 5, assombrie et floutée (on voit
          encore l'appli derrière). PAS d'écran noir vide.
   Par-dessus, centrés dans la zone sûre :
@@ -118,12 +124,13 @@ Vault Watch (dossier media/). Aucune nouvelle capture nécessaire.
 6. CONTRÔLE AVANT DE SOUMETTRE À KINDER (par l'agent)
 ======================================================================
 [ ] Le texte d'accroche est lisible sur la toute première image.
-[ ] Aucun cadre de téléphone ; l'appli remplit l'image.
+[ ] Aucun cadre de téléphone ; tout l'écran de l'appli est visible,
+    aucun mot de l'appli coupé sur les côtés, zooms 1,2 au plus.
 [ ] Aucun texte ne chevauche un texte de l'appli ou un autre texte.
 [ ] Rien d'important dans les 220 px du haut ni les 380 px du bas.
 [ ] Mention TMDB présente, seulement sur le plan de fin.
 [ ] Pas d'écran noir vide à la fin ; la vidéo boucle sur l'accroche.
-[ ] Durée 16 s ; coupes sur les temps de la musique.
+[ ] Durée 18 s ; coupes sur les temps de la musique.
 [ ] Légende et hashtags identiques au point 4.
 [ ] Aucune donnée personnelle visible.
 
