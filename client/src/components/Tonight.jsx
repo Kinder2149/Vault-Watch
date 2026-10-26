@@ -39,6 +39,7 @@ export default function Tonight({
   onSubTab,
   onSearch,
   profileId,
+  onSurcouche,
 }) {
   // « Pas encore sorti » part replié : rien à y regarder ce soir. On retient s'il a été ouvert.
   const [sortiesOuvert, setSortiesOuvert] = useState(() => {
@@ -61,6 +62,13 @@ export default function Tonight({
 
   const [toutVoir, setToutVoir] = useState(false);
 
+  // « Tout voir » est une surcouche : le bouton retour d'Android la ferme avant de changer d'onglet.
+  useEffect(() => {
+    if (!toutVoir) return undefined;
+    onSurcouche?.({ fermer: () => setToutVoir(false) });
+    return () => onSurcouche?.(null);
+  }, [toutVoir]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Position de lecture de chaque sous-onglet (la page entière défile).
   const scrollPos = useRef({ attente: 0, decouverte: 0, suggestion: 0 });
 
@@ -79,6 +87,12 @@ export default function Tonight({
   const touch = useRef(null);
   const swipe = {
     onTouchStart: (e) => {
+      // Un geste commencé sur une rangée ou des puces qui défilent, ou dans un écran ouvert
+      // par-dessus (« Tout voir »), leur appartient : il ne change pas d'onglet.
+      if (e.target.closest('.rail, .chips-scroll, .overlay, .seg')) {
+        touch.current = null;
+        return;
+      }
       const t = e.touches[0];
       touch.current = { x: t.clientX, y: t.clientY };
     },
@@ -88,7 +102,7 @@ export default function Tonight({
       const dx = t.clientX - touch.current.x;
       const dy = t.clientY - touch.current.y;
       touch.current = null;
-      if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+      if (Math.abs(dx) < 80 || Math.abs(dx) < Math.abs(dy) * 2) return;
       const i = SOUS_ONGLETS.findIndex(([v]) => v === subTab);
       const suivant = SOUS_ONGLETS[i + (dx < 0 ? 1 : -1)];
       if (suivant) switchTo(suivant[0]);

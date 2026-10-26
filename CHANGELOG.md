@@ -8,12 +8,27 @@
 - 18 points relevés par Kinder (sauvegarde automatique, recherche, navigation, listes, découvertes, suivi des
   épisodes, fusion Drive…). Aucun code modifié. Liste complète dans `PLAN_V2.md`, « Retours d'essai du 2026-10-25 ».
 
+## Correctif « Ce soir » — futur 2.3.1 (2026-10-06, codé, non vérifié sur téléphone)
+- **Balayage entre onglets** : il était branché sur toute la page « Ce soir » et se déclenchait aussi en faisant défiler
+  une rangée d'affiches, des puces, le sélecteur Tout/Films/Séries, ou dans un écran ouvert. Il est maintenant ignoré
+  dans ces zones, et demande un geste plus net (80 px, nettement horizontal ; avant 60 px).
+- **« Tout voir » décalé** (marges sur les côtés, vide en haut, barre du bas visible) : l'animation d'entrée ajoutée en M7
+  gardait son état final (`both`), ce qui enfermait les écrans plein écran dans la page. Elle ne le garde plus
+  (`backwards`) ; visuellement rien ne change. Cause probable, non mesurée (navigateur de test masqué).
+- **Bouton retour d'Android sur « Tout voir »** (trouvé à l'essai sur émulateur, 2026-10-06) : il ne fermait pas l'écran, il
+  changeait d'onglet (retour vers Recherche). Les grilles « Tout voir » de « Ce soir » et de « Découvrir » se déclarent
+  maintenant comme surcouches (mécanisme déjà utilisé par Amis et Mes listes) ; une fiche ouverte par-dessus se ferme avant.
+- Fichiers : `Tonight.jsx`, `Decouvrir.jsx`, `App.jsx`, `styles.css`. 322 tests verts, construction OK. **À publier après la validation de la 2.3
+  par Google** (la 2.3 est en examen et ne se modifie pas). Branche `correctif-ce-soir`, rien fusionné.
+
 ## Version 2.3 (versionCode 7) — préparée le 2026-10-03, à publier
 - Regroupe la refonte visuelle, les amis par code (partage allumé dans la version publiée), les notifications
   corrigées et la miniature d'avatar. Règles Firebase déployées, politique de confidentialité mise à jour.
   Marche à suivre : `PLAN_ANDROID.md`, « Publication de la 2.3 ».
 
 ## Retours d'essai de la refonte (2026-10-03)
+- **Clic sur une notification** : toucher une notification de sortie ouvre maintenant la fiche du titre notifié
+  (avant, l'application s'ouvrait sans y mener).
 - **Notifications** : le test (et les vraies notifications de sortie) n'apparaissaient pas, car Android retardait
   l'alarme programmée. Elles s'affichent maintenant tout de suite.
 - **Avatar des amis** : une photo d'avatar part dans la fiche en miniature de 48 px (au lieu de rien : les amis

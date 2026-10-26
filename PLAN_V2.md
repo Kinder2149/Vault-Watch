@@ -523,7 +523,7 @@ une sauvegarde »).
 | M4 | Mes listes + Statistiques | ✅ codée et vérifiée (2026-10-03) — APK à essayer sur téléphone |
 | M5 | Recherche + états partout | ✅ codée et vérifiée (2026-10-03) |
 | M6 | Réglages et données | ✅ codée et vérifiée (2026-10-03) |
-| M7 | Dynamique | ✅ codée (2026-10-03) — bannière « À la une » non faite (facultative) |
+| M7 | Dynamique | ✅ codée (2026-10-03) — bannière « À la une » ABANDONNÉE (décision de Kinder, 2026-10-06) |
 Règle : **une mission à la fois**, essayée sur téléphone par Kinder avant la suivante. Une mission
 n'est « finie » que si toutes ses cases du « Critère de fin » sont cochées.
 
@@ -1311,3 +1311,60 @@ comme base d'une mise en ligne éventuelle, non planifiée à ce jour.
 
 **2026-09-11** : passe de corrections issue des retours du 10 septembre (voir « Idées pour les
 versions suivantes »), à essayer sur l'appareil puis à publier en 2.2.
+
+## Plan de finition — « app propre et finie » (établi le 2026-10-06)
+Une étape à la fois ; la suivante ne commence qu'après l'essai de Kinder sur téléphone.
+
+| # | Étape | Qui | Sortie attendue |
+|---|---|---|---|
+| F1 | Correctif « Ce soir » (balayage + « Tout voir ») — codé, commit `672c768` sur `correctif-ce-soir` | Claude Code | ✅ codé, ☐ vu à l'écran |
+| F2 | **Essai sur émulateur Android** (API 36.1, 6 Go de mémoire — avec 2 Go l'émulateur sature et l'appli semble « ne plus répondre ») | Claude Code | ✅ fait le 2026-10-06, voir ci-dessous |
+| F3 | **Essai complet sur téléphone** — grille ci-dessous | Kinder | Liste des défauts restants, par capture |
+| F4 | Correction des défauts de F3, un par un, testés | Claude Code (cadrage avec Claude si complexe) | Défauts fermés |
+| F5 | Accord de Kinder → fusion dans `main` → suppression de la branche | Claude Code | `main` à jour |
+| F6 | Après validation de la 2.3 par Google : 2.3.1 (versionCode 8), paquet signé, notes de version, publication | Kinder (Play Console) + Claude Code | 2.3.1 publiée |
+| F7 | Clôture : docs à jour, branches distantes triées, chantier refonte déclaré clos | Claude Code | `PROJET_CONTEXTE.md` « finie » |
+
+**Résultat de l'essai émulateur (2026-10-06, APK debug de la branche)** : ✅ « Tout voir » de « Ce soir » et de « Découvrir » en plein
+écran (plus de marges, de vide ni de barre du bas) ; ✅ balayage horizontal sur une rangée ou dans « Tout voir » : aucun changement d'onglet ;
+✅ fiche, recherche, Découvrir, Reprendre, thème sombre corrects. **Défaut trouvé et corrigé** : le bouton retour d'Android changeait d'onglet au
+lieu de fermer « Tout voir » (corrigé, revérifié : le retour ferme la grille, puis la fiche ouverte par-dessus avant elle).
+**Non couvert par l'émulateur** : vibration, appui long, photo d'avatar, Drive réel, notifications, ressenti de fluidité. Point mineur à juger sur
+téléphone : l'heure de la barre d'état est peu lisible sur fond sombre.
+
+**Grille d'essai F3** (tout ce qui est resté « à confirmer sur l'appareil » dans ce plan) :
+- *Ce soir* : défilement des rangées sans changement d'onglet ; « Tout voir » plein écran ; balayage sur zone vide.
+- *Mouvement (M7)* : aucune saccade entre onglets ; vibration sur « Marquer vu ».
+- *Thème* : Automatique suit le téléphone en direct (clair ↔ sombre).
+- *Gestes téléphone* : appui long, photo d'avatar, bouton retour Android (fiche, filmographie), geste sur les puces de filtres.
+- *Drive* : connexion, sauvegarde, restauration, conflit entre deux appareils.
+- *Moteur Android* : liste avec couvertures, Statistiques (`group_concat`), notifications de sortie (apparition immédiate).
+- *Amis* : ajout par code, avatar miniature, rayon « Chez tes amis ».
+
+**Décisions à prendre par Kinder (pas avant F3)**
+- ~~Bannière « À la une »~~ : **abandonnée par Kinder le 2026-10-06** (facultative, jamais construite).
+- ~~Deux branches en ligne~~ : **réglées le 2026-10-06**. Notification cliquable reprise dans `correctif-ce-soir` ; cadrage de la clé TMDB fusionné ci-dessous (décidé, **non construit**, hors 2.3.1).
+
+## Clé TMDB : retrait du dur, relais Cloudflare + clé personnelle (cadrage du 2026-09-26)
+
+**Point de départ** : la clé TMDB de Kinder est embarquée dans l'application (`VITE_TMDB_API_KEY`,
+`client/src/tmdb.js`), partagée par tous les utilisateurs. Risque identifié : une clé embarquée
+dans un APK ne peut pas être réellement cachée (obfuscation = retarder une extraction, pas
+l'empêcher) ; si elle est extraite et détournée, TMDB peut la bloquer et couper l'application pour
+**tout le monde** d'un coup. Une clé propre à chaque utilisateur (impossible à provisionner
+automatiquement — TMDB n'a pas d'API pour créer une clé, la connexion Google de l'app n'a aucun
+lien avec un compte TMDB) élimine ce risque pour qui la configure.
+
+**Décision (voir aussi `PROJET_CONTEXTE.md` section 6)** : deux mécanismes complémentaires.
+1. **Relais Cloudflare Workers**, gratuit et sans période de veille (contrairement à Render :
+   pas de délai de réveil après inactivité ; contrairement à Supabase : pas de projet complet à
+   maintenir pour un simple relais). Garde la clé de Kinder côté serveur ; l'application l'appelle
+   à la place de TMDB.
+2. **Clé TMDB personnelle**, en option, réglable dans les paramètres via un écran qui explique pas
+   à pas comment la créer (liens, informations à saisir). Une fois renseignée, elle remplace
+   définitivement le relais pour cet utilisateur. Stockée comme un champ du **profil** : elle est
+   donc emportée automatiquement par l'export/import déjà existant (`backup.js`), et voyage avec la
+   sauvegarde Drive (dossier caché `drive.appdata`, déjà en place) sans mécanisme nouveau.
+
+**Statut** : décisions tranchées, doc mise à jour. Le découpage en étapes (cadrage d'étape par
+étape, tranche testée avant la suivante) reste à faire.
