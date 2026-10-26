@@ -1310,6 +1310,24 @@ pas encore validé sur téléphone** (cases non cochées tant que Kinder n'a pas
 **Reste à cadrer** : A1/A2 (sauvegarde, essai émulateur avec compte Google), B6, A6 (capture), A3 (titre exact),
 B1 / B3 (le filtre plateformes et les tris existent déjà), B2, B7.
 
+### Mission « Sauvegarde cloud » — PLAN (phase 4, 2026-10-26, à valider par Kinder)
+Logique figée dans `PROJET_CONTEXTE.md` (« Décision du 2026-10-26 »). Une étape à la fois, chacune testée sur
+l'émulateur (compte de test, Wi-Fi coupé, application tuée depuis les récentes) avant la suivante.
+Couvre A1 et A2. **Ne couvre pas** B6 (fusion), à cadrer ensuite.
+
+| Étape | Contenu | Dépend de | Critère (vérifiable sur capture) |
+|---|---|---|---|
+| S0 | Diagnostic sur le téléphone de Kinder (pas de code) : « Dernière tentative » + origine de l'APK (Play Store ou manuel) | — | Kinder donne le texte exact de la ligne ; la cause (conflit / autorisation / autre) est nommée |
+| S1 | États lisibles dans Réglages > Sauvegarde : « Sauvegardé à HH:MM » ou « En attente : conflit / autorisation / hors connexion / erreur », une phrase claire et une action par cause | — | Pour chaque cause provoquée à l'émulateur, la capture montre la phrase et le bouton attendus |
+| S2 | Envoi automatique 30 s après la dernière modification (application ouverte), regroupé, au plus un envoi par minute | S1 | Je coche un épisode, j'attends : « Sauvegardé à HH:MM » mis à jour, sans rien d'autre à l'écran |
+| S3 | Bandeau conditionnel : plus de bandeau en cas normal ; il n'apparaît que pour conflit, autorisation, hors connexion prolongée ; interrupteur coupé = rappel discret | S1, S2 | Après une modification normale : aucun bandeau. Avec chaque cause provoquée : bandeau avec le bon texte et le bon bouton |
+| S4 | Retour du réseau : l'envoi en attente part dès que la connexion revient | S2 | Wi-Fi coupé, modification, Wi-Fi rétabli : l'état passe de « En attente : hors connexion » à « Sauvegardé à HH:MM » |
+| S5 | **Clôture** : prompt de vérification pour une autre IA (critères S1–S4, fait et testé, nouveautés prioritaires) ; vérification en conditions réelles, capture et verdict par critère | S1–S4 | Verdict réussi sur chaque critère ; capture finale de Kinder sur son téléphone |
+
+**Critère de fin de mission (brouillon, à réécrire par Kinder)** : « Je coche un épisode, je ne vois aucun message
+inquiétant, et quelques secondes plus tard Réglages > Sauvegarde dit que c'est sauvegardé. Si quelque chose bloque,
+l'application me dit quoi, en clair, et me propose quoi faire. »
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les

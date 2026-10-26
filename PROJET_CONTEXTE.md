@@ -172,3 +172,21 @@ l'autorisation Drive sans réafficher l'écran de compte Google.
 Le partage (amis par code) est allumé dans la version publiée (`client/.env.production`). Les deux décisions figées
 « aucun serveur » et « données sur l'appareil » sont donc modifiées pour cette seule fiche facultative (Firebase).
 L'avatar en photo part en miniature de 48 px. Politique de confidentialité et formulaire Play Store mis en conformité.
+
+## Décision du 2026-10-26 — logique de la sauvegarde cloud (FIGÉE, validée par Kinder)
+Constat (essai émulateur, compte de test, build debug) : le circuit Drive marche, mais la logique d'ensemble est
+incohérente — un seul déclencheur sérieux (quitter l'application, non garanti sous Android), un bandeau
+« modifications non sauvegardées » affiché dès la première modification alors que l'envoi automatique est prévu, et
+des échecs réels (conflit, autorisation, réseau) sans message clair.
+- **La sauvegarde est un service silencieux ; le bandeau est une alerte rare**, jamais l'état normal.
+- **Déclencheurs automatiques** : 30 s après la dernière modification (application ouverte) ; en quittant ; au retour /
+  au lancement ; au retour du réseau. Jamais d'écran Google (`interactive: false`, inchangé).
+- **Bandeau seulement si bloqué**, texte et bouton selon la cause : conflit (choix existant), autorisation (Reconnecter),
+  hors connexion prolongée (après un délai). Interrupteur automatique coupé : rappel manuel discret.
+- **Réglages > Sauvegarde** montre en permanence l'état : « Sauvegardé à HH:MM » ou « En attente : <cause> ».
+- **Notifications** : aucune nouvelle notification Android pour la sauvegarde. Les notifications restent celles des
+  sorties. Un filet de sécurité programmé (« non sauvegardé depuis 2 jours », annulé à chaque réussite) est une option
+  **non retenue pour l'instant**, à rouvrir plus tard.
+- **Hors de cette mission** : la fusion de deux versions en conflit (B6) — à cadrer à part, règles écrites avant tout code.
+- **Inconnue restante** : sur le téléphone de Kinder, l'échec vient-il d'un conflit ou de la clé de signature du Play Store
+  (clé de debug enregistrée chez Google : essai émulateur réussi) ? Lecture de « Dernière tentative » demandée (étape S0).
