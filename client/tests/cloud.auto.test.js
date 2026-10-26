@@ -111,6 +111,31 @@ describe('sauvegarde automatique', () => {
     expect(backup.lastCloudBackup()).toBeNull();
   });
 
+  it('nomme la cause quand le réseau est coupé', async () => {
+    autorisation.mockResolvedValue('jeton-valide');
+    globalThis.fetch = vi.fn(async () => {
+      throw new TypeError('Failed to fetch');
+    });
+    backup.markChanged();
+
+    const resultat = await backup.sauvegardeAutomatique();
+    expect(resultat.raison).toBe('hors-ligne');
+    expect(backup.hasPendingChanges()).toBe(true);
+  });
+
+  it('nomme la cause quand Google refuse l’autorisation (401)', async () => {
+    autorisation.mockResolvedValue('jeton-perime');
+    globalThis.fetch = vi.fn(async () => ({
+      ok: false,
+      status: 401,
+      text: async () => '',
+    }));
+    backup.markChanged();
+
+    const resultat = await backup.sauvegardeAutomatique();
+    expect(resultat.raison).toBe('autorisation');
+  });
+
   it('ne lance pas deux envois en même temps', async () => {
     autorisation.mockResolvedValue('jeton-valide');
     backup.markChanged();
@@ -139,7 +164,11 @@ describe('sauvegarde automatique', () => {
 
     // Sans cet avertissement, le bandeau n'apparaissait qu'au lancement
     // suivant : on pouvait cocher dix épisodes sans être prévenu.
-    expect(vus).toEqual([true, false]);
+    // Début : du nouveau ; fin : envoyé. (L'écran est aussi averti de chaque essai, d'où
+    // un éventuel second « false » : sans effet, l'état n'a pas changé.)
+    expect(vus[0]).toBe(true);
+    expect(vus.at(-1)).toBe(false);
+    expect(vus).not.toContain(undefined);
   });
 
   it('garde la trace de la dernière tentative, réussie ou non', async () => {

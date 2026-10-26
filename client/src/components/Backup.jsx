@@ -1,5 +1,5 @@
 import Icon from './Icon.jsx';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   exportProfile,
   importProfile,
@@ -13,6 +13,8 @@ import {
   resumerSauvegardeDrive,
   lastCloudBackup,
   dernierEssaiAutomatique,
+  etatSauvegarde,
+  surChangementDeSauvegarde,
   sauvegardeAutoActive,
   reglerSauvegardeAuto,
   hasPendingChanges,
@@ -20,6 +22,7 @@ import {
   cloudRestoreSuggestions,
 } from '../backup.js';
 import { saveTextFile, readTextFile, backupFileName } from '../files.js';
+import { useEnLigne } from '../reseau.js';
 import {
   connect as connectGoogle,
   disconnect as disconnectGoogle,
@@ -42,24 +45,6 @@ const dateLisible = (d) =>
     hour: '2-digit',
     minute: '2-digit',
   });
-// Traduit le résultat brut de la dernière tentative automatique.
-function texteEssaiAuto(essai) {
-  if (!essai) return 'aucune tentative pour l’instant.';
-  const quand = essai.quand ? dateLisible(new Date(essai.quand)) : '';
-  if (essai.fait) return `réussie${quand ? ` le ${quand}` : ''}.`;
-  const raisons = {
-    'rien-a-sauvegarder': 'rien de nouveau à envoyer',
-    desactivee: 'sauvegarde automatique désactivée',
-    'autorisation-indisponible':
-      'Google n’a pas renouvelé l’autorisation sans écran — à refaire à la main',
-    conflit:
-      'un autre appareil a modifié la sauvegarde Drive — rien n’a été écrasé, à trancher à la main',
-    'deja-en-cours': 'un envoi était déjà en cours',
-    echec: `échec${essai.message ? ` : ${essai.message}` : ''}`,
-  };
-  return `${raisons[essai.raison] || essai.raison}${quand ? ` (${quand})` : ''}.`;
-}
-
 export default function Backup({ profileId, profileName, onRestored, onClose }) {
   const [busy, setBusy] = useState('');
   const [note, setNote] = useState('');
@@ -80,8 +65,34 @@ export default function Backup({ profileId, profileName, onRestored, onClose }) 
   // Ce qu'a donné la dernière tentative automatique. Sans cette ligne, une
   // sauvegarde qui échoue en silence reste indiagnosticable : le téléphone
   // n'est pas sous nos yeux.
-  const [essaiAuto] = useState(dernierEssaiAutomatique);
+  const [essaiAuto, setEssaiAuto] = useState(dernierEssaiAutomatique);
   const [autoActive, setAutoActive] = useState(sauvegardeAutoActive);
+  const enLigne = useEnLigne();
+  // Le choix en cas de conflit s'ouvre plus bas que l'état : on l'amène à l'écran, sinon le
+  // bouton « Choisir la version à garder » semble ne rien faire.
+  const conflitRef = useRef(null);
+  useEffect(() => {
+    if (conflit) conflitRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, [conflit]);
+
+  // L'état suit la sauvegarde en direct : un envoi qui se termine (ou qui échoue) pendant
+  // qu'on regarde l'écran le met à jour, sans avoir à le rouvrir.
+  useEffect(
+    () =>
+      surChangementDeSauvegarde(() => {
+        setLastBackup(lastCloudBackup());
+        setPendingChanges(hasPendingChanges());
+        setEssaiAuto(dernierEssaiAutomatique());
+      }),
+    []
+  );
+  const etat = etatSauvegarde({
+    enAttente: pendingChanges,
+    derniere: lastBackup,
+    essai: essaiAuto,
+    autoActive,
+    enLigne,
+  });
 
   function reset() {
     setNote('');
@@ -359,11 +370,15 @@ export default function Backup({ profileId, profileName, onRestored, onClose }) 
                 Ta sauvegarde va dans un dossier privé de ton propre Google
                 Drive, invisible et réservé à cette application.
               </p>
-              <p className={pendingChanges ? 'about__warn' : undefined}>
-                Dernière sauvegarde :{' '}
-                <strong>{lastBackup ? dateLisible(lastBackup) : 'jamais'}</strong>
-                {pendingChanges && ' — des modifications ne sont pas encore sauvegardées.'}
-              </p>
+              <div className={`etat-sauvegarde etat-sauvegarde--${etat.niveau}`} role="status">
+                <strong>{etat.titre}</strong>
+                <span className="hint">{etat.detail}</span>
+                {etat.action && (
+                  <button className="btn" onClick={handleCloudBackup} disabled={!!busy}>
+                    {busy === 'cloud' ? 'En cours…' : etat.action}
+                  </button>
+                )}
+              </div>
               <div className="reglage-auto">
                 <div className="reglage-auto__texte">
                   <strong>Sauvegarde automatique</strong>
@@ -386,9 +401,6 @@ export default function Backup({ profileId, profileName, onRestored, onClose }) 
                   }}
                 />
               </div>
-              {autoActive && (
-                <p className="hint">Dernière tentative : {texteEssaiAuto(essaiAuto)}</p>
-              )}
               <div className="backup__actions">
                 <button className="btn" onClick={handleCloudBackup} disabled={!!busy}>
                   {busy === 'cloud' ? 'En cours…' : 'Sauvegarder maintenant'}
@@ -399,7 +411,7 @@ export default function Backup({ profileId, profileName, onRestored, onClose }) 
               </div>
 
               {conflit && (
-                <div className="backup__confirm">
+                <div className="backup__confirm" ref={conflitRef}>
                   <p>
                     <strong>Un autre appareil a modifié ta sauvegarde Drive</strong> depuis la
                     dernière fois. Rien n'a été écrasé. Que veux-tu garder ?

@@ -1367,6 +1367,18 @@ fusion (B6), de notification.
 WebView) ; **autorisation** (accès de l'application révoqué dans le compte Google de test : geste à faire par Kinder,
 la saisie du mot de passe lui revient). Une capture par cause.
 
+**S1 codée et essayée sur émulateur (2026-10-26)** — 337 tests verts, construction OK, APK
+`apk-test/vault-watch-test-2.3.2-retours.apk`. Captures dans `essais/2026-10-26_S1/` (une par cause) :
+- cas normal « Sauvegardé à HH:MM » ; **hors connexion** (Wi-Fi et données coupés, vraie tentative en quittant,
+  puis retour à « Sauvegardé » après « Réessayer » réseau rétabli) ; **conflit** (version Drive périmée forcée par le
+  débogage de la WebView ; le bouton ouvre le choix existant) ; **autorisation** et **erreur** : réponses **401 et 503
+  simulées** sur les appels Drive (le vrai retrait d'accès Google reste à voir sur téléphone).
+- Au passage : le choix du conflit s'ouvrait sous l'écran visible, il est maintenant amené à l'écran (`scrollIntoView`,
+  non revu à l'écran après ce dernier réglage).
+- **Constat à traiter en S3** : le bandeau « elles partiront quand tu quitteras l'application » est toujours là
+  (S1 ne le touche pas) ; il décale la page, et son bouton mène à l'écran Sauvegarde.
+- Case S1 à cocher après validation de Kinder.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les

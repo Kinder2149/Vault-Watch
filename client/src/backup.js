@@ -10,6 +10,7 @@
 // avait été choisi (voir PROJET_CONTEXTE.md).
 
 import { query, run, runMany } from './db.js';
+import { estErreurReseau } from './reseau.js';
 
 export const BACKUP_FORMAT = 'suivi-films-series';
 // Version 2 : les sauvegardes emportent la note personnelle (avis + étoiles).
@@ -480,7 +481,19 @@ function noterEssai(resultat) {
     LAST_AUTO_KEY,
     JSON.stringify({ ...resultat, quand: new Date().toISOString() })
   );
+  // L'écran de sauvegarde suit l'état en direct : un essai qui se termine le met à jour.
+  prevenir();
   return resultat;
+}
+
+// Ce qu'une erreur d'envoi veut dire pour l'utilisateur : réseau absent, autorisation
+// retirée ou refusée par Google, ou autre chose (message conservé pour le diagnostic).
+function raisonDeLErreur(error) {
+  if (estErreurReseau(error)) return 'hors-ligne';
+  if (/(40[13])|Autorisation refus|Accès à Drive refus/i.test(String(error?.message || ''))) {
+    return 'autorisation';
+  }
+  return 'echec';
 }
 
 export function dernierEssaiAutomatique() {
@@ -507,10 +520,93 @@ export async function sauvegardeAutomatique() {
     return noterEssai({ fait: true, profils });
   } catch (error) {
     if (error instanceof ConflitSauvegarde) return noterEssai({ fait: false, raison: 'conflit' });
-    return noterEssai({ fait: false, raison: 'echec', message: error.message });
+    return noterEssai({ fait: false, raison: raisonDeLErreur(error), message: error.message });
   } finally {
     autoEnCours = false;
   }
+}
+
+// État de la sauvegarde cloud, tel que l'écran le dit à l'utilisateur : une phrase claire et,
+// s'il y a un blocage, la cause et l'action qui y mène. Pure : tout ce qu'il faut est passé en
+// paramètre (le téléphone n'est pas sous nos yeux, autant pouvoir le tester sans lui).
+//
+//  - niveau 'ok'      : tout est parti, rien à faire ;
+//  - niveau 'attente' : du nouveau attend, sans blocage (l'envoi automatique va s'en charger) ;
+//  - niveau 'bloque'  : quelque chose empêche l'envoi ; `cause` et `action` le disent.
+//
+// `action` renvoie toujours au geste manuel existant (« Sauvegarder maintenant »), qui, lui, a
+// le droit d'afficher un écran Google ou le choix en cas de conflit.
+export function etatSauvegarde({ enAttente, derniere, essai, autoActive = true, enLigne = true }) {
+  const quand = derniere ? `Sauvegardé ${quandLisible(derniere)}` : null;
+
+  // Le dernier essai dit ce qui bloque ; une sauvegarde réussie depuis l'efface.
+  const essaiRecent =
+    essai && !essai.fait && (!derniere || !essai.quand || new Date(essai.quand) >= derniere);
+  const cause = essaiRecent
+    ? { conflit: 'conflit', 'autorisation-indisponible': 'autorisation', autorisation: 'autorisation',
+        'hors-ligne': 'hors-ligne', echec: 'erreur' }[essai.raison] || null
+    : null;
+
+  if (enAttente && cause) {
+    const textes = {
+      conflit: {
+        titre: 'En attente : conflit',
+        detail: 'Un autre appareil a modifié ta sauvegarde Drive. Rien n’a été écrasé : choisis la version à garder.',
+        action: 'Choisir la version à garder',
+      },
+      autorisation: {
+        titre: 'En attente : Google doit te reconnaître',
+        detail: 'Google n’a pas renouvelé l’autorisation sans écran. Reconnecte-toi pour reprendre les sauvegardes.',
+        action: 'Reconnecter',
+      },
+      'hors-ligne': {
+        titre: 'En attente : pas de connexion',
+        detail: 'La sauvegarde partira dès que le réseau sera revenu.',
+        action: 'Réessayer',
+      },
+      erreur: {
+        titre: 'En attente : erreur',
+        detail: essai.message ? `La sauvegarde a échoué : ${essai.message}` : 'La sauvegarde a échoué.',
+        action: 'Réessayer',
+      },
+    }[cause];
+    return { niveau: 'bloque', cause, quand, ...textes };
+  }
+
+  if (enAttente && !enLigne) {
+    return {
+      niveau: 'bloque', cause: 'hors-ligne', quand,
+      titre: 'En attente : pas de connexion',
+      detail: 'La sauvegarde partira dès que le réseau sera revenu.',
+      action: 'Réessayer',
+    };
+  }
+
+  if (enAttente) {
+    return {
+      niveau: 'attente', cause: autoActive ? null : 'desactivee', quand,
+      titre: 'Des modifications attendent d’être sauvegardées',
+      detail: autoActive
+        ? 'Elles partent toutes seules.'
+        : 'La sauvegarde automatique est désactivée : touche « Sauvegarder maintenant ».',
+      action: autoActive ? null : 'Sauvegarder maintenant',
+    };
+  }
+
+  return {
+    niveau: 'ok', cause: null, quand,
+    titre: quand || 'Pas encore sauvegardé',
+    detail: derniere ? 'Tout est à jour dans ton Drive.' : 'Touche « Sauvegarder maintenant » pour une première sauvegarde.',
+    action: null,
+  };
+}
+
+// « à 07:56 » le jour même, « le 25 octobre à 07:56 » sinon.
+function quandLisible(date, maintenant = new Date()) {
+  const heure = new Intl.DateTimeFormat('fr-FR', { hour: '2-digit', minute: '2-digit' }).format(date);
+  if (date.toDateString() === maintenant.toDateString()) return `à ${heure}`;
+  const jour = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long' }).format(date);
+  return `le ${jour} à ${heure}`;
 }
 
 // Date de la dernière sauvegarde réussie, ou null. Affichée en clair : c'est
