@@ -1328,6 +1328,45 @@ Couvre A1 et A2. **Ne couvre pas** B6 (fusion), à cadrer ensuite.
 inquiétant, et quelques secondes plus tard Réglages > Sauvegarde dit que c'est sauvegardé. Si quelque chose bloque,
 l'application me dit quoi, en clair, et me propose quoi faire. »
 
+#### S1 — États lisibles (phase 5, cadrage d'étape, 2026-10-26)
+**Plan et critère de fin validés par Kinder le 2026-10-26.** Critère de fin de mission : « je coche un épisode, je ne
+vois aucun message inquiétant, et quelques secondes plus tard c'est sauvegardé ; si ça bloque, l'application me le dit
+en clair ».
+
+**Critère de S1 (repris du plan)** : pour chaque cause, Réglages > Sauvegarde affiche une phrase claire et une action.
+Cas normal : « Sauvegardé à HH:MM ». Causes : conflit, autorisation, hors connexion, erreur.
+
+**Constat dans le code** (`Backup.jsx`, `backup.js`) :
+- l'état est lu **une seule fois** à l'ouverture de l'écran (`useState(dernierEssaiAutomatique)`) : il ne bouge pas si
+  un envoi se termine pendant qu'on le regarde ;
+- « Dernière sauvegarde » et « Dernière tentative » sont deux lignes séparées, avec du vocabulaire technique ;
+- un réseau coupé tombe dans « échec : Failed to fetch » (cause brute, pas « hors connexion ») ;
+- conflit et autorisation disent « à trancher / à refaire à la main » sans bouton qui y mène.
+
+**Stratégie technique (3 couches)**
+- *Logique* (`backup.js`) : fonction pure `etatSauvegarde({ enAttente, derniere, essai, autoActive, enLigne })` qui rend
+  `{ niveau: 'ok' | 'attente' | 'bloque', cause, titre, detail, action }` ; causes `conflit`, `autorisation`,
+  `hors-ligne`, `erreur`, `desactivee`. Dans `sauvegardeAutomatique`, une erreur réseau
+  (`estErreurReseau`) devient la raison `hors-ligne` au lieu de `echec`. `noterEssai` appelle `prevenir()` : l'écran
+  est averti à chaque nouvel essai.
+- *Écran* (`Backup.jsx`) : un seul bloc d'état en tête de « Sauvegarde cloud » remplace les deux lignes ; il s'abonne
+  à `surChangementDeSauvegarde` (état en direct). Actions : conflit et autorisation et erreur et hors-ligne mènent au
+  même geste, le bouton manuel existant (`handleCloudBackup`, interactif, qui affiche déjà l'encadré de conflit), avec le
+  libellé de la cause (« Choisir la version à garder », « Reconnecter », « Réessayer »).
+- *Données* : aucune nouvelle clé de stockage.
+
+**Fichiers touchés** : `client/src/backup.js`, `client/src/components/Backup.jsx` (+ styles si besoin),
+`client/tests/etat-sauvegarde.test.js` (nouveau). **Pas touchés** : `App.jsx` (bandeau = S3), `google.js`.
+
+**Ce qu'on ne fait pas dans S1** : aucun changement de déclencheur (S2), de bandeau (S3), d'écoute du réseau (S4), de
+fusion (B6), de notification.
+
+**Vérification** : tests unitaires de `etatSauvegarde` (une ligne par cause + cas normal + interrupteur coupé).
+Émulateur (compte de test, build debug) : cas normal ; **hors connexion** (Wi-Fi coupé, `adb shell svc wifi disable`) ;
+**erreur** ; **conflit** (version Drive périmée forcée dans le stockage de l'application via le débogage distant de la
+WebView) ; **autorisation** (accès de l'application révoqué dans le compte Google de test : geste à faire par Kinder,
+la saisie du mot de passe lui revient). Une capture par cause.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
