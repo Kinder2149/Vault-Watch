@@ -1415,6 +1415,16 @@ reprogrammé si modifié pendant l'envoi. Émulateur : j'ajoute un titre, **je r
 Réglages > Sauvegarde après ~35 s : « Sauvegardé à HH:MM » ; capture. Deuxième essai : cinq coches à quelques secondes
 d'écart = un seul envoi (relevé dans le journal des requêtes Drive).
 
+**S2 codée et essayée sur émulateur (2026-10-26)** — 348 tests verts (11 nouveaux, minuteries simulées), construction OK.
+Captures dans `essais/2026-10-26_S2/`.
+- *Essai 1* : un titre ajouté à 08:35:17, application **non quittée**, écran Sauvegarde ouvert : « Des modifications
+  attendent d'être sauvegardées » puis, sans rien toucher, « Sauvegardé à 08:35 » ; envoi relevé à 08:35:48 (31 s).
+- *Essai 2* : cinq ajouts à 3 s d'intervalle (08:36:45 → 08:36:57) : **un seul envoi** à 08:37:27 (30 s après le dernier),
+  soit 2 requêtes d'écriture = les 2 profils de l'appareil.
+- Texte de l'interrupteur mis à jour. Le bandeau « elles partiront quand tu quitteras l'application » apparaît encore
+  pendant ces 30 s : c'est S3.
+- Case S2 à cocher après validation de Kinder.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les

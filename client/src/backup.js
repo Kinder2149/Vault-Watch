@@ -431,6 +431,7 @@ export function markChanged() {
   sequence += 1;
   writeLocal(PENDING_KEY, `${new Date().toISOString()}#${sequence}`);
   prevenir();
+  programmerEnvoi();
 }
 
 // Vrai s'il y a des modifications non sauvegardées dans le Drive.
@@ -469,6 +470,67 @@ export function sauvegardeAutoActive() {
 export function reglerSauvegardeAuto(active) {
   writeLocal(AUTO_OFF_KEY, active ? null : '1');
   prevenir();
+  if (active) programmerEnvoi();
+  else annulerEnvoi();
+}
+
+// --- Envoi différé ---
+//
+// Avant, rien ne partait tant qu'on utilisait l'application : seulement en la quittant, en y
+// revenant ou au lancement. Désormais une modification programme son propre envoi.
+//
+//  - **Calme** : l'envoi part `calme` ms après la *dernière* modification. Chaque nouvelle
+//    modification le repousse, ce qui regroupe un lot de coches en un seul envoi.
+//  - **Plafond** : sous un usage continu, l'envoi part au plus tard `max` ms après la première
+//    modification du lot.
+//  - **Écart** : jamais deux tentatives automatiques à moins de `ecart` ms l'une de l'autre.
+//  - **Pas de boucle** : un échec ne programme rien tout seul. Conflit et autorisation refusée
+//    ne se reprogramment pas non plus (même résultat tant que l'utilisateur n'a pas agi).
+let delais = { calme: 30_000, max: 120_000, ecart: 60_000 };
+let minuterie = null;
+let debutLot = 0; // première modification du lot en cours
+let dernierEssaiAuto = 0; // début de la dernière tentative automatique
+
+// Pour les tests : des délais courts, et une minuterie remise à zéro.
+export function reglerDelaisEnvoi(nouveaux) {
+  delais = { calme: 30_000, max: 120_000, ecart: 60_000, ...nouveaux };
+  dernierEssaiAuto = 0;
+  annulerEnvoi();
+}
+
+function annulerEnvoi() {
+  clearTimeout(minuterie);
+  minuterie = null;
+  debutLot = 0;
+}
+
+// Vrai si le dernier essai a buté sur quelque chose que seul l'utilisateur peut lever.
+function envoiBloque() {
+  const essai = dernierEssaiAutomatique();
+  if (!essai || essai.fait) return false;
+  if (!['conflit', 'autorisation', 'autorisation-indisponible'].includes(essai.raison)) return false;
+  const derniere = lastCloudBackup();
+  // Une sauvegarde réussie depuis (manuelle, après avoir tranché) lève le blocage.
+  return !derniere || !essai.quand || new Date(essai.quand) >= derniere;
+}
+
+function programmerEnvoi() {
+  if (!getAccount() || !sauvegardeAutoActive() || envoiBloque()) return;
+  const maintenant = Date.now();
+  if (!debutLot) debutLot = maintenant;
+  const echeance = Math.max(
+    Math.min(maintenant + delais.calme, debutLot + delais.max),
+    dernierEssaiAuto + delais.ecart
+  );
+  clearTimeout(minuterie);
+  minuterie = setTimeout(declencherEnvoi, Math.max(0, echeance - maintenant));
+}
+
+async function declencherEnvoi() {
+  minuterie = null;
+  debutLot = 0;
+  // Une modification arrivée pendant l'envoi a déjà reprogrammé le suivant (`markChanged`).
+  await sauvegardeAutomatique();
 }
 
 let autoEnCours = false;
@@ -513,6 +575,7 @@ export async function sauvegardeAutomatique() {
   if (autoEnCours) return { fait: false, raison: 'deja-en-cours' };
 
   autoEnCours = true;
+  dernierEssaiAuto = Date.now();
   try {
     const jeton = await getAccessToken({ interactive: false });
     if (!jeton) return noterEssai({ fait: false, raison: 'autorisation-indisponible' });
@@ -617,6 +680,7 @@ export function lastCloudBackup() {
 }
 
 export function forgetCloudState() {
+  annulerEnvoi();
   writeLocal(PENDING_KEY, null);
   writeLocal(LAST_BACKUP_KEY, null);
   writeLocal(LAST_AUTO_KEY, null);

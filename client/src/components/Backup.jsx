@@ -384,7 +384,7 @@ export default function Backup({ profileId, profileName, onRestored, onClose }) 
                   <strong>Sauvegarde automatique</strong>
                   <span className="hint">
                     {autoActive
-                      ? 'Envoyée toute seule quand tu quittes l’application, s’il y a du nouveau. Jamais d’écran Google.'
+                      ? 'Envoyée toute seule quelques secondes après un changement, et quand tu quittes l’application. Jamais d’écran Google.'
                       : 'Désactivée : rien ne part sans le bouton ci-dessous.'}
                   </span>
                 </div>
