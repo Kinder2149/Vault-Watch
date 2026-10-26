@@ -1379,6 +1379,42 @@ la saisie du mot de passe lui revient). Une capture par cause.
   (S1 ne le touche pas) ; il décale la page, et son bouton mène à l'écran Sauvegarde.
 - Case S1 à cocher après validation de Kinder.
 
+#### S2 — Envoi automatique 30 s après modification (phase 5, cadrage d'étape, 2026-10-26)
+**Critère de S2 (repris du plan)** : je coche un épisode, j'attends sans quitter l'application : « Sauvegardé à HH:MM »
+est mis à jour, sans rien d'autre à l'écran.
+
+**Constat** : toute écriture passe par `api.ecriture()` → `markChanged()` (`backup.js`), qui lève seulement le drapeau
+« à sauvegarder ». L'envoi n'est déclenché que par `App.jsx` (quitter, revenir, lancement). Rien ne part pendant qu'on
+utilise l'application.
+
+**Stratégie technique** — tout dans la couche Logique (`backup.js`), `App.jsx` n'est pas touché :
+- `markChanged()` programme un envoi différé. **Délai de calme 30 s** : chaque nouvelle modification repousse l'envoi,
+  pour regrouper un lot de coches. **Plafond 2 min** : sous un usage continu, l'envoi part quand même. **Écart minimal
+  60 s** entre deux tentatives automatiques.
+- À l'échéance, l'envoi appelle `sauvegardeAutomatique()` existante (mêmes garde-fous : interrupteur, rien-à-envoyer,
+  jamais d'écran Google, un seul envoi à la fois).
+- **Pas de reprise en boucle** : après un échec, aucun nouvel essai programmé tout seul. La prochaine modification
+  reprogramme ; quitter / revenir réessaie (inchangé). Conflit et autorisation : on ne reprogramme pas (le résultat serait
+  le même, l'utilisateur doit agir). Hors connexion : reste à S4.
+- Modification **pendant** un envoi : le marqueur existant la garde en attente ; à la fin de l'envoi, s'il reste du
+  nouveau, un nouvel envoi est programmé.
+- Annulation propre : déconnexion du compte, interrupteur coupé (relu à l'échéance), `forgetCloudState`.
+- Délais réglables pour les tests (`reglerDelaisEnvoi`), valeurs par défaut ci-dessus.
+- `Backup.jsx` : seul le texte de l'interrupteur change (« Envoyée toute seule quelques secondes après un changement, et
+  quand tu quittes l'application »).
+
+**Fichiers touchés** : `client/src/backup.js`, `client/src/components/Backup.jsx` (un texte),
+`client/tests/envoi-differe.test.js` (nouveau, minuteries simulées).
+
+**Ce qu'on ne fait pas dans S2** : bandeau (S3), reprise au retour du réseau (S4), fusion (B6), notification, tâche de
+fond Android (inutile : le déclencheur « quitter » existant couvre l'application fermée).
+
+**Vérification** : tests — trois modifications en 10 s donnent **un** envoi ; plafond 2 min sous usage continu ; écart
+minimal respecté ; rien programmé sans compte ou interrupteur coupé ; pas de reprogrammation après conflit ; envoi
+reprogrammé si modifié pendant l'envoi. Émulateur : j'ajoute un titre, **je reste dans l'application**, je regarde
+Réglages > Sauvegarde après ~35 s : « Sauvegardé à HH:MM » ; capture. Deuxième essai : cinq coches à quelques secondes
+d'écart = un seul envoi (relevé dans le journal des requêtes Drive).
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
