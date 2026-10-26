@@ -25,6 +25,16 @@ export default function SearchBar({ onSearch, mode = 'title', placeholder }) {
         onChange={(e) => setValue(e.target.value)}
         aria-label="Recherche"
       />
+      {value && (
+        <button
+          type="button"
+          className="search-bar__clear"
+          aria-label="Effacer la saisie"
+          onClick={() => setValue('')}
+        >
+          <Icon name="close" size={16} />
+        </button>
+      )}
     </div>
   );
 }

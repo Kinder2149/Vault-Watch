@@ -8,6 +8,12 @@
 - 18 points relevés par Kinder (sauvegarde automatique, recherche, navigation, listes, découvertes, suivi des
   épisodes, fusion Drive…). Aucun code modifié. Liste complète dans `PLAN_V2.md`, « Retours d'essai du 2026-10-25 ».
 
+## Retours d'essai du 2026-10-25 — groupe « faciles » codé (2026-10-26, non validé sur téléphone)
+- Recherche : bouton ✕ pour effacer ; « Voir plus » sur la recherche par titre (avant, 20 résultats maximum).
+- « Ce soir » : plus de balayage entre sous-onglets. Série passée à « Vu » : ses épisodes diffusés sont cochés.
+- Fiche série : après un épisode coché, proposition de cocher les précédents de la saison.
+- Découvrir : rangées « Comme … » stables pendant l'usage. Idée du soir : affiche visible.
+
 ## Correctif « Ce soir » — futur 2.3.1 (2026-10-06, codé, non vérifié sur téléphone)
 - **Balayage entre onglets** : il était branché sur toute la page « Ce soir » et se déclenchait aussi en faisant défiler
   une rangée d'affiches, des puces, le sélecteur Tout/Films/Séries, ou dans un écran ouvert. Il est maintenant ignoré

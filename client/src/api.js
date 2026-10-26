@@ -177,8 +177,8 @@ export async function discoverMood({ mood, movie = true, tv = true, page = 1, pl
   return tmdb.discoverByMood({ mood, movie, tv, page, plateformes });
 }
 
-export async function searchTitles(query) {
-  return tmdb.searchMulti(query);
+export async function searchTitles(query, page = 1) {
+  return tmdb.searchMultiPage(query, page);
 }
 
 // Saisons d'une série : catalogue pur (aucun suivi).
@@ -213,6 +213,10 @@ export async function removeFromSuivi(mediaType, id) {
 
 // Change le statut d'un titre : 'a_voir' | 'en_cours' | 'vu' | 'abandonne'.
 export async function setStatus(mediaType, id, status) {
+  // Une série passée à « Vu » doit avoir ses épisodes cochés, sinon elle s'affiche vue
+  // avec une progression à zéro. On coche d'abord : si le réseau manque, rien ne change.
+  // Seuls les épisodes diffusés sont cochés (voir store.markSeriesWatched).
+  if (mediaType === 'tv' && status === 'vu') await markSeriesWatched(id);
   return ecriture(store.setStatus(requireProfile(), mediaType, id, status));
 }
 

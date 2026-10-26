@@ -223,6 +223,9 @@ export default function Detail({
 
   // Épisode dont on montre les dates (un seul à la fois).
   const [episodeDates, setEpisodeDates] = useState(null);
+  // Épisode coché alors que des épisodes plus tôt dans la saison ne le sont pas :
+  // on propose de cocher aussi les précédents. { saison, numeros }
+  const [precedents, setPrecedents] = useState(null);
 
   // « J'ai revu toute la saison » : +1 visionnage sur chaque épisode déjà vu.
   async function revoirSaison() {
@@ -369,6 +372,7 @@ export default function Detail({
     progress != null && progress.watched > 0 && progress.watched >= (progress.aired ?? 0);
 
   async function openSeason(seasonNumber) {
+    setPrecedents(null);
     if (expanded === seasonNumber) {
       setExpanded(null);
       return;
@@ -391,11 +395,36 @@ export default function Detail({
       else {
         await markEpisode(item.id, expanded, ep.episodeNumber);
         vibre();
+        const aujourdhui = new Date().toISOString().slice(0, 10);
+        const manquants = episodes
+          .filter(
+            (e) =>
+              e.episodeNumber < ep.episodeNumber &&
+              !e.watched &&
+              (!e.airDate || e.airDate <= aujourdhui)
+          )
+          .map((e) => e.episodeNumber);
+        setPrecedents(manquants.length > 0 ? { saison: expanded, numeros: manquants } : null);
       }
       setEpisodes((prev) =>
         prev.map((e) =>
           e.episodeNumber === ep.episodeNumber ? { ...e, watched: !e.watched } : e
         )
+      );
+      refreshProgress();
+    } catch (e) {
+      setError(e.message);
+    }
+  }
+
+  async function cocherPrecedents() {
+    const { saison, numeros } = precedents;
+    setPrecedents(null);
+    try {
+      await markWholeSeason(item.id, saison, numeros);
+      vibre();
+      setEpisodes((prev) =>
+        prev.map((e) => (numeros.includes(e.episodeNumber) ? { ...e, watched: true } : e))
       );
       refreshProgress();
     } catch (e) {
@@ -567,6 +596,24 @@ export default function Detail({
                 onChangeDate={changerDateVisionnage}
                 onAjouterDate={ajouterVisionnageDate}
               />
+              {precedents && (
+                <div className="backup__confirm" role="alertdialog" aria-live="polite">
+                  <p>
+                    {precedents.numeros.length === 1
+                      ? "1 épisode plus tôt dans cette saison n'est pas coché."
+                      : `${precedents.numeros.length} épisodes plus tôt dans cette saison ne sont pas cochés.`}{' '}
+                    Les cocher aussi ?
+                  </p>
+                  <div className="backup__actions">
+                    <button className="btn btn--primary" onClick={cocherPrecedents}>
+                      Oui, les cocher
+                    </button>
+                    <button className="btn btn--ghost" onClick={() => setPrecedents(null)}>
+                      Non, seulement celui-ci
+                    </button>
+                  </div>
+                </div>
+              )}
             </>
           )}
 

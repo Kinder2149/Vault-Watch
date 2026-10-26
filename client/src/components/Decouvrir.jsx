@@ -88,7 +88,10 @@ export default function Decouvrir({ items, suivi, dejaChezMoi, cardProps, resetK
   }, [resetKey]);
 
   // Les titres qu'on a le plus aimés : les mieux notés d'abord, puis ceux vus.
-  const sources = useMemo(
+  // Figées une fois calculées, tant que l'écran reste ouvert : sinon marquer un titre « vu »
+  // ou le noter depuis une rangée fait apparaître, disparaître ou remplacer des rangées
+  // « Comme … » sous les doigts. Elles se recalculent à la prochaine ouverture de l'onglet.
+  const calculees = useMemo(
     () =>
       items
         .filter((i) => (i.rating ?? 0) >= 4 || i.status === 'vu')
@@ -96,6 +99,11 @@ export default function Decouvrir({ items, suivi, dejaChezMoi, cardProps, resetK
         .slice(0, NB_COMME),
     [items]
   );
+  const [figees, setFigees] = useState(null);
+  useEffect(() => {
+    if (!figees && calculees.length > 0) setFigees(calculees);
+  }, [calculees, figees]);
+  const sources = figees || calculees;
 
   // Chaque rayon a une clé unique (`cle`) ; le reste dépend de son type.
   const rayons = [

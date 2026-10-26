@@ -1294,6 +1294,22 @@ automatique qui ne demande rien, chacun des deux choix.
 5. **Listes et Découvertes** : B3, B1, B4.
 6. **À part** : B7.
 
+### Diagnostic et groupe « faciles » (2026-10-26)
+Branche de travail = notes + fusion de `correctif-ce-soir` (2.3.1). **Codé, tests verts (322), construction OK,
+pas encore validé sur téléphone** (cases non cochées tant que Kinder n'a pas vu à l'écran) :
+- **A7** « Tout voir » décalé + retour Android : déjà corrigé par la fusion de `correctif-ce-soir`.
+- **A8** bouton ✕ dans la barre de recherche (`SearchBar.jsx`).
+- **A9 / A10** recherche par titre paginée (`searchMultiPage`, « Voir plus » sans doublon) ; « avenger » donne
+  227 résultats chez TMDB mais seule la page 1 était lue. Vérifié à l'écran (19 puis 37 cartes).
+- **A11** balayage entre sous-onglets de « Ce soir » supprimé.
+- **A4** une série passée à « Vu » coche d'abord ses épisodes diffusés (`api.setStatus`).
+- **A5** (cause probable, à confirmer sur téléphone) : les rangées « Comme … » de Découvrir se recalculaient quand
+  on notait ou marquait « vu » un titre ; elles sont figées tant que l'onglet reste ouvert.
+- **B5** après avoir coché un épisode, proposition de cocher aussi les précédents **de la même saison**.
+- **B4** l'idée du soir montre l'affiche nette à gauche (le fond flouté reste).
+**Reste à cadrer** : A1/A2 (sauvegarde, essai émulateur avec compte Google), B6, A6 (capture), A3 (titre exact),
+B1 / B3 (le filtre plateformes et les tris existent déjà), B2, B7.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les

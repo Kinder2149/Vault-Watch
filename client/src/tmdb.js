@@ -113,9 +113,18 @@ function topByPopularity(entries) {
 }
 
 // Recherche multi (films + séries), normalisée pour l'UI.
+// TMDB rend 20 résultats par page (personnes comprises) : une page ne suffit pas pour
+// « marvel » (29 pages). `totalPages` permet à l'écran de proposer « Voir plus ».
+export async function searchMultiPage(query, page = 1) {
+  const data = await tmdbGet('/search/multi', { query, include_adult: 'false', page });
+  return {
+    items: (data.results || []).filter(isFilmOrSerie).map((item) => toCardItem(item)),
+    totalPages: data.total_pages || 1,
+  };
+}
+
 export async function searchMulti(query) {
-  const data = await tmdbGet('/search/multi', { query, include_adult: 'false' });
-  return (data.results || []).filter(isFilmOrSerie).map((item) => toCardItem(item));
+  return (await searchMultiPage(query)).items;
 }
 
 // Tendances du moment, pour l'écran de recherche à vide. `mediaType` : 'all',

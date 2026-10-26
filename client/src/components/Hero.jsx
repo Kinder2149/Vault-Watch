@@ -6,7 +6,7 @@ function teinte(texte) {
   return h;
 }
 
-export default function Hero({ fond, titre, kicker, sous, children }) {
+export default function Hero({ fond, affiche, titre, kicker, sous, children }) {
   const style = fond
     ? undefined
     : { background: `linear-gradient(135deg, hsl(${teinte(titre || '')} 38% 26%), hsl(${(teinte(titre || '') + 50) % 360} 42% 14%))` };
@@ -14,11 +14,14 @@ export default function Hero({ fond, titre, kicker, sous, children }) {
     <section className="hero" style={style}>
       {fond && <img className="hero__fond" src={fond} alt="" loading="lazy" aria-hidden="true" />}
       <div className="hero__voile" />
-      <div className="hero__corps">
-        {kicker && <p className="hero__kicker">{kicker}</p>}
-        <h3 className="hero__titre">{titre}</h3>
-        {sous && <p className="hero__sous">{sous}</p>}
-        {children && <div className="hero__actions">{children}</div>}
+      <div className={`hero__corps ${affiche ? 'hero__corps--affiche' : ''}`}>
+        {affiche && <img className="hero__affiche" src={affiche} alt={`Affiche : ${titre}`} />}
+        <div className="hero__texte">
+          {kicker && <p className="hero__kicker">{kicker}</p>}
+          <h3 className="hero__titre">{titre}</h3>
+          {sous && <p className="hero__sous">{sous}</p>}
+          {children && <div className="hero__actions">{children}</div>}
+        </div>
       </div>
     </section>
   );

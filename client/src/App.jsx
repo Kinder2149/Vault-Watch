@@ -103,6 +103,9 @@ export default function App() {
   const [selectedGenre, setSelectedGenre] = useState(null);
   const [genrePage, setGenrePage] = useState(1);
   const [genreMore, setGenreMore] = useState(true);
+  // Recherche par titre : page chargée et suite disponible (« Voir plus »).
+  const [titrePage, setTitrePage] = useState(1);
+  const [titreMore, setTitreMore] = useState(false);
   const searchSeq = useRef(0);
   // Fiche d'où l'on est parti en touchant un acteur, et l'onglet où elle était
   // ouverte : le retour (bouton ou geste Android) la rouvre. Effacée dès qu'on
@@ -374,10 +377,12 @@ export default function App() {
           setStatus('done');
         }
       } else {
-        const found = await searchTitles(query);
+        const { items: found, totalPages } = await searchTitles(query, 1);
         if (seq === searchSeq.current) {
           setPerson(null);
           setResults(found);
+          setTitrePage(1);
+          setTitreMore(totalPages > 1);
           setStatus('done');
         }
       }
@@ -388,6 +393,23 @@ export default function App() {
         setErreurReseau(estErreurReseau(err));
         setStatus('error');
       }
+    }
+  }
+
+  // « Voir plus » de la recherche par titre : page suivante, sans doublon.
+  async function chargerPlusTitres() {
+    const seq = searchSeq.current;
+    try {
+      const { items, totalPages } = await searchTitles(derniereRecherche.current, titrePage + 1);
+      if (seq !== searchSeq.current) return;
+      setResults((prev) => {
+        const deja = new Set(prev.map(keyOf));
+        return [...prev, ...items.filter((r) => !deja.has(keyOf(r)))];
+      });
+      setTitrePage(titrePage + 1);
+      setTitreMore(titrePage + 1 < totalPages);
+    } catch (err) {
+      setError(err.message);
     }
   }
 
@@ -1087,6 +1109,14 @@ export default function App() {
               />
             ))}
           </section>
+
+          {searchMode === 'title' && titreMore && status === 'done' && hasSearched && (
+            <div className="voirplus">
+              <button className="btn btn--ghost" onClick={chargerPlusTitres}>
+                Voir plus
+              </button>
+            </div>
+          )}
 
           {searchMode === 'genre' &&
             genreMore &&

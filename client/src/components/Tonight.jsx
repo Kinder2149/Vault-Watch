@@ -82,33 +82,6 @@ export default function Tonight({
     window.scrollTo(0, scrollPos.current[subTab] || 0);
   }, [subTab]);
 
-  // Balayage horizontal d'un sous-onglet à l'autre. On ignore les gestes
-  // surtout verticaux : ils appartiennent au défilement de la page.
-  const touch = useRef(null);
-  const swipe = {
-    onTouchStart: (e) => {
-      // Un geste commencé sur une rangée ou des puces qui défilent, ou dans un écran ouvert
-      // par-dessus (« Tout voir »), leur appartient : il ne change pas d'onglet.
-      if (e.target.closest('.rail, .chips-scroll, .overlay, .seg')) {
-        touch.current = null;
-        return;
-      }
-      const t = e.touches[0];
-      touch.current = { x: t.clientX, y: t.clientY };
-    },
-    onTouchEnd: (e) => {
-      if (!touch.current) return;
-      const t = e.changedTouches[0];
-      const dx = t.clientX - touch.current.x;
-      const dy = t.clientY - touch.current.y;
-      touch.current = null;
-      if (Math.abs(dx) < 80 || Math.abs(dx) < Math.abs(dy) * 2) return;
-      const i = SOUS_ONGLETS.findIndex(([v]) => v === subTab);
-      const suivant = SOUS_ONGLETS[i + (dx < 0 ? 1 : -1)];
-      if (suivant) switchTo(suivant[0]);
-    },
-  };
-
   const enCours = items.filter((i) => i.mediaType === 'tv' && i.status === 'en_cours');
 
   // « À voir » ne montre que ce qu'on peut regarder ce soir : les titres pas
@@ -188,7 +161,7 @@ export default function Tonight({
     media === 'all' ? aVoir : aVoir.filter((i) => i.mediaType === media);
 
   return (
-    <div className="tonight" {...swipe}>
+    <div className="tonight">
       <header className="page-head">
         <h2>Quoi regarder ce soir ?</h2>
         <p>Reprends une série, pioche dans ta liste, ou laisse-toi guider.</p>
@@ -219,7 +192,7 @@ export default function Tonight({
         )}
 
         {idee && (
-          <Hero fond={idee.posterUrl} titre={idee.title} kicker="Idée du soir" sous={sousIdee}>
+          <Hero fond={idee.posterUrl} affiche={idee.posterUrl} titre={idee.title} kicker="Idée du soir" sous={sousIdee}>
             <button className="btn btn--primary" onClick={() => cardProps.onOpenDetail(idee)}>
               Voir la fiche
             </button>
