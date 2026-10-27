@@ -2,10 +2,10 @@
 // ce que l'application demande à TMDB et ce qu'elle fait des réponses.
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import {
-  discoverByGenre,
+  searchKeywords,
+  discoverByKeyword,
   getRubrique,
   getPlateformes,
-  parametresDeFiltres,
   fenetreDeRubrique,
 } from '../src/tmdb.js';
 import {
@@ -48,100 +48,55 @@ const serie = (id, nom, date, popularity, note = 7, votes = 500) => ({
   id, name: nom, first_air_date: date, popularity, vote_average: note, vote_count: votes,
 });
 
-describe('Explorer — ce qui part chez TMDB', () => {
-  it('sans genre ni filtre : tout le catalogue par popularité', () => {
-    const p = parametresDeFiltres('movie', FILTRES_VIDES, AUJ);
-    expect(p).toEqual({ sort_by: 'popularity.desc' });
+describe('Mot-clé — ce qui part chez TMDB', () => {
+  it('la saisie part en recherche de mot-clé ; dix propositions au plus, avec id et nom', async () => {
+    fauxTmdb(() => ({
+      results: Array.from({ length: 14 }, (_, i) => ({ id: 100 + i, name: `marvel ${i}` })),
+    }));
+    const liste = await searchKeywords('marvel');
+    expect(appels[0].chemin).toBe('/search/keyword');
+    expect(appels[0].params.query).toBe('marvel');
+    expect(liste).toHaveLength(10);
+    expect(liste[0]).toEqual({ id: 100, name: 'marvel 0' });
   });
 
-  it('une plateforme et une période : titres disponibles chez elle dans la région, sortis à cette période', () => {
-    const f = { periode: '2010s', tri: 'popularite', plateformes: [8, 337] };
-    const film_ = parametresDeFiltres('movie', f, AUJ);
-    expect(film_.with_watch_providers).toBe('8|337'); // « au choix parmi »
-    expect(film_.watch_region).toBe('FR');
-    expect(film_['primary_release_date.gte']).toBe('2010-01-01');
-    expect(film_['primary_release_date.lte']).toBe('2019-12-31');
-    const serie_ = parametresDeFiltres('tv', f, AUJ);
-    expect(serie_['first_air_date.gte']).toBe('2010-01-01');
-  });
-
-  it('la région suit la langue du catalogue', () => {
-    setCatalogLanguage('en');
-    expect(parametresDeFiltres('movie', { plateformes: [8] }, AUJ).watch_region).toBe('US');
-  });
-
-  it('« Plus récent » ne remonte que ce qui est déjà sorti', () => {
-    const p = parametresDeFiltres('movie', { tri: 'recent' }, AUJ);
-    expect(p.sort_by).toBe('primary_release_date.desc');
-    expect(p['primary_release_date.lte']).toBe('2026-09-21');
-    // « Cette année » va jusqu'au 31/12 : « récent » la borne à aujourd'hui.
-    const annee = parametresDeFiltres('movie', { tri: 'recent', periode: 'annee' }, AUJ);
-    expect(annee['primary_release_date.lte']).toBe('2026-09-21');
-  });
-
-  it('« Plus ancien » et « Mieux notés » exigent un minimum de votes', () => {
-    expect(parametresDeFiltres('tv', { tri: 'ancien' }, AUJ)).toMatchObject({
-      sort_by: 'first_air_date.asc',
-      'vote_count.gte': 100,
-    });
-    expect(parametresDeFiltres('movie', { tri: 'notes' }, AUJ)).toMatchObject({
-      sort_by: 'vote_average.desc',
-      'vote_count.gte': 300,
-    });
-  });
-
-  it('découverte sans genre : films et séries sont demandés, filtres inclus', async () => {
+  it('un mot-clé : films et séries sont demandés avec with_keywords, par popularité', async () => {
     fauxTmdb((chemin) => ({
       results: chemin.endsWith('/movie')
-        ? [film(1, 'Vieux film', '2011-01-01', 10)]
+        ? [film(1, 'Film', '2011-01-01', 10)]
         : [serie(2, 'Série', '2015-01-01', 20)],
     }));
-    const items = await discoverByGenre({
-      movie: true, tv: true, page: 1,
-      filtres: { periode: '2010s', tri: 'popularite', plateformes: [8] },
-    });
+    const items = await discoverByKeyword({ keyword: 180547, page: 2 });
     expect(appels).toHaveLength(2);
     for (const a of appels) {
-      expect(a.params.with_watch_providers).toBe('8');
-      expect(a.params.with_genres).toBeUndefined(); // aucun genre imposé
+      expect(a.params.with_keywords).toBe('180547');
+      expect(a.params.sort_by).toBe('popularity.desc');
+      expect(a.params.page).toBe('2');
+      expect(a.params.with_watch_providers).toBeUndefined();
     }
-    expect(items.map((i) => i.title)).toEqual(['Série', 'Vieux film']); // popularité
+    expect(items.map((i) => i.title)).toEqual(['Série', 'Film']);
   });
 
-  it('sans genre, les talk-shows et la télé-réalité sont écartés côté séries ; avec un genre, rien de plus', async () => {
+  it('« Films » ne demande que les films, « Séries » que les séries', async () => {
     fauxTmdb(() => ({ results: [] }));
-    await discoverByGenre({ movie: true, tv: true });
-    expect(appels.find((a) => a.chemin.endsWith('/tv')).params.without_genres).toBe('10767,10763,10764');
+    await discoverByKeyword({ keyword: 1, tv: false });
+    expect(appels.map((a) => a.chemin)).toEqual(['/discover/movie']);
     appels.length = 0;
-    await discoverByGenre({ genre: 'comedie', movie: false, tv: true });
-    expect(appels[0].params.without_genres).toBeUndefined();
+    await discoverByKeyword({ keyword: 1, movie: false });
+    expect(appels.map((a) => a.chemin)).toEqual(['/discover/tv']);
   });
 
-  it('le tri « Plus récent » réunit films et séries par date, pas par appel', async () => {
-    fauxTmdb((chemin) => ({
-      results: chemin.endsWith('/movie')
-        ? [film(1, 'Film 2020', '2020-01-01', 1), film(3, 'Film 2024', '2024-01-01', 1)]
-        : [serie(2, 'Série 2022', '2022-01-01', 99)],
-    }));
-    const items = await discoverByGenre({ filtres: { tri: 'recent' } });
-    expect(items.map((i) => i.title)).toEqual(['Film 2024', 'Série 2022', 'Film 2020']);
-  });
-
-  it('le tri « Mieux notés » classe par note', async () => {
-    fauxTmdb((chemin) => ({
-      results: chemin.endsWith('/movie')
-        ? [film(1, 'Moyen', '2020-01-01', 1, 6.1), film(3, 'Excellent', '2024-01-01', 1, 9.0)]
-        : [serie(2, 'Bon', '2022-01-01', 99, 8.0)],
-    }));
-    const items = await discoverByGenre({ filtres: { tri: 'notes' } });
-    expect(items.map((i) => i.title)).toEqual(['Excellent', 'Bon', 'Moyen']);
-  });
-
-  it("un genre choisi et un filtre s'additionnent, avec le seuil de votes le plus exigeant", async () => {
+  it('« Sur mes plateformes » : titres disponibles chez elles (au choix) dans la région du catalogue', async () => {
     fauxTmdb(() => ({ results: [] }));
-    await discoverByGenre({ genre: 'histoire', movie: true, tv: false, filtres: { tri: 'notes' } });
-    expect(appels[0].params.with_keywords).toBeTruthy(); // le genre (mots-clés d'époque)
-    expect(appels[0].params['vote_count.gte']).toBe('300'); // 300 (note) > 20 (genre)
+    await discoverByKeyword({ keyword: 1, plateformes: [337, 350] });
+    for (const a of appels) {
+      expect(a.params.with_watch_providers).toBe('337|350');
+      expect(a.params.watch_region).toBe('FR');
+    }
+    appels.length = 0;
+    setCatalogLanguage('en');
+    await discoverByKeyword({ keyword: 1, plateformes: [8] });
+    expect(appels[0].params.watch_region).toBe('US');
   });
 });
 

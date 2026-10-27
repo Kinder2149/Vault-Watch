@@ -2221,6 +2221,15 @@ l'anglais ; Titre et Acteur inchangés. Émulateur et coupure réseau : à la cl
 parcours « un genre seul, sans mot-clé » d'Explorer (tout le catalogue par genre) : le genre devient un filtre sur les titres d'un mot-clé ; Découvrir garde ses rayons par thème. D'accord ? (3) « Sur mes plateformes »
 est **ajouté** dans Mot-clé (envoyé à TMDB) et remplace le choix de plateformes propre à Explorer : d'accord ?
 
+**B2-1 codée et vérifiée (2026-10-27, phase 6)** : 474 tests verts (480 avant : les tests d'« Explorer » — découverte par genre, paramètres de filtres — sont remplacés par 4 tests de mot-clé : recherche de mots-clés,
+`with_keywords` et pagination, Films / Séries, plateformes et région), build propre. Navigateur en largeur téléphone, vrai catalogue : le sélecteur est « Titre / Acteur / Mot-clé » (`essais/2026-10-27_B2-1/01-mode-mot-cle-sans-explorer.jpg`,
+avec la ligne sur l'anglais) ; « marvel » propose « marvel », « marvel cinematic universe (mcu) » et des approchants (TMDB renvoie aussi des mots proches : marcel, market…) ; toucher « marvel cinematic universe (mcu) » montre
+39 films et séries Marvel sous « Mot-clé : … », 1 titre déjà suivi masqué (`02-marvel-resultats.jpg`) ; « Films » relance l'appel et ne demande que `/discover/movie` ; « 2020s » ne garde aucun titre plus ancien ; un genre réduit
+la liste ; « Sur mes plateformes » envoie `with_keywords=180547&with_watch_providers=337|350&watch_region=FR` ; le groupe « Plateformes » est présent dans le panneau et la ligne « pas de filtre par plateforme » absente ;
+« zzzqqxx » : « Aucun mot-clé pour … » + ligne sur l'anglais (`03-aucun-mot-cle.jpg`) ; un mot-clé unique s'ouvre seul (« voyage dans le temps » existe en français mais n'a aucun titre : message « Aucun titre pour ce mot-clé » ajouté) ;
+changer de mode remet les filtres à zéro ; Titre et Acteur gardent leur panneau (B1-4). Retiré : `discoverByGenre`, `parametresDeFiltres`, l'état d'Explorer dans `App.jsx`, la branche « plateformes d'Explorer » de `Filtres.jsx`.
+Non essayé : « Voir plus » sur plusieurs pages et la coupure réseau sur émulateur (clôture B2-2).
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les

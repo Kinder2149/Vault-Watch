@@ -13,7 +13,6 @@ import Tonight from './components/Tonight.jsx';
 import Settings from './components/Settings.jsx';
 import StatusMenu from './components/StatusMenu.jsx';
 import CatalogLanguage from './components/CatalogLanguage.jsx';
-import Filtres from './components/Filtres.jsx';
 import BarreFiltres from './components/BarreFiltres.jsx';
 import Icon from './components/Icon.jsx';
 import About from './components/About.jsx';
@@ -36,8 +35,8 @@ import {
   getActorFilmography,
   getRecommendations,
   getGenres,
-  discoverGenre,
-  getPlateformes,
+  chercherMotsCles,
+  discoverMotCle,
   getSuggestions,
   getSuivi,
   addToSuivi,
@@ -82,12 +81,10 @@ import {
 } from './backup.js';
 
 import {
-  FILTRES_VIDES,
   FILTRES_BIBLIO_VIDES,
   FILTRES_DECOUVERTE_VIDES,
   filtresDecouverteActifs,
   appliquerFiltresDecouverte,
-  filtresActifs,
 } from './filtres.js';
 
 const keyOf = (item) => `${item.mediaType}-${item.id}`;
@@ -103,15 +100,16 @@ export default function App() {
   const [status, setStatus] = useState('idle'); // idle | loading | done | error
   const [error, setError] = useState('');
   const [hasSearched, setHasSearched] = useState(false);
-  const [mediaFilter, setMediaFilter] = useState('all'); // all | movie | tv
-  const [searchMode, setSearchMode] = useState('title'); // title | actor | genre
+  const [searchMode, setSearchMode] = useState('title'); // title | actor | keyword
   const [person, setPerson] = useState(null); // acteur résolu (mode acteur)
   const derniereRecherche = useRef('');
   const [erreurReseau, setErreurReseau] = useState(false);
   const [genres, setGenres] = useState([]); // [{ key, name }] — liste unique films + séries
-  const [selectedGenre, setSelectedGenre] = useState(null);
-  const [genrePage, setGenrePage] = useState(1);
-  const [genreMore, setGenreMore] = useState(true);
+  // Mot-clé : propositions pour la saisie, mot-clé ouvert, page chargée et suite disponible.
+  const [motsCles, setMotsCles] = useState([]); // [{ id, name }]
+  const [motCle, setMotCle] = useState(null);
+  const [motClePage, setMotClePage] = useState(1);
+  const [motCleMore, setMotCleMore] = useState(true);
   // Recherche par titre : page chargée et suite disponible (« Voir plus »).
   const [titrePage, setTitrePage] = useState(1);
   const [titreMore, setTitreMore] = useState(false);
@@ -126,13 +124,9 @@ export default function App() {
   // barre est recréée (`barreCle`) pour ne pas rejouer un ancien texte tapé.
   const acteurParFiche = useRef(false);
   const [barreCle, setBarreCle] = useState(0);
-  // Filtres de la recherche (Titre, Acteur, Explorer) : période, tri et,
-  // dans Explorer seulement, plateformes. Remis à zéro à chaque changement de mode.
-  const [filtres, setFiltres] = useState(FILTRES_VIDES);
-  const [filtresOuverts, setFiltresOuverts] = useState(false);
-  // Titre et Acteur : le panneau commun (type, année, genre, tri). Explorer garde `filtres` et `mediaFilter`.
+  // Filtres de la recherche : le panneau commun (type, année, genre, tri ; plateformes pour un mot-clé).
+  // Remis à zéro à chaque changement de mode.
   const [filtresRecherche, setFiltresRecherche] = useState(FILTRES_DECOUVERTE_VIDES);
-  const [plateformes, setPlateformes] = useState([]);
   // Suivi complet : clé -> item (avec status et listStatus).
   const [suivi, setSuivi] = useState(() => new Map());
   const [openDetail, setOpenDetail] = useState(null);
@@ -319,20 +313,13 @@ export default function App() {
     getGenres().then(setGenres).catch(() => {});
   }, []);
 
-  // Explorer : la découverte se relance à l'entrée dans le mode, et quand le
-  // filtre Films/Séries ou l'un des filtres change. Le genre est facultatif.
+  // Mot-clé : les titres se rechargent quand on ouvre un mot-clé, et quand le type (Films / Séries)
+  // ou « Sur mes plateformes » change : ces deux réglages partent chez TMDB.
   useEffect(() => {
-    if (searchMode !== 'genre') return;
-    runDiscover(selectedGenre, mediaFilter);
+    if (searchMode !== 'keyword' || !motCle) return;
+    runMotCle(motCle, 1, false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mediaFilter, searchMode, filtres]);
-
-  // Liste des plateformes : chargée en entrant dans Explorer (et rechargée si la
-  // langue, donc la région, change).
-  useEffect(() => {
-    if (searchMode !== 'genre') return;
-    getPlateformes().then(setPlateformes).catch(() => {});
-  }, [searchMode, catalogLang]);
+  }, [motCle, filtresRecherche.media, filtresRecherche.surMesPlateformes, searchMode]);
 
   function handleSelectProfile(id) {
     setActiveProfileId(id);
@@ -398,6 +385,8 @@ export default function App() {
     setFicheOrigine(null);
     if (!query) {
       setResults([]);
+      setMotsCles([]);
+      setMotCle(null);
       setPerson(null);
       setStatus('idle');
       setHasSearched(false);
@@ -409,7 +398,17 @@ export default function App() {
     setErreurReseau(false);
     setHasSearched(true);
     try {
-      if (searchMode === 'actor') {
+      if (searchMode === 'keyword') {
+        const trouves = await chercherMotsCles(query);
+        if (seq === searchSeq.current) {
+          setPerson(null);
+          setResults([]);
+          setMotsCles(trouves);
+          // Un seul mot-clé possible : on l'ouvre directement.
+          setMotCle(trouves.length === 1 ? trouves[0] : null);
+          setStatus('done');
+        }
+      } else if (searchMode === 'actor') {
         const { person: found, results: credits } = await searchByActor(query);
         if (seq === searchSeq.current) {
           setPerson(found);
@@ -462,12 +461,10 @@ export default function App() {
     setFicheOrigine({ item: openDetail, view });
     setOpenDetail(null);
     showTab('search');
-    setFiltres(FILTRES_VIDES);
     setFiltresRecherche(FILTRES_DECOUVERTE_VIDES);
-    setFiltresOuverts(false);
     setSearchMode('actor');
-    setSelectedGenre(null);
-    setMediaFilter('all');
+    setMotCle(null);
+    setMotsCles([]);
     setResults([]);
     setPerson(null);
     setError('');
@@ -500,44 +497,40 @@ export default function App() {
 
   // Change de mode de recherche en repartant d'un état propre.
   function changeMode(mode) {
-    // Retoucher Explorer ne doit pas vider la découverte affichée.
-    if (mode === 'genre' && searchMode === 'genre') return;
     acteurParFiche.current = false;
     setFicheOrigine(null);
     // Les filtres d'un mode ne suivent pas dans l'autre : leur effet n'est pas le même.
-    setFiltres(FILTRES_VIDES);
     setFiltresRecherche(FILTRES_DECOUVERTE_VIDES);
-    setFiltresOuverts(false);
     setSearchMode(mode);
-    setSelectedGenre(null);
+    setMotCle(null);
+    setMotsCles([]);
     setPerson(null);
     setResults([]);
     setHasSearched(false);
     setStatus('idle');
   }
 
-  async function runDiscover(genre, filter, page = 1, append = false) {
+  // Les titres d'un mot-clé. Les titres déjà suivis sont masqués à l'affichage : une page TMDB peut
+  // n'en laisser que quelques-uns. On enchaîne donc les pages jusqu'à avoir de quoi remplir l'écran
+  // (12 nouveaux), 4 pages au plus par appui. Le type et les plateformes partent chez TMDB.
+  async function runMotCle(mot, page = 1, append = false) {
     const seq = ++searchSeq.current;
     setError('');
-    setHasSearched(true);
-    setPerson(null);
+    setErreurReseau(false);
+    const { media, surMesPlateformes } = filtresRecherche;
     const params = {
-      genre: genre?.key, // facultatif : sans genre, tout le catalogue
-      movie: filter !== 'tv',
-      tv: filter !== 'movie',
-      page,
-      filtres,
+      keyword: mot.id,
+      movie: media !== 'tv',
+      tv: media !== 'movie',
+      plateformes: surMesPlateformes ? lirePlateformes() : [],
     };
     if (!append) setStatus('loading');
     try {
-      // Les titres déjà suivis sont masqués à l'affichage : une page TMDB de
-      // 40 titres peut n'en laisser que 3. On enchaîne donc les pages jusqu'à
-      // avoir de quoi remplir l'écran (12 nouveaux), 4 pages au plus par appui.
       const found = [];
       let p = page;
       let more = true;
       for (let essais = 1; ; essais++) {
-        const lot = await discoverGenre({ ...params, page: p });
+        const lot = await discoverMotCle({ ...params, page: p });
         if (seq !== searchSeq.current) return;
         if (lot.length === 0) {
           more = false;
@@ -548,29 +541,34 @@ export default function App() {
         if (nouveaux >= 12 || essais >= 4) break;
         p++;
       }
-      setGenrePage(p);
-      setGenreMore(more);
+      setMotClePage(p);
+      setMotCleMore(more);
       setResults((prev) => {
         if (!append) return found;
-        const seen = new Set(prev.map((r) => `${r.mediaType}-${r.id}`));
-        return [...prev, ...found.filter((r) => !seen.has(`${r.mediaType}-${r.id}`))];
+        const seen = new Set(prev.map(keyOf));
+        return [...prev, ...found.filter((r) => !seen.has(keyOf(r)))];
       });
       setStatus('done');
     } catch (err) {
       if (seq === searchSeq.current) {
         setError(err.message);
+        setErreurReseau(estErreurReseau(err));
         setStatus('error');
       }
     }
   }
 
-  // Retoucher le genre déjà choisi le retire (retour à tout le catalogue).
-  function selectGenre(genre) {
-    const suivant = selectedGenre?.key === genre.key ? null : genre;
-    setSelectedGenre(suivant);
-    setGenrePage(1);
-    setGenreMore(true);
-    runDiscover(suivant, mediaFilter, 1, false);
+  // Toucher un mot-clé l'ouvre ; le retoucher le referme (retour aux propositions).
+  function choisirMotCle(mot) {
+    if (motCle?.id === mot.id) {
+      setMotCle(null);
+      setResults([]);
+      return;
+    }
+    setResults([]);
+    setMotClePage(1);
+    setMotCleMore(true);
+    setMotCle(mot);
   }
 
   // Titres ajoutés pendant cette séance. La découverte (genre, acteur,
@@ -857,44 +855,46 @@ export default function App() {
     onLongPress: setStatusMenu,
   };
 
+  // Le panneau commun de la recherche. Un mot-clé part chez TMDB, qui sait filtrer par plateforme ;
+  // une recherche par titre ou par acteur, non : une ligne le dit.
   const barreRecherche = {
     vides: FILTRES_DECOUVERTE_VIDES,
     actifs: filtresDecouverteActifs,
     genres,
-    note: 'Pas de filtre par plateforme ici : TMDB ne le permet pas pour une recherche.',
+    ...(searchMode === 'keyword'
+      ? {
+          surMesPlateformes: {
+            nbChoisies: lirePlateformes().length,
+            masques: 0,
+            onChoisir: () => setShowPlateformes(true),
+          },
+        }
+      : { note: 'Pas de filtre par plateforme ici : TMDB ne le permet pas pour une recherche.' }),
   };
-  // Titre et Acteur : le panneau commun (type compris). Explorer : son sélecteur Films / Séries.
-  const recherche = searchMode !== 'genre';
-  const resultsDuType =
-    recherche || mediaFilter === 'all'
-      ? results
-      : results.filter((r) => r.mediaType === mediaFilter);
 
-  // Titre et Acteur : les filtres (année, tri) jouent sur ce qui est déjà
-  // affiché — TMDB ne filtre pas ces listes. Explorer, lui, les envoie
-  // directement à TMDB (voir tmdb.js) : `results` en tient déjà compte.
-  const resultsAffiches =
-    recherche ? appliquerFiltresDecouverte(resultsDuType, filtresRecherche) : resultsDuType;
+  // Les filtres (année, genre, tri) jouent sur ce qui est déjà affiché : TMDB ne filtre pas ces listes.
+  // Pour un mot-clé, le type et les plateformes sont déjà passés par TMDB (`results` en tient compte).
+  const resultsAffiches = appliquerFiltresDecouverte(results, filtresRecherche);
 
-  // Par genre et par acteur, on cherche à découvrir : ce qu'on a déjà est
-  // masqué. Par titre, on le garde — on y cherche souvent un titre précis
-  // pour l'ouvrir.
-  const decouverte = searchMode === 'genre' || searchMode === 'actor';
+  // Par mot-clé et par acteur, on cherche à découvrir : ce qu'on a déjà est masqué. Par titre, on le
+  // garde — on y cherche souvent un titre précis pour l'ouvrir.
+  const decouverte = searchMode === 'keyword' || searchMode === 'actor';
   const filteredResults = decouverte
     ? resultsAffiches.filter((r) => !dejaChezMoi(r))
     : resultsAffiches;
   const masques = resultsAffiches.length - filteredResults.length;
-  // Un filtre (Titre / Acteur) qui vide une liste pourtant non vide : message
-  // différent de « Aucun résultat » (qui, lui, dit que la recherche n'a rien donné).
+  // Un filtre qui vide une liste pourtant non vide : message différent de « Aucun résultat »
+  // (qui, lui, dit que la recherche n'a rien donné).
   const filtresToutEcarte =
-    recherche &&
     filtresDecouverteActifs(filtresRecherche) &&
-    resultsDuType.length > 0 &&
+    results.length > 0 &&
     resultsAffiches.length === 0;
 
   // Écran de recherche à vide (titre / acteur, avant toute frappe) : on propose
   // l'accueil (Tendances / Nouveautés / À venir) plutôt qu'un écran vide.
-  const isDefault = searchMode !== 'genre' && !hasSearched;
+  const isDefault = searchMode !== 'keyword' && !hasSearched;
+  // Le panneau : dès qu'il y a une recherche ; pour un mot-clé, une fois un mot-clé ouvert.
+  const barreVisible = hasSearched && (searchMode !== 'keyword' || !!motCle);
   // Passage d'un onglet à l'autre : on rafraîchit les données dont il a besoin.
   // `push` alimente l'historique de navigation ; on le laisse à false quand
   // c'est justement le retour qui nous amène là (sinon on tournerait en rond).
@@ -984,24 +984,24 @@ export default function App() {
         <>
           {/* Le champ de recherche d'abord : c'est ce pour quoi on ouvre l'écran.
               Les modes et les filtres viennent ensuite, pas l'inverse. */}
-          {searchMode !== 'genre' && (
-            <SearchBar
-              key={barreCle}
-              onSearch={handleSearch}
-              mode={searchMode}
-              placeholder={
-                searchMode === 'actor'
-                  ? 'Chercher un acteur…'
+          <SearchBar
+            key={barreCle}
+            onSearch={handleSearch}
+            mode={searchMode}
+            placeholder={
+              searchMode === 'actor'
+                ? 'Chercher un acteur…'
+                : searchMode === 'keyword'
+                  ? 'Un thème : marvel, zombie, time travel…'
                   : 'Chercher un film ou une série…'
-              }
-            />
-          )}
+            }
+          />
 
           <div className="seg" aria-label="Chercher par">
             {[
               ['title', 'Titre'],
               ['actor', 'Acteur'],
-              ['genre', 'Explorer'],
+              ['keyword', 'Mot-clé'],
             ].map(([v, label]) => (
               <button
                 key={v}
@@ -1013,69 +1013,34 @@ export default function App() {
             ))}
           </div>
 
-          {searchMode === 'genre' && (
-            <div className="chips-scroll chips-scroll--page">
-              {genres.map((g) => (
+          {searchMode === 'keyword' && !hasSearched && (
+            <p className="hint">
+              Tape un thème, en anglais : « marvel », « zombie », « time travel »… Les mots-clés du catalogue
+              TMDB sont en anglais.
+            </p>
+          )}
+
+          {searchMode === 'keyword' && hasSearched && motsCles.length > 0 && (
+            <div className="chips-scroll chips-scroll--page" role="group" aria-label="Mots-clés">
+              {motsCles.map((k) => (
                 <button
-                  key={g.key}
-                  className={`chip ${selectedGenre?.key === g.key ? 'on' : ''}`}
-                  onClick={() => selectGenre(g)}
+                  key={k.id}
+                  className={`chip ${motCle?.id === k.id ? 'on' : ''}`}
+                  aria-pressed={motCle?.id === k.id}
+                  onClick={() => choisirMotCle(k)}
                 >
-                  {g.name}
+                  {k.name}
                 </button>
               ))}
             </div>
           )}
 
-          {searchMode === 'genre' && (hasSearched || isDefault) && (
-            <div className="seg seg--sm">
-              {[
-                ['all', 'Tout'],
-                ['movie', 'Films'],
-                ['tv', 'Séries'],
-              ].map(([v, label]) => (
-                <button
-                  key={v}
-                  className={mediaFilter === v ? 'on' : ''}
-                  onClick={() => setMediaFilter(v)}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-          )}
-
-          {/* Filtres : dans Explorer dès l'entrée ; dans Titre et Acteur, une fois
-              qu'il y a des résultats à filtrer. */}
-          {recherche && hasSearched && (
+          {barreVisible && (
             <BarreFiltres
               filtres={filtresRecherche}
               onChange={setFiltresRecherche}
               {...barreRecherche}
             />
-          )}
-          {searchMode === 'genre' && (
-            <>
-              <div className="filtres-bar">
-                <button
-                  className={`chip ${filtresOuverts || filtresActifs(filtres) ? 'on' : ''}`}
-                  aria-expanded={filtresOuverts}
-                  onClick={() => setFiltresOuverts((o) => !o)}
-                >
-                  Filtres
-                  {filtresActifs(filtres) && <span className="filtres-bar__dot" aria-hidden="true" />}
-                </button>
-              </div>
-              {filtresOuverts && (
-                <Filtres
-                  filtres={filtres}
-                  onChange={setFiltres}
-                  plateformes={plateformes}
-                  avecPlateformes
-                  indicationPlateforme={false}
-                />
-              )}
-            </>
           )}
 
           {searchMode === 'actor' && person && (
@@ -1092,10 +1057,10 @@ export default function App() {
             </div>
           )}
 
-          {searchMode === 'genre' && selectedGenre && (
+          {searchMode === 'keyword' && motCle && (
             <div className="actor-head">
               <span>
-                Genre : <b>{selectedGenre.name}</b>
+                Mot-clé : <b>{motCle.name}</b>
               </span>
             </div>
           )}
@@ -1111,10 +1076,18 @@ export default function App() {
             hasSearched &&
             searchMode === 'actor' &&
             !person && <p className="hint">Aucun acteur trouvé.</p>}
+          {status === 'done' && hasSearched && searchMode === 'keyword' && !motCle && motsCles.length === 0 && (
+            <Vide
+              icone="search"
+              titre={`Aucun mot-clé pour « ${derniereRecherche.current} »`}
+              texte="Les mots-clés du catalogue TMDB sont en anglais : essaie « marvel », « zombie », « time travel »."
+            />
+          )}
           {status === 'done' &&
             hasSearched &&
             filteredResults.length === 0 &&
-            !(searchMode === 'actor' && !person) && (
+            !(searchMode === 'actor' && !person) &&
+            !(searchMode === 'keyword' && !motCle) && (
               <Vide
                 icone="search"
                 titre={
@@ -1122,7 +1095,9 @@ export default function App() {
                     ? 'Aucun titre ne correspond'
                     : masques > 0
                       ? 'Tu as déjà tout'
-                      : 'Aucun résultat'
+                      : searchMode === 'keyword'
+                        ? 'Aucun titre pour ce mot-clé'
+                        : 'Aucun résultat'
                 }
                 action={
                   filtresToutEcarte
@@ -1134,7 +1109,9 @@ export default function App() {
                     ? 'Tes filtres écartent tous les résultats de cette recherche.'
                     : masques > 0
                       ? 'Tu as déjà tous ces titres dans ton suivi.'
-                      : 'Essaie une autre orthographe, ou cherche par acteur.'
+                      : searchMode === 'keyword'
+                        ? 'Les mots-clés du catalogue sont en anglais : essaie un autre mot-clé proposé, ou la version anglaise.'
+                        : 'Essaie une autre orthographe, ou cherche par acteur.'
                 }
               />
             )}
@@ -1197,16 +1174,15 @@ export default function App() {
             </div>
           )}
 
-          {searchMode === 'genre' &&
-            genreMore &&
+          {searchMode === 'keyword' &&
+            motCle &&
+            motCleMore &&
             status === 'done' &&
             filteredResults.length > 0 && (
               <div className="voirplus">
                 <button
                   className="btn btn--ghost"
-                  onClick={() =>
-                    runDiscover(selectedGenre, mediaFilter, genrePage + 1, true)
-                  }
+                  onClick={() => runMotCle(motCle, motClePage + 1, true)}
                 >
                   Voir plus
                 </button>

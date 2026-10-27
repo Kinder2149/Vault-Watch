@@ -157,13 +157,17 @@ export async function getGenres() {
   return tmdb.getGenres();
 }
 
-// Titres d'un genre de la liste unique (`key`), côté films et/ou séries.
-// Le genre est facultatif ; `filtres` = { periode, tri, plateformes } (voir filtres.js).
-export async function discoverGenre({ genre, movie = true, tv = true, page = 1, filtres }) {
-  return tmdb.discoverByGenre({ genre, movie, tv, page, filtres });
+// Mots-clés TMDB qui correspondent à la saisie : [{ id, name }] (noms en anglais).
+export async function chercherMotsCles(query) {
+  return tmdb.searchKeywords(query);
 }
 
-// Plateformes de streaming proposées dans les filtres d'« Explorer ».
+// Films et/ou séries qui portent un mot-clé ; `plateformes` = ids (voir plateformes.js).
+export async function discoverMotCle({ keyword, movie = true, tv = true, page = 1, plateformes = [] }) {
+  return tmdb.discoverByKeyword({ keyword, movie, tv, page, plateformes });
+}
+
+// Plateformes de streaming proposées (Mes plateformes, Mes listes).
 export async function getPlateformes() {
   return tmdb.getPlateformes();
 }

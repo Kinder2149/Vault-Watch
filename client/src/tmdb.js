@@ -8,7 +8,7 @@
 // n'ouvre que le catalogue public TMDB, aucune donnée personnelle ni budget.
 
 import { getCatalogLanguage, getCatalogRegion, TMDB_LANG } from './lang.js';
-import { bornesDePeriode, dateRelative, VOTES_MIN } from './filtres.js';
+import { dateRelative } from './filtres.js';
 
 const TMDB_BASE = 'https://api.themoviedb.org/3';
 
@@ -443,42 +443,6 @@ export async function discoverByMood({ mood, movie = true, tv = true, page = 1, 
   return fusionner(entries, MOODS.find((m) => m.key === mood)?.tri);
 }
 
-// Ce que les filtres de « Explorer » demandent à TMDB, pour un film ou une série.
-//  - Tri : popularité (défaut), date, ou note. « Plus récent » ne remonte que ce
-//    qui est déjà sorti ; « Plus ancien » et « Mieux notés » exigent un minimum de
-//    votes, sinon ils ne montrent que des titres inconnus.
-//  - Période : bornes de date de sortie (première diffusion pour une série).
-//  - Plateforme : titres disponibles chez elle (abonnement, location ou achat, selon
-//    ce qu'elle propose) dans la région du catalogue ; plusieurs = « au choix ».
-export function parametresDeFiltres(mediaType, filtres, aujourdhui = new Date()) {
-  const champ = mediaType === 'movie' ? 'primary_release_date' : 'first_air_date';
-  const { periode, tri = 'popularite', plateformes = [] } = filtres || {};
-  const params = {};
-
-  const SORT = {
-    popularite: 'popularity.desc',
-    recent: `${champ}.desc`,
-    ancien: `${champ}.asc`,
-    notes: 'vote_average.desc',
-  };
-  params.sort_by = SORT[tri] || SORT.popularite;
-  if (VOTES_MIN[tri]) params['vote_count.gte'] = VOTES_MIN[tri];
-
-  let { from, to } = bornesDePeriode(periode, aujourdhui);
-  if (tri === 'recent') {
-    const auj = dateRelative(0, aujourdhui);
-    if (!to || to > auj) to = auj;
-  }
-  if (from) params[`${champ}.gte`] = from;
-  if (to) params[`${champ}.lte`] = to;
-
-  if (plateformes.length > 0) {
-    params.with_watch_providers = ou(plateformes);
-    params.watch_region = getCatalogRegion();
-  }
-  return params;
-}
-
 // Réunit films et séries dans l'ordre demandé (ce que TMDB ne fait pas entre
 // deux appels séparés). Une date absente passe à la fin.
 function fusionner(entries, tri = 'popularite', limite = 50) {
@@ -499,22 +463,24 @@ function fusionner(entries, tri = 'popularite', limite = 50) {
     .map((e) => e.item);
 }
 
-// Découverte : films et/ou séries, avec un genre facultatif et des filtres
-// (période, plateformes, tri). Paginé. Sans genre ni filtre : tout le catalogue
-// par popularité.
-export async function discoverByGenre({ genre, movie = true, tv = true, page = 1, filtres }) {
+// Mots-clés TMDB qui correspondent à la saisie : [{ id, name }], dix au plus. Les noms sont en
+// anglais (« marvel », « time travel ») : TMDB ne les traduit pas.
+export async function searchKeywords(query) {
+  const data = await tmdbGet('/search/keyword', { query, page: 1 });
+  return (data.results || []).slice(0, 10).map((k) => ({ id: k.id, name: k.name }));
+}
+
+// Films et/ou séries qui portent un mot-clé, par popularité. Paginé. `plateformes` : ids de
+// plateformes (abonnement, location ou achat, « au choix »), dans la région du catalogue.
+export async function discoverByKeyword({ keyword, movie = true, tv = true, page = 1, plateformes = [] }) {
   const calls = [];
   for (const [mediaType, voulu] of [['movie', movie], ['tv', tv]]) {
     if (!voulu) continue;
-    const base = genre ? parametresDeGenre(genre, mediaType) : {};
-    if (!base) continue;
-    const params = { ...base, ...parametresDeFiltres(mediaType, filtres) };
-    // Sans genre, la découverte porte sur tout le catalogue : on écarte les
-    // talk-shows, journaux et télé-réalité, comme pour les nouveautés.
-    if (!genre && mediaType === 'tv') params.without_genres = '10767,10763,10764';
-    // Le seuil de votes du genre et celui du tri : on garde le plus exigeant.
-    const votes = Math.max(base['vote_count.gte'] || 0, params['vote_count.gte'] || 0);
-    if (votes) params['vote_count.gte'] = votes;
+    const params = { sort_by: 'popularity.desc', with_keywords: String(keyword) };
+    if (plateformes.length > 0) {
+      params.with_watch_providers = ou(plateformes);
+      params.watch_region = getCatalogRegion();
+    }
     calls.push(
       tmdbGet(`/discover/${mediaType}`, {
         ...params,
@@ -530,7 +496,7 @@ export async function discoverByGenre({ genre, movie = true, tv = true, page = 1
       entries.push({ item: toCardItem(c, mediaType), popularity: c.popularity || 0 });
     }
   }
-  return fusionner(entries, filtres?.tri);
+  return fusionner(entries);
 }
 
 // Plateformes de streaming proposées dans les filtres : les plus courantes de la

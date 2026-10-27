@@ -1,4 +1,3 @@
-import { PucesFantome } from './Fantomes.jsx';
 import {
   PERIODES,
   TRIS,
@@ -17,9 +16,6 @@ import {
 export default function Filtres({
   filtres,
   onChange,
-  plateformes = [],
-  avecPlateformes = false, // choix des plateformes (Explorer)
-  indicationPlateforme = false, // dit où choisir une plateforme (Titre, Acteur)
   tris = TRIS,
   avecNote = false, // filtre « Ma note » (Mes listes)
   genres = null, // [{ key, name }] : filtre par genre (Mes listes)
@@ -31,41 +27,8 @@ export default function Filtres({
 }) {
   const maj = (patch) => onChange({ ...filtres, ...patch });
 
-  function basculePlateforme(id) {
-    const deja = filtres.plateformes.includes(id);
-    maj({
-      plateformes: deja
-        ? filtres.plateformes.filter((p) => p !== id)
-        : [...filtres.plateformes, id],
-    });
-  }
-
   return (
     <div className="filtres" role="group" aria-label="Filtres">
-      {avecPlateformes && (
-        <div className="filtres__groupe">
-          <span className="filtres__label">Plateforme</span>
-          <div className="filtres__chips">
-            {plateformes.length === 0 && <PucesFantome />}
-            {plateformes.map((p) => (
-              <button
-                key={p.id}
-                className={`chip ${filtres.plateformes.includes(p.id) ? 'on' : ''}`}
-                aria-pressed={filtres.plateformes.includes(p.id)}
-                onClick={() => basculePlateforme(p.id)}
-              >
-                {p.name}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-      {!avecPlateformes && indicationPlateforme && (
-        <p className="hint hint--small">
-          La plateforme se choisit dans « Explorer » : ici, on filtre les résultats affichés.
-        </p>
-      )}
-
       {surMesPlateformes && (
         <div className="filtres__groupe">
           <span className="filtres__label">Plateformes</span>
