@@ -1170,6 +1170,20 @@ button { font-family: inherit; }
 .dispo--location_achat, .dispo-mini--location_achat { --dispo-c: #D98B2B; }
 .dispo--sorti_sans_streaming, .dispo-mini--sorti_sans_streaming { --dispo-c: var(--muted); }
 
+/* Écran « Mes plateformes » : une ligne par service, logo + nom + coche. */
+.plateformes-liste { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+.plateformes-liste__ligne {
+  display: flex; align-items: center; gap: var(--s-3); width: 100%; min-height: 56px;
+  padding: var(--s-2) var(--s-4); border: 0; border-bottom: 1px solid var(--border);
+  background: transparent; color: var(--text); font: inherit; text-align: left; cursor: pointer;
+}
+.plateformes-liste__ligne:last-child { border-bottom: 0; }
+.plateformes-liste__ligne:active { background: var(--surface2); }
+.plateformes-liste__ligne.on { background: color-mix(in srgb, var(--gold) 10%, transparent); }
+.plateformes-liste__ligne img, .plateformes-liste__sans-logo { flex: none; width: 32px; height: 32px; border-radius: 8px; background: var(--surface2); }
+.plateformes-liste__nom { flex: 1; font-weight: 600; }
+.plateformes-liste__ligne .icon { color: var(--gold-strong); }
+
 /* En-tête d'un groupe de saga dans une grille de liste : sur toute la largeur, les affiches suivent. */
 .grid__saga {
   grid-column: 1 / -1;

@@ -14,6 +14,8 @@ export default function Settings({
   onChoixTheme,
   catalogLangLabel,
   onOpenLanguage,
+  onOpenPlateformes,
+  nbPlateformes = 0,
   onOpenBackup,
   onOpenNotifications,
   onOpenAbout,
@@ -110,6 +112,14 @@ export default function Settings({
           <span>Langue du catalogue</span>
           <span className="settings__value">
             {catalogLangLabel}
+            <Icon name="chevron" size={14} />
+          </span>
+        </button>
+        <button className="settings__line settings__line--btn" onClick={onOpenPlateformes}>
+          <Icon name="play" size={20} className="settings__ico" />
+          <span>Mes plateformes</span>
+          <span className="settings__value">
+            {nbPlateformes === 0 ? 'Aucune' : `${nbPlateformes} ${nbPlateformes > 1 ? 'choisies' : 'choisie'}`}
             <Icon name="chevron" size={14} />
           </span>
         </button>

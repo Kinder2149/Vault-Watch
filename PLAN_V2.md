@@ -2021,6 +2021,19 @@ qui s'y rattachent, avec les mêmes filtres. »
 **Questions pour Kinder** : (1) « Sur mes plateformes » = **abonnement seulement** (pas location ni achat) : d'accord ? (2) avec ce filtre dans Mes listes, un titre dont on ne connaît pas encore les
 offres est **masqué** (et le panneau le dit) plutôt que montré : d'accord ? (3) Réglages > « Mes plateformes » : le nom te convient ?
 
+**B1-1 codée et vérifiée à l'écran (2026-10-27)** — 469 tests verts (15 nouveaux : `plateformes`), build OK. Capture dans `essais/2026-10-27_B1-1/`.
+Navigateur en largeur téléphone, vrai catalogue, 9 titres à voir dont les offres ont été relevées au lancement :
+- **Sans plateforme choisie** : le panneau de Mes listes montre « Plateformes · Sur mes plateformes · Aucune plateforme choisie : le filtre ne retire rien. ·
+  Choisir mes plateformes » ; le lien ouvre **Réglages > Mes plateformes** (12 plateformes de la région, logos, coches).
+- Disney Plus et Apple TV cochées (« 2 plateformes choisies », rangées sous la clé unique `mes-plateformes`) ; retour sur Mes listes, puce « Sur mes plateformes » :
+  **9 titres → 4** (Le Seigneur des anneaux : La Communauté de l'anneau, Avatar, Matchbox – Le film, Grey's Anatomy) ; les titres en location seulement ou sans offre sont
+  écartés, comme ceux disponibles ailleurs (Inception, Dune). Aucun titre aux offres inconnues dans l'essai : le message « N titres masqués » est couvert par les tests.
+- **Réglages** : « Mes plateformes · 2 choisies ». **Découvrir** : « Sur mes plateformes · 2 » avec Apple TV et Disney Plus cochées (même sélection, lue sur la clé commune ; l'ancienne
+  clé `decouvrir-plateformes` est reprise au premier passage).
+- Ajustement au cadrage : la liste des plateformes (identifiants + noms) est gardée sur l'appareil pour que le filtre marche hors connexion.
+- **Reste dans B1** : B1-2 (Découvrir), B1-3 (Suggestions), B1-4 (Recherche), B1-5 (clôture avec essai réseau coupé et capture finale de Kinder).
+Case B1-1 à cocher après validation de Kinder.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les

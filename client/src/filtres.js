@@ -5,6 +5,8 @@
 //  - « Titre » et « Acteur » : TMDB ne filtre pas ces listes. On filtre et on trie
 //    ce qui est déjà affiché, avec `appliquerFiltres` — sans plateforme.
 
+import { estSurMesPlateformes } from './plateformes.js';
+
 // Périodes proposées, d'un appui chacune. `from` / `to` sont des bornes de date
 // (AAAA-MM-JJ) ; une borne absente veut dire « sans limite ».
 export const PERIODES = [
@@ -52,18 +54,26 @@ export const FILTRES_BIBLIO_VIDES = Object.freeze({
   tri: 'ajout',
   note: null,
   genre: null, // clé de la liste unique de genres (tmdb.js)
+  surMesPlateformes: false, // ne garder que ce qui est en abonnement chez moi (Réglages > Mes plateformes)
 });
 
 export function filtresBiblioActifs(f) {
-  return !!f && (!!f.periode || !!f.note || !!f.genre || f.tri !== 'ajout');
+  return !!f && (!!f.periode || !!f.note || !!f.genre || !!f.surMesPlateformes || f.tri !== 'ajout');
 }
 
 // Filtre et trie une liste de la bibliothèque. Sans date de sortie, un titre
 // est écarté par un filtre d'année et passe en dernier d'un tri par date ; sans
 // note, il passe en dernier du tri par note. À égalité, l'ordre reçu est gardé.
-export function appliquerFiltresBiblio(items, filtres, aujourdhui = new Date()) {
-  const { periode, tri, note, genre } = filtres;
+//
+// « Sur mes plateformes » : `nomsPlateformes` (Set de noms, voir plateformes.js) ; sans plateforme choisie,
+// le filtre ne retire rien. Un titre aux offres inconnues est écarté : on ne l'affirme pas.
+export function appliquerFiltresBiblio(items, filtres, aujourdhui = new Date(), { nomsPlateformes = null } = {}) {
+  const { periode, tri, note, genre, surMesPlateformes } = filtres;
   let liste = items.map((it, i) => ({ it, i }));
+
+  if (surMesPlateformes && nomsPlateformes && nomsPlateformes.size > 0) {
+    liste = liste.filter(({ it }) => estSurMesPlateformes(it, nomsPlateformes));
+  }
 
   if (periode) {
     const { from, to } = bornesDePeriode(periode, aujourdhui);

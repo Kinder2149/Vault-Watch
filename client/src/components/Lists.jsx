@@ -6,7 +6,14 @@ import Filtres from './Filtres.jsx';
 import Vide from './Vide.jsx';
 import { GrilleFantome } from './Fantomes.jsx';
 import { STATUSES, titreCorrespond, resumeBiblio } from '../status.js';
-import { getListeItems } from '../api.js';
+import { getListeItems, getPlateformes } from '../api.js';
+import {
+  lirePlateformes,
+  nomsDesPlateformes,
+  offresInconnues,
+  memoriserPlateformes,
+  plateformesMemorisees,
+} from '../plateformes.js';
 import { regrouperSagas, enteteDeSaga } from '../sagas.js';
 import {
   TRIS_BIBLIO,
@@ -35,6 +42,7 @@ export default function Lists({
   onLongPress,
   onOpenStats,
   onSearch,
+  onOpenPlateformes, // ouvre Réglages > Mes plateformes
 }) {
   const [selected, setSelected] = useState({ type: 'status', value: 'a_voir' });
   const [listItems, setListItems] = useState([]);
@@ -42,6 +50,19 @@ export default function Lists({
   const [mediaFilter, setMediaFilter] = useState('all');
   const [ajoutOuvert, setAjoutOuvert] = useState(false); // ajout en masse
   const [filtresOuverts, setFiltresOuverts] = useState(false);
+  // « Sur mes plateformes » : le choix (Réglages > Mes plateformes) et les noms qui vont avec. La liste des
+  // plateformes est gardée sur l'appareil, puis rafraîchie : le filtre marche aussi hors connexion.
+  const [proposees, setProposees] = useState(plateformesMemorisees);
+  useEffect(() => {
+    getPlateformes()
+      .then((liste) => {
+        memoriserPlateformes(liste);
+        setProposees(liste);
+      })
+      .catch(() => {});
+  }, []);
+  const mesPlateformes = lirePlateformes(); // relu à chaque affichage : on revient de Réglages
+  const nomsPlateformes = nomsDesPlateformes(mesPlateformes, proposees);
   // « Regrouper les sagas » : actif par défaut, retenu d'un lancement à l'autre.
   const [regrouper, setRegrouper] = useState(() => {
     try {
@@ -120,7 +141,11 @@ export default function Lists({
     mediaFilter === 'all' ? mainItems : mainItems.filter((i) => i.mediaType === mediaFilter);
   // Pendant une recherche on retrouve un titre précis : le tri reste A → Z et les
   // filtres se mettent de côté. Ils reprennent, intacts, quand on efface le champ.
-  const filteredItems = cherche ? duType : appliquerFiltresBiblio(duType, filtres);
+  const filteredItems = cherche
+    ? duType
+    : appliquerFiltresBiblio(duType, filtres, new Date(), { nomsPlateformes });
+  // Titres que « sur mes plateformes » masque faute de connaître leurs offres (le panneau le dit).
+  const masquesSansOffres = duType.filter(offresInconnues).length;
 
   // Seuls les genres qu'on a vraiment dans la bibliothèque sont proposés :
   // une puce « Western » qui ne ramène rien ne sert à rien.
@@ -369,6 +394,11 @@ export default function Lists({
               onChange={onFiltres}
               tris={TRIS_BIBLIO}
               avecNote
+              surMesPlateformes={{
+                nbChoisies: mesPlateformes.length,
+                masques: masquesSansOffres,
+                onChoisir: onOpenPlateformes,
+              }}
               genres={genresPresents}
               vides={FILTRES_BIBLIO_VIDES}
               actifs={filtresBiblioActifs}

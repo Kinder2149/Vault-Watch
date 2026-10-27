@@ -25,6 +25,9 @@ export default function Filtres({
   genres = null, // [{ key, name }] : filtre par genre (Mes listes)
   vides = FILTRES_VIDES,
   actifs = filtresActifs,
+  // « Sur mes plateformes » : { nbChoisies, masques, onChoisir }. `masques` = titres sans offres connues,
+  // cachés tant que le filtre est actif. Absent : pas de groupe (l'écran ne sait pas filtrer par plateforme).
+  surMesPlateformes = null,
 }) {
   const maj = (patch) => onChange({ ...filtres, ...patch });
 
@@ -61,6 +64,38 @@ export default function Filtres({
         <p className="hint hint--small">
           La plateforme se choisit dans « Explorer » : ici, on filtre les résultats affichés.
         </p>
+      )}
+
+      {surMesPlateformes && (
+        <div className="filtres__groupe">
+          <span className="filtres__label">Plateformes</span>
+          <div className="filtres__chips">
+            <button
+              className={`chip ${filtres.surMesPlateformes ? 'on' : ''}`}
+              aria-pressed={!!filtres.surMesPlateformes}
+              onClick={() => maj({ surMesPlateformes: !filtres.surMesPlateformes })}
+            >
+              Sur mes plateformes
+            </button>
+          </div>
+          {surMesPlateformes.nbChoisies === 0 ? (
+            <p className="hint hint--small">
+              Aucune plateforme choisie : le filtre ne retire rien.{' '}
+              <button className="lien" onClick={surMesPlateformes.onChoisir}>
+                Choisir mes plateformes
+              </button>
+            </p>
+          ) : (
+            filtres.surMesPlateformes &&
+            surMesPlateformes.masques > 0 && (
+              <p className="hint hint--small">
+                {surMesPlateformes.masques === 1
+                  ? '1 titre dont on ne connaît pas encore les offres est masqué.'
+                  : `${surMesPlateformes.masques} titres dont on ne connaît pas encore les offres sont masqués.`}
+              </p>
+            )
+          )}
+        </div>
       )}
 
       <div className="filtres__groupe">

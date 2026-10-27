@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Rail from './Rail.jsx';
 import HorsLigne from './HorsLigne.jsx';
 import { useEnLigne } from '../reseau.js';
+import { lirePlateformes, ecrirePlateformes } from '../plateformes.js';
 import VueRayon from './VueRayon.jsx';
 import Icon from './Icon.jsx';
 import {
@@ -22,17 +23,7 @@ import {
 // Chaque rangée a son « Tout voir » (la grille complète). Le filtre « Sur mes plateformes »
 // restreint les rangées à ce qu'on peut regarder chez soi ; le choix est retenu.
 const keyOf = (item) => `${item.mediaType}-${item.id}`;
-const CLE_PLATEFORMES = 'decouvrir-plateformes';
 const NB_COMME = 2; // rangées « Parce que tu as aimé » : les deux meilleurs titres
-
-function lirePlateformes() {
-  try {
-    const v = JSON.parse(localStorage.getItem(CLE_PLATEFORMES) || '[]');
-    return Array.isArray(v) ? v : [];
-  } catch {
-    return [];
-  }
-}
 
 const filtrer = (liste, media) => (media === 'all' ? liste : liste.filter((r) => r.mediaType === media));
 
@@ -124,11 +115,8 @@ export default function Decouvrir({ items, suivi, dejaChezMoi, cardProps, resetK
   function basculePlateforme(id) {
     setMesPlateformes((prev) => {
       const next = prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id];
-      try {
-        localStorage.setItem(CLE_PLATEFORMES, JSON.stringify(next));
-      } catch {
-        /* stockage indisponible : le choix vaut pour la séance */
-      }
+      // « Mes plateformes » est un réglage commun à tous les écrans (Réglages > Mes plateformes).
+      ecrirePlateformes(next);
       return next;
     });
   }

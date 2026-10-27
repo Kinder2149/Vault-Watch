@@ -18,6 +18,8 @@ import Icon from './components/Icon.jsx';
 import About from './components/About.jsx';
 import Backup from './components/Backup.jsx';
 import Notifications from './components/Notifications.jsx';
+import MesPlateformes from './components/MesPlateformes.jsx';
+import { lirePlateformes } from './plateformes.js';
 import Profiles from './components/Profiles.jsx';
 import Stats from './components/Stats.jsx';
 import Avatar from './components/Avatar.jsx';
@@ -134,6 +136,8 @@ export default function App() {
   const [showAbout, setShowAbout] = useState(false);
   const [showBackup, setShowBackup] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showPlateformes, setShowPlateformes] = useState(false);
+  const [, setNbPlateformes] = useState(0); // sert à relancer l'affichage quand le choix change
   const [showProfiles, setShowProfiles] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [showPartage, setShowPartage] = useState(false);
@@ -734,6 +738,7 @@ export default function App() {
     else if (surcouche && !openDetail) surcouche.fermer(); // une fiche ouverte par-dessus se ferme d'abord
     else if (showAmis) setShowAmis(false);
     else if (showBackup) setShowBackup(false);
+    else if (showPlateformes) setShowPlateformes(false);
     else if (showNotifications) setShowNotifications(false);
     else if (showAbout) setShowAbout(false);
     else if (openDetail) closeDetail();
@@ -1188,6 +1193,7 @@ export default function App() {
           genres={genres}
           onOpenStats={() => setShowStats(true)}
           onSearch={() => goTo('search')}
+          onOpenPlateformes={() => setShowPlateformes(true)}
           {...cardProps}
         />
       )}
@@ -1228,6 +1234,8 @@ export default function App() {
           onOpenLanguage={() => setShowLanguage(true)}
           onOpenBackup={() => setShowBackup(true)}
           onOpenNotifications={() => setShowNotifications(true)}
+          onOpenPlateformes={() => setShowPlateformes(true)}
+          nbPlateformes={lirePlateformes().length /* relu : Découvrir peut l'avoir changé */}
           onOpenAbout={() => setShowAbout(true)}
           suiviCount={suivi.size}
         />
@@ -1333,6 +1341,10 @@ export default function App() {
           onRestored={handleRestored}
           onClose={() => setShowBackup(false)}
         />
+      )}
+
+      {showPlateformes && (
+        <MesPlateformes onClose={() => setShowPlateformes(false)} onChange={setNbPlateformes} />
       )}
 
       {showNotifications && (
