@@ -1,0 +1,112 @@
+SCRIPT — Reel Vault Watch 2 « Parasite attend. Mais où ? » (angle A, « Le geste en direct »)
+Écrit par Claude Code le 27/10/2026, d'après la note d'affinage du 27/10/2026 (dépôt Hermès, instagram/veille/2026-10-27_note-vault-watch-reel2-s7.txt) et le socle des Reels (dépôt Hermès, serveur/instagram/socle-reels-base.txt). Statut : VALIDÉ PAR KINDER le 27/10/2026.
+L'agent Instagram monte exactement ce script. Il ne réécrit aucun texte, ne change ni l'ordre, ni les durées, ni les captures. S'il ne peut pas respecter un point, il s'arrête et le signale à Kinder.
+
+======================================================================
+1. L'IDÉE (une seule) ET LA TOUCHE PROPRE
+======================================================================
+Problème : un film t'attend dans ta liste, mais tu ne sais pas où le voir.
+Réponse : un tap sur la fiche, un défilement, et Vault Watch te dit où le regarder.
+Chute : la réponse ET sa source (JustWatch) arrivent ensemble, à l'écran, au même moment.
+Touche propre de ce Reel : un seul geste visible du début à la fin, sans explication, et la source de la réponse montrée en même temps que la réponse (rien de caché).
+Différence avec le Reel 1 : pas de « POV », pas d'heure, on part de « Mes listes » et non de « Ce soir » ; le moment fort est à la fin.
+
+======================================================================
+2. RÉGLAGES GÉNÉRAUX
+======================================================================
+- Format : vertical 1080x1920, 30 images/s. Durée : 18 s (36 temps à 120 BPM, 1 temps = 0,5 s). Règle 2.1 : 15 à 30 s.
+- Musique : « Fly Away (120 BPM) » — ThisIsBeatKitchen (Pixabay), à partir de 19,5 s, volume 0,9 : la même que le Reel 1 (signature de marque). Chaque coupe tombe sur un temps. Pas de voix. Le Reel se comprend sans le son.
+- Images de l'appli : ÉCRAN ENTIER, sans cadre de téléphone, tout l'écran de l'appli visible (comme le Reel 1 V3.1), fond #0F1018 sur les côtés. AUCUN zoom : le geste se voit mieux sur l'écran entier.
+- Textes : police Inter, gras, grande taille (au moins 64 px de haut), bandeau sombre presque opaque (85 %) sous chaque texte, un mot clé en doré #D4AF37 (noté *ainsi*), sur 2 lignes au plus, 4 mots par carton, affichés pendant tout le plan (règles 6.1 à 6.4).
+- Zone sûre, TEST de la règle 5.4 : aucun texte important dans les 290 px du haut ni dans les 480 px du bas (zone de texte : de 290 à 1440 px). La zone de la charte (220 et 380 px) reste le minimum.
+- Emplacement des textes : sur une partie de l'écran de l'appli qui n'est pas celle qu'on veut montrer, et jamais sur un texte important de l'appli. L'agent vérifie la place avec la commande « aperçu » ; il peut choisir entre le haut (de 290 px) et le bas (jusqu'à 1440 px) de la zone de texte, mais ne change pas le texte.
+- Couleurs : fond #0F1018, accent doré #D4AF37. Pas de logo sur l'accroche (règle 1.1).
+- Rythme (règle 3.2) : un changement de plan ou de texte au plus toutes les 4 s ; ici un plan toutes les 3 s (3,5 s pour le moment fort, 2,5 s pour la fin).
+
+======================================================================
+3. DÉROULÉ, PLAN PAR PLAN
+======================================================================
+Les heures « dans la capture » renvoient à la vidéo d'écran source (media/ du dépôt Vault Watch). Les passages ont été choisis pour qu'AUCUN défilement n'ait lieu sous un texte (leçon du Reel V3.1).
+
+PLAN 1 — L'accroche (0 → 3 s, 6 temps)
+  Capture : 2026-10-24_mes-listes.mp4, de 4,25 s à 5,25 s (grille « À voir » immobile, avec Parasite), ralentie ×0,33 pour durer 3 s (l'image est fixe).
+  Texte (présent DÈS la première image) : « Parasite attend. Mais *où* ? »
+  Emplacement : haut de la zone de texte (de 290 px), au-dessus de la rangée d'affiches.
+
+PLAN 2 — Il te le rappelle (3 → 6 s, 6 temps)
+  Capture : 2026-10-24_ce-soir.mp4, de 2,5 s à 4,5 s (« Idée du soir : Parasite », écran immobile), ralentie ×0,67 pour durer 3 s.
+  Texte : « Vault Watch le *rappelle*. »
+  Emplacement : bas de la zone de texte (jusqu'à 1440 px), sous la carte « Idée du soir ».
+
+PLAN 3 — Le geste : un tap (6 → 9 s, 6 temps)
+  Capture : 2026-10-24_fiche-ou-regarder.mp4, de 1,5 s à 3,4 s (« Voir la fiche » est touché, la fiche de Parasite s'ouvre et se fige), ralentie ×0,63 pour durer 3 s.
+  Texte : « Un tap. La *fiche*. »
+  Emplacement : haut de la zone de texte (de 290 px), au-dessus du bouton et du titre (jamais sur « Parasite »).
+
+PLAN 4 — Le geste : on cherche (9 → 12 s, 6 temps)
+  Capture : 2026-10-24_fiche-ou-regarder.mp4, de 4,3 s à 5,8 s (la fiche défile jusqu'au bloc « Où le regarder »), ralentie ×0,5 pour durer 3 s.
+  Texte : AUCUN (le geste parle seul ; pas de texte sur un défilement).
+
+PLAN 5 — Le moment fort : la réponse et sa source (12 → 15,5 s, 7 temps)
+  Capture : 2026-10-24_fiche-ou-regarder.mp4, de 5,8 s à 7,2 s (la fiche est immobile : bloc « Où le regarder » avec les logos des plateformes ET la ligne « Disponibilité fournie par JustWatch (via TMDB). » visibles dans la zone sûre), ralentie ×0,4 pour durer 3,5 s.
+  Texte : « La réponse *et* sa source. »
+  Emplacement : haut de la zone de texte (de 290 px), AU-DESSUS du bloc « Où le regarder » : le texte ne doit couvrir NI les logos NI la ligne JustWatch.
+  Moment fort : de 12 s à 15,5 s, soit entre 67 et 86 % du Reel (règle 4.4).
+
+PLAN 6 — Fin, sans écran noir et sans logo (15,5 → 18 s, 5 temps)
+  Fond : la dernière image du plan 5, assombrie et floutée (on voit encore l'appli derrière). PAS d'écran noir vide.
+  Par-dessus, centrés dans la zone de texte (de 290 à 1440 px) :
+    - « Vault Watch » (Caladea, doré) ;
+    - « *Gratuit* sur Google Play » ;
+    - « Lien en bio » ;
+    - en petit, sous le reste : « Données et images : TMDB ».
+  TEST de la règle 4.2 : PAS de logo sur cette fin.
+  La vidéo s'arrête net sur le dernier temps : la boucle relance l'accroche « Parasite attend. Mais où ? ».
+  La mention TMDB n'apparaît QUE sur ce plan (jamais sur l'appli).
+
+======================================================================
+4. LÉGENDE (à copier telle quelle)
+======================================================================
+Parasite attend dans ta liste. Mais où le voir ? 🎬
+
+Dans Vault Watch, un tap ouvre la fiche, un défilement, et tu vois où le regarder. Avec la source juste à côté.
+
+Gratuit sur Google Play. Lien en bio.
+
+Données et images : TMDB. Disponibilité : JustWatch (via TMDB).
+
+#streaming #quoiregarder #series #appandroid #indiedev
+
+======================================================================
+5. LISTE DES CAPTURES ET FICHIERS
+======================================================================
+Toutes déjà présentes sur la branche principale du dépôt Vault Watch (dossier media/). Aucune nouvelle capture. Version de l'application : celle du Play Store (captures du 24/10/2026).
+  - media/2026-10-24_mes-listes.mp4          (plan 1, de 4,25 à 5,25 s)
+  - media/2026-10-24_ce-soir.mp4             (plan 2, de 2,5 à 4,5 s)
+  - media/2026-10-24_fiche-ou-regarder.mp4   (plans 3, 4 et 5, de 1,5 à 3,4 s, de 4,3 à 5,8 s, de 5,8 à 7,2 s)
+  - Musique : thisisbeatkitchen_fly-away-120bpm.mp3 (hors GitHub, sur le serveur : ~/montage-instagram/musique/).
+  Pas de logo dans ce Reel (test de la règle 4.2).
+Passages immobiles vérifiés par Claude Code image par image (écart d'image à image nul) : mes-listes 4,25–5,25 s ; ce-soir 2,5–4,5 s ; fiche-ou-regarder 5,8–7,2 s. Le plan 3 contient le tap et l'ouverture de la fiche (mouvement voulu, sans texte au-dessus du mouvement) ; le plan 4 contient le défilement (sans texte).
+
+======================================================================
+6. CONTRÔLE AVANT DE SOUMETTRE À KINDER (par l'agent)
+======================================================================
+[ ] Le texte d'accroche est lisible sur la toute première image.
+[ ] Aucun cadre de téléphone ; aucun zoom ; tout l'écran de l'appli est visible.
+[ ] Aucun texte ne chevauche un texte important de l'appli ou un autre texte ; aucun texte au-dessus d'un défilement.
+[ ] Aucun texte dans les 290 px du haut ni les 480 px du bas.
+[ ] Dans le plan 5, les logos des plateformes ET la ligne JustWatch sont entièrement visibles.
+[ ] Mention TMDB présente, seulement sur le plan de fin.
+[ ] Pas d'écran noir vide à la fin, pas de logo à la fin ; la vidéo boucle sur l'accroche.
+[ ] Durée 18 s ; coupes sur les temps de la musique ; six plans de 3, 3, 3, 3, 3,5 et 2,5 s.
+[ ] Légende et hashtags identiques au point 4.
+[ ] Aucune donnée personnelle visible.
+
+======================================================================
+7. RÈGLES SUIVIES ET LIMITES
+======================================================================
+Suivies (numéros du socle) : 1.1 et 1.2 (accroche directe, question), 2.1 (18 s), 2.2 (une idée), 3.1 et 3.2 (un plan toutes les 3 s), 3.3 (temps morts coupés), 4.1 (la fin boucle), 4.4 (moment fort de 67 à 86 %), 5.1 et 5.2 (9:16), 5.3 et 5.4 (zone de texte de 290 à 1440 px, TEST), 6.1 à 6.4 (deux lignes, 4 mots, durée d'affichage de chaque carton égale aux mots divisés par 1,5, soit 2,7 s pour 4 mots, plan de 3 s), 6.5 bis (lisible sans son), 7.1 (musique de la bibliothèque), 8.2 (pas de logo dans l'accroche), 8.3 (pas d'intro de marque), 9.2 à 9.4 (accroche dans les 55 premiers caractères de la légende), 10.1 (5 hashtags), 13.2 (lien en bio).
+Tests de ce Reel (deux au plus) : règle 5.4 (zone de texte de 290 à 1440 px) et règle 4.2 (fin sans logo).
+Contraintes de la charte : mention « Données et images : TMDB » (I19) seulement sur la fin ; ligne JustWatch (via TMDB) visible quand « Où le regarder » apparaît (plan 5).
+Limites : le Reel 2 reprend des captures du 24/10 (Parasite, déjà dans le Reel 1) dans un autre ordre ; il n'y a pas de tap sur « Où le regarder » (le bloc apparaît en faisant défiler la fiche).
+Notes pour le montage : fixer l'image du plan 1 sur 3 s (écran immobile) ; si l'outil ne peut pas poser un texte « en haut de la zone de texte » à partir de 290 px, c'est au montage de s'adapter, pas au script.
