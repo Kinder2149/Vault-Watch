@@ -1,0 +1,74 @@
+PROMPT DE VÉRIFICATION — Fusion des conflits de sauvegarde (missions B6-1 et B6-2) — projet Vault Watch
+
+Tu es l'IA de vérification. Tu n'as pas codé cette mission. Tu ne corriges rien.
+Tu rends des captures et des verdicts, en français, en termes fonctionnels (pas de logs bruts).
+
+CRITÈRE DE FIN DE MISSION (écrit par Kinder ; la fin a été transmise coupée puis confirmée) :
+« Quand deux appareils ont modifié ma sauvegarde, l'écran de conflit me propose Fusionner en premier, je vois ce qui s'ajoute dans chaque sens,
+et je retrouve la somme des deux. »
+
+CE QUI A ÉTÉ FAIT ET TESTÉ (test de code : réussi pour chacun ; 500 tests automatiques verts, build OK) :
+- Règle de fusion (sans écran) : union des titres, des épisodes vus, des visionnages et des listes ; statut = le plus avancé (Vu > En cours > À voir) ;
+  « Abandonné », note et avis en désaccord = la valeur de CE téléphone ; date d'ajout / de marquage = la plus ancienne ; deux listes de même nom
+  (casse ignorée) = une seule liste, privée si l'une l'est ; amis : union par code ; partage de ce téléphone.
+- Écran de conflit (Réglages > Sauvegarde, après « Sauvegarder maintenant » ou la sauvegarde automatique) : « Fusionner » est le PREMIER bouton, mis en avant ;
+  un encadré donne par profil « Ce téléphone reçoit : … » et « Le Drive reçoit : … » (titres, épisodes vus, visionnages, listes, statuts mis à niveau),
+  signale les notes en désaccord, et dit « Un titre supprimé d'un côté peut revenir. » Un seul appui fusionne tous les profils en conflit.
+  « Reprendre la version du Drive », « Garder ce téléphone » (rouge) et « Décider plus tard » restent dessous, inchangés.
+- Après l'appui : le profil de ce téléphone est remplacé par la fusion, puis envoyé au Drive ; le bandeau de conflit disparaît ; Réglages dit
+  « Sauvegardé à HH:MM — Tout est à jour dans ton Drive. »
+
+NOUVEAUTÉS À VÉRIFIER EN PRIORITÉ (un verdict + une capture chacune) :
+ V-A  Créer un vrai conflit (voir « Comment créer le conflit » plus bas) : Réglages > Sauvegarde > « Sauvegarder maintenant » : l'écran de conflit s'ouvre ;
+      « Fusionner » est le premier bouton (couleur d'accent), au-dessus de « Reprendre la version du Drive », « Garder ce téléphone » (rouge), « Décider plus tard ».
+ V-B  Le résumé est visible AVANT d'appuyer, par profil, avec les deux phrases « Ce téléphone reçoit : … » et « Le Drive reçoit : … » ; les nombres correspondent
+      à ce que tu as fait (voir le scénario) ; la ligne « Un titre supprimé d'un côté peut revenir » est présente.
+ V-C  Appuyer sur « Fusionner » : le bouton passe à « Fusion… » puis l'écran de conflit se referme ; Réglages dit « Sauvegardé à HH:MM — Tout est à jour dans ton Drive. »
+ V-D  Mes listes : la somme des deux versions : le titre que tu avais retiré sur le téléphone mais que le Drive avait est de retour ; le titre ajouté sur le téléphone est là ;
+      le statut avancé (Vu) est gardé ; compteurs cohérents (ex. 9 titres, 1 vu, 8 à voir pour le scénario).
+ V-E  « Sauvegarder maintenant » une seconde fois : « Sauvegarde envoyée dans ton Drive », aucun nouveau conflit.
+ V-F  « Garder ce téléphone » et « Reprendre la version du Drive » fonctionnent toujours (refaire un conflit : choisir l'un puis l'autre ; « Garder » remplace le Drive,
+      « Reprendre » remplace le téléphone).
+ V-G  Fichier du Drive illisible ou version trop récente (si tu sais le provoquer) : « Fusionner » n'est pas proposé, les trois autres choix restent.
+ V-H  Plusieurs profils (créer un second profil, le sauvegarder, provoquer un conflit sur les deux) : un seul appui fusionne les deux, un résumé par profil.
+
+COMMENT CRÉER LE CONFLIT (une seule application, un seul émulateur) :
+ 1. Se connecter dans Réglages > Sauvegarde avec le compte de test (il doit déjà être ajouté dans Paramètres > Mots de passe et comptes de l'émulateur ;
+    ne jamais saisir de mot de passe : si Google en demande un, s'arrêter et prévenir Kinder). « Sauvegarder maintenant » : l'état de départ est sur le Drive.
+ 2. Rendre la version du Drive « périmée » pour cet appareil, AVANT tout changement (sinon l'envoi automatique, 30 s après un changement, écrase le Drive sans conflit) :
+    dans la console du WebView (chrome://inspect, ou adb forward tcp:9222 localabstract:webview_devtools_remote_<pid> puis le protocole DevTools), exécuter
+    localStorage.setItem('cloud-versions', JSON.stringify({ '<id du profil>': '2020-01-01T00:00:00.000Z' }))  (l'id du profil est la clé actuelle de cloud-versions).
+ 3. Sur le téléphone : retirer un titre (appui long sur l'affiche > « Retirer de mon suivi »), en ajouter un autre (Recherche, bouton +), passer un autre titre à « Vu ».
+ 4. Attendre ~30 s (la sauvegarde automatique constate le conflit, un bandeau l'annonce) ou ouvrir Réglages > Sauvegarde > « Sauvegarder maintenant » : l'écran de conflit apparaît.
+ Résumé attendu pour ce scénario : « Ce téléphone reçoit : 1 titre. Le Drive reçoit : 1 titre, 1 visionnage, 1 statut mis à niveau. »
+
+FONCTIONS VOISINES À SURVEILLER :
+ - Sauvegarde automatique, bandeau d'état de la sauvegarde et reprise au retour du réseau : inchangés (missions précédentes).
+ - Restauration depuis Drive au premier branchement d'un compte neuf : inchangée (la fusion n'y intervient pas).
+ - Mes listes, Découvrir, Ce soir, Recherche (panneaux de filtres, mot-clé) : inchangés par cette mission.
+
+COMMENT LANCER LE PROJET (application Android, WebView Capacitor) :
+ - Émulateur : AVD « Medium_Phone_API_36.1 » (Play Store) :
+   C:\Users\vcout\AppData\Local\Android\Sdk\emulator\emulator.exe -avd Medium_Phone_API_36.1
+   Attention : le stockage de cet émulateur est presque plein (≈ 94 %). Si l'installation échoue (« not enough space »), désinstalle
+   SEULEMENT Vault Watch (adb uninstall com.kinder.suivifilmsseries), puis réinstalle ; ne désinstalle PAS les autres applications de
+   l'émulateur (elles appartiennent à d'autres projets de Kinder) : préviens Kinder si cela ne suffit pas.
+ - APK de test : V:\DEV\PROJETS\applications_web\Vault Watch\apk-test\vault-watch-test-2.3.5-fusion.apk
+   adb install -r <ce fichier> ; lancer : adb shell monkey -p com.kinder.suivifilmsseries -c android.intent.category.LAUNCHER 1
+   (adb : C:\Users\vcout\AppData\Local\Android\Sdk\platform-tools\adb.exe). Premier lancement : choisir « Français ».
+ - Sous Git Bash, les chemins « /sdcard/… » sont réécrits : utiliser PowerShell pour adb shell / pull.
+ - Une fenêtre système « Android Switch isn't responding » peut apparaître (émulateur lent) : toucher « Wait ».
+ - Le menu d'un titre s'ouvre par un appui long sur son affiche dans Mes listes.
+ - Captures : adb shell screencap -p /sdcard/s.png puis adb pull (supprimer ensuite le fichier du téléphone).
+
+RÈGLES :
+ - Ne corrige rien. Un critère non atteint = « échoué » avec capture et description de ce qui était attendu / vu.
+ - Ne pas modifier le code ni les réglages du projet. Ne jamais saisir d'identifiants ni de mot de passe.
+
+RENDU :
+ - Tableau : critère | capture | verdict (réussi / échoué) | ce que tu as vu, en français — pour V-A à V-H, puis chaque fonction voisine.
+ - L'écran exact que Kinder doit regarder pour sa capture finale : sur SON téléphone, l'écran de conflit avec « Fusionner » en premier et son résumé,
+   puis Réglages > Sauvegarde « Sauvegardé à HH:MM », puis Mes listes avec la somme des deux versions.
+
+Références : PLAN_V2.md (mission « Fusion des conflits de sauvegarde », B6-1 à B6-3), PROJET_CONTEXTE.md (décision du 2026-10-27),
+captures de mes essais dans essais/2026-10-27_B6-3 (émulateur, vrai Drive, compte de test).

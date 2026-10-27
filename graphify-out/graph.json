@@ -9,7 +9,7 @@
       "source_file": "client\\vite.config.js",
       "source_location": "L1",
       "id": "client_vite_config_js",
-      "community": 89,
+      "community": 91,
       "norm_label": "vite.config.js"
     },
     {
@@ -18,7 +18,7 @@
       "source_file": "client\\vitest.config.js",
       "source_location": "L1",
       "id": "client_vitest_config_js",
-      "community": 53,
+      "community": 56,
       "norm_label": "vitest.config.js"
     },
     {
@@ -27,7 +27,7 @@
       "source_file": "client\\vitest.config.js",
       "source_location": "L10",
       "id": "vitest_config_ici",
-      "community": 53,
+      "community": 56,
       "norm_label": "ici()"
     },
     {
@@ -36,7 +36,7 @@
       "source_file": "client\\vitest.services.config.js",
       "source_location": "L1",
       "id": "client_vitest_services_config_js",
-      "community": 90,
+      "community": 92,
       "norm_label": "vitest.services.config.js"
     },
     {
@@ -45,7 +45,7 @@
       "source_file": "client\\android\\app\\src\\main\\java\\com\\kinder\\suivifilmsseries\\DriveAuthPlugin.java",
       "source_location": "L1",
       "id": "client_android_app_src_main_java_com_kinder_suivifilmsseries_driveauthplugin_java",
-      "community": 24,
+      "community": 27,
       "norm_label": "driveauthplugin.java"
     },
     {
@@ -54,7 +54,7 @@
       "source_file": "client\\android\\app\\src\\main\\java\\com\\kinder\\suivifilmsseries\\DriveAuthPlugin.java",
       "source_location": "L34",
       "id": "driveauthplugin_driveauthplugin",
-      "community": 24,
+      "community": 27,
       "norm_label": "driveauthplugin"
     },
     {
@@ -63,7 +63,7 @@
       "source_file": "client\\android\\app\\src\\main\\java\\com\\kinder\\suivifilmsseries\\DriveAuthPlugin.java",
       "source_location": "L37",
       "id": "driveauthplugin_driveauthplugin_authorize",
-      "community": 24,
+      "community": 27,
       "norm_label": ".authorize()"
     },
     {
@@ -72,7 +72,7 @@
       "source_file": "client\\android\\app\\src\\main\\java\\com\\kinder\\suivifilmsseries\\DriveAuthPlugin.java",
       "source_location": "L59",
       "id": "driveauthplugin_driveauthplugin_reponse",
-      "community": 24,
+      "community": 27,
       "norm_label": ".reponse()"
     },
     {
@@ -81,7 +81,7 @@
       "source_file": "client\\android\\app\\src\\main\\java\\com\\kinder\\suivifilmsseries\\MainActivity.java",
       "source_location": "L1",
       "id": "client_android_app_src_main_java_com_kinder_suivifilmsseries_mainactivity_java",
-      "community": 34,
+      "community": 37,
       "norm_label": "mainactivity.java"
     },
     {
@@ -90,7 +90,7 @@
       "source_file": "client\\android\\app\\src\\main\\java\\com\\kinder\\suivifilmsseries\\MainActivity.java",
       "source_location": "L7",
       "id": "mainactivity_mainactivity",
-      "community": 34,
+      "community": 37,
       "norm_label": "mainactivity"
     },
     {
@@ -99,7 +99,7 @@
       "source_file": "client\\android\\app\\src\\main\\java\\com\\kinder\\suivifilmsseries\\MainActivity.java",
       "source_location": "L9",
       "id": "mainactivity_mainactivity_oncreate",
-      "community": 34,
+      "community": 37,
       "norm_label": ".oncreate()"
     },
     {
@@ -108,7 +108,7 @@
       "source_file": "client\\android\\app\\src\\test\\java\\com\\getcapacitor\\myapp\\ExampleUnitTest.java",
       "source_location": "L1",
       "id": "client_android_app_src_test_java_com_getcapacitor_myapp_exampleunittest_java",
-      "community": 35,
+      "community": 38,
       "norm_label": "exampleunittest.java"
     },
     {
@@ -117,7 +117,7 @@
       "source_file": "client\\android\\app\\src\\test\\java\\com\\getcapacitor\\myapp\\ExampleUnitTest.java",
       "source_location": "L12",
       "id": "exampleunittest_exampleunittest",
-      "community": 35,
+      "community": 38,
       "norm_label": "exampleunittest"
     },
     {
@@ -126,7 +126,7 @@
       "source_file": "client\\android\\app\\src\\test\\java\\com\\getcapacitor\\myapp\\ExampleUnitTest.java",
       "source_location": "L14",
       "id": "exampleunittest_exampleunittest_addition_iscorrect",
-      "community": 35,
+      "community": 38,
       "norm_label": ".addition_iscorrect()"
     },
     {
@@ -135,7 +135,7 @@
       "source_file": "client\\public\\sw.js",
       "source_location": "L1",
       "id": "client_public_sw_js",
-      "community": 91,
+      "community": 93,
       "norm_label": "sw.js"
     },
     {
@@ -144,7 +144,7 @@
       "source_file": "client\\src\\amis.js",
       "source_location": "L1",
       "id": "client_src_amis_js",
-      "community": 7,
+      "community": 8,
       "norm_label": "amis.js"
     },
     {
@@ -153,7 +153,7 @@
       "source_file": "client\\src\\amis.js",
       "source_location": "L21",
       "id": "amis_maintenant",
-      "community": 7,
+      "community": 8,
       "norm_label": "maintenant()"
     },
     {
@@ -162,7 +162,7 @@
       "source_file": "client\\src\\amis.js",
       "source_location": "L23",
       "id": "amis_texte",
-      "community": 7,
+      "community": 8,
       "norm_label": "texte()"
     },
     {
@@ -171,7 +171,7 @@
       "source_file": "client\\src\\amis.js",
       "source_location": "L30",
       "id": "amis_avatarsur",
-      "community": 7,
+      "community": 8,
       "norm_label": "avatarsur()"
     },
     {
@@ -180,7 +180,7 @@
       "source_file": "client\\src\\amis.js",
       "source_location": "L39",
       "id": "amis_decoder",
-      "community": 7,
+      "community": 8,
       "norm_label": "decoder()"
     },
     {
@@ -189,7 +189,7 @@
       "source_file": "client\\src\\amis.js",
       "source_location": "L60",
       "id": "amis_listeramis",
-      "community": 7,
+      "community": 8,
       "norm_label": "listeramis()"
     },
     {
@@ -198,7 +198,7 @@
       "source_file": "client\\src\\amis.js",
       "source_location": "L68",
       "id": "amis_ajouterami",
-      "community": 7,
+      "community": 8,
       "norm_label": "ajouterami()"
     },
     {
@@ -207,7 +207,7 @@
       "source_file": "client\\src\\amis.js",
       "source_location": "L91",
       "id": "amis_retirerami",
-      "community": 7,
+      "community": 8,
       "norm_label": "retirerami()"
     },
     {
@@ -216,7 +216,7 @@
       "source_file": "client\\src\\amis.js",
       "source_location": "L98",
       "id": "amis_ouvrirami",
-      "community": 7,
+      "community": 8,
       "norm_label": "ouvrirami()"
     },
     {
@@ -225,7 +225,7 @@
       "source_file": "client\\src\\amis.js",
       "source_location": "L132",
       "id": "amis_chargercartes",
-      "community": 7,
+      "community": 8,
       "norm_label": "chargercartes()"
     },
     {
@@ -234,7 +234,7 @@
       "source_file": "client\\src\\amis.js",
       "source_location": "L159",
       "id": "amis_recommandationsamis",
-      "community": 7,
+      "community": 8,
       "norm_label": "recommandationsamis()"
     },
     {
@@ -963,7 +963,7 @@
       "source_file": "client\\src\\App.jsx",
       "source_location": "L1",
       "id": "client_src_app_jsx",
-      "community": 36,
+      "community": 39,
       "norm_label": "app.jsx"
     },
     {
@@ -972,7 +972,7 @@
       "source_file": "client\\src\\App.jsx",
       "source_location": "L90",
       "id": "app_keyof",
-      "community": 36,
+      "community": 39,
       "norm_label": "keyof()"
     },
     {
@@ -981,7 +981,7 @@
       "source_file": "client\\src\\App.jsx",
       "source_location": "L92",
       "id": "app_app",
-      "community": 36,
+      "community": 39,
       "norm_label": "app()"
     },
     {
@@ -997,7 +997,7 @@
       "label": "exportProfile()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L30",
+      "source_location": "L31",
       "id": "backup_exportprofile",
       "community": 2,
       "norm_label": "exportprofile()"
@@ -1006,7 +1006,7 @@
       "label": "validateBackup()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L105",
+      "source_location": "L106",
       "id": "backup_validatebackup",
       "community": 2,
       "norm_label": "validatebackup()"
@@ -1015,7 +1015,7 @@
       "label": "describeBackup()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L121",
+      "source_location": "L122",
       "id": "backup_describebackup",
       "community": 2,
       "norm_label": "describebackup()"
@@ -1024,7 +1024,7 @@
       "label": "importProfile()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L137",
+      "source_location": "L138",
       "id": "backup_importprofile",
       "community": 2,
       "norm_label": "importprofile()"
@@ -1033,7 +1033,7 @@
       "label": "csvCell()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L258",
+      "source_location": "L259",
       "id": "backup_csvcell",
       "community": 2,
       "norm_label": "csvcell()"
@@ -1042,7 +1042,7 @@
       "label": "toLetterboxdCsv()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L272",
+      "source_location": "L273",
       "id": "backup_toletterboxdcsv",
       "community": 2,
       "norm_label": "toletterboxdcsv()"
@@ -1051,7 +1051,7 @@
       "label": "viderEnAttente()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L331",
+      "source_location": "L332",
       "id": "backup_viderenattente",
       "community": 2,
       "norm_label": "viderenattente()"
@@ -1060,7 +1060,7 @@
       "label": "profilsSupprimes()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L356",
+      "source_location": "L357",
       "id": "backup_profilssupprimes",
       "community": 2,
       "norm_label": "profilssupprimes()"
@@ -1069,7 +1069,7 @@
       "label": "oublierProfil()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L364",
+      "source_location": "L365",
       "id": "backup_oublierprofil",
       "community": 2,
       "norm_label": "oublierprofil()"
@@ -1078,7 +1078,7 @@
       "label": "lireVersions()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L371",
+      "source_location": "L372",
       "id": "backup_lireversions",
       "community": 2,
       "norm_label": "lireversions()"
@@ -1087,7 +1087,7 @@
       "label": "noterVersions()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L379",
+      "source_location": "L380",
       "id": "backup_noterversions",
       "community": 2,
       "norm_label": "noterversions()"
@@ -1096,7 +1096,7 @@
       "label": "ConflitSauvegarde",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L387",
+      "source_location": "L388",
       "id": "backup_conflitsauvegarde",
       "community": 2,
       "norm_label": "conflitsauvegarde"
@@ -1105,7 +1105,7 @@
       "label": ".constructor()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L388",
+      "source_location": "L389",
       "id": "backup_conflitsauvegarde_constructor",
       "community": 2,
       "norm_label": ".constructor()"
@@ -1114,7 +1114,7 @@
       "label": "cloudFileName()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L395",
+      "source_location": "L396",
       "id": "backup_cloudfilename",
       "community": 2,
       "norm_label": "cloudfilename()"
@@ -1123,7 +1123,7 @@
       "label": "readLocal()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L397",
+      "source_location": "L398",
       "id": "backup_readlocal",
       "community": 2,
       "norm_label": "readlocal()"
@@ -1132,7 +1132,7 @@
       "label": "writeLocal()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L405",
+      "source_location": "L406",
       "id": "backup_writelocal",
       "community": 2,
       "norm_label": "writelocal()"
@@ -1141,7 +1141,7 @@
       "label": "surChangementDeSauvegarde()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L419",
+      "source_location": "L420",
       "id": "backup_surchangementdesauvegarde",
       "community": 2,
       "norm_label": "surchangementdesauvegarde()"
@@ -1150,7 +1150,7 @@
       "label": "prevenir()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L424",
+      "source_location": "L425",
       "id": "backup_prevenir",
       "community": 2,
       "norm_label": "prevenir()"
@@ -1159,7 +1159,7 @@
       "label": "markChanged()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L434",
+      "source_location": "L435",
       "id": "backup_markchanged",
       "community": 2,
       "norm_label": "markchanged()"
@@ -1168,7 +1168,7 @@
       "label": "hasPendingChanges()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L447",
+      "source_location": "L448",
       "id": "backup_haspendingchanges",
       "community": 2,
       "norm_label": "haspendingchanges()"
@@ -1177,7 +1177,7 @@
       "label": "sauvegardeAutoActive()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L475",
+      "source_location": "L476",
       "id": "backup_sauvegardeautoactive",
       "community": 2,
       "norm_label": "sauvegardeautoactive()"
@@ -1186,7 +1186,7 @@
       "label": "reglerSauvegardeAuto()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L479",
+      "source_location": "L480",
       "id": "backup_reglersauvegardeauto",
       "community": 2,
       "norm_label": "reglersauvegardeauto()"
@@ -1195,7 +1195,7 @@
       "label": "reglerDelaisEnvoi()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L505",
+      "source_location": "L506",
       "id": "backup_reglerdelaisenvoi",
       "community": 2,
       "norm_label": "reglerdelaisenvoi()"
@@ -1204,7 +1204,7 @@
       "label": "annulerEnvoi()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L511",
+      "source_location": "L512",
       "id": "backup_annulerenvoi",
       "community": 2,
       "norm_label": "annulerenvoi()"
@@ -1213,7 +1213,7 @@
       "label": "envoiBloque()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L519",
+      "source_location": "L520",
       "id": "backup_envoibloque",
       "community": 2,
       "norm_label": "envoibloque()"
@@ -1222,7 +1222,7 @@
       "label": "programmerEnvoi()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L528",
+      "source_location": "L529",
       "id": "backup_programmerenvoi",
       "community": 2,
       "norm_label": "programmerenvoi()"
@@ -1231,7 +1231,7 @@
       "label": "declencherEnvoi()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L540",
+      "source_location": "L541",
       "id": "backup_declencherenvoi",
       "community": 2,
       "norm_label": "declencherenvoi()"
@@ -1240,7 +1240,7 @@
       "label": "noterEssai()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L553",
+      "source_location": "L554",
       "id": "backup_noteressai",
       "community": 2,
       "norm_label": "noteressai()"
@@ -1249,7 +1249,7 @@
       "label": "raisonDeLErreur()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L565",
+      "source_location": "L566",
       "id": "backup_raisondelerreur",
       "community": 2,
       "norm_label": "raisondelerreur()"
@@ -1258,7 +1258,7 @@
       "label": "dernierEssaiAutomatique()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L573",
+      "source_location": "L574",
       "id": "backup_dernieressaiautomatique",
       "community": 2,
       "norm_label": "dernieressaiautomatique()"
@@ -1267,7 +1267,7 @@
       "label": "sauvegardeAutomatique()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L582",
+      "source_location": "L583",
       "id": "backup_sauvegardeautomatique",
       "community": 2,
       "norm_label": "sauvegardeautomatique()"
@@ -1276,7 +1276,7 @@
       "label": "etatSauvegarde()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L614",
+      "source_location": "L615",
       "id": "backup_etatsauvegarde",
       "community": 2,
       "norm_label": "etatsauvegarde()"
@@ -1285,7 +1285,7 @@
       "label": "quandLisible()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L680",
+      "source_location": "L681",
       "id": "backup_quandlisible",
       "community": 2,
       "norm_label": "quandlisible()"
@@ -1294,7 +1294,7 @@
       "label": "enAttenteDepuis()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L688",
+      "source_location": "L689",
       "id": "backup_enattentedepuis",
       "community": 2,
       "norm_label": "enattentedepuis()"
@@ -1303,7 +1303,7 @@
       "label": "lireEtatSauvegarde()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L694",
+      "source_location": "L695",
       "id": "backup_lireetatsauvegarde",
       "community": 2,
       "norm_label": "lireetatsauvegarde()"
@@ -1312,7 +1312,7 @@
       "label": "bandeauSauvegarde()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L714",
+      "source_location": "L715",
       "id": "backup_bandeausauvegarde",
       "community": 2,
       "norm_label": "bandeausauvegarde()"
@@ -1321,7 +1321,7 @@
       "label": "dureeLisible()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L740",
+      "source_location": "L741",
       "id": "backup_dureelisible",
       "community": 2,
       "norm_label": "dureelisible()"
@@ -1330,7 +1330,7 @@
       "label": "reprendreApresReseau()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L753",
+      "source_location": "L754",
       "id": "backup_reprendreapresreseau",
       "community": 2,
       "norm_label": "reprendreapresreseau()"
@@ -1339,7 +1339,7 @@
       "label": "demarrerEcouteReseau()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L768",
+      "source_location": "L769",
       "id": "backup_demarrerecoutereseau",
       "community": 2,
       "norm_label": "demarrerecoutereseau()"
@@ -1348,7 +1348,7 @@
       "label": "lastCloudBackup()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L776",
+      "source_location": "L777",
       "id": "backup_lastcloudbackup",
       "community": 2,
       "norm_label": "lastcloudbackup()"
@@ -1357,7 +1357,7 @@
       "label": "forgetCloudState()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L781",
+      "source_location": "L782",
       "id": "backup_forgetcloudstate",
       "community": 2,
       "norm_label": "forgetcloudstate()"
@@ -1366,7 +1366,7 @@
       "label": "backupToDrive()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L797",
+      "source_location": "L798",
       "id": "backup_backuptodrive",
       "community": 2,
       "norm_label": "backuptodrive()"
@@ -1375,7 +1375,7 @@
       "label": "listCloudBackups()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L872",
+      "source_location": "L873",
       "id": "backup_listcloudbackups",
       "community": 2,
       "norm_label": "listcloudbackups()"
@@ -1384,16 +1384,34 @@
       "label": "restoreFromDrive()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L892",
+      "source_location": "L893",
       "id": "backup_restorefromdrive",
       "community": 2,
       "norm_label": "restorefromdrive()"
     },
     {
+      "label": "previsualiserFusion()",
+      "file_type": "code",
+      "source_file": "client\\src\\backup.js",
+      "source_location": "L912",
+      "id": "backup_previsualiserfusion",
+      "community": 2,
+      "norm_label": "previsualiserfusion()"
+    },
+    {
+      "label": "fusionnerAvecDrive()",
+      "file_type": "code",
+      "source_file": "client\\src\\backup.js",
+      "source_location": "L931",
+      "id": "backup_fusionneravecdrive",
+      "community": 2,
+      "norm_label": "fusionneravecdrive()"
+    },
+    {
       "label": "cloudRestoreSuggestions()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L913",
+      "source_location": "L957",
       "id": "backup_cloudrestoresuggestions",
       "community": 2,
       "norm_label": "cloudrestoresuggestions()"
@@ -1402,7 +1420,7 @@
       "label": "resumerSauvegardeDrive()",
       "file_type": "code",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L936",
+      "source_location": "L980",
       "id": "backup_resumersauvegardedrive",
       "community": 2,
       "norm_label": "resumersauvegardedrive()"
@@ -1413,7 +1431,7 @@
       "source_file": "client\\src\\db.js",
       "source_location": "L1",
       "id": "client_src_db_js",
-      "community": 9,
+      "community": 10,
       "norm_label": "db.js"
     },
     {
@@ -1422,7 +1440,7 @@
       "source_file": "client\\src\\db.js",
       "source_location": "L133",
       "id": "db_createwebengine",
-      "community": 9,
+      "community": 10,
       "norm_label": "createwebengine()"
     },
     {
@@ -1431,7 +1449,7 @@
       "source_file": "client\\src\\db.js",
       "source_location": "L191",
       "id": "db_createnativeengine",
-      "community": 9,
+      "community": 10,
       "norm_label": "createnativeengine()"
     },
     {
@@ -1440,7 +1458,7 @@
       "source_file": "client\\src\\db.js",
       "source_location": "L227",
       "id": "db_initdb",
-      "community": 9,
+      "community": 10,
       "norm_label": "initdb()"
     },
     {
@@ -1449,7 +1467,7 @@
       "source_file": "client\\src\\db.js",
       "source_location": "L242",
       "id": "db_query",
-      "community": 9,
+      "community": 10,
       "norm_label": "query()"
     },
     {
@@ -1458,7 +1476,7 @@
       "source_file": "client\\src\\db.js",
       "source_location": "L247",
       "id": "db_run",
-      "community": 9,
+      "community": 10,
       "norm_label": "run()"
     },
     {
@@ -1467,7 +1485,7 @@
       "source_file": "client\\src\\db.js",
       "source_location": "L253",
       "id": "db_runmany",
-      "community": 9,
+      "community": 10,
       "norm_label": "runmany()"
     },
     {
@@ -1476,7 +1494,7 @@
       "source_file": "client\\src\\db.js",
       "source_location": "L266",
       "id": "db_migrateschema",
-      "community": 9,
+      "community": 10,
       "norm_label": "migrateschema()"
     },
     {
@@ -1485,7 +1503,7 @@
       "source_file": "client\\src\\db.js",
       "source_location": "L330",
       "id": "db_addcolumnifmissing",
-      "community": 9,
+      "community": 10,
       "norm_label": "addcolumnifmissing()"
     },
     {
@@ -1494,7 +1512,7 @@
       "source_file": "client\\src\\db.js",
       "source_location": "L339",
       "id": "db_ensuredefaultprofile",
-      "community": 9,
+      "community": 10,
       "norm_label": "ensuredefaultprofile()"
     },
     {
@@ -1503,7 +1521,7 @@
       "source_file": "client\\src\\files.js",
       "source_location": "L1",
       "id": "client_src_files_js",
-      "community": 25,
+      "community": 28,
       "norm_label": "files.js"
     },
     {
@@ -1512,7 +1530,7 @@
       "source_file": "client\\src\\files.js",
       "source_location": "L15",
       "id": "files_savetextfile",
-      "community": 25,
+      "community": 28,
       "norm_label": "savetextfile()"
     },
     {
@@ -1521,7 +1539,7 @@
       "source_file": "client\\src\\files.js",
       "source_location": "L57",
       "id": "files_readtextfile",
-      "community": 25,
+      "community": 28,
       "norm_label": "readtextfile()"
     },
     {
@@ -1530,7 +1548,7 @@
       "source_file": "client\\src\\files.js",
       "source_location": "L67",
       "id": "files_backupfilename",
-      "community": 25,
+      "community": 28,
       "norm_label": "backupfilename()"
     },
     {
@@ -1539,7 +1557,7 @@
       "source_file": "client\\src\\filtres.js",
       "source_location": "L1",
       "id": "client_src_filtres_js",
-      "community": 10,
+      "community": 11,
       "norm_label": "filtres.js"
     },
     {
@@ -1548,7 +1566,7 @@
       "source_file": "client\\src\\filtres.js",
       "source_location": "L60",
       "id": "filtres_filtresbiblioactifs",
-      "community": 10,
+      "community": 11,
       "norm_label": "filtresbiblioactifs()"
     },
     {
@@ -1557,7 +1575,7 @@
       "source_file": "client\\src\\filtres.js",
       "source_location": "L70",
       "id": "filtres_appliquerfiltresbiblio",
-      "community": 10,
+      "community": 11,
       "norm_label": "appliquerfiltresbiblio()"
     },
     {
@@ -1566,7 +1584,7 @@
       "source_file": "client\\src\\filtres.js",
       "source_location": "L116",
       "id": "filtres_iso",
-      "community": 10,
+      "community": 11,
       "norm_label": "iso()"
     },
     {
@@ -1575,7 +1593,7 @@
       "source_file": "client\\src\\filtres.js",
       "source_location": "L119",
       "id": "filtres_daterelative",
-      "community": 10,
+      "community": 11,
       "norm_label": "daterelative()"
     },
     {
@@ -1584,7 +1602,7 @@
       "source_file": "client\\src\\filtres.js",
       "source_location": "L126",
       "id": "filtres_bornesdeperiode",
-      "community": 10,
+      "community": 11,
       "norm_label": "bornesdeperiode()"
     },
     {
@@ -1593,7 +1611,7 @@
       "source_file": "client\\src\\filtres.js",
       "source_location": "L147",
       "id": "filtres_filtresactifs",
-      "community": 10,
+      "community": 11,
       "norm_label": "filtresactifs()"
     },
     {
@@ -1602,7 +1620,7 @@
       "source_file": "client\\src\\filtres.js",
       "source_location": "L164",
       "id": "filtres_filtresdecouverteactifs",
-      "community": 10,
+      "community": 11,
       "norm_label": "filtresdecouverteactifs()"
     },
     {
@@ -1611,7 +1629,7 @@
       "source_file": "client\\src\\filtres.js",
       "source_location": "L172",
       "id": "filtres_appliquerfiltresdecouverte",
-      "community": 10,
+      "community": 11,
       "norm_label": "appliquerfiltresdecouverte()"
     },
     {
@@ -1620,7 +1638,7 @@
       "source_file": "client\\src\\filtres.js",
       "source_location": "L186",
       "id": "filtres_appliquerfiltres",
-      "community": 10,
+      "community": 11,
       "norm_label": "appliquerfiltres()"
     },
     {
@@ -1629,7 +1647,7 @@
       "source_file": "client\\src\\firebase.js",
       "source_location": "L1",
       "id": "client_src_firebase_js",
-      "community": 11,
+      "community": 13,
       "norm_label": "firebase.js"
     },
     {
@@ -1638,7 +1656,7 @@
       "source_file": "client\\src\\firebase.js",
       "source_location": "L29",
       "id": "firebase_isconfigured",
-      "community": 11,
+      "community": 13,
       "norm_label": "isconfigured()"
     },
     {
@@ -1647,7 +1665,7 @@
       "source_file": "client\\src\\firebase.js",
       "source_location": "L37",
       "id": "firebase_demarrer",
-      "community": 11,
+      "community": 13,
       "norm_label": "demarrer()"
     },
     {
@@ -1656,7 +1674,7 @@
       "source_file": "client\\src\\firebase.js",
       "source_location": "L62",
       "id": "firebase_traduire",
-      "community": 11,
+      "community": 13,
       "norm_label": "traduire()"
     },
     {
@@ -1665,7 +1683,7 @@
       "source_file": "client\\src\\firebase.js",
       "source_location": "L76",
       "id": "firebase_refusee",
-      "community": 11,
+      "community": 13,
       "norm_label": "refusee()"
     },
     {
@@ -1674,7 +1692,7 @@
       "source_file": "client\\src\\firebase.js",
       "source_location": "L82",
       "id": "firebase_publier",
-      "community": 11,
+      "community": 13,
       "norm_label": "publier()"
     },
     {
@@ -1683,7 +1701,7 @@
       "source_file": "client\\src\\firebase.js",
       "source_location": "L105",
       "id": "firebase_lire",
-      "community": 11,
+      "community": 13,
       "norm_label": "lire()"
     },
     {
@@ -1692,8 +1710,125 @@
       "source_file": "client\\src\\firebase.js",
       "source_location": "L120",
       "id": "firebase_retirer",
-      "community": 11,
+      "community": 13,
       "norm_label": "retirer()"
+    },
+    {
+      "label": "fusion.js",
+      "file_type": "code",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L1",
+      "id": "client_src_fusion_js",
+      "community": 7,
+      "norm_label": "fusion.js"
+    },
+    {
+      "label": "cleTitre()",
+      "file_type": "code",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L18",
+      "id": "fusion_cletitre",
+      "community": 7,
+      "norm_label": "cletitre()"
+    },
+    {
+      "label": "present()",
+      "file_type": "code",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L19",
+      "id": "fusion_present",
+      "community": 7,
+      "norm_label": "present()"
+    },
+    {
+      "label": "prefere()",
+      "file_type": "code",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L21",
+      "id": "fusion_prefere",
+      "community": 7,
+      "norm_label": "prefere()"
+    },
+    {
+      "label": "plusAncienne()",
+      "file_type": "code",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L22",
+      "id": "fusion_plusancienne",
+      "community": 7,
+      "norm_label": "plusancienne()"
+    },
+    {
+      "label": "statutFusionne()",
+      "file_type": "code",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L24",
+      "id": "fusion_statutfusionne",
+      "community": 7,
+      "norm_label": "statutfusionne()"
+    },
+    {
+      "label": "fusionnerTitre()",
+      "file_type": "code",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L32",
+      "id": "fusion_fusionnertitre",
+      "community": 7,
+      "norm_label": "fusionnertitre()"
+    },
+    {
+      "label": "union()",
+      "file_type": "code",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L51",
+      "id": "fusion_union",
+      "community": 7,
+      "norm_label": "union()"
+    },
+    {
+      "label": "nom()",
+      "file_type": "code",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L60",
+      "id": "fusion_nom",
+      "community": 7,
+      "norm_label": "nom()"
+    },
+    {
+      "label": "fusionnerProfils()",
+      "file_type": "code",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L62",
+      "id": "fusion_fusionnerprofils",
+      "community": 7,
+      "norm_label": "fusionnerprofils()"
+    },
+    {
+      "label": "pluriel()",
+      "file_type": "code",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L202",
+      "id": "fusion_pluriel",
+      "community": 7,
+      "norm_label": "pluriel()"
+    },
+    {
+      "label": "enumerer()",
+      "file_type": "code",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L204",
+      "id": "fusion_enumerer",
+      "community": 7,
+      "norm_label": "enumerer()"
+    },
+    {
+      "label": "decrireFusion()",
+      "file_type": "code",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L214",
+      "id": "fusion_decrirefusion",
+      "community": 7,
+      "norm_label": "decrirefusion()"
     },
     {
       "label": "google.js",
@@ -1899,7 +2034,7 @@
       "source_file": "client\\src\\idee.js",
       "source_location": "L1",
       "id": "client_src_idee_js",
-      "community": 12,
+      "community": 14,
       "norm_label": "idee.js"
     },
     {
@@ -1908,7 +2043,7 @@
       "source_file": "client\\src\\idee.js",
       "source_location": "L7",
       "id": "idee_mulberry32",
-      "community": 12,
+      "community": 14,
       "norm_label": "mulberry32()"
     },
     {
@@ -1917,7 +2052,7 @@
       "source_file": "client\\src\\idee.js",
       "source_location": "L18",
       "id": "idee_hachage",
-      "community": 12,
+      "community": 14,
       "norm_label": "hachage()"
     },
     {
@@ -1926,7 +2061,7 @@
       "source_file": "client\\src\\idee.js",
       "source_location": "L27",
       "id": "idee_clede",
-      "community": 12,
+      "community": 14,
       "norm_label": "clede()"
     },
     {
@@ -1935,7 +2070,7 @@
       "source_file": "client\\src\\idee.js",
       "source_location": "L30",
       "id": "idee_aujourdhui",
-      "community": 12,
+      "community": 14,
       "norm_label": "aujourdhui()"
     },
     {
@@ -1944,7 +2079,7 @@
       "source_file": "client\\src\\idee.js",
       "source_location": "L37",
       "id": "idee_candidatsidee",
-      "community": 12,
+      "community": 14,
       "norm_label": "candidatsidee()"
     },
     {
@@ -1953,7 +2088,7 @@
       "source_file": "client\\src\\idee.js",
       "source_location": "L44",
       "id": "idee_ideedusoir",
-      "community": 12,
+      "community": 14,
       "norm_label": "ideedusoir()"
     },
     {
@@ -1962,7 +2097,7 @@
       "source_file": "client\\src\\idee.js",
       "source_location": "L57",
       "id": "idee_depuislibelle",
-      "community": 12,
+      "community": 14,
       "norm_label": "depuislibelle()"
     },
     {
@@ -1971,7 +2106,7 @@
       "source_file": "client\\src\\lang.js",
       "source_location": "L1",
       "id": "client_src_lang_js",
-      "community": 17,
+      "community": 19,
       "norm_label": "lang.js"
     },
     {
@@ -1980,7 +2115,7 @@
       "source_file": "client\\src\\lang.js",
       "source_location": "L25",
       "id": "lang_getcatalogregion",
-      "community": 17,
+      "community": 19,
       "norm_label": "getcatalogregion()"
     },
     {
@@ -1989,7 +2124,7 @@
       "source_file": "client\\src\\lang.js",
       "source_location": "L30",
       "id": "lang_hascataloglanguage",
-      "community": 17,
+      "community": 19,
       "norm_label": "hascataloglanguage()"
     },
     {
@@ -1998,7 +2133,7 @@
       "source_file": "client\\src\\lang.js",
       "source_location": "L38",
       "id": "lang_getcataloglanguage",
-      "community": 17,
+      "community": 19,
       "norm_label": "getcataloglanguage()"
     },
     {
@@ -2007,7 +2142,7 @@
       "source_file": "client\\src\\lang.js",
       "source_location": "L46",
       "id": "lang_setcataloglanguage",
-      "community": 17,
+      "community": 19,
       "norm_label": "setcataloglanguage()"
     },
     {
@@ -2016,7 +2151,7 @@
       "source_file": "client\\src\\lang.js",
       "source_location": "L54",
       "id": "lang_languagelabel",
-      "community": 17,
+      "community": 19,
       "norm_label": "languagelabel()"
     },
     {
@@ -2025,7 +2160,7 @@
       "source_file": "client\\src\\main.jsx",
       "source_location": "L1",
       "id": "client_src_main_jsx",
-      "community": 92,
+      "community": 94,
       "norm_label": "main.jsx"
     },
     {
@@ -2034,7 +2169,7 @@
       "source_file": "client\\src\\notifications.js",
       "source_location": "L1",
       "id": "client_src_notifications_js",
-      "community": 15,
+      "community": 17,
       "norm_label": "notifications.js"
     },
     {
@@ -2043,7 +2178,7 @@
       "source_file": "client\\src\\notifications.js",
       "source_location": "L26",
       "id": "notifications_idnotification",
-      "community": 15,
+      "community": 17,
       "norm_label": "idnotification()"
     },
     {
@@ -2052,7 +2187,7 @@
       "source_file": "client\\src\\notifications.js",
       "source_location": "L30",
       "id": "notifications_haspermission",
-      "community": 15,
+      "community": 17,
       "norm_label": "haspermission()"
     },
     {
@@ -2061,7 +2196,7 @@
       "source_file": "client\\src\\notifications.js",
       "source_location": "L35",
       "id": "notifications_requestpermission",
-      "community": 15,
+      "community": 17,
       "norm_label": "requestpermission()"
     },
     {
@@ -2070,7 +2205,7 @@
       "source_file": "client\\src\\notifications.js",
       "source_location": "L44",
       "id": "notifications_envoyernotificationtest",
-      "community": 15,
+      "community": 17,
       "norm_label": "envoyernotificationtest()"
     },
     {
@@ -2079,7 +2214,7 @@
       "source_file": "client\\src\\notifications.js",
       "source_location": "L59",
       "id": "notifications_notifiersortie",
-      "community": 15,
+      "community": 17,
       "norm_label": "notifiersortie()"
     },
     {
@@ -2088,7 +2223,7 @@
       "source_file": "client\\src\\notifications.js",
       "source_location": "L78",
       "id": "notifications_ecouterclics",
-      "community": 15,
+      "community": 17,
       "norm_label": "ecouterclics()"
     },
     {
@@ -2295,7 +2430,7 @@
       "source_file": "client\\src\\photo.js",
       "source_location": "L1",
       "id": "client_src_photo_js",
-      "community": 54,
+      "community": 57,
       "norm_label": "photo.js"
     },
     {
@@ -2304,7 +2439,7 @@
       "source_file": "client\\src\\photo.js",
       "source_location": "L9",
       "id": "photo_reduirephoto",
-      "community": 54,
+      "community": 57,
       "norm_label": "reduirephoto()"
     },
     {
@@ -2313,7 +2448,7 @@
       "source_file": "client\\src\\plateformes.js",
       "source_location": "L1",
       "id": "client_src_plateformes_js",
-      "community": 8,
+      "community": 9,
       "norm_label": "plateformes.js"
     },
     {
@@ -2322,7 +2457,7 @@
       "source_file": "client\\src\\plateformes.js",
       "source_location": "L13",
       "id": "plateformes_lire",
-      "community": 8,
+      "community": 9,
       "norm_label": "lire()"
     },
     {
@@ -2331,7 +2466,7 @@
       "source_file": "client\\src\\plateformes.js",
       "source_location": "L22",
       "id": "plateformes_lireplateformes",
-      "community": 8,
+      "community": 9,
       "norm_label": "lireplateformes()"
     },
     {
@@ -2340,7 +2475,7 @@
       "source_file": "client\\src\\plateformes.js",
       "source_location": "L33",
       "id": "plateformes_ecrireplateformes",
-      "community": 8,
+      "community": 9,
       "norm_label": "ecrireplateformes()"
     },
     {
@@ -2349,7 +2484,7 @@
       "source_file": "client\\src\\plateformes.js",
       "source_location": "L47",
       "id": "plateformes_memoriserplateformes",
-      "community": 8,
+      "community": 9,
       "norm_label": "memoriserplateformes()"
     },
     {
@@ -2358,7 +2493,7 @@
       "source_file": "client\\src\\plateformes.js",
       "source_location": "L58",
       "id": "plateformes_plateformesmemorisees",
-      "community": 8,
+      "community": 9,
       "norm_label": "plateformesmemorisees()"
     },
     {
@@ -2367,7 +2502,7 @@
       "source_file": "client\\src\\plateformes.js",
       "source_location": "L67",
       "id": "plateformes_normaliser",
-      "community": 8,
+      "community": 9,
       "norm_label": "normaliser()"
     },
     {
@@ -2376,7 +2511,7 @@
       "source_file": "client\\src\\plateformes.js",
       "source_location": "L76",
       "id": "plateformes_nomsdesplateformes",
-      "community": 8,
+      "community": 9,
       "norm_label": "nomsdesplateformes()"
     },
     {
@@ -2385,7 +2520,7 @@
       "source_file": "client\\src\\plateformes.js",
       "source_location": "L83",
       "id": "plateformes_estsurmesplateformes",
-      "community": 8,
+      "community": 9,
       "norm_label": "estsurmesplateformes()"
     },
     {
@@ -2394,7 +2529,7 @@
       "source_file": "client\\src\\plateformes.js",
       "source_location": "L89",
       "id": "plateformes_offresinconnues",
-      "community": 8,
+      "community": 9,
       "norm_label": "offresinconnues()"
     },
     {
@@ -2403,7 +2538,7 @@
       "source_file": "client\\src\\plateformes.js",
       "source_location": "L92",
       "id": "plateformes_filtrersurmesplateformes",
-      "community": 8,
+      "community": 9,
       "norm_label": "filtrersurmesplateformes()"
     },
     {
@@ -2412,7 +2547,7 @@
       "source_file": "client\\src\\reseau.js",
       "source_location": "L1",
       "id": "client_src_reseau_js",
-      "community": 37,
+      "community": 40,
       "norm_label": "reseau.js"
     },
     {
@@ -2421,7 +2556,7 @@
       "source_file": "client\\src\\reseau.js",
       "source_location": "L7",
       "id": "reseau_esterreurreseau",
-      "community": 37,
+      "community": 40,
       "norm_label": "esterreurreseau()"
     },
     {
@@ -2430,7 +2565,7 @@
       "source_file": "client\\src\\reseau.js",
       "source_location": "L15",
       "id": "reseau_useenligne",
-      "community": 37,
+      "community": 40,
       "norm_label": "useenligne()"
     },
     {
@@ -2439,7 +2574,7 @@
       "source_file": "client\\src\\sagas.js",
       "source_location": "L1",
       "id": "client_src_sagas_js",
-      "community": 21,
+      "community": 23,
       "norm_label": "sagas.js"
     },
     {
@@ -2448,7 +2583,7 @@
       "source_file": "client\\src\\sagas.js",
       "source_location": "L8",
       "id": "sagas_nomdesaga",
-      "community": 21,
+      "community": 23,
       "norm_label": "nomdesaga()"
     },
     {
@@ -2457,7 +2592,7 @@
       "source_file": "client\\src\\sagas.js",
       "source_location": "L18",
       "id": "sagas_entetedesaga",
-      "community": 21,
+      "community": 23,
       "norm_label": "entetedesaga()"
     },
     {
@@ -2466,7 +2601,7 @@
       "source_file": "client\\src\\sagas.js",
       "source_location": "L22",
       "id": "sagas_parsortie",
-      "community": 21,
+      "community": 23,
       "norm_label": "parsortie()"
     },
     {
@@ -2475,7 +2610,7 @@
       "source_file": "client\\src\\sagas.js",
       "source_location": "L28",
       "id": "sagas_regroupersagas",
-      "community": 21,
+      "community": 23,
       "norm_label": "regroupersagas()"
     },
     {
@@ -3141,7 +3276,7 @@
       "source_file": "client\\src\\tactile.js",
       "source_location": "L1",
       "id": "client_src_tactile_js",
-      "community": 55,
+      "community": 58,
       "norm_label": "tactile.js"
     },
     {
@@ -3150,7 +3285,7 @@
       "source_file": "client\\src\\tactile.js",
       "source_location": "L3",
       "id": "tactile_vibre",
-      "community": 55,
+      "community": 58,
       "norm_label": "vibre()"
     },
     {
@@ -3159,7 +3294,7 @@
       "source_file": "client\\src\\theme.js",
       "source_location": "L1",
       "id": "client_src_theme_js",
-      "community": 18,
+      "community": 20,
       "norm_label": "theme.js"
     },
     {
@@ -3168,7 +3303,7 @@
       "source_file": "client\\src\\theme.js",
       "source_location": "L12",
       "id": "theme_lirechoix",
-      "community": 18,
+      "community": 20,
       "norm_label": "lirechoix()"
     },
     {
@@ -3177,7 +3312,7 @@
       "source_file": "client\\src\\theme.js",
       "source_location": "L22",
       "id": "theme_resoudre",
-      "community": 18,
+      "community": 20,
       "norm_label": "resoudre()"
     },
     {
@@ -3186,7 +3321,7 @@
       "source_file": "client\\src\\theme.js",
       "source_location": "L27",
       "id": "theme_requetesysteme",
-      "community": 18,
+      "community": 20,
       "norm_label": "requetesysteme()"
     },
     {
@@ -3195,7 +3330,7 @@
       "source_file": "client\\src\\theme.js",
       "source_location": "L35",
       "id": "theme_poser",
-      "community": 18,
+      "community": 20,
       "norm_label": "poser()"
     },
     {
@@ -3204,7 +3339,7 @@
       "source_file": "client\\src\\theme.js",
       "source_location": "L41",
       "id": "theme_appliquer",
-      "community": 18,
+      "community": 20,
       "norm_label": "appliquer()"
     },
     {
@@ -3573,7 +3708,7 @@
       "source_file": "client\\src\\components\\About.jsx",
       "source_location": "L1",
       "id": "client_src_components_about_jsx",
-      "community": 56,
+      "community": 59,
       "norm_label": "about.jsx"
     },
     {
@@ -3582,7 +3717,7 @@
       "source_file": "client\\src\\components\\About.jsx",
       "source_location": "L6",
       "id": "about_about",
-      "community": 56,
+      "community": 59,
       "norm_label": "about()"
     },
     {
@@ -3591,7 +3726,7 @@
       "source_file": "client\\src\\components\\AddToListe.jsx",
       "source_location": "L1",
       "id": "client_src_components_addtoliste_jsx",
-      "community": 57,
+      "community": 60,
       "norm_label": "addtoliste.jsx"
     },
     {
@@ -3600,7 +3735,7 @@
       "source_file": "client\\src\\components\\AddToListe.jsx",
       "source_location": "L12",
       "id": "addtoliste_addtoliste",
-      "community": 57,
+      "community": 60,
       "norm_label": "addtoliste()"
     },
     {
@@ -3609,7 +3744,7 @@
       "source_file": "client\\src\\components\\Amis.jsx",
       "source_location": "L1",
       "id": "client_src_components_amis_jsx",
-      "community": 58,
+      "community": 61,
       "norm_label": "amis.jsx"
     },
     {
@@ -3618,7 +3753,7 @@
       "source_file": "client\\src\\components\\Amis.jsx",
       "source_location": "L10",
       "id": "amis_amis",
-      "community": 58,
+      "community": 61,
       "norm_label": "amis()"
     },
     {
@@ -3627,7 +3762,7 @@
       "source_file": "client\\src\\components\\Avatar.jsx",
       "source_location": "L1",
       "id": "client_src_components_avatar_jsx",
-      "community": 13,
+      "community": 15,
       "norm_label": "avatar.jsx"
     },
     {
@@ -3636,7 +3771,7 @@
       "source_file": "client\\src\\components\\Avatar.jsx",
       "source_location": "L40",
       "id": "avatar_estphoto",
-      "community": 13,
+      "community": 15,
       "norm_label": "estphoto()"
     },
     {
@@ -3645,7 +3780,7 @@
       "source_file": "client\\src\\components\\Avatar.jsx",
       "source_location": "L49",
       "id": "avatar_photodepuisfichier",
-      "community": 13,
+      "community": 15,
       "norm_label": "photodepuisfichier()"
     },
     {
@@ -3654,7 +3789,7 @@
       "source_file": "client\\src\\components\\Avatar.jsx",
       "source_location": "L81",
       "id": "avatar_parseavatar",
-      "community": 13,
+      "community": 15,
       "norm_label": "parseavatar()"
     },
     {
@@ -3663,7 +3798,7 @@
       "source_file": "client\\src\\components\\Avatar.jsx",
       "source_location": "L91",
       "id": "avatar_formatavatar",
-      "community": 13,
+      "community": 15,
       "norm_label": "formatavatar()"
     },
     {
@@ -3672,7 +3807,7 @@
       "source_file": "client\\src\\components\\Avatar.jsx",
       "source_location": "L93",
       "id": "avatar_couleurcss",
-      "community": 13,
+      "community": 15,
       "norm_label": "couleurcss()"
     },
     {
@@ -3681,7 +3816,7 @@
       "source_file": "client\\src\\components\\Avatar.jsx",
       "source_location": "L96",
       "id": "avatar_initiale",
-      "community": 13,
+      "community": 15,
       "norm_label": "initiale()"
     },
     {
@@ -3690,7 +3825,7 @@
       "source_file": "client\\src\\components\\Avatar.jsx",
       "source_location": "L98",
       "id": "avatar_avatar",
-      "community": 13,
+      "community": 15,
       "norm_label": "avatar()"
     },
     {
@@ -3699,25 +3834,25 @@
       "source_file": "client\\src\\components\\Backup.jsx",
       "source_location": "L1",
       "id": "client_src_components_backup_jsx",
-      "community": 38,
+      "community": 41,
       "norm_label": "backup.jsx"
     },
     {
       "label": "dateLisible()",
       "file_type": "code",
       "source_file": "client\\src\\components\\Backup.jsx",
-      "source_location": "L41",
+      "source_location": "L44",
       "id": "backup_datelisible",
-      "community": 38,
+      "community": 41,
       "norm_label": "datelisible()"
     },
     {
       "label": "Backup()",
       "file_type": "code",
       "source_file": "client\\src\\components\\Backup.jsx",
-      "source_location": "L48",
+      "source_location": "L51",
       "id": "backup_backup",
-      "community": 38,
+      "community": 41,
       "norm_label": "backup()"
     },
     {
@@ -3726,7 +3861,7 @@
       "source_file": "client\\src\\components\\BarreFiltres.jsx",
       "source_location": "L1",
       "id": "client_src_components_barrefiltres_jsx",
-      "community": 59,
+      "community": 62,
       "norm_label": "barrefiltres.jsx"
     },
     {
@@ -3735,7 +3870,7 @@
       "source_file": "client\\src\\components\\BarreFiltres.jsx",
       "source_location": "L14",
       "id": "barrefiltres_barrefiltres",
-      "community": 59,
+      "community": 62,
       "norm_label": "barrefiltres()"
     },
     {
@@ -3744,7 +3879,7 @@
       "source_file": "client\\src\\components\\CatalogLanguage.jsx",
       "source_location": "L1",
       "id": "client_src_components_cataloglanguage_jsx",
-      "community": 60,
+      "community": 63,
       "norm_label": "cataloglanguage.jsx"
     },
     {
@@ -3753,7 +3888,7 @@
       "source_file": "client\\src\\components\\CatalogLanguage.jsx",
       "source_location": "L13",
       "id": "cataloglanguage_cataloglanguage",
-      "community": 60,
+      "community": 63,
       "norm_label": "cataloglanguage()"
     },
     {
@@ -3762,7 +3897,7 @@
       "source_file": "client\\src\\components\\Decouvrir.jsx",
       "source_location": "L1",
       "id": "client_src_components_decouvrir_jsx",
-      "community": 19,
+      "community": 21,
       "norm_label": "decouvrir.jsx"
     },
     {
@@ -3771,7 +3906,7 @@
       "source_file": "client\\src\\components\\Decouvrir.jsx",
       "source_location": "L29",
       "id": "decouvrir_keyof",
-      "community": 19,
+      "community": 21,
       "norm_label": "keyof()"
     },
     {
@@ -3780,7 +3915,7 @@
       "source_file": "client\\src\\components\\Decouvrir.jsx",
       "source_location": "L32",
       "id": "decouvrir_filtrer",
-      "community": 19,
+      "community": 21,
       "norm_label": "filtrer()"
     },
     {
@@ -3789,7 +3924,7 @@
       "source_file": "client\\src\\components\\Decouvrir.jsx",
       "source_location": "L35",
       "id": "decouvrir_titresde",
-      "community": 19,
+      "community": 21,
       "norm_label": "titresde()"
     },
     {
@@ -3798,7 +3933,7 @@
       "source_file": "client\\src\\components\\Decouvrir.jsx",
       "source_location": "L54",
       "id": "decouvrir_legendeamis",
-      "community": 19,
+      "community": 21,
       "norm_label": "legendeamis()"
     },
     {
@@ -3807,7 +3942,7 @@
       "source_file": "client\\src\\components\\Decouvrir.jsx",
       "source_location": "L62",
       "id": "decouvrir_decouvrir",
-      "community": 19,
+      "community": 21,
       "norm_label": "decouvrir()"
     },
     {
@@ -3816,7 +3951,7 @@
       "source_file": "client\\src\\components\\Detail.jsx",
       "source_location": "L1",
       "id": "client_src_components_detail_jsx",
-      "community": 39,
+      "community": 42,
       "norm_label": "detail.jsx"
     },
     {
@@ -3825,7 +3960,7 @@
       "source_file": "client\\src\\components\\Detail.jsx",
       "source_location": "L40",
       "id": "detail_detail",
-      "community": 39,
+      "community": 42,
       "norm_label": "detail()"
     },
     {
@@ -3834,7 +3969,7 @@
       "source_file": "client\\src\\components\\Detail.jsx",
       "source_location": "L921",
       "id": "detail_plateformes",
-      "community": 39,
+      "community": 42,
       "norm_label": "plateformes()"
     },
     {
@@ -3843,7 +3978,7 @@
       "source_file": "client\\src\\components\\Disponibilite.jsx",
       "source_location": "L1",
       "id": "client_src_components_disponibilite_jsx",
-      "community": 61,
+      "community": 64,
       "norm_label": "disponibilite.jsx"
     },
     {
@@ -3852,7 +3987,7 @@
       "source_file": "client\\src\\components\\Disponibilite.jsx",
       "source_location": "L14",
       "id": "disponibilite_disponibilite",
-      "community": 61,
+      "community": 64,
       "norm_label": "disponibilite()"
     },
     {
@@ -3861,7 +3996,7 @@
       "source_file": "client\\src\\components\\Fantomes.jsx",
       "source_location": "L1",
       "id": "client_src_components_fantomes_jsx",
-      "community": 26,
+      "community": 29,
       "norm_label": "fantomes.jsx"
     },
     {
@@ -3870,7 +4005,7 @@
       "source_file": "client\\src\\components\\Fantomes.jsx",
       "source_location": "L4",
       "id": "fantomes_grillefantome",
-      "community": 26,
+      "community": 29,
       "norm_label": "grillefantome()"
     },
     {
@@ -3879,7 +4014,7 @@
       "source_file": "client\\src\\components\\Fantomes.jsx",
       "source_location": "L18",
       "id": "fantomes_rangeefantome",
-      "community": 26,
+      "community": 29,
       "norm_label": "rangeefantome()"
     },
     {
@@ -3888,7 +4023,7 @@
       "source_file": "client\\src\\components\\Fantomes.jsx",
       "source_location": "L32",
       "id": "fantomes_pucesfantome",
-      "community": 26,
+      "community": 29,
       "norm_label": "pucesfantome()"
     },
     {
@@ -3897,7 +4032,7 @@
       "source_file": "client\\src\\components\\FicheAmi.jsx",
       "source_location": "L1",
       "id": "client_src_components_ficheami_jsx",
-      "community": 22,
+      "community": 24,
       "norm_label": "ficheami.jsx"
     },
     {
@@ -3906,7 +4041,7 @@
       "source_file": "client\\src\\components\\FicheAmi.jsx",
       "source_location": "L9",
       "id": "ficheami_keyof",
-      "community": 22,
+      "community": 24,
       "norm_label": "keyof()"
     },
     {
@@ -3915,7 +4050,7 @@
       "source_file": "client\\src\\components\\FicheAmi.jsx",
       "source_location": "L10",
       "id": "ficheami_nomstatut",
-      "community": 22,
+      "community": 24,
       "norm_label": "nomstatut()"
     },
     {
@@ -3924,7 +4059,7 @@
       "source_file": "client\\src\\components\\FicheAmi.jsx",
       "source_location": "L11",
       "id": "ficheami_etoiles",
-      "community": 22,
+      "community": 24,
       "norm_label": "etoiles()"
     },
     {
@@ -3933,7 +4068,7 @@
       "source_file": "client\\src\\components\\FicheAmi.jsx",
       "source_location": "L16",
       "id": "ficheami_ficheami",
-      "community": 22,
+      "community": 24,
       "norm_label": "ficheami()"
     },
     {
@@ -3942,7 +4077,7 @@
       "source_file": "client\\src\\components\\FicheEntete.jsx",
       "source_location": "L1",
       "id": "client_src_components_ficheentete_jsx",
-      "community": 62,
+      "community": 65,
       "norm_label": "ficheentete.jsx"
     },
     {
@@ -3951,7 +4086,7 @@
       "source_file": "client\\src\\components\\FicheEntete.jsx",
       "source_location": "L7",
       "id": "ficheentete_ficheentete",
-      "community": 62,
+      "community": 65,
       "norm_label": "ficheentete()"
     },
     {
@@ -3960,7 +4095,7 @@
       "source_file": "client\\src\\components\\FicheProgression.jsx",
       "source_location": "L1",
       "id": "client_src_components_ficheprogression_jsx",
-      "community": 63,
+      "community": 66,
       "norm_label": "ficheprogression.jsx"
     },
     {
@@ -3969,7 +4104,7 @@
       "source_file": "client\\src\\components\\FicheProgression.jsx",
       "source_location": "L7",
       "id": "ficheprogression_ficheprogression",
-      "community": 63,
+      "community": 66,
       "norm_label": "ficheprogression()"
     },
     {
@@ -3978,7 +4113,7 @@
       "source_file": "client\\src\\components\\FicheSaisons.jsx",
       "source_location": "L1",
       "id": "client_src_components_fichesaisons_jsx",
-      "community": 64,
+      "community": 67,
       "norm_label": "fichesaisons.jsx"
     },
     {
@@ -3987,7 +4122,7 @@
       "source_file": "client\\src\\components\\FicheSaisons.jsx",
       "source_location": "L7",
       "id": "fichesaisons_fichesaisons",
-      "community": 64,
+      "community": 67,
       "norm_label": "fichesaisons()"
     },
     {
@@ -3996,7 +4131,7 @@
       "source_file": "client\\src\\components\\FicheStatut.jsx",
       "source_location": "L1",
       "id": "client_src_components_fichestatut_jsx",
-      "community": 65,
+      "community": 68,
       "norm_label": "fichestatut.jsx"
     },
     {
@@ -4005,7 +4140,7 @@
       "source_file": "client\\src\\components\\FicheStatut.jsx",
       "source_location": "L9",
       "id": "fichestatut_fichestatut",
-      "community": 65,
+      "community": 68,
       "norm_label": "fichestatut()"
     },
     {
@@ -4014,7 +4149,7 @@
       "source_file": "client\\src\\components\\Filtres.jsx",
       "source_location": "L1",
       "id": "client_src_components_filtres_jsx",
-      "community": 66,
+      "community": 69,
       "norm_label": "filtres.jsx"
     },
     {
@@ -4023,7 +4158,7 @@
       "source_file": "client\\src\\components\\Filtres.jsx",
       "source_location": "L16",
       "id": "filtres_filtres",
-      "community": 66,
+      "community": 69,
       "norm_label": "filtres()"
     },
     {
@@ -4032,7 +4167,7 @@
       "source_file": "client\\src\\components\\Hero.jsx",
       "source_location": "L1",
       "id": "client_src_components_hero_jsx",
-      "community": 40,
+      "community": 43,
       "norm_label": "hero.jsx"
     },
     {
@@ -4041,7 +4176,7 @@
       "source_file": "client\\src\\components\\Hero.jsx",
       "source_location": "L3",
       "id": "hero_teinte",
-      "community": 40,
+      "community": 43,
       "norm_label": "teinte()"
     },
     {
@@ -4050,7 +4185,7 @@
       "source_file": "client\\src\\components\\Hero.jsx",
       "source_location": "L9",
       "id": "hero_hero",
-      "community": 40,
+      "community": 43,
       "norm_label": "hero()"
     },
     {
@@ -4059,7 +4194,7 @@
       "source_file": "client\\src\\components\\HorsLigne.jsx",
       "source_location": "L1",
       "id": "client_src_components_horsligne_jsx",
-      "community": 67,
+      "community": 70,
       "norm_label": "horsligne.jsx"
     },
     {
@@ -4068,7 +4203,7 @@
       "source_file": "client\\src\\components\\HorsLigne.jsx",
       "source_location": "L4",
       "id": "horsligne_horsligne",
-      "community": 67,
+      "community": 70,
       "norm_label": "horsligne()"
     },
     {
@@ -4077,7 +4212,7 @@
       "source_file": "client\\src\\components\\Icon.jsx",
       "source_location": "L1",
       "id": "client_src_components_icon_jsx",
-      "community": 68,
+      "community": 71,
       "norm_label": "icon.jsx"
     },
     {
@@ -4086,7 +4221,7 @@
       "source_file": "client\\src\\components\\Icon.jsx",
       "source_location": "L57",
       "id": "icon_icon",
-      "community": 68,
+      "community": 71,
       "norm_label": "icon()"
     },
     {
@@ -4095,7 +4230,7 @@
       "source_file": "client\\src\\components\\Lists.jsx",
       "source_location": "L1",
       "id": "client_src_components_lists_jsx",
-      "community": 69,
+      "community": 72,
       "norm_label": "lists.jsx"
     },
     {
@@ -4104,7 +4239,7 @@
       "source_file": "client\\src\\components\\Lists.jsx",
       "source_location": "L27",
       "id": "lists_lists",
-      "community": 69,
+      "community": 72,
       "norm_label": "lists()"
     },
     {
@@ -4113,7 +4248,7 @@
       "source_file": "client\\src\\components\\MesPlateformes.jsx",
       "source_location": "L1",
       "id": "client_src_components_mesplateformes_jsx",
-      "community": 70,
+      "community": 73,
       "norm_label": "mesplateformes.jsx"
     },
     {
@@ -4122,7 +4257,7 @@
       "source_file": "client\\src\\components\\MesPlateformes.jsx",
       "source_location": "L10",
       "id": "mesplateformes_mesplateformes",
-      "community": 70,
+      "community": 73,
       "norm_label": "mesplateformes()"
     },
     {
@@ -4131,7 +4266,7 @@
       "source_file": "client\\src\\components\\MovieCard.jsx",
       "source_location": "L1",
       "id": "client_src_components_moviecard_jsx",
-      "community": 71,
+      "community": 74,
       "norm_label": "moviecard.jsx"
     },
     {
@@ -4140,7 +4275,7 @@
       "source_file": "client\\src\\components\\MovieCard.jsx",
       "source_location": "L12",
       "id": "moviecard_moviecard",
-      "community": 71,
+      "community": 74,
       "norm_label": "moviecard()"
     },
     {
@@ -4149,7 +4284,7 @@
       "source_file": "client\\src\\components\\Notifications.jsx",
       "source_location": "L1",
       "id": "client_src_components_notifications_jsx",
-      "community": 72,
+      "community": 75,
       "norm_label": "notifications.jsx"
     },
     {
@@ -4158,7 +4293,7 @@
       "source_file": "client\\src\\components\\Notifications.jsx",
       "source_location": "L8",
       "id": "notifications_notifications",
-      "community": 72,
+      "community": 75,
       "norm_label": "notifications()"
     },
     {
@@ -4167,7 +4302,7 @@
       "source_file": "client\\src\\components\\Partage.jsx",
       "source_location": "L1",
       "id": "client_src_components_partage_jsx",
-      "community": 73,
+      "community": 76,
       "norm_label": "partage.jsx"
     },
     {
@@ -4176,7 +4311,7 @@
       "source_file": "client\\src\\components\\Partage.jsx",
       "source_location": "L22",
       "id": "partage_partage",
-      "community": 73,
+      "community": 76,
       "norm_label": "partage()"
     },
     {
@@ -4185,7 +4320,7 @@
       "source_file": "client\\src\\components\\PastilleCarte.jsx",
       "source_location": "L1",
       "id": "client_src_components_pastillecarte_jsx",
-      "community": 27,
+      "community": 30,
       "norm_label": "pastillecarte.jsx"
     },
     {
@@ -4194,7 +4329,7 @@
       "source_file": "client\\src\\components\\PastilleCarte.jsx",
       "source_location": "L31",
       "id": "pastillecarte_chargersalle",
-      "community": 27,
+      "community": 30,
       "norm_label": "chargersalle()"
     },
     {
@@ -4203,7 +4338,7 @@
       "source_file": "client\\src\\components\\PastilleCarte.jsx",
       "source_location": "L50",
       "id": "pastillecarte_usefilmsensalle",
-      "community": 27,
+      "community": 30,
       "norm_label": "usefilmsensalle()"
     },
     {
@@ -4212,7 +4347,7 @@
       "source_file": "client\\src\\components\\PastilleCarte.jsx",
       "source_location": "L62",
       "id": "pastillecarte_pastillecarte",
-      "community": 27,
+      "community": 30,
       "norm_label": "pastillecarte()"
     },
     {
@@ -4221,7 +4356,7 @@
       "source_file": "client\\src\\components\\Profiles.jsx",
       "source_location": "L1",
       "id": "client_src_components_profiles_jsx",
-      "community": 41,
+      "community": 44,
       "norm_label": "profiles.jsx"
     },
     {
@@ -4230,7 +4365,7 @@
       "source_file": "client\\src\\components\\Profiles.jsx",
       "source_location": "L21",
       "id": "profiles_profiles",
-      "community": 41,
+      "community": 44,
       "norm_label": "profiles()"
     },
     {
@@ -4239,7 +4374,7 @@
       "source_file": "client\\src\\components\\Profiles.jsx",
       "source_location": "L186",
       "id": "profiles_choixavatar",
-      "community": 41,
+      "community": 44,
       "norm_label": "choixavatar()"
     },
     {
@@ -4248,7 +4383,7 @@
       "source_file": "client\\src\\components\\Rail.jsx",
       "source_location": "L1",
       "id": "client_src_components_rail_jsx",
-      "community": 42,
+      "community": 45,
       "norm_label": "rail.jsx"
     },
     {
@@ -4257,7 +4392,7 @@
       "source_file": "client\\src\\components\\Rail.jsx",
       "source_location": "L6",
       "id": "rail_keyof",
-      "community": 42,
+      "community": 45,
       "norm_label": "keyof()"
     },
     {
@@ -4266,7 +4401,7 @@
       "source_file": "client\\src\\components\\Rail.jsx",
       "source_location": "L16",
       "id": "rail_rail",
-      "community": 42,
+      "community": 45,
       "norm_label": "rail()"
     },
     {
@@ -4275,7 +4410,7 @@
       "source_file": "client\\src\\components\\Rubriques.jsx",
       "source_location": "L1",
       "id": "client_src_components_rubriques_jsx",
-      "community": 43,
+      "community": 46,
       "norm_label": "rubriques.jsx"
     },
     {
@@ -4284,7 +4419,7 @@
       "source_file": "client\\src\\components\\Rubriques.jsx",
       "source_location": "L26",
       "id": "rubriques_keyof",
-      "community": 43,
+      "community": 46,
       "norm_label": "keyof()"
     },
     {
@@ -4293,7 +4428,7 @@
       "source_file": "client\\src\\components\\Rubriques.jsx",
       "source_location": "L28",
       "id": "rubriques_rubriques",
-      "community": 43,
+      "community": 46,
       "norm_label": "rubriques()"
     },
     {
@@ -4302,7 +4437,7 @@
       "source_file": "client\\src\\components\\SearchBar.jsx",
       "source_location": "L1",
       "id": "client_src_components_searchbar_jsx",
-      "community": 74,
+      "community": 77,
       "norm_label": "searchbar.jsx"
     },
     {
@@ -4311,7 +4446,7 @@
       "source_file": "client\\src\\components\\SearchBar.jsx",
       "source_location": "L6",
       "id": "searchbar_searchbar",
-      "community": 74,
+      "community": 77,
       "norm_label": "searchbar()"
     },
     {
@@ -4320,7 +4455,7 @@
       "source_file": "client\\src\\components\\Settings.jsx",
       "source_location": "L1",
       "id": "client_src_components_settings_jsx",
-      "community": 75,
+      "community": 78,
       "norm_label": "settings.jsx"
     },
     {
@@ -4329,7 +4464,7 @@
       "source_file": "client\\src\\components\\Settings.jsx",
       "source_location": "L9",
       "id": "settings_settings",
-      "community": 75,
+      "community": 78,
       "norm_label": "settings()"
     },
     {
@@ -4338,7 +4473,7 @@
       "source_file": "client\\src\\components\\Stats.jsx",
       "source_location": "L1",
       "id": "client_src_components_stats_jsx",
-      "community": 28,
+      "community": 31,
       "norm_label": "stats.jsx"
     },
     {
@@ -4347,7 +4482,7 @@
       "source_file": "client\\src\\components\\Stats.jsx",
       "source_location": "L16",
       "id": "stats_formatduree",
-      "community": 28,
+      "community": 31,
       "norm_label": "formatduree()"
     },
     {
@@ -4356,7 +4491,7 @@
       "source_file": "client\\src\\components\\Stats.jsx",
       "source_location": "L28",
       "id": "stats_stats",
-      "community": 28,
+      "community": 31,
       "norm_label": "stats()"
     },
     {
@@ -4365,7 +4500,7 @@
       "source_file": "client\\src\\components\\Stats.jsx",
       "source_location": "L189",
       "id": "stats_statcase",
-      "community": 28,
+      "community": 31,
       "norm_label": "statcase()"
     },
     {
@@ -4374,7 +4509,7 @@
       "source_file": "client\\src\\components\\StatusMenu.jsx",
       "source_location": "L1",
       "id": "client_src_components_statusmenu_jsx",
-      "community": 76,
+      "community": 79,
       "norm_label": "statusmenu.jsx"
     },
     {
@@ -4383,7 +4518,7 @@
       "source_file": "client\\src\\components\\StatusMenu.jsx",
       "source_location": "L9",
       "id": "statusmenu_statusmenu",
-      "community": 76,
+      "community": 79,
       "norm_label": "statusmenu()"
     },
     {
@@ -4392,7 +4527,7 @@
       "source_file": "client\\src\\components\\Suggestions.jsx",
       "source_location": "L1",
       "id": "client_src_components_suggestions_jsx",
-      "community": 77,
+      "community": 80,
       "norm_label": "suggestions.jsx"
     },
     {
@@ -4401,7 +4536,7 @@
       "source_file": "client\\src\\components\\Suggestions.jsx",
       "source_location": "L13",
       "id": "suggestions_suggestions",
-      "community": 77,
+      "community": 80,
       "norm_label": "suggestions()"
     },
     {
@@ -4410,7 +4545,7 @@
       "source_file": "client\\src\\components\\Tonight.jsx",
       "source_location": "L1",
       "id": "client_src_components_tonight_jsx",
-      "community": 78,
+      "community": 81,
       "norm_label": "tonight.jsx"
     },
     {
@@ -4419,7 +4554,7 @@
       "source_file": "client\\src\\components\\Tonight.jsx",
       "source_location": "L31",
       "id": "tonight_tonight",
-      "community": 78,
+      "community": 81,
       "norm_label": "tonight()"
     },
     {
@@ -4428,7 +4563,7 @@
       "source_file": "client\\src\\components\\Upcoming.jsx",
       "source_location": "L1",
       "id": "client_src_components_upcoming_jsx",
-      "community": 79,
+      "community": 82,
       "norm_label": "upcoming.jsx"
     },
     {
@@ -4437,7 +4572,7 @@
       "source_file": "client\\src\\components\\Upcoming.jsx",
       "source_location": "L14",
       "id": "upcoming_upcoming",
-      "community": 79,
+      "community": 82,
       "norm_label": "upcoming()"
     },
     {
@@ -4446,7 +4581,7 @@
       "source_file": "client\\src\\components\\Vide.jsx",
       "source_location": "L1",
       "id": "client_src_components_vide_jsx",
-      "community": 80,
+      "community": 83,
       "norm_label": "vide.jsx"
     },
     {
@@ -4455,7 +4590,7 @@
       "source_file": "client\\src\\components\\Vide.jsx",
       "source_location": "L5",
       "id": "vide_vide",
-      "community": 80,
+      "community": 83,
       "norm_label": "vide()"
     },
     {
@@ -4464,7 +4599,7 @@
       "source_file": "client\\src\\components\\Visionnages.jsx",
       "source_location": "L1",
       "id": "client_src_components_visionnages_jsx",
-      "community": 29,
+      "community": 32,
       "norm_label": "visionnages.jsx"
     },
     {
@@ -4473,7 +4608,7 @@
       "source_file": "client\\src\\components\\Visionnages.jsx",
       "source_location": "L8",
       "id": "visionnages_aujourdhui",
-      "community": 29,
+      "community": 32,
       "norm_label": "aujourdhui()"
     },
     {
@@ -4482,7 +4617,7 @@
       "source_file": "client\\src\\components\\Visionnages.jsx",
       "source_location": "L10",
       "id": "visionnages_rang",
-      "community": 29,
+      "community": 32,
       "norm_label": "rang()"
     },
     {
@@ -4491,7 +4626,7 @@
       "source_file": "client\\src\\components\\Visionnages.jsx",
       "source_location": "L15",
       "id": "visionnages_visionnages",
-      "community": 29,
+      "community": 32,
       "norm_label": "visionnages()"
     },
     {
@@ -4500,7 +4635,7 @@
       "source_file": "client\\src\\components\\VueRayon.jsx",
       "source_location": "L1",
       "id": "client_src_components_vuerayon_jsx",
-      "community": 44,
+      "community": 47,
       "norm_label": "vuerayon.jsx"
     },
     {
@@ -4509,7 +4644,7 @@
       "source_file": "client\\src\\components\\VueRayon.jsx",
       "source_location": "L10",
       "id": "vuerayon_keyof",
-      "community": 44,
+      "community": 47,
       "norm_label": "keyof()"
     },
     {
@@ -4518,7 +4653,7 @@
       "source_file": "client\\src\\components\\VueRayon.jsx",
       "source_location": "L15",
       "id": "vuerayon_vuerayon",
-      "community": 44,
+      "community": 47,
       "norm_label": "vuerayon()"
     },
     {
@@ -4527,7 +4662,7 @@
       "source_file": "client\\tests\\amis.test.js",
       "source_location": "L1",
       "id": "client_tests_amis_test_js",
-      "community": 45,
+      "community": 48,
       "norm_label": "amis.test.js"
     },
     {
@@ -4536,7 +4671,7 @@
       "source_file": "client\\tests\\amis.test.js",
       "source_location": "L26",
       "id": "amis_test_fiche",
-      "community": 45,
+      "community": 48,
       "norm_label": "fiche()"
     },
     {
@@ -4545,7 +4680,7 @@
       "source_file": "client\\tests\\amis.test.js",
       "source_location": "L268",
       "id": "amis_test_ajouter",
-      "community": 45,
+      "community": 48,
       "norm_label": "ajouter()"
     },
     {
@@ -4554,7 +4689,7 @@
       "source_file": "client\\tests\\backup.test.js",
       "source_location": "L1",
       "id": "client_tests_backup_test_js",
-      "community": 46,
+      "community": 49,
       "norm_label": "backup.test.js"
     },
     {
@@ -4563,7 +4698,7 @@
       "source_file": "client\\tests\\backup.test.js",
       "source_location": "L19",
       "id": "backup_test_remplirprofil",
-      "community": 46,
+      "community": 49,
       "norm_label": "remplirprofil()"
     },
     {
@@ -4572,7 +4707,7 @@
       "source_file": "client\\tests\\backup.test.js",
       "source_location": "L239",
       "id": "backup_test_sansdate",
-      "community": 46,
+      "community": 49,
       "norm_label": "sansdate()"
     },
     {
@@ -4581,7 +4716,7 @@
       "source_file": "client\\tests\\bandeau-sauvegarde.test.js",
       "source_location": "L1",
       "id": "client_tests_bandeau_sauvegarde_test_js",
-      "community": 47,
+      "community": 50,
       "norm_label": "bandeau-sauvegarde.test.js"
     },
     {
@@ -4590,7 +4725,7 @@
       "source_file": "client\\tests\\bandeau-sauvegarde.test.js",
       "source_location": "L9",
       "id": "bandeau_sauvegarde_test_depuis",
-      "community": 47,
+      "community": 50,
       "norm_label": "depuis()"
     },
     {
@@ -4599,7 +4734,7 @@
       "source_file": "client\\tests\\bandeau-sauvegarde.test.js",
       "source_location": "L12",
       "id": "bandeau_sauvegarde_test_essai",
-      "community": 47,
+      "community": 50,
       "norm_label": "essai()"
     },
     {
@@ -4608,7 +4743,7 @@
       "source_file": "client\\tests\\cloud.auto.test.js",
       "source_location": "L1",
       "id": "client_tests_cloud_auto_test_js",
-      "community": 93,
+      "community": 95,
       "norm_label": "cloud.auto.test.js"
     },
     {
@@ -4617,7 +4752,7 @@
       "source_file": "client\\tests\\cloud.conflit.test.js",
       "source_location": "L1",
       "id": "client_tests_cloud_conflit_test_js",
-      "community": 81,
+      "community": 25,
       "norm_label": "cloud.conflit.test.js"
     },
     {
@@ -4626,8 +4761,35 @@
       "source_file": "client\\tests\\cloud.conflit.test.js",
       "source_location": "L28",
       "id": "cloud_conflit_test_fauxdrive",
-      "community": 81,
+      "community": 25,
       "norm_label": "fauxdrive()"
+    },
+    {
+      "label": "ajouterAilleurs()",
+      "file_type": "code",
+      "source_file": "client\\tests\\cloud.conflit.test.js",
+      "source_location": "L184",
+      "id": "cloud_conflit_test_ajouterailleurs",
+      "community": 25,
+      "norm_label": "ajouterailleurs()"
+    },
+    {
+      "label": "dansDrive()",
+      "file_type": "code",
+      "source_file": "client\\tests\\cloud.conflit.test.js",
+      "source_location": "L189",
+      "id": "cloud_conflit_test_dansdrive",
+      "community": 25,
+      "norm_label": "dansdrive()"
+    },
+    {
+      "label": "conflitsDe()",
+      "file_type": "code",
+      "source_file": "client\\tests\\cloud.conflit.test.js",
+      "source_location": "L197",
+      "id": "cloud_conflit_test_conflitsde",
+      "community": 25,
+      "norm_label": "conflitsde()"
     },
     {
       "label": "cloud.test.js",
@@ -4635,7 +4797,7 @@
       "source_file": "client\\tests\\cloud.test.js",
       "source_location": "L1",
       "id": "client_tests_cloud_test_js",
-      "community": 82,
+      "community": 84,
       "norm_label": "cloud.test.js"
     },
     {
@@ -4644,7 +4806,7 @@
       "source_file": "client\\tests\\cloud.test.js",
       "source_location": "L23",
       "id": "cloud_test_creerfauxdrive",
-      "community": 82,
+      "community": 84,
       "norm_label": "creerfauxdrive()"
     },
     {
@@ -4653,7 +4815,7 @@
       "source_file": "client\\tests\\configuration.test.js",
       "source_location": "L1",
       "id": "client_tests_configuration_test_js",
-      "community": 30,
+      "community": 33,
       "norm_label": "configuration.test.js"
     },
     {
@@ -4662,7 +4824,7 @@
       "source_file": "client\\tests\\configuration.test.js",
       "source_location": "L16",
       "id": "configuration_test_chemin",
-      "community": 30,
+      "community": 33,
       "norm_label": "chemin()"
     },
     {
@@ -4671,7 +4833,7 @@
       "source_file": "client\\tests\\configuration.test.js",
       "source_location": "L17",
       "id": "configuration_test_lire",
-      "community": 30,
+      "community": 33,
       "norm_label": "lire()"
     },
     {
@@ -4680,7 +4842,7 @@
       "source_file": "client\\tests\\configuration.test.js",
       "source_location": "L19",
       "id": "configuration_test_proprietes",
-      "community": 30,
+      "community": 33,
       "norm_label": "proprietes()"
     },
     {
@@ -4689,7 +4851,7 @@
       "source_file": "client\\tests\\db.test.js",
       "source_location": "L1",
       "id": "client_tests_db_test_js",
-      "community": 94,
+      "community": 96,
       "norm_label": "db.test.js"
     },
     {
@@ -4698,7 +4860,7 @@
       "source_file": "client\\tests\\disponibilite-stockage.test.js",
       "source_location": "L1",
       "id": "client_tests_disponibilite_stockage_test_js",
-      "community": 20,
+      "community": 22,
       "norm_label": "disponibilite-stockage.test.js"
     },
     {
@@ -4707,7 +4869,7 @@
       "source_file": "client\\tests\\disponibilite-stockage.test.js",
       "source_location": "L22",
       "id": "disponibilite_stockage_test_film",
-      "community": 20,
+      "community": 22,
       "norm_label": "film()"
     },
     {
@@ -4716,7 +4878,7 @@
       "source_file": "client\\tests\\disponibilite-stockage.test.js",
       "source_location": "L23",
       "id": "disponibilite_stockage_test_ajouter",
-      "community": 20,
+      "community": 22,
       "norm_label": "ajouter()"
     },
     {
@@ -4725,7 +4887,7 @@
       "source_file": "client\\tests\\disponibilite-stockage.test.js",
       "source_location": "L25",
       "id": "disponibilite_stockage_test_ligne",
-      "community": 20,
+      "community": 22,
       "norm_label": "ligne()"
     },
     {
@@ -4734,7 +4896,7 @@
       "source_file": "client\\tests\\disponibilite-stockage.test.js",
       "source_location": "L26",
       "id": "disponibilite_stockage_test_relever",
-      "community": 20,
+      "community": 22,
       "norm_label": "relever()"
     },
     {
@@ -4743,7 +4905,7 @@
       "source_file": "client\\tests\\disponibilite-stockage.test.js",
       "source_location": "L185",
       "id": "disponibilite_stockage_test_sagade",
-      "community": 20,
+      "community": 22,
       "norm_label": "sagade()"
     },
     {
@@ -4752,7 +4914,7 @@
       "source_file": "client\\tests\\disponibilite.test.js",
       "source_location": "L1",
       "id": "client_tests_disponibilite_test_js",
-      "community": 95,
+      "community": 97,
       "norm_label": "disponibilite.test.js"
     },
     {
@@ -4761,7 +4923,7 @@
       "source_file": "client\\tests\\ensalle.test.js",
       "source_location": "L1",
       "id": "client_tests_ensalle_test_js",
-      "community": 48,
+      "community": 51,
       "norm_label": "ensalle.test.js"
     },
     {
@@ -4770,7 +4932,7 @@
       "source_file": "client\\tests\\ensalle.test.js",
       "source_location": "L10",
       "id": "ensalle_test_fauxtmdb",
-      "community": 48,
+      "community": 51,
       "norm_label": "fauxtmdb()"
     },
     {
@@ -4779,7 +4941,7 @@
       "source_file": "client\\tests\\ensalle.test.js",
       "source_location": "L42",
       "id": "ensalle_test_cles",
-      "community": 48,
+      "community": 51,
       "norm_label": "cles()"
     },
     {
@@ -4788,7 +4950,7 @@
       "source_file": "client\\tests\\envoi-differe.test.js",
       "source_location": "L1",
       "id": "client_tests_envoi_differe_test_js",
-      "community": 83,
+      "community": 85,
       "norm_label": "envoi-differe.test.js"
     },
     {
@@ -4797,7 +4959,7 @@
       "source_file": "client\\tests\\envoi-differe.test.js",
       "source_location": "L54",
       "id": "envoi_differe_test_attendre",
-      "community": 83,
+      "community": 85,
       "norm_label": "attendre()"
     },
     {
@@ -4806,7 +4968,7 @@
       "source_file": "client\\tests\\etat-sauvegarde.test.js",
       "source_location": "L1",
       "id": "client_tests_etat_sauvegarde_test_js",
-      "community": 96,
+      "community": 98,
       "norm_label": "etat-sauvegarde.test.js"
     },
     {
@@ -4815,7 +4977,7 @@
       "source_file": "client\\tests\\fiche.test.js",
       "source_location": "L1",
       "id": "client_tests_fiche_test_js",
-      "community": 97,
+      "community": 99,
       "norm_label": "fiche.test.js"
     },
     {
@@ -4824,7 +4986,7 @@
       "source_file": "client\\tests\\filtres-decouverte.test.js",
       "source_location": "L1",
       "id": "client_tests_filtres_decouverte_test_js",
-      "community": 31,
+      "community": 34,
       "norm_label": "filtres-decouverte.test.js"
     },
     {
@@ -4833,7 +4995,7 @@
       "source_file": "client\\tests\\filtres-decouverte.test.js",
       "source_location": "L10",
       "id": "filtres_decouverte_test_t",
-      "community": 31,
+      "community": 34,
       "norm_label": "t()"
     },
     {
@@ -4842,7 +5004,7 @@
       "source_file": "client\\tests\\filtres-decouverte.test.js",
       "source_location": "L21",
       "id": "filtres_decouverte_test_f",
-      "community": 31,
+      "community": 34,
       "norm_label": "f()"
     },
     {
@@ -4851,8 +5013,89 @@
       "source_file": "client\\tests\\filtres-decouverte.test.js",
       "source_location": "L22",
       "id": "filtres_decouverte_test_ids",
-      "community": 31,
+      "community": 34,
       "norm_label": "ids()"
+    },
+    {
+      "label": "fusion.test.js",
+      "file_type": "code",
+      "source_file": "client\\tests\\fusion.test.js",
+      "source_location": "L1",
+      "id": "client_tests_fusion_test_js",
+      "community": 12,
+      "norm_label": "fusion.test.js"
+    },
+    {
+      "label": "titre()",
+      "file_type": "code",
+      "source_file": "client\\tests\\fusion.test.js",
+      "source_location": "L6",
+      "id": "fusion_test_titre",
+      "community": 12,
+      "norm_label": "titre()"
+    },
+    {
+      "label": "serie()",
+      "file_type": "code",
+      "source_file": "client\\tests\\fusion.test.js",
+      "source_location": "L22",
+      "id": "fusion_test_serie",
+      "community": 12,
+      "norm_label": "serie()"
+    },
+    {
+      "label": "profil()",
+      "file_type": "code",
+      "source_file": "client\\tests\\fusion.test.js",
+      "source_location": "L24",
+      "id": "fusion_test_profil",
+      "community": 12,
+      "norm_label": "profil()"
+    },
+    {
+      "label": "sansDate()",
+      "file_type": "code",
+      "source_file": "client\\tests\\fusion.test.js",
+      "source_location": "L38",
+      "id": "fusion_test_sansdate",
+      "community": 12,
+      "norm_label": "sansdate()"
+    },
+    {
+      "label": "statuts()",
+      "file_type": "code",
+      "source_file": "client\\tests\\fusion.test.js",
+      "source_location": "L39",
+      "id": "fusion_test_statuts",
+      "community": 12,
+      "norm_label": "statuts()"
+    },
+    {
+      "label": "v()",
+      "file_type": "code",
+      "source_file": "client\\tests\\fusion.test.js",
+      "source_location": "L134",
+      "id": "fusion_test_v",
+      "community": 12,
+      "norm_label": "v()"
+    },
+    {
+      "label": "el()",
+      "file_type": "code",
+      "source_file": "client\\tests\\fusion.test.js",
+      "source_location": "L144",
+      "id": "fusion_test_el",
+      "community": 12,
+      "norm_label": "el()"
+    },
+    {
+      "label": "a()",
+      "file_type": "code",
+      "source_file": "client\\tests\\fusion.test.js",
+      "source_location": "L204",
+      "id": "fusion_test_a",
+      "community": 12,
+      "norm_label": "a()"
     },
     {
       "label": "genres.test.js",
@@ -4860,7 +5103,7 @@
       "source_file": "client\\tests\\genres.test.js",
       "source_location": "L1",
       "id": "client_tests_genres_test_js",
-      "community": 98,
+      "community": 100,
       "norm_label": "genres.test.js"
     },
     {
@@ -4869,7 +5112,7 @@
       "source_file": "client\\tests\\idee.test.js",
       "source_location": "L1",
       "id": "client_tests_idee_test_js",
-      "community": 84,
+      "community": 86,
       "norm_label": "idee.test.js"
     },
     {
@@ -4878,7 +5121,7 @@
       "source_file": "client\\tests\\idee.test.js",
       "source_location": "L4",
       "id": "idee_test_film",
-      "community": 84,
+      "community": 86,
       "norm_label": "film()"
     },
     {
@@ -4887,7 +5130,7 @@
       "source_file": "client\\tests\\interrupteur.test.js",
       "source_location": "L1",
       "id": "client_tests_interrupteur_test_js",
-      "community": 85,
+      "community": 87,
       "norm_label": "interrupteur.test.js"
     },
     {
@@ -4896,7 +5139,7 @@
       "source_file": "client\\tests\\interrupteur.test.js",
       "source_location": "L9",
       "id": "interrupteur_test_cles",
-      "community": 85,
+      "community": 87,
       "norm_label": "cles()"
     },
     {
@@ -4905,7 +5148,7 @@
       "source_file": "client\\tests\\listes.test.js",
       "source_location": "L1",
       "id": "client_tests_listes_test_js",
-      "community": 49,
+      "community": 52,
       "norm_label": "listes.test.js"
     },
     {
@@ -4914,7 +5157,7 @@
       "source_file": "client\\tests\\listes.test.js",
       "source_location": "L21",
       "id": "listes_test_titres",
-      "community": 49,
+      "community": 52,
       "norm_label": "titres()"
     },
     {
@@ -4923,7 +5166,7 @@
       "source_file": "client\\tests\\listes.test.js",
       "source_location": "L22",
       "id": "listes_test_avec",
-      "community": 49,
+      "community": 52,
       "norm_label": "avec()"
     },
     {
@@ -4932,7 +5175,7 @@
       "source_file": "client\\tests\\moods.test.js",
       "source_location": "L1",
       "id": "client_tests_moods_test_js",
-      "community": 86,
+      "community": 88,
       "norm_label": "moods.test.js"
     },
     {
@@ -4941,7 +5184,7 @@
       "source_file": "client\\tests\\moods.test.js",
       "source_location": "L9",
       "id": "moods_test_fauxtmdb",
-      "community": 86,
+      "community": 88,
       "norm_label": "fauxtmdb()"
     },
     {
@@ -4950,7 +5193,7 @@
       "source_file": "client\\tests\\partage.test.js",
       "source_location": "L1",
       "id": "client_tests_partage_test_js",
-      "community": 32,
+      "community": 35,
       "norm_label": "partage.test.js"
     },
     {
@@ -4959,7 +5202,7 @@
       "source_file": "client\\tests\\partage.test.js",
       "source_location": "L22",
       "id": "partage_test_film",
-      "community": 32,
+      "community": 35,
       "norm_label": "film()"
     },
     {
@@ -4968,7 +5211,7 @@
       "source_file": "client\\tests\\partage.test.js",
       "source_location": "L23",
       "id": "partage_test_serie",
-      "community": 32,
+      "community": 35,
       "norm_label": "serie()"
     },
     {
@@ -4977,7 +5220,7 @@
       "source_file": "client\\tests\\partage.test.js",
       "source_location": "L44",
       "id": "partage_test_dernierenvoi",
-      "community": 32,
+      "community": 35,
       "norm_label": "dernierenvoi()"
     },
     {
@@ -4986,7 +5229,7 @@
       "source_file": "client\\tests\\plateformes.test.js",
       "source_location": "L1",
       "id": "client_tests_plateformes_test_js",
-      "community": 50,
+      "community": 53,
       "norm_label": "plateformes.test.js"
     },
     {
@@ -4995,7 +5238,7 @@
       "source_file": "client\\tests\\plateformes.test.js",
       "source_location": "L18",
       "id": "plateformes_test_plateforme",
-      "community": 50,
+      "community": 53,
       "norm_label": "plateforme()"
     },
     {
@@ -5004,7 +5247,7 @@
       "source_file": "client\\tests\\plateformes.test.js",
       "source_location": "L19",
       "id": "plateformes_test_titre",
-      "community": 50,
+      "community": 53,
       "norm_label": "titre()"
     },
     {
@@ -5013,7 +5256,7 @@
       "source_file": "client\\tests\\recherche.test.js",
       "source_location": "L1",
       "id": "client_tests_recherche_test_js",
-      "community": 23,
+      "community": 26,
       "norm_label": "recherche.test.js"
     },
     {
@@ -5022,7 +5265,7 @@
       "source_file": "client\\tests\\recherche.test.js",
       "source_location": "L22",
       "id": "recherche_test_fauxtmdb",
-      "community": 23,
+      "community": 26,
       "norm_label": "fauxtmdb()"
     },
     {
@@ -5031,7 +5274,7 @@
       "source_file": "client\\tests\\recherche.test.js",
       "source_location": "L44",
       "id": "recherche_test_film",
-      "community": 23,
+      "community": 26,
       "norm_label": "film()"
     },
     {
@@ -5040,7 +5283,7 @@
       "source_file": "client\\tests\\recherche.test.js",
       "source_location": "L47",
       "id": "recherche_test_serie",
-      "community": 23,
+      "community": 26,
       "norm_label": "serie()"
     },
     {
@@ -5049,7 +5292,7 @@
       "source_file": "client\\tests\\recherche.test.js",
       "source_location": "L170",
       "id": "recherche_test_titres",
-      "community": 23,
+      "community": 26,
       "norm_label": "titres()"
     },
     {
@@ -5058,7 +5301,7 @@
       "source_file": "client\\tests\\regardable.test.js",
       "source_location": "L1",
       "id": "client_tests_regardable_test_js",
-      "community": 33,
+      "community": 36,
       "norm_label": "regardable.test.js"
     },
     {
@@ -5067,7 +5310,7 @@
       "source_file": "client\\tests\\regardable.test.js",
       "source_location": "L11",
       "id": "regardable_test_offres",
-      "community": 33,
+      "community": 36,
       "norm_label": "offres()"
     },
     {
@@ -5076,7 +5319,7 @@
       "source_file": "client\\tests\\regardable.test.js",
       "source_location": "L13",
       "id": "regardable_test_titre",
-      "community": 33,
+      "community": 36,
       "norm_label": "titre()"
     },
     {
@@ -5085,7 +5328,7 @@
       "source_file": "client\\tests\\regardable.test.js",
       "source_location": "L44",
       "id": "regardable_test_serie",
-      "community": 33,
+      "community": 36,
       "norm_label": "serie()"
     },
     {
@@ -5094,7 +5337,7 @@
       "source_file": "client\\tests\\reglages.test.js",
       "source_location": "L1",
       "id": "client_tests_reglages_test_js",
-      "community": 99,
+      "community": 101,
       "norm_label": "reglages.test.js"
     },
     {
@@ -5103,7 +5346,7 @@
       "source_file": "client\\tests\\reprise-reseau.test.js",
       "source_location": "L1",
       "id": "client_tests_reprise_reseau_test_js",
-      "community": 51,
+      "community": 54,
       "norm_label": "reprise-reseau.test.js"
     },
     {
@@ -5112,7 +5355,7 @@
       "source_file": "client\\tests\\reprise-reseau.test.js",
       "source_location": "L55",
       "id": "reprise_reseau_test_attendre",
-      "community": 51,
+      "community": 54,
       "norm_label": "attendre()"
     },
     {
@@ -5121,7 +5364,7 @@
       "source_file": "client\\tests\\reprise-reseau.test.js",
       "source_location": "L58",
       "id": "reprise_reseau_test_echecreseau",
-      "community": 51,
+      "community": 54,
       "norm_label": "echecreseau()"
     },
     {
@@ -5130,7 +5373,7 @@
       "source_file": "client\\tests\\reseau.test.js",
       "source_location": "L1",
       "id": "client_tests_reseau_test_js",
-      "community": 100,
+      "community": 102,
       "norm_label": "reseau.test.js"
     },
     {
@@ -5139,7 +5382,7 @@
       "source_file": "client\\tests\\sagas.test.js",
       "source_location": "L1",
       "id": "client_tests_sagas_test_js",
-      "community": 87,
+      "community": 89,
       "norm_label": "sagas.test.js"
     },
     {
@@ -5148,7 +5391,7 @@
       "source_file": "client\\tests\\sagas.test.js",
       "source_location": "L6",
       "id": "sagas_test_film",
-      "community": 87,
+      "community": 89,
       "norm_label": "film()"
     },
     {
@@ -5157,7 +5400,7 @@
       "source_file": "client\\tests\\schema-telephone.test.js",
       "source_location": "L1",
       "id": "client_tests_schema_telephone_test_js",
-      "community": 101,
+      "community": 103,
       "norm_label": "schema-telephone.test.js"
     },
     {
@@ -5166,7 +5409,7 @@
       "source_file": "client\\tests\\setup.js",
       "source_location": "L1",
       "id": "client_tests_setup_js",
-      "community": 14,
+      "community": 16,
       "norm_label": "setup.js"
     },
     {
@@ -5175,7 +5418,7 @@
       "source_file": "client\\tests\\setup.js",
       "source_location": "L4",
       "id": "setup_memorystorage",
-      "community": 14,
+      "community": 16,
       "norm_label": "memorystorage"
     },
     {
@@ -5184,7 +5427,7 @@
       "source_file": "client\\tests\\setup.js",
       "source_location": "L6",
       "id": "setup_memorystorage_getitem",
-      "community": 14,
+      "community": 16,
       "norm_label": ".getitem()"
     },
     {
@@ -5193,7 +5436,7 @@
       "source_file": "client\\tests\\setup.js",
       "source_location": "L7",
       "id": "setup_memorystorage_setitem",
-      "community": 14,
+      "community": 16,
       "norm_label": ".setitem()"
     },
     {
@@ -5202,7 +5445,7 @@
       "source_file": "client\\tests\\setup.js",
       "source_location": "L8",
       "id": "setup_memorystorage_removeitem",
-      "community": 14,
+      "community": 16,
       "norm_label": ".removeitem()"
     },
     {
@@ -5211,7 +5454,7 @@
       "source_file": "client\\tests\\setup.js",
       "source_location": "L9",
       "id": "setup_memorystorage_clear",
-      "community": 14,
+      "community": 16,
       "norm_label": ".clear()"
     },
     {
@@ -5220,7 +5463,7 @@
       "source_file": "client\\tests\\setup.js",
       "source_location": "L11",
       "id": "setup_memorystorage_length",
-      "community": 14,
+      "community": 16,
       "norm_label": ".length()"
     },
     {
@@ -5229,7 +5472,7 @@
       "source_file": "client\\tests\\setup.js",
       "source_location": "L12",
       "id": "setup_memorystorage_key",
-      "community": 14,
+      "community": 16,
       "norm_label": ".key()"
     },
     {
@@ -5238,7 +5481,7 @@
       "source_file": "client\\tests\\store.test.js",
       "source_location": "L1",
       "id": "client_tests_store_test_js",
-      "community": 16,
+      "community": 18,
       "norm_label": "store.test.js"
     },
     {
@@ -5247,7 +5490,7 @@
       "source_file": "client\\tests\\store.test.js",
       "source_location": "L370",
       "id": "store_test_notifdesuivi",
-      "community": 16,
+      "community": 18,
       "norm_label": "notifdesuivi()"
     },
     {
@@ -5256,7 +5499,7 @@
       "source_file": "client\\tests\\store.test.js",
       "source_location": "L473",
       "id": "store_test_poserdate",
-      "community": 16,
+      "community": 18,
       "norm_label": "poserdate()"
     },
     {
@@ -5265,7 +5508,7 @@
       "source_file": "client\\tests\\store.test.js",
       "source_location": "L755",
       "id": "store_test_liste",
-      "community": 16,
+      "community": 18,
       "norm_label": "liste()"
     },
     {
@@ -5274,7 +5517,7 @@
       "source_file": "client\\tests\\store.test.js",
       "source_location": "L759",
       "id": "store_test_compte",
-      "community": 16,
+      "community": 18,
       "norm_label": "compte()"
     },
     {
@@ -5283,7 +5526,7 @@
       "source_file": "client\\tests\\store.test.js",
       "source_location": "L813",
       "id": "store_test_film",
-      "community": 16,
+      "community": 18,
       "norm_label": "film()"
     },
     {
@@ -5292,7 +5535,7 @@
       "source_file": "client\\tests\\store.test.js",
       "source_location": "L844",
       "id": "store_test_t",
-      "community": 16,
+      "community": 18,
       "norm_label": "t()"
     },
     {
@@ -5301,7 +5544,7 @@
       "source_file": "client\\tests\\theme.test.js",
       "source_location": "L1",
       "id": "client_tests_theme_test_js",
-      "community": 88,
+      "community": 90,
       "norm_label": "theme.test.js"
     },
     {
@@ -5310,7 +5553,7 @@
       "source_file": "client\\tests\\theme.test.js",
       "source_location": "L33",
       "id": "theme_test_matches",
-      "community": 88,
+      "community": 90,
       "norm_label": "matches()"
     },
     {
@@ -5319,7 +5562,7 @@
       "source_file": "client\\tests\\visionnages.test.js",
       "source_location": "L1",
       "id": "client_tests_visionnages_test_js",
-      "community": 102,
+      "community": 104,
       "norm_label": "visionnages.test.js"
     },
     {
@@ -5328,7 +5571,7 @@
       "source_file": "client\\tests\\services\\tmdb.live.test.js",
       "source_location": "L1",
       "id": "client_tests_services_tmdb_live_test_js",
-      "community": 103,
+      "community": 105,
       "norm_label": "tmdb.live.test.js"
     },
     {
@@ -5337,7 +5580,7 @@
       "source_file": "client\\tests\\stubs\\capacitor.js",
       "source_location": "L1",
       "id": "client_tests_stubs_capacitor_js",
-      "community": 104,
+      "community": 106,
       "norm_label": "capacitor.js"
     },
     {
@@ -5346,7 +5589,7 @@
       "source_file": "client\\tests\\stubs\\idb-keyval.js",
       "source_location": "L1",
       "id": "client_tests_stubs_idb_keyval_js",
-      "community": 52,
+      "community": 55,
       "norm_label": "idb-keyval.js"
     },
     {
@@ -5355,7 +5598,7 @@
       "source_file": "client\\tests\\stubs\\idb-keyval.js",
       "source_location": "L4",
       "id": "idb_keyval_get",
-      "community": 52,
+      "community": 55,
       "norm_label": "get()"
     },
     {
@@ -5364,7 +5607,7 @@
       "source_file": "client\\tests\\stubs\\idb-keyval.js",
       "source_location": "L5",
       "id": "idb_keyval_set",
-      "community": 52,
+      "community": 55,
       "norm_label": "set()"
     },
     {
@@ -5373,7 +5616,7 @@
       "source_file": "client\\tests\\stubs\\sqljs.js",
       "source_location": "L1",
       "id": "client_tests_stubs_sqljs_js",
-      "community": 105,
+      "community": 107,
       "norm_label": "sqljs.js"
     }
   ],
@@ -7638,7 +7881,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L30",
+      "source_location": "L31",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_exportprofile",
@@ -7650,7 +7893,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L105",
+      "source_location": "L106",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_validatebackup",
@@ -7662,7 +7905,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L121",
+      "source_location": "L122",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_describebackup",
@@ -7674,7 +7917,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L137",
+      "source_location": "L138",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_importprofile",
@@ -7686,7 +7929,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L258",
+      "source_location": "L259",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_csvcell",
@@ -7698,7 +7941,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L272",
+      "source_location": "L273",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_toletterboxdcsv",
@@ -7710,7 +7953,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L331",
+      "source_location": "L332",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_viderenattente",
@@ -7722,7 +7965,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L356",
+      "source_location": "L357",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_profilssupprimes",
@@ -7734,7 +7977,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L364",
+      "source_location": "L365",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_oublierprofil",
@@ -7746,7 +7989,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L371",
+      "source_location": "L372",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_lireversions",
@@ -7758,7 +8001,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L379",
+      "source_location": "L380",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_noterversions",
@@ -7770,7 +8013,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L387",
+      "source_location": "L388",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_conflitsauvegarde",
@@ -7782,7 +8025,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L395",
+      "source_location": "L396",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_cloudfilename",
@@ -7794,7 +8037,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L397",
+      "source_location": "L398",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_readlocal",
@@ -7806,7 +8049,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L405",
+      "source_location": "L406",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_writelocal",
@@ -7818,7 +8061,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L419",
+      "source_location": "L420",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_surchangementdesauvegarde",
@@ -7830,7 +8073,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L424",
+      "source_location": "L425",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_prevenir",
@@ -7842,7 +8085,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L434",
+      "source_location": "L435",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_markchanged",
@@ -7854,7 +8097,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L447",
+      "source_location": "L448",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_haspendingchanges",
@@ -7866,7 +8109,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L475",
+      "source_location": "L476",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_sauvegardeautoactive",
@@ -7878,7 +8121,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L479",
+      "source_location": "L480",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_reglersauvegardeauto",
@@ -7890,7 +8133,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L505",
+      "source_location": "L506",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_reglerdelaisenvoi",
@@ -7902,7 +8145,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L511",
+      "source_location": "L512",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_annulerenvoi",
@@ -7914,7 +8157,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L519",
+      "source_location": "L520",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_envoibloque",
@@ -7926,7 +8169,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L528",
+      "source_location": "L529",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_programmerenvoi",
@@ -7938,7 +8181,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L540",
+      "source_location": "L541",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_declencherenvoi",
@@ -7950,7 +8193,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L553",
+      "source_location": "L554",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_noteressai",
@@ -7962,7 +8205,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L565",
+      "source_location": "L566",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_raisondelerreur",
@@ -7974,7 +8217,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L573",
+      "source_location": "L574",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_dernieressaiautomatique",
@@ -7986,7 +8229,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L582",
+      "source_location": "L583",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_sauvegardeautomatique",
@@ -7998,7 +8241,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L614",
+      "source_location": "L615",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_etatsauvegarde",
@@ -8010,7 +8253,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L680",
+      "source_location": "L681",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_quandlisible",
@@ -8022,7 +8265,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L688",
+      "source_location": "L689",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_enattentedepuis",
@@ -8034,7 +8277,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L694",
+      "source_location": "L695",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_lireetatsauvegarde",
@@ -8046,7 +8289,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L714",
+      "source_location": "L715",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_bandeausauvegarde",
@@ -8058,7 +8301,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L740",
+      "source_location": "L741",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_dureelisible",
@@ -8070,7 +8313,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L753",
+      "source_location": "L754",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_reprendreapresreseau",
@@ -8082,7 +8325,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L768",
+      "source_location": "L769",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_demarrerecoutereseau",
@@ -8094,7 +8337,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L776",
+      "source_location": "L777",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_lastcloudbackup",
@@ -8106,7 +8349,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L781",
+      "source_location": "L782",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_forgetcloudstate",
@@ -8118,7 +8361,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L797",
+      "source_location": "L798",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_backuptodrive",
@@ -8130,7 +8373,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L872",
+      "source_location": "L873",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_listcloudbackups",
@@ -8142,7 +8385,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L892",
+      "source_location": "L893",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_restorefromdrive",
@@ -8154,7 +8397,31 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L913",
+      "source_location": "L912",
+      "weight": 1.0,
+      "_src": "client_src_backup_js",
+      "_tgt": "backup_previsualiserfusion",
+      "source": "client_src_backup_js",
+      "target": "backup_previsualiserfusion",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\backup.js",
+      "source_location": "L931",
+      "weight": 1.0,
+      "_src": "client_src_backup_js",
+      "_tgt": "backup_fusionneravecdrive",
+      "source": "client_src_backup_js",
+      "target": "backup_fusionneravecdrive",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\backup.js",
+      "source_location": "L957",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_cloudrestoresuggestions",
@@ -8166,7 +8433,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L936",
+      "source_location": "L980",
       "weight": 1.0,
       "_src": "client_src_backup_js",
       "_tgt": "backup_resumersauvegardedrive",
@@ -8178,7 +8445,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L834",
+      "source_location": "L835",
       "weight": 1.0,
       "_src": "backup_backuptodrive",
       "_tgt": "backup_exportprofile",
@@ -8190,7 +8457,31 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L138",
+      "source_location": "L916",
+      "weight": 1.0,
+      "_src": "backup_previsualiserfusion",
+      "_tgt": "backup_exportprofile",
+      "source": "backup_exportprofile",
+      "target": "backup_previsualiserfusion",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\backup.js",
+      "source_location": "L935",
+      "weight": 1.0,
+      "_src": "backup_fusionneravecdrive",
+      "_tgt": "backup_exportprofile",
+      "source": "backup_exportprofile",
+      "target": "backup_fusionneravecdrive",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\backup.js",
+      "source_location": "L139",
       "weight": 1.0,
       "_src": "backup_importprofile",
       "_tgt": "backup_validatebackup",
@@ -8202,7 +8493,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L895",
+      "source_location": "L896",
       "weight": 1.0,
       "_src": "backup_restorefromdrive",
       "_tgt": "backup_validatebackup",
@@ -8214,7 +8505,31 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L937",
+      "source_location": "L915",
+      "weight": 1.0,
+      "_src": "backup_previsualiserfusion",
+      "_tgt": "backup_validatebackup",
+      "source": "backup_validatebackup",
+      "target": "backup_previsualiserfusion",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\backup.js",
+      "source_location": "L934",
+      "weight": 1.0,
+      "_src": "backup_fusionneravecdrive",
+      "_tgt": "backup_validatebackup",
+      "source": "backup_validatebackup",
+      "target": "backup_fusionneravecdrive",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\backup.js",
+      "source_location": "L981",
       "weight": 1.0,
       "_src": "backup_resumersauvegardedrive",
       "_tgt": "backup_validatebackup",
@@ -8226,7 +8541,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L937",
+      "source_location": "L981",
       "weight": 1.0,
       "_src": "backup_resumersauvegardedrive",
       "_tgt": "backup_describebackup",
@@ -8238,7 +8553,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L896",
+      "source_location": "L897",
       "weight": 1.0,
       "_src": "backup_restorefromdrive",
       "_tgt": "backup_importprofile",
@@ -8250,7 +8565,19 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L287",
+      "source_location": "L940",
+      "weight": 1.0,
+      "_src": "backup_fusionneravecdrive",
+      "_tgt": "backup_importprofile",
+      "source": "backup_importprofile",
+      "target": "backup_fusionneravecdrive",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\backup.js",
+      "source_location": "L288",
       "weight": 1.0,
       "_src": "backup_toletterboxdcsv",
       "_tgt": "backup_csvcell",
@@ -8262,7 +8589,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L332",
+      "source_location": "L333",
       "weight": 1.0,
       "_src": "backup_viderenattente",
       "_tgt": "backup_writelocal",
@@ -8274,7 +8601,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L783",
+      "source_location": "L784",
       "weight": 1.0,
       "_src": "backup_forgetcloudstate",
       "_tgt": "backup_viderenattente",
@@ -8286,7 +8613,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L864",
+      "source_location": "L865",
       "weight": 1.0,
       "_src": "backup_backuptodrive",
       "_tgt": "backup_viderenattente",
@@ -8298,7 +8625,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L901",
+      "source_location": "L902",
       "weight": 1.0,
       "_src": "backup_restorefromdrive",
       "_tgt": "backup_viderenattente",
@@ -8310,7 +8637,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L358",
+      "source_location": "L359",
       "weight": 1.0,
       "_src": "backup_profilssupprimes",
       "_tgt": "backup_readlocal",
@@ -8322,7 +8649,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L365",
+      "source_location": "L366",
       "weight": 1.0,
       "_src": "backup_oublierprofil",
       "_tgt": "backup_profilssupprimes",
@@ -8334,7 +8661,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L851",
+      "source_location": "L852",
       "weight": 1.0,
       "_src": "backup_backuptodrive",
       "_tgt": "backup_profilssupprimes",
@@ -8346,7 +8673,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L876",
+      "source_location": "L877",
       "weight": 1.0,
       "_src": "backup_listcloudbackups",
       "_tgt": "backup_profilssupprimes",
@@ -8358,7 +8685,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L367",
+      "source_location": "L368",
       "weight": 1.0,
       "_src": "backup_oublierprofil",
       "_tgt": "backup_writelocal",
@@ -8370,7 +8697,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L368",
+      "source_location": "L369",
       "weight": 1.0,
       "_src": "backup_oublierprofil",
       "_tgt": "backup_markchanged",
@@ -8382,7 +8709,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L373",
+      "source_location": "L374",
       "weight": 1.0,
       "_src": "backup_lireversions",
       "_tgt": "backup_readlocal",
@@ -8394,7 +8721,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L380",
+      "source_location": "L381",
       "weight": 1.0,
       "_src": "backup_noterversions",
       "_tgt": "backup_lireversions",
@@ -8406,7 +8733,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L806",
+      "source_location": "L807",
       "weight": 1.0,
       "_src": "backup_backuptodrive",
       "_tgt": "backup_lireversions",
@@ -8418,7 +8745,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L382",
+      "source_location": "L383",
       "weight": 1.0,
       "_src": "backup_noterversions",
       "_tgt": "backup_writelocal",
@@ -8430,7 +8757,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L830",
+      "source_location": "L831",
       "weight": 1.0,
       "_src": "backup_backuptodrive",
       "_tgt": "backup_noterversions",
@@ -8442,7 +8769,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L898",
+      "source_location": "L899",
       "weight": 1.0,
       "_src": "backup_restorefromdrive",
       "_tgt": "backup_noterversions",
@@ -8451,10 +8778,22 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\backup.js",
+      "source_location": "L942",
+      "weight": 1.0,
+      "_src": "backup_fusionneravecdrive",
+      "_tgt": "backup_noterversions",
+      "source": "backup_noterversions",
+      "target": "backup_fusionneravecdrive",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L388",
+      "source_location": "L389",
       "weight": 1.0,
       "_src": "backup_conflitsauvegarde",
       "_tgt": "backup_conflitsauvegarde_constructor",
@@ -8466,7 +8805,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L835",
+      "source_location": "L836",
       "weight": 1.0,
       "_src": "backup_backuptodrive",
       "_tgt": "backup_cloudfilename",
@@ -8478,7 +8817,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L441",
+      "source_location": "L442",
       "weight": 1.0,
       "_src": "backup_markchanged",
       "_tgt": "backup_readlocal",
@@ -8490,7 +8829,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L448",
+      "source_location": "L449",
       "weight": 1.0,
       "_src": "backup_haspendingchanges",
       "_tgt": "backup_readlocal",
@@ -8502,7 +8841,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L476",
+      "source_location": "L477",
       "weight": 1.0,
       "_src": "backup_sauvegardeautoactive",
       "_tgt": "backup_readlocal",
@@ -8514,7 +8853,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L575",
+      "source_location": "L576",
       "weight": 1.0,
       "_src": "backup_dernieressaiautomatique",
       "_tgt": "backup_readlocal",
@@ -8526,7 +8865,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L689",
+      "source_location": "L690",
       "weight": 1.0,
       "_src": "backup_enattentedepuis",
       "_tgt": "backup_readlocal",
@@ -8538,7 +8877,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L777",
+      "source_location": "L778",
       "weight": 1.0,
       "_src": "backup_lastcloudbackup",
       "_tgt": "backup_readlocal",
@@ -8550,7 +8889,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L800",
+      "source_location": "L801",
       "weight": 1.0,
       "_src": "backup_backuptodrive",
       "_tgt": "backup_readlocal",
@@ -8562,7 +8901,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L440",
+      "source_location": "L441",
       "weight": 1.0,
       "_src": "backup_markchanged",
       "_tgt": "backup_writelocal",
@@ -8574,7 +8913,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L480",
+      "source_location": "L481",
       "weight": 1.0,
       "_src": "backup_reglersauvegardeauto",
       "_tgt": "backup_writelocal",
@@ -8586,7 +8925,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L554",
+      "source_location": "L555",
       "weight": 1.0,
       "_src": "backup_noteressai",
       "_tgt": "backup_writelocal",
@@ -8598,7 +8937,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L784",
+      "source_location": "L785",
       "weight": 1.0,
       "_src": "backup_forgetcloudstate",
       "_tgt": "backup_writelocal",
@@ -8610,7 +8949,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L859",
+      "source_location": "L860",
       "weight": 1.0,
       "_src": "backup_backuptodrive",
       "_tgt": "backup_writelocal",
@@ -8622,7 +8961,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L425",
+      "source_location": "L426",
       "weight": 1.0,
       "_src": "backup_prevenir",
       "_tgt": "backup_haspendingchanges",
@@ -8634,7 +8973,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L442",
+      "source_location": "L443",
       "weight": 1.0,
       "_src": "backup_markchanged",
       "_tgt": "backup_prevenir",
@@ -8646,7 +8985,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L481",
+      "source_location": "L482",
       "weight": 1.0,
       "_src": "backup_reglersauvegardeauto",
       "_tgt": "backup_prevenir",
@@ -8658,7 +8997,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L559",
+      "source_location": "L560",
       "weight": 1.0,
       "_src": "backup_noteressai",
       "_tgt": "backup_prevenir",
@@ -8670,7 +9009,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L788",
+      "source_location": "L789",
       "weight": 1.0,
       "_src": "backup_forgetcloudstate",
       "_tgt": "backup_prevenir",
@@ -8682,7 +9021,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L866",
+      "source_location": "L867",
       "weight": 1.0,
       "_src": "backup_backuptodrive",
       "_tgt": "backup_prevenir",
@@ -8694,7 +9033,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L443",
+      "source_location": "L444",
       "weight": 1.0,
       "_src": "backup_markchanged",
       "_tgt": "backup_programmerenvoi",
@@ -8706,7 +9045,19 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L586",
+      "source_location": "L945",
+      "weight": 1.0,
+      "_src": "backup_fusionneravecdrive",
+      "_tgt": "backup_markchanged",
+      "source": "backup_markchanged",
+      "target": "backup_fusionneravecdrive",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\backup.js",
+      "source_location": "L587",
       "weight": 1.0,
       "_src": "backup_sauvegardeautomatique",
       "_tgt": "backup_haspendingchanges",
@@ -8718,7 +9069,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L696",
+      "source_location": "L697",
       "weight": 1.0,
       "_src": "backup_lireetatsauvegarde",
       "_tgt": "backup_haspendingchanges",
@@ -8730,7 +9081,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L754",
+      "source_location": "L755",
       "weight": 1.0,
       "_src": "backup_reprendreapresreseau",
       "_tgt": "backup_haspendingchanges",
@@ -8742,7 +9093,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L529",
+      "source_location": "L530",
       "weight": 1.0,
       "_src": "backup_programmerenvoi",
       "_tgt": "backup_sauvegardeautoactive",
@@ -8754,7 +9105,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L585",
+      "source_location": "L586",
       "weight": 1.0,
       "_src": "backup_sauvegardeautomatique",
       "_tgt": "backup_sauvegardeautoactive",
@@ -8766,7 +9117,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L699",
+      "source_location": "L700",
       "weight": 1.0,
       "_src": "backup_lireetatsauvegarde",
       "_tgt": "backup_sauvegardeautoactive",
@@ -8778,7 +9129,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L754",
+      "source_location": "L755",
       "weight": 1.0,
       "_src": "backup_reprendreapresreseau",
       "_tgt": "backup_sauvegardeautoactive",
@@ -8790,7 +9141,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L482",
+      "source_location": "L483",
       "weight": 1.0,
       "_src": "backup_reglersauvegardeauto",
       "_tgt": "backup_programmerenvoi",
@@ -8802,7 +9153,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L483",
+      "source_location": "L484",
       "weight": 1.0,
       "_src": "backup_reglersauvegardeauto",
       "_tgt": "backup_annulerenvoi",
@@ -8814,7 +9165,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L508",
+      "source_location": "L509",
       "weight": 1.0,
       "_src": "backup_reglerdelaisenvoi",
       "_tgt": "backup_annulerenvoi",
@@ -8826,7 +9177,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L782",
+      "source_location": "L783",
       "weight": 1.0,
       "_src": "backup_forgetcloudstate",
       "_tgt": "backup_annulerenvoi",
@@ -8838,7 +9189,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L520",
+      "source_location": "L521",
       "weight": 1.0,
       "_src": "backup_envoibloque",
       "_tgt": "backup_dernieressaiautomatique",
@@ -8850,7 +9201,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L523",
+      "source_location": "L524",
       "weight": 1.0,
       "_src": "backup_envoibloque",
       "_tgt": "backup_lastcloudbackup",
@@ -8862,7 +9213,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L529",
+      "source_location": "L530",
       "weight": 1.0,
       "_src": "backup_programmerenvoi",
       "_tgt": "backup_envoibloque",
@@ -8874,7 +9225,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L754",
+      "source_location": "L755",
       "weight": 1.0,
       "_src": "backup_reprendreapresreseau",
       "_tgt": "backup_envoibloque",
@@ -8886,7 +9237,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L758",
+      "source_location": "L759",
       "weight": 1.0,
       "_src": "backup_reprendreapresreseau",
       "_tgt": "backup_programmerenvoi",
@@ -8898,7 +9249,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L545",
+      "source_location": "L546",
       "weight": 1.0,
       "_src": "backup_declencherenvoi",
       "_tgt": "backup_sauvegardeautomatique",
@@ -8910,7 +9261,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L593",
+      "source_location": "L594",
       "weight": 1.0,
       "_src": "backup_sauvegardeautomatique",
       "_tgt": "backup_noteressai",
@@ -8922,7 +9273,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L598",
+      "source_location": "L599",
       "weight": 1.0,
       "_src": "backup_sauvegardeautomatique",
       "_tgt": "backup_raisondelerreur",
@@ -8934,7 +9285,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L698",
+      "source_location": "L699",
       "weight": 1.0,
       "_src": "backup_lireetatsauvegarde",
       "_tgt": "backup_dernieressaiautomatique",
@@ -8946,7 +9297,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L755",
+      "source_location": "L756",
       "weight": 1.0,
       "_src": "backup_reprendreapresreseau",
       "_tgt": "backup_dernieressaiautomatique",
@@ -8958,7 +9309,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L594",
+      "source_location": "L595",
       "weight": 1.0,
       "_src": "backup_sauvegardeautomatique",
       "_tgt": "backup_backuptodrive",
@@ -8970,7 +9321,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L615",
+      "source_location": "L616",
       "weight": 1.0,
       "_src": "backup_etatsauvegarde",
       "_tgt": "backup_quandlisible",
@@ -8982,7 +9333,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L718",
+      "source_location": "L719",
       "weight": 1.0,
       "_src": "backup_bandeausauvegarde",
       "_tgt": "backup_etatsauvegarde",
@@ -8994,7 +9345,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L700",
+      "source_location": "L701",
       "weight": 1.0,
       "_src": "backup_lireetatsauvegarde",
       "_tgt": "backup_enattentedepuis",
@@ -9006,7 +9357,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L697",
+      "source_location": "L698",
       "weight": 1.0,
       "_src": "backup_lireetatsauvegarde",
       "_tgt": "backup_lastcloudbackup",
@@ -9018,7 +9369,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L721",
+      "source_location": "L722",
       "weight": 1.0,
       "_src": "backup_bandeausauvegarde",
       "_tgt": "backup_dureelisible",
@@ -9030,7 +9381,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\backup.js",
-      "source_location": "L914",
+      "source_location": "L958",
       "weight": 1.0,
       "_src": "backup_cloudrestoresuggestions",
       "_tgt": "backup_listcloudbackups",
@@ -9624,6 +9975,330 @@
       "_tgt": "firebase_refusee",
       "source": "firebase_refusee",
       "target": "firebase_retirer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L18",
+      "weight": 1.0,
+      "_src": "client_src_fusion_js",
+      "_tgt": "fusion_cletitre",
+      "source": "client_src_fusion_js",
+      "target": "fusion_cletitre",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L19",
+      "weight": 1.0,
+      "_src": "client_src_fusion_js",
+      "_tgt": "fusion_present",
+      "source": "client_src_fusion_js",
+      "target": "fusion_present",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L21",
+      "weight": 1.0,
+      "_src": "client_src_fusion_js",
+      "_tgt": "fusion_prefere",
+      "source": "client_src_fusion_js",
+      "target": "fusion_prefere",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_src": "client_src_fusion_js",
+      "_tgt": "fusion_plusancienne",
+      "source": "client_src_fusion_js",
+      "target": "fusion_plusancienne",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_src": "client_src_fusion_js",
+      "_tgt": "fusion_statutfusionne",
+      "source": "client_src_fusion_js",
+      "target": "fusion_statutfusionne",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L32",
+      "weight": 1.0,
+      "_src": "client_src_fusion_js",
+      "_tgt": "fusion_fusionnertitre",
+      "source": "client_src_fusion_js",
+      "target": "fusion_fusionnertitre",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L51",
+      "weight": 1.0,
+      "_src": "client_src_fusion_js",
+      "_tgt": "fusion_union",
+      "source": "client_src_fusion_js",
+      "target": "fusion_union",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L60",
+      "weight": 1.0,
+      "_src": "client_src_fusion_js",
+      "_tgt": "fusion_nom",
+      "source": "client_src_fusion_js",
+      "target": "fusion_nom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L62",
+      "weight": 1.0,
+      "_src": "client_src_fusion_js",
+      "_tgt": "fusion_fusionnerprofils",
+      "source": "client_src_fusion_js",
+      "target": "fusion_fusionnerprofils",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L202",
+      "weight": 1.0,
+      "_src": "client_src_fusion_js",
+      "_tgt": "fusion_pluriel",
+      "source": "client_src_fusion_js",
+      "target": "fusion_pluriel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L204",
+      "weight": 1.0,
+      "_src": "client_src_fusion_js",
+      "_tgt": "fusion_enumerer",
+      "source": "client_src_fusion_js",
+      "target": "fusion_enumerer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L214",
+      "weight": 1.0,
+      "_src": "client_src_fusion_js",
+      "_tgt": "fusion_decrirefusion",
+      "source": "client_src_fusion_js",
+      "target": "fusion_decrirefusion",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L81",
+      "weight": 1.0,
+      "_src": "fusion_fusionnerprofils",
+      "_tgt": "fusion_cletitre",
+      "source": "fusion_cletitre",
+      "target": "fusion_fusionnerprofils",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L21",
+      "weight": 1.0,
+      "_src": "fusion_prefere",
+      "_tgt": "fusion_present",
+      "source": "fusion_present",
+      "target": "fusion_prefere",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_src": "fusion_plusancienne",
+      "_tgt": "fusion_present",
+      "source": "fusion_present",
+      "target": "fusion_plusancienne",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L91",
+      "weight": 1.0,
+      "_src": "fusion_fusionnerprofils",
+      "_tgt": "fusion_present",
+      "source": "fusion_present",
+      "target": "fusion_fusionnerprofils",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L36",
+      "weight": 1.0,
+      "_src": "fusion_fusionnertitre",
+      "_tgt": "fusion_prefere",
+      "source": "fusion_prefere",
+      "target": "fusion_fusionnertitre",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L178",
+      "weight": 1.0,
+      "_src": "fusion_fusionnerprofils",
+      "_tgt": "fusion_prefere",
+      "source": "fusion_prefere",
+      "target": "fusion_fusionnerprofils",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L46",
+      "weight": 1.0,
+      "_src": "fusion_fusionnertitre",
+      "_tgt": "fusion_plusancienne",
+      "source": "fusion_plusancienne",
+      "target": "fusion_fusionnertitre",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L112",
+      "weight": 1.0,
+      "_src": "fusion_fusionnerprofils",
+      "_tgt": "fusion_plusancienne",
+      "source": "fusion_plusancienne",
+      "target": "fusion_fusionnerprofils",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L40",
+      "weight": 1.0,
+      "_src": "fusion_fusionnertitre",
+      "_tgt": "fusion_statutfusionne",
+      "source": "fusion_statutfusionne",
+      "target": "fusion_fusionnertitre",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L83",
+      "weight": 1.0,
+      "_src": "fusion_fusionnerprofils",
+      "_tgt": "fusion_fusionnertitre",
+      "source": "fusion_fusionnertitre",
+      "target": "fusion_fusionnerprofils",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L147",
+      "weight": 1.0,
+      "_src": "fusion_fusionnerprofils",
+      "_tgt": "fusion_union",
+      "source": "fusion_union",
+      "target": "fusion_fusionnerprofils",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L140",
+      "weight": 1.0,
+      "_src": "fusion_fusionnerprofils",
+      "_tgt": "fusion_nom",
+      "source": "fusion_nom",
+      "target": "fusion_fusionnerprofils",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L206",
+      "weight": 1.0,
+      "_src": "fusion_enumerer",
+      "_tgt": "fusion_pluriel",
+      "source": "fusion_pluriel",
+      "target": "fusion_enumerer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L217",
+      "weight": 1.0,
+      "_src": "fusion_decrirefusion",
+      "_tgt": "fusion_pluriel",
+      "source": "fusion_pluriel",
+      "target": "fusion_decrirefusion",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\src\\fusion.js",
+      "source_location": "L215",
+      "weight": 1.0,
+      "_src": "fusion_decrirefusion",
+      "_tgt": "fusion_enumerer",
+      "source": "fusion_enumerer",
+      "target": "fusion_decrirefusion",
       "confidence_score": 1.0
     },
     {
@@ -13806,7 +14481,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\components\\Backup.jsx",
-      "source_location": "L41",
+      "source_location": "L44",
       "weight": 1.0,
       "_src": "client_src_components_backup_jsx",
       "_tgt": "backup_datelisible",
@@ -13818,7 +14493,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "client\\src\\components\\Backup.jsx",
-      "source_location": "L48",
+      "source_location": "L51",
       "weight": 1.0,
       "_src": "client_src_components_backup_jsx",
       "_tgt": "backup_backup",
@@ -14633,6 +15308,42 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "client\\tests\\cloud.conflit.test.js",
+      "source_location": "L184",
+      "weight": 1.0,
+      "_src": "client_tests_cloud_conflit_test_js",
+      "_tgt": "cloud_conflit_test_ajouterailleurs",
+      "source": "client_tests_cloud_conflit_test_js",
+      "target": "cloud_conflit_test_ajouterailleurs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\tests\\cloud.conflit.test.js",
+      "source_location": "L189",
+      "weight": 1.0,
+      "_src": "client_tests_cloud_conflit_test_js",
+      "_tgt": "cloud_conflit_test_dansdrive",
+      "source": "client_tests_cloud_conflit_test_js",
+      "target": "cloud_conflit_test_dansdrive",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\tests\\cloud.conflit.test.js",
+      "source_location": "L197",
+      "weight": 1.0,
+      "_src": "client_tests_cloud_conflit_test_js",
+      "_tgt": "cloud_conflit_test_conflitsde",
+      "source": "client_tests_cloud_conflit_test_js",
+      "target": "cloud_conflit_test_conflitsde",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "client\\tests\\cloud.test.js",
       "source_location": "L23",
       "weight": 1.0,
@@ -14832,6 +15543,114 @@
       "_tgt": "filtres_decouverte_test_ids",
       "source": "client_tests_filtres_decouverte_test_js",
       "target": "filtres_decouverte_test_ids",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\tests\\fusion.test.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_src": "client_tests_fusion_test_js",
+      "_tgt": "fusion_test_titre",
+      "source": "client_tests_fusion_test_js",
+      "target": "fusion_test_titre",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\tests\\fusion.test.js",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_src": "client_tests_fusion_test_js",
+      "_tgt": "fusion_test_serie",
+      "source": "client_tests_fusion_test_js",
+      "target": "fusion_test_serie",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\tests\\fusion.test.js",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_src": "client_tests_fusion_test_js",
+      "_tgt": "fusion_test_profil",
+      "source": "client_tests_fusion_test_js",
+      "target": "fusion_test_profil",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\tests\\fusion.test.js",
+      "source_location": "L38",
+      "weight": 1.0,
+      "_src": "client_tests_fusion_test_js",
+      "_tgt": "fusion_test_sansdate",
+      "source": "client_tests_fusion_test_js",
+      "target": "fusion_test_sansdate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\tests\\fusion.test.js",
+      "source_location": "L39",
+      "weight": 1.0,
+      "_src": "client_tests_fusion_test_js",
+      "_tgt": "fusion_test_statuts",
+      "source": "client_tests_fusion_test_js",
+      "target": "fusion_test_statuts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\tests\\fusion.test.js",
+      "source_location": "L134",
+      "weight": 1.0,
+      "_src": "client_tests_fusion_test_js",
+      "_tgt": "fusion_test_v",
+      "source": "client_tests_fusion_test_js",
+      "target": "fusion_test_v",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\tests\\fusion.test.js",
+      "source_location": "L144",
+      "weight": 1.0,
+      "_src": "client_tests_fusion_test_js",
+      "_tgt": "fusion_test_el",
+      "source": "client_tests_fusion_test_js",
+      "target": "fusion_test_el",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\tests\\fusion.test.js",
+      "source_location": "L204",
+      "weight": 1.0,
+      "_src": "client_tests_fusion_test_js",
+      "_tgt": "fusion_test_a",
+      "source": "client_tests_fusion_test_js",
+      "target": "fusion_test_a",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "client\\tests\\fusion.test.js",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_src": "fusion_test_serie",
+      "_tgt": "fusion_test_titre",
+      "source": "fusion_test_titre",
+      "target": "fusion_test_serie",
       "confidence_score": 1.0
     },
     {

@@ -17,6 +17,10 @@ dans un SQLite embarqué, et la sauvegarde va dans le Google Drive de l'utilisat
 Le dossier `server/` est conservé dans le dépôt comme base d'une éventuelle mise en ligne
 future — il n'est plus utilisé par l'application.
 
+### Point du 2026-10-27 — fusion des conflits de sauvegarde (mission B6)
+- Mission « Fusion des conflits de sauvegarde » **codée et essayée** (500 tests verts ; essai sur émulateur avec le compte de test et le vrai Drive) : « Fusionner » en premier dans l'écran de conflit, résumé affiché avant d'appuyer.
+  Reste la vérification par une autre IA et la capture finale de Kinder (étape B6-3). La feuille de route du 2026-10-27 (A3, B3, B1, B2, B6) est entièrement codée ; B7 (ordre de lecture) abandonné.
+
 ### Point du 2026-10-27 — recherche par mot-clé (mission B2)
 - Mission « Recherche par mot-clé » **codée et essayée** (474 tests verts) : le mode « Mot-clé » remplace « Explorer » dans la Recherche, avec le panneau commun et
   « Sur mes plateformes ». Reste la vérification par une autre IA et la capture finale de Kinder (étape B2-2). Suite figée : B6 (fusion des conflits de sauvegarde).
@@ -92,6 +96,7 @@ Les services de streaming n'exposent pas ces données : TMDB est la seule source
 12. **Sagas regroupées** : dans Mes listes, les films d'une même saga sont regroupés sous un en-tête, dans l'ordre de sortie ; réglage « Sagas ».
 13. **Filtres unifiés** : « Mes plateformes » (Réglages) et un panneau commun (type, année, genre, tri, sur mes plateformes) dans Mes listes, Découvrir, Ce soir et Recherche ; « Explorer » reste jusqu'à B2.
 14. **Recherche par mot-clé** : le mode « Mot-clé » (mots-clés TMDB, en anglais) remplace « Explorer » dans la Recherche ; mêmes filtres et « Sur mes plateformes ».
+15. **Fusion des conflits de sauvegarde** : « Fusionner » (union des titres, épisodes, visionnages, listes ; statut le plus avancé ; valeur du téléphone en cas de désaccord) dans l'écran de conflit.
 
 ## Architecture (3 couches, strict)
 Tout tient dans `client/`, il n'y a plus de séparation par processus :

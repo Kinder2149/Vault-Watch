@@ -8,6 +8,14 @@
 - 18 points relevés par Kinder (sauvegarde automatique, recherche, navigation, listes, découvertes, suivi des
   épisodes, fusion Drive…). Aucun code modifié. Liste complète dans `PLAN_V2.md`, « Retours d'essai du 2026-10-25 ».
 
+## Fusion des conflits de sauvegarde (B6) — 2026-10-27, codée et essayée sur émulateur avec le vrai Drive, non validée par Kinder sur téléphone
+- **Écran de conflit** (Réglages > Sauvegarde) : un nouveau choix **« Fusionner »**, proposé en premier, qui réunit la version du téléphone et celle du Drive au lieu d'en écraser une.
+  Le résumé est affiché avant d'appuyer : « Ce téléphone reçoit : … / Le Drive reçoit : … » (titres, épisodes vus, visionnages, listes, statuts mis à niveau, notes en désaccord).
+- **Règles** : union des titres, épisodes vus, visionnages et listes ; statut le plus avancé (Vu > En cours > À voir) ; « Abandonné », note et avis en désaccord : la valeur de ce téléphone ;
+  date la plus ancienne ; listes de même nom fusionnées (privée si l'une l'est). Limite annoncée : un titre supprimé d'un côté peut revenir.
+- Un appui fusionne tous les profils en conflit, puis envoie le résultat au Drive ; « Reprendre la version du Drive » et « Garder ce téléphone » restent. Si l'envoi échoue, la fusion reste sur le téléphone et repart au retour du réseau.
+- Détail et captures : `PLAN_V2.md` (missions B6-1 à B6-3), `essais/2026-10-27_B6-3`.
+
 ## Recherche par mot-clé (B2) — 2026-10-27, codée et essayée (navigateur et émulateur), non validée par Kinder sur téléphone
 - **Recherche** : le mode « Explorer » est remplacé par **« Mot-clé »**. On tape un thème (en anglais : « marvel », « zombie », « time travel »),
   des mots-clés du catalogue TMDB sont proposés en puces, on en touche un et on voit les films et séries qui le portent, avec « Voir plus ».

@@ -2368,6 +2368,44 @@ supprimé, annoncé) : d'accord ? (2) « Fusionner » est **en tête et mis en a
 **Écart avec le cadrage** : le rendu à l'écran n'a **pas** été fait dans le navigateur avec un Drive simulé : le jeton Google et le Drive passent par le plugin Android, rien à simuler sans toucher au code. L'écran de conflit est
 donc vérifié **sur l'émulateur avec le compte de test et le vrai Drive** (même chose qu'en S4), à la clôture B6-3 (captures).
 
+#### B6-3 — Clôture (2026-10-27)
+```
+CLÔTURE DE MISSION — FUSION DES CONFLITS DE SAUVEGARDE (B6-1 et B6-2)
+
+CÔTÉ IA QUI A CODÉ :
+☑ C1 — Build : passe (vite build avec VITE_PARTAGE ; APK de debug construit et installé sur l'émulateur : apk-test/vault-watch-test-2.3.5-fusion.apk)
+☑ C2 — Périmètre : fichiers listés ci-dessous ; code natif Java, notifications, google.js, format de sauvegarde (version 4) inchangés
+☑ C3 — Tests de code : B6-1 « fusion » → réussi (20) ; B6-2 « fusion en cas de conflit » (faux Drive) → réussi (6) ; tests existants : 500 au total, tous verts
+☑ C4 — CHANGELOG : bloc « Fusion des conflits de sauvegarde (B6) » ajouté
+☑ C5 — PROJET_CONTEXTE : « Point du 2026-10-27 — fusion des conflits de sauvegarde » ajouté ; « Périmètre construit » point 15
+☑ C6 — Graphify : reconstruit avec l'outil (même jeu de fichiers que B1-5 et B2-2) ; documents non réanalysés
+☑ C7 — Synchronisation : décisions du 2026-10-27 (feuille de route) respectées, aucune décision levée ; la limite assumée (un titre supprimé d'un côté peut revenir) est annoncée dans l'écran
+☑ C8 — Prompt de vérification rédigé : essais/prompt-verification-fusion.txt
+
+FICHIERS MODIFIÉS (en langage fonctionnel) :
+- la règle de fusion de deux versions d'un profil et son résumé en français → client/src/fusion.js (nouveau)
+- l'aperçu et l'application de la fusion avec le Drive → client/src/backup.js
+- l'écran de conflit : bouton « Fusionner » et résumé → client/src/components/Backup.jsx, client/src/styles.css
+- les tests → client/tests (fusion, cloud.conflit)
+
+CÔTÉ IA DE VÉRIFICATION :
+☐ V1-V8 — Rapport rendu : [critère → capture → réussi / échoué]
+
+CÔTÉ KINDER :
+☐ K1 — Liste des fichiers lue et comprise
+☐ K2 — Capture finale sur son téléphone : l'écran de conflit avec « Fusionner » en premier et son résumé, puis « Sauvegardé à HH:MM », puis Mes listes
+☐ K3 — Résultat : ✅ Mission validée / ❌ Problème détecté → [décrire]
+```
+**Essai sur émulateur Android (moteur réel) avec le compte de test et le vrai Drive, 2026-10-27** — captures dans `essais/2026-10-27_B6-3/` (thème clair). Connexion de l'application au compte de test (ajouté par Kinder à
+l'émulateur) ; « Sauvegarder maintenant » : état de départ sur le Drive, 8 titres (`1-depart-sauvegarde-drive.png`). La version du Drive est rendue périmée pour cet appareil (clé `cloud-versions`), puis sur le téléphone : Dune
+retiré du suivi (le Drive l'a encore), Matrix ajouté, Parasite (2019) passé à « Vu ». La sauvegarde automatique constate le conflit (`raison: conflit`). Réglages > Sauvegarde > « Sauvegarder maintenant » : **écran de conflit
+avec « Fusionner » en premier, mis en avant**, et le résumé « Mon profil — Ce téléphone reçoit : 1 titre. Le Drive reçoit : 1 titre, 1 visionnage, 1 statut mis à niveau. Un titre supprimé d'un côté peut revenir. »
+(`2-ecran-conflit-fusionner.png`) ; un appui : le conflit se referme, « **Sauvegardé à 20:36 — Tout est à jour dans ton Drive.** » (`3-apres-fusion.png`) ; Mes listes : **9 titres, 1 vu, 8 à voir**, Dune de retour, Matrix présent
+(`4-mes-listes-apres-fusion.png`) ; un second « Sauvegarder maintenant » : « Sauvegarde envoyée dans ton Drive (1 profil) », aucun nouveau conflit.
+**Non essayé sur émulateur** : « Reprendre la version du Drive » et « Garder ce téléphone » (couverts par les tests de code et inchangés), plusieurs profils en conflit (couvert par les tests), fichier du Drive illisible (tests),
+l'écran du bandeau de conflit seul (la capture prise n'était pas exploitable, retirée). Remarque d'essai : une fenêtre système « Android Switch isn't responding » est apparue plusieurs fois (émulateur lent), sans lien avec l'application.
+Cases B6-1 à B6-3 à cocher après validation de Kinder.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
