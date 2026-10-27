@@ -1573,6 +1573,28 @@ CÔTÉ KINDER :
 Hors périmètre de cette clôture (restent ouverts) : S0 (téléphone de Kinder), B6 (fusion en cas de conflit), les autres points
 des retours du 25/10 (A3, A6, B1, B2, B3, B7).
 
+### Contrôle des 18 retours du 2026-10-25 (2026-10-27) — « vérifié » = vu par l'IA qui a codé, pas validé par Kinder
+| Point | État |
+|---|---|
+| A1 / A2 sauvegarde, bandeau | S1 à S4 faits, essayés sur émulateur ; **cause sur le téléphone non confirmée (S0)** ; vérification par une autre IA et capture finale en cours |
+| A3 film en salle « pas encore sorti » | **non traité** (il faut le titre exact) |
+| A4 série « Vue » | **vérifié navigateur** : Breaking Bad 0/62 → 62/62 épisodes cochés, statut Vu |
+| A5 élément qui disparaît (Découvrir) | corrigé par hypothèse ; **vérifié navigateur** : ajout depuis une rangée → la carte reste, rangées inchangées ; à confirmer sur téléphone |
+| A6 liste d'un ami | **non traité, non vérifié** (capture manquante ; cause probable = celle d'A7) |
+| A7 « À voir ce soir » | **vérifié navigateur** : « Tout voir » plein écran exact (375×812), 12 cartes ; bouton retour Android : voisin du prompt de vérification |
+| A8 effacer la saisie | **vérifié navigateur** |
+| A9 / A10 résultats limités, pluriel | **vérifié navigateur** : « Voir plus » (19 → 37 résultats pour « avenger ») |
+| A11 balayage entre onglets | **vérifié navigateur** : un balayage simulé ne change plus de sous-onglet |
+| B1 tri par plateforme | **non fait** : un filtre « Sur mes plateformes » existe déjà (replié), à cadrer |
+| B2 recherche par thème | **non fait** (choix à trancher : studio, saga, mot-clé) |
+| B3 sagas regroupées, tris | **non fait** : les tris existent déjà, le regroupement des sagas non |
+| B4 affiche de l'idée du soir | **vérifié navigateur** (affiche 104×156 nette) |
+| B5 « cocher les précédents ? » | **vérifié navigateur** : épisode 3 coché → encadré → « Oui » → 1 à 3 cochés, progression 3/62 |
+| B6 fusion en cas de conflit | **non fait** (le conflit est maintenant bien signalé, la fusion reste à cadrer) |
+| B7 ordre de lecture manga | **non fait** (hors série, TMDB ne le fournit pas) |
+Aucun de ces points n'est « validé » au sens de la méthode tant que la vérification par une autre IA et la capture finale de
+Kinder ne sont pas faites.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
