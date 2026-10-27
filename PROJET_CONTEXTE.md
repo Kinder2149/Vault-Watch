@@ -17,6 +17,11 @@ dans un SQLite embarqué, et la sauvegarde va dans le Google Drive de l'utilisat
 Le dossier `server/` est conservé dans le dépôt comme base d'une éventuelle mise en ligne
 future — il n'est plus utilisé par l'application.
 
+### Point du 2026-10-27 — filtres unifiés (mission B1)
+- Mission « Filtres unifiés » **codée et essayée** (480 tests verts) : « Mes plateformes » dans Réglages, un panneau commun dans Mes listes, Découvrir, Ce soir et
+  Recherche (Titre, Acteur, accueil). « Explorer » inchangé. Reste la vérification par une autre IA et la capture finale de Kinder (étape B1-5).
+  Suite figée : B2 (mot-clé à la place d'« Explorer »), puis B6 (fusion des conflits de sauvegarde).
+
 ### Point du 2026-10-27 — sagas regroupées (mission B3)
 - Mission « Sagas regroupées » **codée et essayée** (454 tests verts) : en-têtes « Saga … — N titres » dans Mes listes, réglage « Sagas ». Reste la
   vérification par une autre IA et la capture finale de Kinder (étape B3-2). Suite figée : B1 + B2 (filtres, mot-clé), puis B6 (fusion).
@@ -81,6 +86,7 @@ Les services de streaming n'exposent pas ces données : TMDB est la seule source
 11. **Disponibilité** : cinq états (pas encore sorti, au cinéma, sorti sans streaming, location / achat, disponible + plateformes) sur la
     fiche et les affiches ; « Ce soir » ne montre à regarder que le regardable ; « Mes listes » montre tout.
 12. **Sagas regroupées** : dans Mes listes, les films d'une même saga sont regroupés sous un en-tête, dans l'ordre de sortie ; réglage « Sagas ».
+13. **Filtres unifiés** : « Mes plateformes » (Réglages) et un panneau commun (type, année, genre, tri, sur mes plateformes) dans Mes listes, Découvrir, Ce soir et Recherche ; « Explorer » reste jusqu'à B2.
 
 ## Architecture (3 couches, strict)
 Tout tient dans `client/`, il n'y a plus de séparation par processus :

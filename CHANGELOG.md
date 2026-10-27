@@ -8,6 +8,19 @@
 - 18 points relevés par Kinder (sauvegarde automatique, recherche, navigation, listes, découvertes, suivi des
   épisodes, fusion Drive…). Aucun code modifié. Liste complète dans `PLAN_V2.md`, « Retours d'essai du 2026-10-25 ».
 
+## Filtres unifiés (B1) — 2026-10-27, codés et essayés (navigateur et émulateur), non validés par Kinder sur téléphone
+- **Réglages > Mes plateformes** : on coche ses abonnements une fois ; le choix sert partout (ancien choix de Découvrir repris).
+- **Un seul panneau de filtres** (Tout / Films / Séries, année, genre, tri, et « Sur mes plateformes » quand c'est possible) dans Mes listes,
+  Découvrir et son « Tout voir », Ce soir (Découverte et Suggestion, réglage partagé) et Recherche (Titre, Acteur, accueil). « Explorer » garde
+  son ancien panneau jusqu'à la mission mot-clé (B2).
+- **Mes listes** : « Sur mes plateformes » = abonnement seulement, d'après les offres rangées (marche hors connexion) ; les titres aux offres
+  inconnues sont masqués avec le filtre actif.
+- **Découvrir** : « Sur mes plateformes » (éteint au départ) relance les rangées thèmes avec TMDB ; les rangées « Comme … » et « Chez tes amis »
+  sont masquées avec une ligne qui le dit. **Ce soir et Recherche** : pas de filtre plateforme (une ligne explique pourquoi) ; un réglage qui
+  vide la liste montre « Aucun titre ne correspond » et un bouton « Réinitialiser ».
+- **Genre** désormais filtrable dans la Recherche par titre et par acteur.
+- Détail et captures : `PLAN_V2.md` (missions « Filtres unifiés », B1-1 à B1-5), `essais/2026-10-27_B1-2` à `B1-5`.
+
 ## Sagas regroupées (B3) — 2026-10-27, codées et essayées sur émulateur, non validées par Kinder sur téléphone
 - **Mes listes** : les films d'une même saga (au moins deux dans la vue) sont regroupés sous « Saga Star Wars — 6 titres », dans l'ordre de
   sortie, à la place de leur premier membre. Dans tous les statuts et dans les listes créées ; pas dans Ce soir, Découvrir ni pendant une

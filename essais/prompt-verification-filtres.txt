@@ -1,0 +1,75 @@
+PROMPT DE VÉRIFICATION — Filtres unifiés (missions B1-1 à B1-4) — projet Vault Watch
+
+Tu es l'IA de vérification. Tu n'as pas codé cette mission. Tu ne corriges rien.
+Tu rends des captures et des verdicts, en français, en termes fonctionnels (pas de logs bruts).
+
+CRITÈRE DE FIN DE MISSION (brouillon du plan, repris tel quel ; Kinder peut le reformuler) :
+« Je choisis mes plateformes une fois dans Réglages, et partout où je cherche ou je trie (mes listes, découvrir, suggestions, recherche) je retrouve
+le même panneau de filtres : films ou séries, année, genre, tri, et « sur mes plateformes » quand c'est possible. »
+
+CE QUI A ÉTÉ FAIT ET TESTÉ (test de code : réussi pour chacun ; 480 tests automatiques verts, build OK) :
+- Réglages > « Mes plateformes » : on coche ses abonnements une fois ; le choix est partagé par tous les écrans.
+- Un panneau commun : barre « Tout / Films / Séries » à gauche, puce « Filtres » à droite (un point quand un filtre est actif), panneau dessous avec
+  Plateformes (si l'écran sait), Année, Genre, Tri, Réinitialiser.
+- Mes listes : « Sur mes plateformes » = abonnement seulement, d'après les offres déjà rangées ; les titres aux offres inconnues sont masqués quand
+  le filtre est actif ; sans plateforme choisie, le panneau invite à en choisir.
+- Découvrir : le panneau s'applique aux rangées et à « Tout voir » ; « Sur mes plateformes » (éteint au départ) relance les rangées filtrées par TMDB ;
+  les rangées « Comme … » et « Chez tes amis » sont masquées avec une ligne qui le dit.
+- Ce soir > Découverte et > Suggestion : un seul panneau partagé, sans plateformes (une ligne explique pourquoi) ; si les filtres ne laissent rien :
+  « Aucun titre ne correspond » + « Réinitialiser ».
+- Recherche (Titre, Acteur) et accueil de la recherche (Tendances) : le même panneau, genre compris, remis à zéro quand on change de mode.
+  « Explorer » garde son ancien panneau (il disparaît dans la mission suivante).
+
+NOUVEAUTÉS À VÉRIFIER EN PRIORITÉ (un verdict + une capture chacune) :
+ V-A  Réglages > Mes plateformes : en cocher deux (ex. Disney+, Apple TV) ; quitter l'application, la relancer : toujours cochées.
+ V-B  Mes listes > Filtres : la puce « Sur mes plateformes » ; allumée, ne restent que les titres dont une de ces plateformes est en abonnement
+      (pastille « Disponible » avec leur logo) ; sans plateforme choisie, le panneau le dit et propose « Choisir mes plateformes ».
+ V-C  Découvrir : barre + panneau visibles ; « Films » ne laisse que des films dans toutes les rangées ; « 2020s » ne garde que des titres de 2020
+      et après ; « Sur mes plateformes » allumé : les rangées thèmes se rechargent ; si le compte a des titres notés 4★+ ou vus, les rangées « Comme … »
+      disparaissent et une ligne « N rayons masqués » le dit (à voir sur un jeu de données qui a ces titres).
+ V-D  Découvrir > « Tout voir » d'une rangée : mêmes filtres que la page (le point sur « Filtres » est repris) ; changer un filtre dedans le change
+      aussi sur la page.
+ V-E  Ce soir > Découverte puis > Suggestion : le même réglage (ex. « Films » + « 2020s ») s'applique aux deux ; pas de groupe « Plateformes » et la
+      ligne « Pas de filtre par plateforme ici… » sous le panneau ouvert ; un réglage qui vide la liste montre « Aucun titre ne correspond » et le
+      bouton « Réinitialiser » le rétablit.
+ V-F  Recherche : l'accueil (Tendances) a la barre et le panneau ; chercher « batman » : « Films », « 2020s », un genre, « Plus ancien » agissent
+      sur la liste ; un filtre qui vide la liste montre « Aucun titre ne correspond » + « Réinitialiser » ; chercher un acteur : mêmes filtres sur
+      sa filmographie ; passer de Titre à Acteur remet les filtres à zéro ; « Explorer » est inchangé (ancien panneau).
+ V-G  Réseau coupé : couper Wi-Fi ET données, fermer l'application (adb shell am force-stop), la relancer. Mes listes : mêmes titres, mêmes groupes de
+      saga, panneau « Filtres » ouvrable et utilisable. Découvrir : barre visible et message « Pas de connexion » avec « Réessayer » (pas d'écran vide).
+
+FONCTIONS VOISINES À SURVEILLER :
+ - Pastilles de disponibilité (Disponible, Location / achat, Au cinéma…) et sagas regroupées dans Mes listes : toujours présentes.
+ - « Tout voir » de Ce soir (À voir ce soir) : garde son propre sélecteur Tout / Films / Séries (non touché).
+ - Ajouter un titre depuis n'importe quelle rangée (bouton +), changer un statut : fonctionne comme avant.
+ - Sauvegarde cloud (Réglages > Sauvegarde) : inchangée ; « Mes plateformes » ne fait pas partie de la sauvegarde (réglage de l'appareil).
+
+COMMENT LANCER LE PROJET (application Android, WebView Capacitor) :
+ - Émulateur : AVD « Medium_Phone_API_36.1 » (Play Store) :
+   C:\Users\vcout\AppData\Local\Android\Sdk\emulator\emulator.exe -avd Medium_Phone_API_36.1
+   Attention : le stockage de cet émulateur est presque plein (≈ 94 %). Si l'installation échoue (« not enough space »), désinstalle
+   SEULEMENT Vault Watch (adb uninstall com.kinder.suivifilmsseries), puis réinstalle ; ne désinstalle PAS les autres applications de
+   l'émulateur (elles appartiennent à d'autres projets de Kinder) : préviens Kinder si cela ne suffit pas.
+ - APK de test : V:\DEV\PROJETS\applications_web\Vault Watch\apk-test\vault-watch-test-2.3.3-filtres.apk
+   adb install -r <ce fichier> ; lancer : adb shell monkey -p com.kinder.suivifilmsseries -c android.intent.category.LAUNCHER 1
+   (adb : C:\Users\vcout\AppData\Local\Android\Sdk\platform-tools\adb.exe). Premier lancement : choisir « Français ».
+ - Sous Git Bash, les chemins « /sdcard/… » sont réécrits : utiliser PowerShell pour adb shell / pull.
+ - Aucun compte Google n'est nécessaire. Aucune migration : de nouvelles colonnes sont ajoutées toutes seules.
+ - Sans titre en bibliothèque, ajouter quelques films par Recherche (bouton +) avant de tester Mes listes ; les offres se rangent au lancement
+   suivant (attendre ~20 s après un relancement avec réseau).
+ - Captures : adb shell screencap -p /sdcard/s.png puis adb pull (supprimer ensuite le fichier du téléphone).
+ - Le bouton Retour d'Android depuis l'onglet Recherche QUITTE l'application.
+ - Réseau : adb shell svc wifi disable / enable ; adb shell svc data disable / enable.
+ - Alternative sans émulateur pour V-C à V-F : `cd client && npm run dev`, navigateur en largeur 375 px (le catalogue TMDB répond depuis le navigateur).
+
+RÈGLES :
+ - Ne corrige rien. Un critère non atteint = « échoué » avec capture et description de ce qui était attendu / vu.
+ - Ne pas modifier le code ni les réglages du projet. Ne jamais saisir d'identifiants.
+
+RENDU :
+ - Tableau : critère | capture | verdict (réussi / échoué) | ce que tu as vu, en français — pour V-A à V-G, puis chaque fonction voisine.
+ - L'écran exact que Kinder doit regarder pour sa capture finale : sur SON téléphone, Réglages > Mes plateformes (deux plateformes cochées), puis
+   Mes listes > Filtres > « Sur mes plateformes » allumé (liste réduite), puis Découvrir avec le même interrupteur allumé.
+
+Références : PLAN_V2.md (missions « Filtres unifiés », B1-1 à B1-5), PROJET_CONTEXTE.md (décision du 2026-10-27), captures de mes essais dans
+essais/2026-10-27_B1-2, B1-3, B1-4 (navigateur) et B1-5 (émulateur, réseau coupé).

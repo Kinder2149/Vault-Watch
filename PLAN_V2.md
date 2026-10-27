@@ -2149,6 +2149,46 @@ vide la liste montre « Aucun titre ne correspond » avec « Réinitialiser », 
 « Plus récent » range par année décroissante, genre appliqué ; changer de mode remet les filtres à zéro ; « Explorer » garde son ancien panneau et son sélecteur, inchangés. Un titre à date inconnue (2027)
 se range en dernier avec « Plus récent » : comportement du tri commun, pas touché ici. Coupure réseau : B1-5.
 
+#### B1-5 — Clôture (2026-10-27)
+```
+CLÔTURE DE MISSION — FILTRES UNIFIÉS (B1-1 à B1-4)
+
+CÔTÉ IA QUI A CODÉ :
+☑ C1 — Build : passe (vite build avec VITE_PARTAGE ; APK de debug construit et installé sur l'émulateur : apk-test/vault-watch-test-2.3.3-filtres.apk)
+☑ C2 — Périmètre : fichiers listés ci-dessous ; code natif Java, sauvegarde, notifications, google.js inchangés
+☑ C3 — Tests de code : 480 au total, tous verts (dont « plateformes » B1-1 et « filtres Découvrir » B1-2 : 11 cas) ; B1-3 et B1-4 réutilisent cette logique, sans nouveau cas
+☑ C4 — CHANGELOG : bloc « Filtres unifiés (B1) » ajouté
+☑ C5 — PROJET_CONTEXTE : « Point du 2026-10-27 — filtres unifiés » ajouté ; « Périmètre construit » point 13
+☑ C6 — Graphify : reconstruit avec l'outil sur client/src, client/tests, le code natif et les configurations (596 nœuds ; l'ancien graphe en comptait 614 avec une méthode différente) ; documents non réanalysés
+☑ C7 — Synchronisation : décisions du 2026-10-27 (feuille de route) déjà figées ; aucune décision levée ; B2 (mot-clé) reste à cadrer
+☑ C8 — Prompt de vérification rédigé : essais/prompt-verification-filtres.txt
+
+FICHIERS MODIFIÉS (en langage fonctionnel) :
+- les règles de filtre (type, année, genre, tri, plateformes) → client/src/filtres.js, plateformes.js
+- « Mes plateformes » dans Réglages → client/src/components/MesPlateformes.jsx, Settings.jsx
+- la barre et le panneau communs → client/src/components/BarreFiltres.jsx, Filtres.jsx, client/src/styles.css
+- Mes listes → client/src/components/Lists.jsx
+- Découvrir et « Tout voir » → client/src/components/Decouvrir.jsx, VueRayon.jsx, Rail.jsx
+- Ce soir (Découverte, Suggestion) → client/src/components/Suggestions.jsx, Rubriques.jsx, Tonight.jsx
+- Recherche (Titre, Acteur, accueil) et l'état des filtres → client/src/App.jsx
+- les tests → client/tests (plateformes, filtres-decouverte)
+
+CÔTÉ IA DE VÉRIFICATION :
+☐ V1-V7 — Rapport rendu : [critère → capture → réussi / échoué]
+
+CÔTÉ KINDER :
+☐ K1 — Liste des fichiers lue et comprise
+☐ K2 — Capture finale sur son téléphone : Réglages > Mes plateformes, Mes listes > Filtres > « Sur mes plateformes », Découvrir
+☐ K3 — Résultat : ✅ Mission validée / ❌ Problème détecté → [décrire]
+```
+**Essai sur émulateur Android (moteur réel), 2026-10-27** — captures dans `essais/2026-10-27_B1-5/` (thème clair, l'émulateur est en « Automatique ») : avec le réseau, la Recherche montre
+la barre commune sur les Tendances et Mes listes affiche les 8 titres ; **Wi-Fi et données coupés, application tuée puis relancée** : Découvrir garde sa barre (Tout / Films / Séries, Filtres) et affiche
+« Pas de connexion — Le catalogue a besoin d'internet. Ton suivi, lui, reste disponible. » avec « Réessayer » (`2-decouvrir-reseau-coupe.png`) ; Mes listes montre les mêmes 8 titres, les pastilles de
+disponibilité (Disponible, Location / achat, Pas en streaming) et « Saga Star Wars — 3 titres » (`3-mes-listes-reseau-coupe.png`) ; le panneau « Filtres » s'ouvre et se manie hors connexion, avec « Sur mes
+plateformes » qui dit « Aucune plateforme choisie : le filtre ne retire rien » et propose « Choisir mes plateformes » (`4-mes-listes-panneau-reseau-coupe.png`). Non essayé sur émulateur : le filtre « Sur mes plateformes »
+avec des plateformes choisies (vu dans le navigateur en B1-2 ; le compte de test de l'émulateur n'en a pas), l'état « N rayons masqués » (aucun titre aimé ni ami sur ce jeu de données).
+Cases B1-1 à B1-4 et B1-5 à cocher après validation de Kinder.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
