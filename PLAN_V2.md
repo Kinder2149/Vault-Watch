@@ -2072,6 +2072,12 @@ de ces années. Coupure réseau complète : à la clôture B1-5.
 les rangées « Comme … » et « Chez tes amis » sont **masquées** avec une ligne qui le dit, plutôt que montrées sans filtre : d'accord ? (3) l'année, le genre et le tri s'appliquent aux titres déjà
 chargés de chaque rangée (une vingtaine) : une rangée peut donc se vider et disparaître : acceptable ?
 
+**B1-2 codée et vérifiée (2026-10-27, phase 6)** : 480 tests verts, build propre. Navigateur en largeur téléphone, vrai catalogue : la barre (Tout / Films / Séries + Filtres) et le panneau
+s'affichent dans Découvrir (`essais/2026-10-27_B1-2/01-panneau-filtres.jpg`) ; « Films » ne laisse que des films ; « 2020s » ne garde que des titres de 2020 et après ;
+« Sur mes plateformes » (Disney+ et Apple TV choisies) relance les 8 rangées avec `with_watch_providers=337|350` (`02-sur-mes-plateformes.jpg`) ; « Tout voir » reprend les mêmes
+filtres, point actif compris (`03-tout-voir-filtres-partages.jpg`). **Non vu à l'écran** : la ligne « N rayons masqués » (le profil de test n'a ni titre aimé ni ami, donc aucune rangée
+« Comme … » / « Chez tes amis » à masquer) ; à voir sur le téléphone de Kinder, qui a des titres notés. Coupure réseau : à la clôture B1-5.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
