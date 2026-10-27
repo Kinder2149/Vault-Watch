@@ -136,6 +136,21 @@ describe('sauvegarde automatique', () => {
     expect(resultat.raison).toBe('autorisation');
   });
 
+  it('retient depuis quand on attend, sans le repousser à chaque modification', async () => {
+    autorisation.mockResolvedValue('jeton-valide');
+    expect(backup.enAttenteDepuis()).toBeNull();
+
+    backup.markChanged();
+    const debut = backup.enAttenteDepuis();
+    expect(debut).toBeInstanceOf(Date);
+    await new Promise((r) => setTimeout(r, 15));
+    backup.markChanged();
+    expect(backup.enAttenteDepuis().getTime()).toBe(debut.getTime());
+
+    await backup.sauvegardeAutomatique();
+    expect(backup.enAttenteDepuis()).toBeNull();
+  });
+
   it('ne lance pas deux envois en même temps', async () => {
     autorisation.mockResolvedValue('jeton-valide');
     backup.markChanged();

@@ -23,7 +23,7 @@ import Avatar from './components/Avatar.jsx';
 import Vide from './components/Vide.jsx';
 import HorsLigne from './components/HorsLigne.jsx';
 import { GrilleFantome } from './components/Fantomes.jsx';
-import { estErreurReseau } from './reseau.js';
+import { estErreurReseau, useEnLigne } from './reseau.js';
 import { vibre } from './tactile.js';
 import { lireChoix, appliquer as appliquerTheme } from './theme.js';
 import {
@@ -68,10 +68,10 @@ import {
 } from './api.js';
 
 import {
-  hasPendingChanges,
   sauvegardeAutomatique,
-  sauvegardeAutoActive,
   surChangementDeSauvegarde,
+  lireEtatSauvegarde,
+  bandeauSauvegarde,
 } from './backup.js';
 
 import {
@@ -145,7 +145,12 @@ export default function App() {
   // chaque autorisation, une sauvegarde ne peut pas partir sans un geste :
   // on le demande une fois, au lancement, plutôt que d'interrompre en pleine
   // utilisation. Écarté d'un geste, il ne revient pas de la session.
-  const [rappelSauvegarde, setRappelSauvegarde] = useState(hasPendingChanges);
+  // Bandeau de sauvegarde : seulement quand quelque chose est bloqué (voir `bandeauSauvegarde`).
+  // `versionSauvegarde` relance le calcul à chaque changement de la sauvegarde ; `rappelMasque`
+  // retient la cause qu'on a fermée avec la croix (le bandeau revient si la cause change).
+  const [versionSauvegarde, setVersionSauvegarde] = useState(0);
+  const [rappelMasque, setRappelMasque] = useState(null);
+  const enLigne = useEnLigne();
   // Langue du catalogue : tant qu'elle n'a jamais été choisie, l'écran de
   // bienvenue s'affiche avant tout le reste.
   const [needLanguage, setNeedLanguage] = useState(() => !hasCatalogLanguage());
@@ -746,15 +751,23 @@ export default function App() {
     // La fiche partagée suit le même rythme que la sauvegarde : en quittant, en
     // revenant. Discret, et sans effet si le partage n'est pas activé.
     publierPartageAuto();
-    const resultat = await sauvegardeAutomatique();
-    if (resultat.fait) setRappelSauvegarde(false);
-    else setRappelSauvegarde(hasPendingChanges());
+    await sauvegardeAutomatique();
   };
 
-  // Le bandeau suit l'état réel, en direct. Avant, il n'était lu qu'au
-  // lancement : on pouvait cocher dix épisodes sans jamais voir apparaître
-  // « pas encore sauvegardé ».
-  useEffect(() => surChangementDeSauvegarde(setRappelSauvegarde), []);
+  // Le bandeau suit l'état réel, en direct : chaque changement de la sauvegarde (modification,
+  // envoi réussi ou raté) relance le calcul. Tant qu'une attente est en cours on le relance aussi
+  // toutes les 30 s, pour franchir le seuil des 10 min sans qu'il se passe autre chose.
+  useEffect(() => surChangementDeSauvegarde(() => setVersionSauvegarde((n) => n + 1)), []);
+  const etatSauvegarde = lireEtatSauvegarde();
+  const enAttente = etatSauvegarde.enAttente;
+  useEffect(() => {
+    if (!enAttente) return undefined;
+    const id = setInterval(() => setVersionSauvegarde((n) => n + 1), 30_000);
+    return () => clearInterval(id);
+  }, [enAttente]);
+  void versionSauvegarde; // lu pour que le rendu suive
+  const bandeau = bandeauSauvegarde({ ...etatSauvegarde, enLigne });
+  const rappelAffiche = bandeau && bandeau.cause !== rappelMasque ? bandeau : null;
 
   // Rattrapage au lancement. Indispensable et pas redondant avec l'écoute
   // ci-dessous : quand Android supprime l'application de la mémoire — ce qu'il
@@ -896,20 +909,15 @@ export default function App() {
         </button>
       </header>
 
-      {rappelSauvegarde && !showBackup && (
-        <div className="rappel panel panel--accent">
-          <span>
-            Des modifications ne sont pas encore sauvegardées
-            {sauvegardeAutoActive()
-              ? " — elles partiront quand tu quitteras l'application."
-              : '.'}
-          </span>
+      {rappelAffiche && !showBackup && (
+        <div className="rappel panel panel--accent" role="alert">
+          <span>{rappelAffiche.texte}</span>
           <button className="btn" onClick={() => setShowBackup(true)}>
-            Sauvegarder
+            {rappelAffiche.action}
           </button>
           <button
             className="rappel__fermer"
-            onClick={() => setRappelSauvegarde(false)}
+            onClick={() => setRappelMasque(rappelAffiche.cause)}
             aria-label="Masquer le rappel"
           >
             ×
@@ -1294,10 +1302,7 @@ export default function App() {
           profileId={activeProfile}
           profileName={profiles.find((p) => p.id === activeProfile)?.name || 'Mon profil'}
           onRestored={handleRestored}
-          onClose={() => {
-            setShowBackup(false);
-            setRappelSauvegarde(hasPendingChanges());
-          }}
+          onClose={() => setShowBackup(false)}
         />
       )}
 

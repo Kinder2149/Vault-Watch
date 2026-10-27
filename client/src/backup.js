@@ -324,6 +324,14 @@ import {
 } from './google.js';
 
 const PENDING_KEY = 'cloud-pending';
+// Début de l'attente : posé à la première modification non envoyée, effacé avec le drapeau.
+// Le drapeau, lui, est réécrit à chaque modification et ne dit pas depuis quand on attend.
+const SINCE_KEY = 'cloud-pending-since';
+
+function viderEnAttente() {
+  writeLocal(PENDING_KEY, null);
+  writeLocal(SINCE_KEY, null);
+}
 const LAST_BACKUP_KEY = 'cloud-last-backup';
 // « Version » que Drive a donnée à chaque fichier de profil la dernière fois que
 // cet appareil l'a écrit ou lu (sa date de modification, fournie par Drive : elle
@@ -430,6 +438,7 @@ export function markChanged() {
   // bougé pendant qu'il envoyait.
   sequence += 1;
   writeLocal(PENDING_KEY, `${new Date().toISOString()}#${sequence}`);
+  if (!readLocal(SINCE_KEY)) writeLocal(SINCE_KEY, new Date().toISOString());
   prevenir();
   programmerEnvoi();
 }
@@ -672,6 +681,64 @@ function quandLisible(date, maintenant = new Date()) {
   return `le ${jour} à ${heure}`;
 }
 
+// Depuis quand du nouveau attend d'être envoyé, ou null.
+export function enAttenteDepuis() {
+  const valeur = readLocal(SINCE_KEY);
+  return valeur ? new Date(valeur) : null;
+}
+
+// Tout ce que l'écran doit connaître pour décider d'afficher le bandeau, lu sur l'appareil.
+export function lireEtatSauvegarde() {
+  return {
+    enAttente: hasPendingChanges(),
+    derniere: lastCloudBackup(),
+    essai: dernierEssaiAutomatique(),
+    autoActive: sauvegardeAutoActive(),
+    depuis: enAttenteDepuis(),
+  };
+}
+
+// Bandeau d'alerte : `null` (rien à montrer) ou { cause, texte, action }.
+//
+// Le cas normal n'en déclenche **jamais** : une modification part toute seule 30 s plus tard
+// (envoi différé). Le bandeau ne parle que de ce qui est bloqué.
+//  - conflit et autorisation : tout de suite, seul l'utilisateur peut les lever ;
+//  - hors connexion, erreur, interrupteur coupé : seulement après `DELAI_BANDEAU` d'attente,
+//    pour ne pas alarmer dans un tunnel ;
+//  - filet : une attente sans cause connue qui dure autant est anormale, on le dit aussi.
+export const DELAI_BANDEAU_MS = 10 * 60 * 1000;
+
+export function bandeauSauvegarde({
+  enAttente, derniere, essai, autoActive = true, enLigne = true, depuis = null, maintenant = new Date(),
+}) {
+  if (!enAttente) return null;
+  const etat = etatSauvegarde({ enAttente, derniere, essai, autoActive, enLigne });
+  const attente = depuis ? maintenant - depuis : 0;
+  const longue = attente >= DELAI_BANDEAU_MS;
+  const duree = dureeLisible(attente);
+
+  if (etat.cause === 'conflit') {
+    return { cause: 'conflit', texte: 'Un autre appareil a modifié ta sauvegarde.', action: 'Choisir la version' };
+  }
+  if (etat.cause === 'autorisation') {
+    return { cause: 'autorisation', texte: 'Google doit te reconnaître pour sauvegarder.', action: 'Reconnecter' };
+  }
+  if (!longue) return null;
+  if (etat.cause === 'hors-ligne' || etat.cause === 'erreur') {
+    const raison = etat.cause === 'hors-ligne' ? 'pas de connexion' : 'erreur';
+    return { cause: etat.cause, texte: `Pas sauvegardé depuis ${duree} : ${raison}.`, action: 'Réessayer' };
+  }
+  if (etat.cause === 'desactivee') {
+    return { cause: 'desactivee', texte: 'Des modifications ne sont pas sauvegardées.', action: 'Sauvegarder' };
+  }
+  return { cause: 'longue', texte: `Des modifications attendent depuis ${duree}.`, action: 'Sauvegarder' };
+}
+
+function dureeLisible(ms) {
+  const minutes = Math.max(0, Math.floor(ms / 60000));
+  return minutes < 60 ? `${minutes} min` : `${Math.floor(minutes / 60)} h`;
+}
+
 // Date de la dernière sauvegarde réussie, ou null. Affichée en clair : c'est
 // la seule façon pour l'utilisateur de savoir où il en est.
 export function lastCloudBackup() {
@@ -681,7 +748,7 @@ export function lastCloudBackup() {
 
 export function forgetCloudState() {
   annulerEnvoi();
-  writeLocal(PENDING_KEY, null);
+  viderEnAttente();
   writeLocal(LAST_BACKUP_KEY, null);
   writeLocal(LAST_AUTO_KEY, null);
   writeLocal(VERSIONS_KEY, null);
@@ -762,7 +829,8 @@ export async function backupToDrive(token, { ecraser = false } = {}) {
   writeLocal(LAST_BACKUP_KEY, new Date().toISOString());
   // Modifié pendant l'envoi ? Alors cette modification n'est pas partie : le
   // marqueur reste, et la prochaine sauvegarde la rattrapera.
-  if (readLocal(PENDING_KEY) === marqueurAvant) writeLocal(PENDING_KEY, null);
+  if (readLocal(PENDING_KEY) === marqueurAvant) viderEnAttente();
+  else writeLocal(SINCE_KEY, new Date().toISOString()); // la nouvelle modification date de maintenant
   prevenir();
   return { profils: envoyes };
 }
@@ -798,7 +866,7 @@ export async function restoreFromDrive(token, sauvegardes) {
     noterVersions({ [s.profileId || id]: s.version });
     if (!premier) premier = id;
   }
-  writeLocal(PENDING_KEY, null);
+  viderEnAttente();
   return premier;
 }
 

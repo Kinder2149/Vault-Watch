@@ -1467,6 +1467,21 @@ masqué puis cause changée). Émulateur, une capture par cas : modification nor
 conflit ; autorisation (401 simulée) ; hors connexion **après 10 min** (début d'attente reculé de 11 min dans le stockage par
 le débogage de la WebView, attendre 10 min réelles serait inutile) ; interrupteur coupé après 10 min.
 
+**S3 codée et essayée sur émulateur (2026-10-27)** — 362 tests verts (14 nouveaux), construction OK. Captures dans
+`essais/2026-10-27_S3/`. L'émulateur avait perdu son compte Google au redémarrage : les cas ont été joués avec un **compte
+simulé** (la clé `google-account` posée à la main), l'affichage du bandeau ne dépendant que de l'état stocké.
+- *Modification normale* : aucun bandeau à 5 s. À 35 s, l'envoi a échoué pour de vrai (pas de compte Google réel) et le
+  bandeau « Google doit te reconnaître pour sauvegarder » + [Reconnecter] est apparu : cas **autorisation**, authentique.
+- *Conflit* : « Un autre appareil a modifié ta sauvegarde » + [Choisir la version], tout de suite.
+- *Hors connexion* : « Pas sauvegardé depuis 11 min : pas de connexion » + [Réessayer] ; avec 3 min d'attente, aucun bandeau.
+- *Interrupteur coupé après 11 min* : « Des modifications ne sont pas sauvegardées » + [Sauvegarder].
+- *Croix* : masque le bandeau ; il revient quand la cause change (rappel masqué, puis conflit).
+- Ajout hors cadrage, assumé : un **filet** — une attente de plus de 10 min sans cause connue est signalée
+  (« Des modifications attendent depuis N min »). Si les envois ne partent plus pour une raison imprévue, on le voit.
+- **Reste à voir avec un vrai compte Google** : « modification normale » jusqu'à 35 s, sans bandeau (le compte de test devra
+  être ajouté de nouveau dans l'émulateur par Kinder). À faire avec S4 ou en clôture S5.
+- Case S3 à cocher après validation de Kinder.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
