@@ -2312,6 +2312,13 @@ change et résumé à zéro ; fusionner le résultat avec chacun des deux d'orig
 **Questions pour Kinder** : (1) deux listes de **même nom** sur les deux appareils deviennent **une seule liste**, **privée si l'une l'est** : d'accord ? (2) la **date d'ajout** d'un titre et la date de marquage d'un épisode
 gardent la **plus ancienne** : d'accord ? (3) quand les notes ou avis **divergent**, c'est **celui de ce téléphone** qui gagne, même si celui du Drive est plus récent (on n'a pas de date par note) : d'accord ?
 
+**B6-1 codée et vérifiée (2026-10-27, phase 6)** : `client/src/fusion.js` (logique pure, aucun accès à la base ni au Drive) et `client/tests/fusion.test.js` (18 cas). **492 tests verts** (474 + 18), build propre. Les cas couvrent :
+l'union des titres et leur décompte ; le statut le plus avancé dans les deux sens ; « Abandonné » (valeur de ce téléphone, quel que soit l'autre statut) ; les statuts changés comptés de chaque côté ; la note et les étoiles
+(téléphone, sinon Drive, en désaccord téléphone, désaccords comptés) ; les champs manquants complétés et la date d'ajout la plus ancienne ; les épisodes vus (union, date la plus ancienne) ; les visionnages (union sans doublon) ;
+les listes de même nom (casse différente) fusionnées, privées si l'une l'est, date la plus ancienne, éléments réunis ; les listes distinctes toutes gardées ; l'élément d'un titre absent écarté ; le profil, le partage et les amis ;
+deux profils identiques sans changement, résumé à zéro ; fusion du résultat avec chacune des versions d'origine (idempotence) ; résultat valide pour `validateBackup` ; sauvegardes d'origine non modifiées ; deux profils
+d'identifiants différents refusés. Pas d'écran : cette étape se ferme par les tests, l'écran vient en B6-2.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
