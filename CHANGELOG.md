@@ -8,6 +8,14 @@
 - 18 points relevés par Kinder (sauvegarde automatique, recherche, navigation, listes, découvertes, suivi des
   épisodes, fusion Drive…). Aucun code modifié. Liste complète dans `PLAN_V2.md`, « Retours d'essai du 2026-10-25 ».
 
+## Recherche par mot-clé (B2) — 2026-10-27, codée et essayée (navigateur et émulateur), non validée par Kinder sur téléphone
+- **Recherche** : le mode « Explorer » est remplacé par **« Mot-clé »**. On tape un thème (en anglais : « marvel », « zombie », « time travel »),
+  des mots-clés du catalogue TMDB sont proposés en puces, on en touche un et on voit les films et séries qui le portent, avec « Voir plus ».
+- **Même panneau de filtres** que partout (Tout / Films / Séries, année, genre, tri) et **« Sur mes plateformes »** (envoyé au catalogue).
+  Les genres d'Explorer deviennent le filtre Genre ; le parcours « un genre seul, sans mot-clé » disparaît (Découvrir garde ses rayons).
+- Messages : « Aucun mot-clé pour … » et « Aucun titre pour ce mot-clé » avec une ligne sur l'anglais ; « Pas de connexion » hors ligne.
+- Détail et captures : `PLAN_V2.md` (missions B2-1 et B2-2), `essais/2026-10-27_B2-1` et `B2-2`.
+
 ## Filtres unifiés (B1) — 2026-10-27, codés et essayés (navigateur et émulateur), non validés par Kinder sur téléphone
 - **Réglages > Mes plateformes** : on coche ses abonnements une fois ; le choix sert partout (ancien choix de Découvrir repris).
 - **Un seul panneau de filtres** (Tout / Films / Séries, année, genre, tri, et « Sur mes plateformes » quand c'est possible) dans Mes listes,

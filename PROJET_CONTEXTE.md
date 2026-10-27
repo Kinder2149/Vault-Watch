@@ -17,6 +17,10 @@ dans un SQLite embarqué, et la sauvegarde va dans le Google Drive de l'utilisat
 Le dossier `server/` est conservé dans le dépôt comme base d'une éventuelle mise en ligne
 future — il n'est plus utilisé par l'application.
 
+### Point du 2026-10-27 — recherche par mot-clé (mission B2)
+- Mission « Recherche par mot-clé » **codée et essayée** (474 tests verts) : le mode « Mot-clé » remplace « Explorer » dans la Recherche, avec le panneau commun et
+  « Sur mes plateformes ». Reste la vérification par une autre IA et la capture finale de Kinder (étape B2-2). Suite figée : B6 (fusion des conflits de sauvegarde).
+
 ### Point du 2026-10-27 — filtres unifiés (mission B1)
 - Mission « Filtres unifiés » **codée et essayée** (480 tests verts) : « Mes plateformes » dans Réglages, un panneau commun dans Mes listes, Découvrir, Ce soir et
   Recherche (Titre, Acteur, accueil). « Explorer » inchangé. Reste la vérification par une autre IA et la capture finale de Kinder (étape B1-5).
@@ -87,6 +91,7 @@ Les services de streaming n'exposent pas ces données : TMDB est la seule source
     fiche et les affiches ; « Ce soir » ne montre à regarder que le regardable ; « Mes listes » montre tout.
 12. **Sagas regroupées** : dans Mes listes, les films d'une même saga sont regroupés sous un en-tête, dans l'ordre de sortie ; réglage « Sagas ».
 13. **Filtres unifiés** : « Mes plateformes » (Réglages) et un panneau commun (type, année, genre, tri, sur mes plateformes) dans Mes listes, Découvrir, Ce soir et Recherche ; « Explorer » reste jusqu'à B2.
+14. **Recherche par mot-clé** : le mode « Mot-clé » (mots-clés TMDB, en anglais) remplace « Explorer » dans la Recherche ; mêmes filtres et « Sur mes plateformes ».
 
 ## Architecture (3 couches, strict)
 Tout tient dans `client/`, il n'y a plus de séparation par processus :

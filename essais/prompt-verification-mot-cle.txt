@@ -1,0 +1,70 @@
+PROMPT DE VÉRIFICATION — Recherche par mot-clé (étape B2-1) — projet Vault Watch
+
+Tu es l'IA de vérification. Tu n'as pas codé cette mission. Tu ne corriges rien.
+Tu rends des captures et des verdicts, en français, en termes fonctionnels (pas de logs bruts).
+
+CRITÈRE DE FIN DE MISSION (brouillon du plan, repris tel quel ; Kinder peut le reformuler) :
+« Dans la recherche, je tape un thème comme « marvel », on me propose des mots-clés, j'en touche un et je vois les films et séries
+qui s'y rattachent, avec les mêmes filtres. »  Et : il n'y a plus d'onglet « Explorer ».
+
+CE QUI A ÉTÉ FAIT ET TESTÉ (test de code : réussi pour chacun ; 474 tests automatiques verts, build OK) :
+- Recherche : le sélecteur de modes est « Titre / Acteur / Mot-clé » (« Explorer » n'existe plus, ni ses genres en rangée, ni son panneau).
+- Mot-clé : on tape un thème (en anglais : les mots-clés du catalogue TMDB sont en anglais) ; jusqu'à 10 mots-clés correspondants s'affichent
+  en puces ; s'il n'y en a qu'un, il s'ouvre seul. Toucher une puce affiche les films et séries qui portent ce mot-clé, sous « Mot-clé : … » ;
+  retoucher la puce la referme. Les titres déjà suivis sont masqués (une ligne le dit) ; « Voir plus » charge la suite.
+- Le panneau commun : Tout / Films / Séries (envoyé au catalogue), année, genre, tri (appliqués aux titres affichés), et « Sur mes plateformes »
+  (les plateformes choisies dans Réglages > Mes plateformes, envoyées au catalogue).
+- Titre et Acteur : inchangés par rapport à la mission précédente (panneau commun, sans plateformes).
+
+NOUVEAUTÉS À VÉRIFIER EN PRIORITÉ (un verdict + une capture chacune) :
+ V-A  Recherche : le sélecteur montre Titre / Acteur / Mot-clé et rien d'autre ; dans Mot-clé, avant toute frappe, une ligne invite à taper un thème en anglais.
+ V-B  Taper « marvel » : des puces apparaissent, dont « marvel » et « marvel cinematic universe (mcu) » (le catalogue renvoie aussi des mots proches :
+      c'est normal).
+ V-C  Toucher « marvel cinematic universe (mcu) » : barre Tout / Films / Séries + « Filtres », en-tête « Mot-clé : marvel cinematic universe (mcu) »,
+      des films ET des séries Marvel (Avengers, Loki, Agents of S.H.I.E.L.D…), un compteur « Résultats ».
+ V-D  « Films » : seuls des films restent (la liste se recharge) ; « Séries » : seulement des séries ; « Tout » : les deux.
+ V-E  Filtres > « 2020s » : plus aucun titre antérieur à 2020 ; un genre (ex. « Action & Aventure ») réduit la liste ; « Plus ancien » range par année croissante ;
+      « Réinitialiser » rend la liste de départ ; un réglage qui vide la liste montre « Aucun titre ne correspond » + « Réinitialiser ».
+ V-F  « Voir plus » (en bas de la liste) : de nouveaux titres s'ajoutent sans doublon (le compteur « Résultats » augmente).
+ V-G  Réglages > Mes plateformes : en cocher deux ; revenir à Recherche > Mot-clé > mot-clé ouvert > Filtres > « Sur mes plateformes » : la liste se réduit
+      aux titres disponibles chez elles ; sans plateforme choisie, le panneau le dit et propose « Choisir mes plateformes ».
+ V-H  Taper « zzzqqxx » : « Aucun mot-clé pour « zzzqqxx » » avec la ligne sur l'anglais. Taper « voyage dans le temps » (mot-clé français sans titre) :
+      « Aucun titre pour ce mot-clé ».
+ V-I  Passer de Mot-clé à Titre puis Acteur : les filtres sont remis à zéro ; chercher « batman » en Titre et un acteur en Acteur marchent comme avant.
+ V-J  Réseau coupé : couper Wi-Fi ET données, fermer l'application (adb shell am force-stop), la relancer, Recherche > Mot-clé > taper « marvel » :
+      « Pas de connexion — Le catalogue a besoin d'internet. Ton suivi, lui, reste disponible. » avec « Réessayer » (pas d'écran vide) ; Mes listes : mêmes titres qu'avant.
+
+FONCTIONS VOISINES À SURVEILLER :
+ - Mes listes, Découvrir, Ce soir : leurs panneaux de filtres (missions précédentes) fonctionnent comme avant ; « Sur mes plateformes » dans Mes listes.
+ - Pastilles de disponibilité et sagas regroupées dans Mes listes : toujours présentes.
+ - Ajouter un titre depuis un résultat de mot-clé (bouton +) : il passe en « À voir » et reste visible avec sa pastille jusqu'au prochain lancement.
+ - Sauvegarde cloud (Réglages > Sauvegarde) : inchangée.
+
+COMMENT LANCER LE PROJET (application Android, WebView Capacitor) :
+ - Émulateur : AVD « Medium_Phone_API_36.1 » (Play Store) :
+   C:\Users\vcout\AppData\Local\Android\Sdk\emulator\emulator.exe -avd Medium_Phone_API_36.1
+   Attention : le stockage de cet émulateur est presque plein (≈ 94 %). Si l'installation échoue (« not enough space »), désinstalle
+   SEULEMENT Vault Watch (adb uninstall com.kinder.suivifilmsseries), puis réinstalle ; ne désinstalle PAS les autres applications de
+   l'émulateur (elles appartiennent à d'autres projets de Kinder) : préviens Kinder si cela ne suffit pas.
+ - APK de test : V:\DEV\PROJETS\applications_web\Vault Watch\apk-test\vault-watch-test-2.3.4-motcle.apk
+   adb install -r <ce fichier> ; lancer : adb shell monkey -p com.kinder.suivifilmsseries -c android.intent.category.LAUNCHER 1
+   (adb : C:\Users\vcout\AppData\Local\Android\Sdk\platform-tools\adb.exe). Premier lancement : choisir « Français ».
+ - Sous Git Bash, les chemins « /sdcard/… » sont réécrits : utiliser PowerShell pour adb shell / pull.
+ - Saisie : toucher le champ de recherche puis adb shell input text marvel ; le clavier se ferme avec adb shell input keyevent 4 (ne pas le faire deux fois :
+   depuis l'onglet Recherche, Retour QUITTE l'application).
+ - Aucun compte Google n'est nécessaire. Aucune migration.
+ - Réseau : adb shell svc wifi disable / enable ; adb shell svc data disable / enable.
+ - Captures : adb shell screencap -p /sdcard/s.png puis adb pull (supprimer ensuite le fichier du téléphone).
+ - Alternative sans émulateur pour V-A à V-I : `cd client && npm run dev`, navigateur en largeur 375 px (le catalogue répond depuis le navigateur).
+
+RÈGLES :
+ - Ne corrige rien. Un critère non atteint = « échoué » avec capture et description de ce qui était attendu / vu.
+ - Ne pas modifier le code ni les réglages du projet. Ne jamais saisir d'identifiants.
+
+RENDU :
+ - Tableau : critère | capture | verdict (réussi / échoué) | ce que tu as vu, en français — pour V-A à V-J, puis chaque fonction voisine.
+ - L'écran exact que Kinder doit regarder pour sa capture finale : sur SON téléphone, Recherche > Mot-clé > « marvel » > un mot-clé touché (films et séries),
+   puis Filtres > « Sur mes plateformes » allumé avec ses plateformes cochées.
+
+Références : PLAN_V2.md (missions « Recherche par mot-clé », B2-1 et B2-2), PROJET_CONTEXTE.md (décision du 2026-10-27),
+captures de mes essais dans essais/2026-10-27_B2-1 (navigateur) et B2-2 (émulateur, réseau coupé).

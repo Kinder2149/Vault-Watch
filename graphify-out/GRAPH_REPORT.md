@@ -1,11 +1,11 @@
 # Graph Report - .  (2026-10-27)
 
 ## Corpus Check
-- 106 files · ~89,372 words
+- 106 files · ~85,809 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 596 nodes · 826 edges · 106 communities detected
+- 597 nodes · 826 edges · 106 communities detected
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
@@ -120,7 +120,7 @@
 ## God Nodes (most connected - your core abstractions)
 1. `requireProfile()` - 48 edges
 2. `ecriture()` - 32 edges
-3. `tmdbGet()` - 16 edges
+3. `tmdbGet()` - 17 edges
 4. `backupToDrive()` - 11 edges
 5. `readLocal()` - 10 edges
 6. `writeLocal()` - 9 edges
@@ -148,7 +148,7 @@ Nodes (43): annulerEnvoi(), backupToDrive(), bandeauSauvegarde(), cloudFileName(
 
 ### Community 3 - "Community 3"
 Cohesion: 0.11
-Nodes (36): chargerFilmsEnSalle(), chargeStructure(), dateDeSortieRegionale(), discoverByGenre(), discoverByMood(), fenetreDeRubrique(), filmographie(), fusionner() (+28 more)
+Nodes (36): chargerFilmsEnSalle(), chargeStructure(), dateDeSortieRegionale(), discoverByKeyword(), discoverByMood(), fenetreDeRubrique(), filmographie(), fusionner() (+28 more)
 
 ### Community 4 - "Community 4"
 Cohesion: 0.2

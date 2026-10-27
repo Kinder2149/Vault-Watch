@@ -2230,6 +2230,40 @@ la liste ; « Sur mes plateformes » envoie `with_keywords=180547&with_watch_pro
 changer de mode remet les filtres à zéro ; Titre et Acteur gardent leur panneau (B1-4). Retiré : `discoverByGenre`, `parametresDeFiltres`, l'état d'Explorer dans `App.jsx`, la branche « plateformes d'Explorer » de `Filtres.jsx`.
 Non essayé : « Voir plus » sur plusieurs pages et la coupure réseau sur émulateur (clôture B2-2).
 
+#### B2-2 — Clôture (2026-10-27)
+```
+CLÔTURE DE MISSION — RECHERCHE PAR MOT-CLÉ (B2-1)
+
+CÔTÉ IA QUI A CODÉ :
+☑ C1 — Build : passe (vite build avec VITE_PARTAGE ; APK de debug construit et installé sur l'émulateur : apk-test/vault-watch-test-2.3.4-motcle.apk)
+☑ C2 — Périmètre : fichiers listés ci-dessous ; code natif Java, sauvegarde, notifications, google.js inchangés
+☑ C3 — Tests de code : B2-1 « Mot-clé — ce qui part chez TMDB » → réussi (4) ; tests existants : 474 au total, tous verts (les tests d'Explorer, devenus sans objet, sont remplacés)
+☑ C4 — CHANGELOG : bloc « Recherche par mot-clé (B2) » ajouté
+☑ C5 — PROJET_CONTEXTE : « Point du 2026-10-27 — recherche par mot-clé » ajouté ; « Périmètre construit » point 14
+☑ C6 — Graphify : reconstruit avec l'outil (même jeu de fichiers que B1-5 : client/src, client/tests, code natif, configurations) ; documents non réanalysés
+☑ C7 — Synchronisation : décisions du 2026-10-27 (feuille de route) déjà figées ; aucune décision levée ; reste B6 (fusion des conflits de sauvegarde)
+☑ C8 — Prompt de vérification rédigé : essais/prompt-verification-mot-cle.txt
+
+FICHIERS MODIFIÉS (en langage fonctionnel) :
+- la recherche de mots-clés et les titres d'un mot-clé (retrait de la découverte par genre d'Explorer) → client/src/tmdb.js, api.js
+- la Recherche : mode Mot-clé, puces, état, retrait d'Explorer → client/src/App.jsx
+- le panneau de filtres (retrait du choix de plateformes d'Explorer) → client/src/components/Filtres.jsx
+- les tests → client/tests (recherche : mots-clés ; les tests de découverte par genre et de filtres d'Explorer retirés)
+
+CÔTÉ IA DE VÉRIFICATION :
+☐ V1-V10 — Rapport rendu : [critère → capture → réussi / échoué]
+
+CÔTÉ KINDER :
+☐ K1 — Liste des fichiers lue et comprise
+☐ K2 — Capture finale sur son téléphone : Recherche > Mot-clé > « marvel » > un mot-clé, puis Filtres > « Sur mes plateformes »
+☐ K3 — Résultat : ✅ Mission validée / ❌ Problème détecté → [décrire]
+```
+**Essai sur émulateur Android (moteur réel), 2026-10-27** — captures dans `essais/2026-10-27_B2-2/` (thème clair) : Recherche > Mot-clé > « marvel » : les puces « marvel », « marvel cinematic universe (mcu) », « marcel »…
+(`1-mot-cle-propositions.png`) ; toucher le mcu : 40 films et séries Marvel (Spider-Man : Brand New Day, VisionQuest, Avengers : Doomsday, Agents of S.H.I.E.L.D., Loki…) (`2-mot-cle-resultats.png`) ; « Voir plus » :
+78 titres (`3-voir-plus.png`) ; **Wi-Fi et données coupés, application tuée puis relancée**, Mot-clé > « marvel » : « Pas de connexion — Le catalogue a besoin d'internet. Ton suivi, lui, reste disponible. » avec « Réessayer »
+(`4-mot-cle-reseau-coupe.png`). Non essayé sur émulateur : le panneau de filtres et « Sur mes plateformes » en mode Mot-clé (vus dans le navigateur en B2-1 ; le compte de test n'a pas de plateformes cochées).
+Cases B2-1 et B2-2 à cocher après validation de Kinder.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
