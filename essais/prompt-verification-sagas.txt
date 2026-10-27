@@ -1,0 +1,66 @@
+PROMPT DE VÉRIFICATION — Sagas regroupées dans les listes (étape B3-1) — projet Vault Watch
+
+Tu es l'IA de vérification. Tu n'as pas codé cette mission. Tu ne corriges rien.
+Tu rends des captures et des verdicts, en français, en termes fonctionnels (pas de logs bruts).
+
+CRITÈRE DE FIN DE MISSION (écrit par Kinder) :
+« Dans mes listes, les films d'une même saga sont regroupés sous un en-tête, dans l'ordre de sortie, et je peux désactiver ce regroupement. »
+(Forme de l'en-tête validée : « Saga Star Wars — 6 titres ».)
+
+CE QUI A ÉTÉ FAIT ET TESTÉ (test de code : réussi pour chacun ; 454 tests automatiques verts, build OK) :
+- La saga (collection TMDB) de chaque film suivi, tout statut confondu, est relevée au lancement, une seule fois (80 films au plus par lancement)
+  et rangée dans la base locale. Une série n'a pas de saga.
+- Dans Mes listes (statuts À voir / En cours / Vu / Abandonné, et listes créées), la section Films regroupe les films d'une même saga
+  quand AU MOINS DEUX films de la vue en font partie : en-tête « Saga <nom> — N titres » sur toute la largeur, films dans l'ordre de
+  sortie, groupe placé à la position de son premier membre selon le tri en cours. Un film seul de sa saga reste libre.
+- Réglage « Sagas » (puce dans la rangée d'outils, à côté de Films / Séries et de Filtres) : actif par défaut, retenu d'un lancement
+  à l'autre ; coupé, la liste revient à plat dans le même ordre.
+- Pas de regroupement dans Ce soir, Découvrir, la Recherche, ni pendant une recherche dans la bibliothèque (champ « Chercher dans mes titres »).
+
+NOUVEAUTÉS À VÉRIFIER EN PRIORITÉ (un verdict + une capture chacune) :
+ V-A  Ajouter (Recherche, bouton +) au moins 3 films de Star Wars (ex. La Guerre des étoiles, Le Réveil de la Force, Les Derniers Jedi) et
+      2 films isolés (ex. Parasite 2019, Inception). Quitter puis relancer l'application, attendre ~20 s. Mes listes > À voir : un en-tête
+      « Saga Star Wars — 3 titres » avec les 3 films dans l'ordre de sortie (1977, 2015, 2017) ; les films isolés restent libres.
+ V-B  Un film seul de sa saga dans la vue reste libre (ex. ne mettre qu'un Dune « à voir » : pas d'en-tête Dune).
+ V-C  Passer 2 films d'une même saga au statut « Vu » (fiche > statut, ou appui long sur l'affiche) : Mes listes > Vu les regroupe sous
+      « Saga … — 2 titres ».
+ V-D  Créer une liste (Mes listes > Nouvelle liste), y ajouter des films de deux sagas et un film isolé : la liste montre les groupes.
+ V-E  Réglage « Sagas » : le couper → liste à plat (aucun en-tête) ; quitter et relancer l'application → toujours coupé ; le réactiver → les
+      en-têtes reviennent.
+ V-F  Réseau coupé : une fois les groupes affichés, couper Wi-Fi ET données, fermer l'application (adb shell am force-stop), la relancer.
+      Attendu : mêmes en-têtes et mêmes groupes. (Les affiches non téléchargées affichent « Pas d'affiche » : normal hors connexion.)
+ V-G  Aucun regroupement dans Ce soir (« À voir ce soir », « Tout voir ») ni dans Découvrir ; aucun en-tête de saga pendant une recherche dans la
+      bibliothèque.
+
+FONCTIONS VOISINES À SURVEILLER :
+ - Les pastilles de disponibilité (Disponible, Location / achat, Au cinéma…) sur les affiches de Mes listes : toujours présentes, y compris dans
+   les groupes de saga.
+ - Les tris et filtres de Mes listes (« Filtres ») : le groupe suit le premier membre dans l'ordre choisi ; le filtre Films / Séries / Tout.
+ - Ajouter / retirer un film d'une liste, changer un statut : le groupe se met à jour.
+ - Sauvegarde cloud (Réglages > Sauvegarde) : inchangée ; la saga n'entre pas dans la sauvegarde.
+
+COMMENT LANCER LE PROJET (application Android, WebView Capacitor) :
+ - Émulateur : AVD « Medium_Phone_API_36.1 » (Play Store) :
+   C:\Users\vcout\AppData\Local\Android\Sdk\emulator\emulator.exe -avd Medium_Phone_API_36.1
+   Attention : le stockage de cet émulateur est presque plein (≈ 94 %). Si l'installation échoue (« not enough space »), désinstalle
+   SEULEMENT Vault Watch (adb uninstall com.kinder.suivifilmsseries), puis réinstalle ; ne désinstalle PAS les autres applications de
+   l'émulateur (elles appartiennent à d'autres projets de Kinder) : préviens Kinder si cela ne suffit pas.
+ - APK de test : V:\DEV\PROJETS\applications_web\Vault Watch\apk-test\vault-watch-test-2.3.2-retours.apk
+   adb install <ce fichier> ; lancer : adb shell monkey -p com.kinder.suivifilmsseries -c android.intent.category.LAUNCHER 1
+   (adb : C:\Users\vcout\AppData\Local\Android\Sdk\platform-tools\adb.exe). Premier lancement : choisir « Français ».
+ - Aucun compte Google n'est nécessaire. Aucune migration à faire : de nouvelles colonnes sont ajoutées toutes seules.
+ - Captures : adb shell screencap -p /sdcard/s.png puis adb pull (supprimer ensuite le fichier du téléphone).
+ - Le bouton Retour d'Android depuis l'onglet Recherche QUITTE l'application.
+ - Réseau : adb shell svc wifi disable / enable ; adb shell svc data disable / enable.
+
+RÈGLES :
+ - Ne corrige rien. Un critère non atteint = « échoué » avec capture et description de ce qui était attendu / vu.
+ - Ne pas modifier le code ni les réglages du projet. Ne jamais saisir d'identifiants.
+
+RENDU :
+ - Tableau : critère | capture | verdict (réussi / échoué) | ce que tu as vu, en français — pour V-A à V-G, puis chaque fonction voisine.
+ - L'écran exact que Kinder doit regarder pour sa capture finale : Mes listes > À voir, sur SON téléphone, avec ses propres films : les films d'une
+   même saga sous « Saga … — N titres » dans l'ordre de sortie, puis la puce « Sagas » coupée pour retrouver la liste à plat.
+
+Références : PLAN_V2.md (mission « Sagas regroupées », B3-1 et B3-2), PROJET_CONTEXTE.md (décision du 2026-10-27),
+captures de mes essais dans essais/2026-10-27_B3-1 et B3-2.

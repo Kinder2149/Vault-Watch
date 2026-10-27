@@ -17,6 +17,10 @@ dans un SQLite embarqué, et la sauvegarde va dans le Google Drive de l'utilisat
 Le dossier `server/` est conservé dans le dépôt comme base d'une éventuelle mise en ligne
 future — il n'est plus utilisé par l'application.
 
+### Point du 2026-10-27 — sagas regroupées (mission B3)
+- Mission « Sagas regroupées » **codée et essayée** (454 tests verts) : en-têtes « Saga … — N titres » dans Mes listes, réglage « Sagas ». Reste la
+  vérification par une autre IA et la capture finale de Kinder (étape B3-2). Suite figée : B1 + B2 (filtres, mot-clé), puis B6 (fusion).
+
 ### Point du 2026-10-27 — disponibilité des titres (mission A3)
 - Mission « Disponibilité des titres » **codée et essayée** (428 tests verts) : cinq états sur fiche et affiches, « Ce soir » trié par
   « regardable », relevé rangé dans le suivi. Reste la vérification par une autre IA et la capture finale de Kinder (étape A3-4).
@@ -76,6 +80,7 @@ Les services de streaming n'exposent pas ces données : TMDB est la seule source
 10. **Saga** : dans la fiche d'un film, les autres films de sa saga dans l'ordre de sortie.
 11. **Disponibilité** : cinq états (pas encore sorti, au cinéma, sorti sans streaming, location / achat, disponible + plateformes) sur la
     fiche et les affiches ; « Ce soir » ne montre à regarder que le regardable ; « Mes listes » montre tout.
+12. **Sagas regroupées** : dans Mes listes, les films d'une même saga sont regroupés sous un en-tête, dans l'ordre de sortie ; réglage « Sagas ».
 
 ## Architecture (3 couches, strict)
 Tout tient dans `client/`, il n'y a plus de séparation par processus :

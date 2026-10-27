@@ -8,6 +8,15 @@
 - 18 points relevés par Kinder (sauvegarde automatique, recherche, navigation, listes, découvertes, suivi des
   épisodes, fusion Drive…). Aucun code modifié. Liste complète dans `PLAN_V2.md`, « Retours d'essai du 2026-10-25 ».
 
+## Sagas regroupées (B3) — 2026-10-27, codées et essayées sur émulateur, non validées par Kinder sur téléphone
+- **Mes listes** : les films d'une même saga (au moins deux dans la vue) sont regroupés sous « Saga Star Wars — 6 titres », dans l'ordre de
+  sortie, à la place de leur premier membre. Dans tous les statuts et dans les listes créées ; pas dans Ce soir, Découvrir ni pendant une
+  recherche dans la bibliothèque.
+- **Réglage « Sagas »** dans la rangée d'outils : actif par défaut, retenu d'un lancement à l'autre.
+- La saga de chaque film suivi (tout statut) est relevée au lancement, une seule fois (80 films au plus par lancement) ; elle se lit
+  dans la base locale, donc le regroupement tient hors connexion. Rien dans la sauvegarde.
+- Détail et captures : `PLAN_V2.md` (mission « Sagas regroupées »), `essais/2026-10-27_B3-1` et `B3-2`.
+
 ## Disponibilité des titres (A3) — 2026-10-27, codée et essayée sur émulateur, non validée par Kinder sur téléphone
 - **Cinq états sur chaque titre**, en pastille (icône + texte) : Pas encore sorti (avec la date) · Au cinéma · Sorti, pas en streaming ·
   En location / achat · Disponible (logos des plateformes). Sur la fiche, pour tout titre ; sur les affiches de Mes listes, Ce soir et

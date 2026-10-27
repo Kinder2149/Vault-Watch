@@ -1941,6 +1941,42 @@ posée à la main) :
   se lisent dans la base locale (aucun appel TMDB à l'affichage), donc ils tiennent hors connexion.
 Case B3-1 à cocher après validation de Kinder.
 
+#### B3-2 — Clôture (2026-10-27)
+```
+CLÔTURE DE MISSION — SAGAS REGROUPÉES (B3-1)
+
+CÔTÉ IA QUI A CODÉ :
+☑ C1 — Build : passe (vite build avec VITE_PARTAGE ; APK de debug construit et installé sur l'émulateur)
+☑ C2 — Périmètre : fichiers listés ci-dessous ; code natif Java, sauvegarde, notifications, google.js inchangés
+☑ C3 — Tests de code : B3-1 « regroupement des sagas » → réussi (19) ; « relevé des sagas » → réussi (7) ; tests existants : 454 au total, tous verts
+☑ C4 — CHANGELOG : bloc « Sagas regroupées (B3) » ajouté
+☑ C5 — PROJET_CONTEXTE : « Point du 2026-10-27 — sagas regroupées » ajouté (pas de numérotation « section 8 » dans ce projet)
+☑ C6 — Graphify : mis à jour (AST de client/src et client/tests : 604 → 614 nœuds ; analyse des documents non refaite)
+☑ C7 — Synchronisation : « Périmètre construit » point 12 ajouté ; décisions du 2026-10-27 (feuille de route) déjà figées ; aucune décision levée
+☑ C8 — Prompt de vérification rédigé : essais/prompt-verification-sagas.txt
+
+FICHIERS MODIFIÉS (en langage fonctionnel) :
+- le regroupement des films d'une même saga (règle pure) → client/src/sagas.js
+- le relevé de la saga de chaque film et sa lecture, y compris pour les listes créées → client/src/store.js, api.js
+- le lancement → client/src/App.jsx
+- Mes listes : en-têtes, grille groupée, puce « Sagas » → client/src/components/Lists.jsx, client/src/styles.css
+- les tests → client/tests (sagas, disponibilite-stockage)
+
+CÔTÉ IA DE VÉRIFICATION :
+☐ V1-V4 — Rapport rendu : [critère → capture → réussi / échoué]
+
+CÔTÉ KINDER :
+☐ K1 — Liste des fichiers lue et comprise
+☐ K2 — Capture finale sur son téléphone : Mes listes > À voir
+☐ K3 — Résultat : ✅ Mission validée / ❌ Problème détecté → [décrire]
+```
+**Essai sur émulateur Android (moteur réel), 2026-10-27** — captures dans `essais/2026-10-27_B3-2/` : films ajoutés par l'interface (3 Star Wars,
+Dune : Deuxième partie, Inception, des Parasite), application relancée, saga relevée toute seule : « **Saga Star Wars — 3 titres** » (La Guerre des étoiles,
+Le Réveil de la Force, Les Derniers Jedi, dans l'ordre de sortie), les autres films libres (Dune seul dans la vue). **Wi-Fi et données coupés, application
+tuée puis relancée** : `navigator.onLine` faux, **même groupe, même ordre, mêmes pastilles de disponibilité** (affiches non téléchargées : « Pas d'affiche »,
+comportement existant hors mission). Le thème de l'émulateur étant « Automatique », cette série est en thème clair.
+Case B3-1 à cocher après validation de Kinder.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
