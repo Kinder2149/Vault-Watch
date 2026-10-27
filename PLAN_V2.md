@@ -1482,6 +1482,37 @@ simulé** (la clé `google-account` posée à la main), l'affichage du bandeau n
   être ajouté de nouveau dans l'émulateur par Kinder). À faire avec S4 ou en clôture S5.
 - Case S3 à cocher après validation de Kinder.
 
+#### S4 — Reprise au retour du réseau (phase 5, cadrage d'étape, 2026-10-27)
+**Critère de S4 (repris du plan)** : Wi-Fi coupé, modification, Wi-Fi rétabli : l'état passe de « En attente : hors
+connexion » à « Sauvegardé à HH:MM », sans geste de ma part.
+
+**Constat** : après un échec réseau, rien ne relance l'envoi tant qu'on ne modifie pas autre chose, qu'on ne quitte pas puis
+qu'on ne revient pas dans l'application. Un utilisateur qui retrouve du réseau, application ouverte et sans rien toucher,
+reste « en attente » jusqu'au bandeau des 10 min. Le WebView émet bien l'évènement `online` au retour de la connexion.
+
+**Stratégie technique**
+- *Logique* (`backup.js`) : `reprendreApresReseau()` — si un compte est relié, l'interrupteur actif, du nouveau en attente et
+  aucun blocage qui exige l'utilisateur (conflit, autorisation), programme un envoi **3 s** plus tard (le temps que la
+  connexion se stabilise). Cet envoi **ignore l'écart de 60 s** quand le dernier essai a échoué faute de réseau : cet essai-là
+  n'a rien consommé. Plusieurs évènements `online` rapprochés (connexion qui sautille) = un seul envoi programmé.
+  `demarrerEcouteReseau()` pose l'écoute `online` de la fenêtre et rend la fonction qui la retire.
+- *Écran* (`App.jsx`) : un seul `useEffect` qui appelle `demarrerEcouteReseau()` (même discipline que les autres écoutes :
+  posée une fois, retirée au démontage). Rien d'autre ne change : l'état (S1) et le bandeau (S3) se mettent à jour tout seuls.
+- *Pas de nouvelle dépendance* : pas de plugin Capacitor « Network » (le natif ne bouge pas). Si l'évènement `online` manquait
+  sur un téléphone, les filets existent : revenir dans l'application, nouvelle modification, bandeau des 10 min.
+
+**Fichiers touchés** : `client/src/backup.js`, `client/src/App.jsx` (un effet), `client/tests/reprise-reseau.test.js` (nouveau).
+
+**Ce qu'on ne fait pas dans S4** : aucun essai périodique en boucle, aucune reprise après conflit ou autorisation (rien ne
+changerait), pas de notification, pas de fusion (B6).
+
+**Vérification** : tests, minuteries simulées — retour du réseau après un échec `hors-ligne` : envoi 3 s plus tard même si
+le dernier essai date de moins de 60 s ; deux `online` rapprochés = un envoi ; rien si rien n'attend, si l'interrupteur est
+coupé, après un conflit ou un refus d'autorisation, sans compte. Émulateur, **avec un vrai compte Google** (à rajouter par
+Kinder : l'émulateur l'a perdu) : Wi-Fi et données coupés, j'ajoute un titre, j'attends l'échec (« En attente : pas de
+connexion »), je rétablis le réseau sans toucher l'application : « Sauvegardé à HH:MM » en quelques secondes ; capture avant
+et après. Ceci boucle aussi le cas « modification normale, 35 s, sans bandeau » laissé ouvert en S3.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
