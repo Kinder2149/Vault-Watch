@@ -2034,6 +2034,44 @@ Navigateur en largeur téléphone, vrai catalogue, 9 titres à voir dont les off
 - **Reste dans B1** : B1-2 (Découvrir), B1-3 (Suggestions), B1-4 (Recherche), B1-5 (clôture avec essai réseau coupé et capture finale de Kinder).
 Case B1-1 à cocher après validation de Kinder.
 
+#### B1-2 — Découvrir avec le panneau commun (phase 5, cadrage d'étape, 2026-10-27)
+**Critère de B1-2 (repris du plan)** : dans Découvrir, « Sur mes plateformes » filtre les rangées par TMDB ; un rayon qui ne sait pas filtrer par plateforme est masqué avec
+une ligne qui le dit.
+
+**Constat dans le code** (`Decouvrir.jsx`, `VueRayon.jsx`, `Rail.jsx`, `tmdb.js`)
+- Découvrir a sa propre rangée de puces « Sur mes plateformes » (liste inline des plateformes) ; « Tout voir » (`VueRayon`) a son propre sélecteur Tout / Films / Séries ; il
+  n'y a ni année, ni genre, ni tri. Le filtre de plateformes ne joue que sur les rangées « thèmes et sélections » (`discoverByMood` envoie `with_watch_providers` à TMDB) ; les
+  rangées « Comme … » (recommandations) et « Chez tes amis » l'ignorent : TMDB ne filtre pas des recommandations par plateforme.
+- Les cartes TMDB portent déjà `releaseDate`, `genreKeys`, `note`, `votes` : année, genre et tri se font côté application avec la logique de `filtres.js` (`appliquerFiltres`).
+
+**Stratégie technique**
+- *Logique pure* (`filtres.js`, testée) : `FILTRES_DECOUVERTE_VIDES` (`media`, `periode`, `genre`, `tri`, `surMesPlateformes`), `filtresDecouverteActifs`,
+  `appliquerFiltresDecouverte(items, filtres)` — type (films / séries), année, genre (par les clés de genre de la carte), tri (popularité = ordre reçu, plus récent, plus ancien,
+  mieux notés avec le seuil de votes existant). La plateforme **n'y est pas** : elle part chez TMDB.
+- *Composant commun* (nouveau `BarreFiltres.jsx`) : la rangée d'outils de Mes listes sortie en composant — sélecteur Tout / Films / Séries à gauche, puce « Filtres » (point quand
+  un filtre est actif) à droite, panneau `Filtres.jsx` dessous. Découvrir et « Tout voir » l'utilisent ; Mes listes, Suggestions et Recherche l'adopteront en B1-3 / B1-4.
+- *Découvrir* : l'ancienne rangée de puces inline disparaît (le choix des plateformes se fait **une fois**, dans Réglages > Mes plateformes ; le panneau propose « Choisir mes
+  plateformes »). L'état des filtres vit dans `App.jsx` (comme `filtresListes`) pour survivre au changement d'onglet. Chaque rangée se recharge quand le type ou la plateforme change et
+  applique année / genre / tri à ce qu'elle a chargé ; une rangée qui n'a plus rien disparaît (comportement existant).
+- *Plateformes* : « Sur mes plateformes » actif **et** au moins une plateforme choisie → les rangées « thèmes et sélections » repartent chez TMDB avec `with_watch_providers` ; les rangées
+  « Comme … » et « Chez tes amis » sont **masquées**, avec une ligne sous le panneau : « 2 rayons masqués : ils ne savent pas filtrer par plateforme. » Sans plateforme choisie, le filtre ne retire rien.
+- *« Tout voir »* : même barre et mêmes filtres que la page (état partagé), même règle pour la plateforme ; le sélecteur Tout / Films / Séries propre à `VueRayon` est remplacé par la barre commune.
+- *Changement de comportement à valider* : avant, le filtre de plateformes de Découvrir était actif dès qu'une plateforme était cochée. Désormais c'est l'interrupteur « Sur mes plateformes »,
+  **éteint au départ** ; la sélection déjà faite dans Découvrir est conservée (reprise par Réglages > Mes plateformes en B1-1).
+
+**Fichiers touchés** : `client/src/filtres.js`, `client/src/components/BarreFiltres.jsx` (nouveau), `client/src/components/Decouvrir.jsx`, `client/src/components/VueRayon.jsx`,
+`client/src/App.jsx` (état des filtres, ouverture de Mes plateformes), `client/src/styles.css`, `client/tests/filtres-decouverte.test.js` (nouveau).
+**Ce qu'on ne fait pas dans B1-2** : Mes listes, Suggestions, Recherche (étapes suivantes), mot-clé (B2), filtrage par plateforme des recommandations (impossible sans un appel par titre).
+
+**Vérification** : tests — type, année, genre, tri (dont « mieux notés » sous le seuil de votes), combinaison, état « actif ». Navigateur en largeur téléphone, vrai catalogue : barre
+et panneau visibles dans Découvrir (capture) ; « Films » ne laisse que des films dans toutes les rangées ; « Sur mes plateformes » (deux plateformes choisies) : les appels des rangées
+portent `with_watch_providers`, les rangées « Comme … » disparaissent avec la ligne d'explication (capture) ; « Tout voir » reprend les mêmes filtres ; année « 2020s » ne garde que des titres
+de ces années. Coupure réseau complète : à la clôture B1-5.
+
+**Questions pour Kinder** : (1) « Sur mes plateformes » devient un interrupteur **éteint au départ** dans Découvrir (avant : actif dès qu'une plateforme était cochée) : d'accord ? (2) avec ce filtre,
+les rangées « Comme … » et « Chez tes amis » sont **masquées** avec une ligne qui le dit, plutôt que montrées sans filtre : d'accord ? (3) l'année, le genre et le tri s'appliquent aux titres déjà
+chargés de chaque rangée (une vingtaine) : une rangée peut donc se vider et disparaître : acceptable ?
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
