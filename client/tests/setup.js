@@ -7,5 +7,8 @@ class MemoryStorage {
   setItem(k, v) { this.#data.set(k, String(v)); }
   removeItem(k) { this.#data.delete(k); }
   clear() { this.#data.clear(); }
+  // Comme le vrai `Storage` : le code qui parcourt les clés (`length`, `key(i)`) doit pouvoir être testé.
+  get length() { return this.#data.size; }
+  key(i) { return [...this.#data.keys()][i] ?? null; }
 }
 globalThis.localStorage = new MemoryStorage();

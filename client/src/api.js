@@ -126,6 +126,12 @@ export async function getDetails(mediaType, id) {
   return tmdb.getDetails(mediaType, id);
 }
 
+// Films actuellement à l'affiche dans la région du catalogue : un Set d'identifiants, ou null si
+// la liste est inconnue (réseau). Relue une fois par jour (voir tmdb.js).
+export async function getFilmsEnSalle() {
+  return tmdb.getFilmsEnSalle();
+}
+
 // Films d'une saga, dans l'ordre de sortie.
 export async function getCollection(id) {
   return tmdb.getCollection(id);

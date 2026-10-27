@@ -666,7 +666,7 @@ export function urlRechercheBandeAnnonce(titre, annee) {
 export async function getDetails(mediaType, id) {
   const path = mediaType === 'movie' ? `/movie/${id}` : `/tv/${id}`;
   const data = await tmdbGet(path, {
-    append_to_response: 'credits,videos,watch/providers',
+    append_to_response: 'credits,videos,watch/providers,release_dates',
     include_video_language: 'fr,en',
   });
 
@@ -713,8 +713,10 @@ export async function getDetails(mediaType, id) {
         recherche: true,
       };
 
-  // Disponibilité streaming en France (données JustWatch via TMDB).
-  const fr = data['watch/providers']?.results?.FR;
+  // Disponibilité streaming dans la région du catalogue (France en français, États-Unis en
+  // anglais — données JustWatch via TMDB).
+  const regionOffres = getCatalogRegion();
+  const fr = data['watch/providers']?.results?.[regionOffres];
   const mapProv = (arr) =>
     (arr || []).map((p) => ({
       name: p.provider_name,
@@ -730,7 +732,9 @@ export async function getDetails(mediaType, id) {
   return {
     title: isMovie ? data.title : data.name,
     year: date ? date.slice(0, 4) : null,
-    releaseDate: date || null,
+    // Pour un film, la date de sortie **de la région** (celle des cartes et du suivi) : un film sorti
+    // dans le monde en juillet mais en salle chez nous demain n'est pas « sorti » ici.
+    releaseDate: (isMovie && dateDeSortieRegionale(data.release_dates, regionOffres)) || date || null,
     genres: (data.genres || []).map((g) => g.name),
     overview,
     posterUrl: data.poster_path
@@ -742,6 +746,7 @@ export async function getDetails(mediaType, id) {
     cast,
     trailer,
     providers,
+    regionOffres,
     // Pour les pastilles de l'en-tête de la fiche.
     runtime: isMovie ? data.runtime || null : null,
     seasonCount: isMovie ? null : data.number_of_seasons || null,
@@ -841,6 +846,69 @@ export function dateDeSortieRegionale(releaseDates, region) {
     if (dates.length > 0) return dates[0];
   }
   return null;
+}
+
+// --- Films à l'affiche ---
+//
+// TMDB tient, par région, la liste des films « en salle » : une fenêtre d'environ six semaines
+// jusqu'à demain (sondé le 2026-10-27 pour la France : du 16/09 au 28/10, 182 films sur 10 pages).
+// Elle comprend aussi des reprises de vieux films, ce qui est juste : ils sont à l'affiche.
+//
+// Un appel par page, donc au plus une dizaine d'appels — une seule fois par jour et par région
+// (mémorisé dans le stockage local). Un échec renvoie `null`, jamais un ensemble vide : « inconnu »
+// n'est pas « aucun film à l'affiche », et l'écran ne doit rien affirmer à tort. Un échec n'est pas
+// mémorisé, le prochain appel réessaie.
+const PREFIXE_SALLE = 'en-salle';
+const PAGES_SALLE_MAX = 10;
+const memoireSalle = new Map(); // clé du jour -> promesse, pour ne pas doubler des appels simultanés
+
+export async function getFilmsEnSalle(maintenant = new Date()) {
+  const region = getCatalogRegion();
+  const cle = `${PREFIXE_SALLE}:${region}:${maintenant.toISOString().slice(0, 10)}`;
+
+  try {
+    const brut = localStorage.getItem(cle);
+    if (brut) return new Set(JSON.parse(brut));
+  } catch {
+    /* stockage indisponible : on interroge TMDB */
+  }
+
+  if (!memoireSalle.has(cle)) {
+    memoireSalle.set(
+      cle,
+      chargerFilmsEnSalle(region)
+        .then((ids) => {
+          try {
+            // Les clés des jours précédents ne servent plus.
+            for (let i = localStorage.length - 1; i >= 0; i--) {
+              const k = localStorage.key(i);
+              if (k && k.startsWith(PREFIXE_SALLE + ':') && k !== cle) localStorage.removeItem(k);
+            }
+            localStorage.setItem(cle, JSON.stringify([...ids]));
+          } catch {
+            /* tant pis : rechargé au prochain appel */
+          }
+          return ids;
+        })
+        .catch(() => null)
+        .finally(() => memoireSalle.delete(cle))
+    );
+  }
+  return memoireSalle.get(cle);
+}
+
+async function chargerFilmsEnSalle(region) {
+  const premiere = await tmdbGet('/movie/now_playing', { region, page: 1 });
+  const ids = new Set((premiere.results || []).map((r) => r.id));
+  const total = Math.min(premiere.total_pages || 1, PAGES_SALLE_MAX);
+  const LOT = 5; // pas plus de cinq appels à la fois (TMDB coupe au-delà)
+  for (let debut = 2; debut <= total; debut += LOT) {
+    const pages = [];
+    for (let p = debut; p < debut + LOT && p <= total; p++) pages.push(p);
+    const lots = await Promise.all(pages.map((page) => tmdbGet('/movie/now_playing', { region, page })));
+    for (const lot of lots) for (const r of lot.results || []) ids.add(r.id);
+  }
+  return ids;
 }
 
 // Champs de carte d'un titre (titre, année, date, affiche) dans une langue

@@ -56,6 +56,98 @@ export function releaseBadge({ isSeries, releaseDate, status, nextEpisodeDate, s
   return null;
 }
 
+// --- Disponibilité d'un titre (mission « Disponibilité », A3) ---
+//
+// Cinq états, dans cet ordre de priorité, pour dire d'un coup d'œil où en est un titre :
+//   a_venir              pas encore sorti (date future, ou annoncé sans date)
+//   au_cinema            film à l'affiche (liste TMDB « en salle » de la région) et sans abonnement
+//   disponible           au moins une offre d'abonnement : les plateformes sont rendues
+//   location_achat       location ou achat seulement
+//   sorti_sans_streaming sorti, aucune offre
+// Une série n'est jamais « au cinéma ».
+//
+// **Jamais de fausse affirmation** : quand une donnée manque, on ne devine pas. Offres inconnues
+// (`providers` absent) : seule la date peut parler. Liste « en salle » inconnue (`enSalle` null) :
+// un film sans offre n'est ni « au cinéma » ni « sorti sans streaming » — on ne dit rien.
+// `enSalle` est un Set d'identifiants de films, ou null.
+const UNE_OFFRE = (liste) => Array.isArray(liste) && liste.length > 0;
+
+function plateformesUniques(...listes) {
+  const parNom = new Map();
+  for (const liste of listes) for (const p of liste || []) if (!parNom.has(p.name)) parNom.set(p.name, p);
+  return [...parNom.values()];
+}
+
+export function etatDisponibilite({
+  isSeries = false,
+  id = null,
+  releaseDate = null,
+  status = null,
+  providers = null,
+  enSalle = null,
+  aujourdhui = new Date().toISOString().slice(0, 10),
+}) {
+  // 1. Pas encore sorti.
+  if (releaseDate && releaseDate > aujourdhui) {
+    return {
+      etat: 'a_venir',
+      libelle: 'Pas encore sorti',
+      detail: `Sortie le ${formatReleaseDate(releaseDate)}`,
+      plateformes: [],
+    };
+  }
+  if (!releaseDate && !isSeries && status && status !== 'Released' && status !== 'Canceled') {
+    return {
+      etat: 'a_venir',
+      libelle: 'Pas encore sorti',
+      detail: 'Sortie annoncée — date inconnue',
+      plateformes: [],
+    };
+  }
+
+  // Les offres sont inconnues : rien d'autre à dire que la date.
+  if (!providers) return null;
+
+  const abonnement = providers.flatrate;
+  const locationAchat = plateformesUniques(providers.rent, providers.buy);
+
+  // 2. À l'affiche : seulement un film, et seulement sans abonnement (un film en salle qui est aussi
+  // sur une plateforme — reprise d'un classique — est d'abord « disponible »).
+  const aLAffiche = !isSeries && enSalle instanceof Set && enSalle.has(id);
+  if (!UNE_OFFRE(abonnement) && aLAffiche) {
+    return { etat: 'au_cinema', libelle: 'Au cinéma', detail: 'À l’affiche en ce moment', plateformes: [] };
+  }
+
+  // 3. Disponible en abonnement.
+  if (UNE_OFFRE(abonnement)) {
+    return {
+      etat: 'disponible',
+      libelle: 'Disponible',
+      detail: abonnement.slice(0, 3).map((p) => p.name).join(', '),
+      plateformes: abonnement,
+    };
+  }
+
+  // 4. Location ou achat.
+  if (locationAchat.length > 0) {
+    return {
+      etat: 'location_achat',
+      libelle: 'En location / achat',
+      detail: locationAchat.slice(0, 3).map((p) => p.name).join(', '),
+      plateformes: locationAchat,
+    };
+  }
+
+  // 5. Aucune offre. Pour un film, on ne peut le dire que si on sait qu'il n'est pas à l'affiche.
+  if (!isSeries && !(enSalle instanceof Set)) return null;
+  return {
+    etat: 'sorti_sans_streaming',
+    libelle: isSeries ? 'Pas disponible en streaming' : 'Sorti, pas en streaming',
+    detail: isSeries ? 'Aucune offre pour le moment' : 'Ni abonnement, ni location, ni achat pour le moment',
+    plateformes: [],
+  };
+}
+
 // Ce que le cycle de vérification (store.checkNotifications) doit retenir
 // pour un titre : la date à surveiller, et s'il faut encore le revérifier au
 // prochain lancement. Une fois une date trouvée, l'élément reste en attente

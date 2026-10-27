@@ -1145,6 +1145,31 @@ button { font-family: inherit; }
   color: var(--gold-strong);
 }
 
+/* Disponibilité d'un titre (A3) : une pastille icône + texte, un détail, les logos des plateformes.
+   Teintes volontairement à part des 4 couleurs de statut (bleu, violet, vert, gris) ; la couleur
+   n'est qu'un renfort, jamais la seule information. Fond et bordure se déduisent de --dispo-c. */
+.dispo {
+  --dispo-c: var(--muted);
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3);
+  margin: 0 0 var(--s-4); padding: var(--s-3) var(--s-4);
+  border: 1px solid color-mix(in srgb, var(--dispo-c) 55%, var(--border));
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--dispo-c) 12%, var(--surface));
+}
+.dispo__pastille {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: var(--t-sm); font-weight: 700; color: var(--text);
+}
+.dispo__pastille .icon { color: var(--dispo-c); }
+.dispo__detail { font-size: var(--t-sm); color: var(--muted); flex: 1 1 8rem; min-width: 0; }
+.dispo__logos { display: inline-flex; gap: 6px; margin-left: auto; }
+.dispo__logos img { border-radius: 6px; display: block; }
+.dispo--a_venir { --dispo-c: var(--gold); }
+.dispo--au_cinema { --dispo-c: #D9534F; }
+.dispo--disponible { --dispo-c: #1FA2A8; }
+.dispo--location_achat { --dispo-c: #D98B2B; }
+.dispo--sorti_sans_streaming { --dispo-c: var(--muted); }
+
 /* Ma note + bande-annonce. */
 .fiche__note { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s-3); }
 .fiche__etoiles .eyebrow { margin-bottom: 2px; }

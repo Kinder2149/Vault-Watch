@@ -22,9 +22,11 @@ import {
   rewatchSeason,
   getCollection,
   getRecommendations,
+  getFilmsEnSalle,
 } from '../api.js';
-import { deriveSeriesStatus, releaseBadge } from '../status.js';
+import { deriveSeriesStatus, releaseBadge, etatDisponibilite } from '../status.js';
 import Icon from './Icon.jsx';
+import Disponibilite from './Disponibilite.jsx';
 import Visionnages from './Visionnages.jsx';
 import MovieCard from './MovieCard.jsx';
 import FicheEntete from './FicheEntete.jsx';
@@ -260,6 +262,23 @@ export default function Detail({
       .then(setInfo)
       .catch(() => setDetailsErreur(true));
   }, [item.id, item.mediaType, essai]);
+
+  // --- À l'affiche ---
+  // Seul un film peut être « au cinéma » : on lit la liste du jour (une fois par jour, voir
+  // tmdb.js). `undefined` = pas encore lue, `null` = inconnue (réseau) : dans les deux cas
+  // `etatDisponibilite` ne prétend rien pour un film sans offre.
+  const [enSalle, setEnSalle] = useState(undefined);
+  const estFilm = item.mediaType === 'movie';
+  useEffect(() => {
+    if (!estFilm || !info) return undefined;
+    let annule = false;
+    getFilmsEnSalle()
+      .then((ids) => !annule && setEnSalle(ids))
+      .catch(() => !annule && setEnSalle(null));
+    return () => {
+      annule = true;
+    };
+  }, [estFilm, info]);
 
   // --- Saga ---
   // Chargée après la fiche, dont on a besoin pour savoir s'il y a une saga.
@@ -502,8 +521,20 @@ export default function Detail({
 
   const enChargement = !info && !detailsErreur;
   const horsConnexion = !info && detailsErreur;
+  // Disponibilité : pour tout titre, suivi ou non. Un film n'a plus l'ancien badge « Sort le … » :
+  // la pastille dit la même chose, et davantage. Une série garde « prochain épisode » à côté.
+  const dispo = info
+    ? etatDisponibilite({
+        isSeries,
+        id: item.id,
+        releaseDate: info.releaseDate,
+        status: info.status,
+        providers: info.providers,
+        enSalle: isSeries ? null : enSalle ?? null,
+      })
+    : null;
   const badge =
-    isFollowed && info
+    isFollowed && info && isSeries
       ? releaseBadge({
           isSeries,
           releaseDate: info.releaseDate,
@@ -552,6 +583,8 @@ export default function Detail({
               </div>
             </div>
           )}
+
+          <Disponibilite etat={dispo} />
 
           {badge && (
             <div className="panel panel--accent fiche__badge">
@@ -666,7 +699,7 @@ export default function Detail({
               <header className="sec__head">
                 <div className="sec__txt">
                   <h3 className="sec__title">Où le regarder</h3>
-                  <p className="sec__sub">En France</p>
+                  <p className="sec__sub">{info.regionOffres === 'US' ? 'Aux États-Unis' : 'En France'}</p>
                 </div>
               </header>
               {hasStreaming ? (

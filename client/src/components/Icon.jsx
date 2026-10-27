@@ -44,6 +44,9 @@ const PATHS = {
   back: <path d="M15 5 8 12l7 7" />,
   calendar: <><rect x="4" y="5" width="16" height="15" rx="2" /><path d="M4 10h16M9 3v4M15 3v4" /></>,
   bell: <path d="M6 8a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6M10 20a2 2 0 0 0 4 0" />,
+  // Billet de cinéma (« Au cinéma ») et étiquette (« En location / achat »).
+  ticket: <path d="M3 9a2 2 0 0 0 0 6v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3a2 2 0 0 1 0-6V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1zM14 5v14" strokeDasharray="2 2.4" />,
+  tag: <><path d="M3 12V4h8l10 10-8 8z" /><circle cx="7.5" cy="8.5" r="1.2" /></>,
   // Étoile de notation : creuse par défaut, remplie par le CSS quand la note
   // est atteinte (`.rating__star.on`).
   star: (
