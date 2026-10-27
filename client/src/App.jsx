@@ -56,6 +56,7 @@ import {
   getListes,
   mettreAJourDatesDeSortie,
   mettreAJourDisponibilite,
+  mettreAJourSagas,
   verifierNotifications,
   notifierSortiesDues,
   ecouterClicsNotification,
@@ -245,7 +246,12 @@ export default function App() {
         if (completees > 0) loadSuivi();
       })
       .catch(() => {})
-      .then(() => releverDisponibilite());
+      .then(() => releverDisponibilite())
+      .then(() => mettreAJourSagas())
+      .then((releves) => {
+        if (releves > 0) loadSuivi(); // les groupes de sagas apparaissent dans les listes
+      })
+      .catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeProfile]);
 

@@ -121,8 +121,13 @@ export async function listSuivi(profileId) {
      ORDER BY s.added_at DESC`,
     [profileId]
   );
-  // `providers` : les offres lues, ou null quand elles n'ont jamais été relevées.
-  return lignes.map(({ offres, ...ligne }) => ({ ...ligne, providers: offresDepuisSuivi(offres) }));
+  // `providers` : les offres lues, ou null quand elles n'ont jamais été relevées. `sagaId` : nul quand
+  // le film n'a pas de saga (relevé : 0) comme quand il n'a jamais été relevé.
+  return lignes.map(({ offres, sagaId, ...ligne }) => ({
+    ...ligne,
+    sagaId: sagaId || null,
+    providers: offresDepuisSuivi(offres),
+  }));
 }
 
 // --- Note personnelle ---
@@ -548,11 +553,11 @@ export async function deleteListe(profileId, id) {
   await run('DELETE FROM listes WHERE id = ? AND profile_id = ?', [id, profileId]);
 }
 
-export function getListeItems(profileId, listeId) {
-  return query(
+export async function getListeItems(profileId, listeId) {
+  const lignes = await query(
     `SELECT s.tmdb_id AS id, s.media_type AS mediaType, s.title, s.year,
             s.release_date AS releaseDate, s.poster_url AS posterUrl, s.status,
-            s.note, s.rating, s.genres
+            s.note, s.rating, s.genres, s.saga_id AS sagaId, s.saga_nom AS sagaNom
      FROM liste_items li
      JOIN suivi s
        ON s.profile_id = li.profile_id
@@ -562,6 +567,8 @@ export function getListeItems(profileId, listeId) {
      ORDER BY li.added_at DESC`,
     [listeId, profileId]
   );
+  // La saga sert au regroupement des listes : nulle quand le film n'en a pas (relevé : 0) ou n'a pas été relevé.
+  return lignes.map(({ sagaId, ...ligne }) => ({ ...ligne, sagaId: sagaId || null }));
 }
 
 // « Ajouter à une liste = suivre » : on garantit la présence dans le suivi.
@@ -809,13 +816,64 @@ export async function backfillDisponibilite(
           JSON.stringify(info.offres),
           jour,
           region,
-          info.saga?.id ?? null,
+          // 0 = relevé, pas de saga (NULL resterait « jamais relevé » : voir backfillSagas).
+          info.saga?.id ?? 0,
           info.saga?.nom ?? null,
           info.releaseDate ?? null,
           profileId,
           t.id,
           t.mediaType,
         ]
+      );
+      releves += 1;
+    }
+  }
+  return releves;
+}
+
+// --- Sagas (mission B3) ---
+//
+// Le regroupement des films d'une même saga marche dans **toutes** les vues, dont « Vu » : il faut donc
+// connaître la saga de tous les films suivis, pas seulement de ceux qu'on a encore à regarder (relevé de
+// disponibilité). `saga_id` : NULL = jamais relevé ; 0 = relevé, pas de saga ; sinon l'identifiant TMDB.
+//
+//  - **Qui** : les films de tout statut jamais relevés (une série n'a pas de saga chez TMDB).
+//  - **Une fois** : l'appartenance d'un film à une saga ne bouge pratiquement jamais, pas de renouvellement.
+//  - **Combien** : au plus `LOT_SAGAS_MAX` films par appel, par lots de 5 ; le reste attend le lancement suivant.
+//  - **Échec réseau** : rien n'est marqué, ce sera retenté.
+// Renvoie le nombre de films relevés.
+export const LOT_SAGAS_MAX = 80;
+
+export async function backfillSagas(
+  profileId,
+  { region = getCatalogRegion(), maximum = LOT_SAGAS_MAX } = {}
+) {
+  const aFaire = await query(
+    `SELECT tmdb_id AS id
+     FROM suivi
+     WHERE profile_id = ? AND media_type = 'movie' AND saga_id IS NULL
+     LIMIT ?`,
+    [profileId, maximum]
+  );
+  if (aFaire.length === 0) return 0;
+
+  const langue = TMDB_LANG[getCatalogLanguage()];
+  let releves = 0;
+  const BATCH = 5;
+  for (let i = 0; i < aFaire.length; i += BATCH) {
+    const infos = await Promise.all(
+      aFaire.slice(i, i + BATCH).map((t) =>
+        getCardInfo('movie', t.id, langue, region)
+          .then((info) => ({ t, info }))
+          .catch(() => ({ t, info: null }))
+      )
+    );
+    for (const { t, info } of infos) {
+      if (!info || info.saga === undefined) continue; // échec réseau : on ne marque rien
+      await run(
+        `UPDATE suivi SET saga_id = ?, saga_nom = ?
+          WHERE profile_id = ? AND tmdb_id = ? AND media_type = 'movie'`,
+        [info.saga?.id ?? 0, info.saga?.nom ?? null, profileId, t.id]
       );
       releves += 1;
     }

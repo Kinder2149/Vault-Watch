@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import MovieCard from './MovieCard.jsx';
 import Icon from './Icon.jsx';
 import AddToListe from './AddToListe.jsx';
@@ -7,6 +7,7 @@ import Vide from './Vide.jsx';
 import { GrilleFantome } from './Fantomes.jsx';
 import { STATUSES, titreCorrespond, resumeBiblio } from '../status.js';
 import { getListeItems } from '../api.js';
+import { regrouperSagas, enteteDeSaga } from '../sagas.js';
 import {
   TRIS_BIBLIO,
   FILTRES_BIBLIO_VIDES,
@@ -41,6 +42,24 @@ export default function Lists({
   const [mediaFilter, setMediaFilter] = useState('all');
   const [ajoutOuvert, setAjoutOuvert] = useState(false); // ajout en masse
   const [filtresOuverts, setFiltresOuverts] = useState(false);
+  // « Regrouper les sagas » : actif par défaut, retenu d'un lancement à l'autre.
+  const [regrouper, setRegrouper] = useState(() => {
+    try {
+      return localStorage.getItem('regrouper-sagas') !== '0';
+    } catch {
+      return true;
+    }
+  });
+  function basculeRegrouper() {
+    setRegrouper((actif) => {
+      try {
+        localStorage.setItem('regrouper-sagas', actif ? '0' : '1');
+      } catch {
+        /* stockage indisponible : le réglage vaut pour la session */
+      }
+      return !actif;
+    });
+  }
   // Recherche dans toute la bibliothèque, quels que soient le statut ou la
   // liste sélectionnés : on cherche un titre qu'on a, pas un rayon.
   const [recherche, setRecherche] = useState('');
@@ -112,23 +131,42 @@ export default function Lists({
   const films = filteredItems.filter((i) => i.mediaType === 'movie');
   const series = filteredItems.filter((i) => i.mediaType === 'tv');
 
-  const renderGrid = (list) => (
-    <div className="grid">
-      {list.map((item) => (
-        <MovieCard
-          key={`${item.mediaType}-${item.id}`}
-          item={item}
-          isFollowed={true}
-          status={item.status}
-          afficheDispo
-          onToggleFollow={onToggleFollow}
-          onSetStatus={onSetStatus}
-          onOpenDetail={onOpenDetail}
-          onLongPress={onLongPress}
-        />
-      ))}
-    </div>
+  const carte = (item) => (
+    <MovieCard
+      key={`${item.mediaType}-${item.id}`}
+      item={item}
+      isFollowed={true}
+      status={item.status}
+      afficheDispo
+      onToggleFollow={onToggleFollow}
+      onSetStatus={onSetStatus}
+      onOpenDetail={onOpenDetail}
+      onLongPress={onLongPress}
+    />
   );
+
+  const renderGrid = (list) => <div className="grid">{list.map(carte)}</div>;
+
+  // Les films d'une même saga (au moins deux dans la vue) sous un en-tête, dans l'ordre de sortie, à la
+  // place de leur premier membre. Seuls les films : une série n'a pas de saga. Pas pendant une recherche
+  // dans la bibliothèque (on y retrouve un titre précis, en liste A → Z).
+  const renderGridFilms = (list) => {
+    const blocs = regrouperSagas(list, { actif: regrouper && !cherche });
+    return (
+      <div className="grid">
+        {blocs.map((bloc) =>
+          bloc.saga ? (
+            <Fragment key={`saga-${bloc.saga.id}`}>
+              <h5 className="grid__saga">{enteteDeSaga(bloc.saga.nom, bloc.saga.films.length)}</h5>
+              {bloc.saga.films.map(carte)}
+            </Fragment>
+          ) : (
+            carte(bloc.film)
+          )
+        )}
+      </div>
+    );
+  };
 
   async function handleNewListe() {
     const name = window.prompt('Nom de la nouvelle liste ?');
@@ -304,6 +342,16 @@ export default function Lists({
             </div>
             {!cherche && (
               <button
+                className={`chip ${regrouper ? 'on' : ''}`}
+                aria-pressed={regrouper}
+                onClick={basculeRegrouper}
+                title="Regrouper les films d'une même saga"
+              >
+                Sagas
+              </button>
+            )}
+            {!cherche && (
+              <button
                 className={`chip chip--filtres ${filtresOuverts || filtresBiblioActifs(filtres) ? 'on' : ''}`}
                 aria-expanded={filtresOuverts}
                 onClick={() => setFiltresOuverts((o) => !o)}
@@ -382,7 +430,7 @@ export default function Lists({
                   <h4 className="subhead">
                     Films <span className="subhead__count">{films.length}</span>
                   </h4>
-                  {renderGrid(films)}
+                  {renderGridFilms(films)}
                 </section>
               )}
               {series.length > 0 && (

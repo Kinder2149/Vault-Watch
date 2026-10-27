@@ -181,6 +181,74 @@ describe('relevé', () => {
   });
 });
 
+describe('sagas (B3)', () => {
+  const sagaDe = (id, nom) => ({ ...RELEVE, saga: { id, nom } });
+  const relever = (options = {}) => store.backfillSagas(profil.id, { region: 'FR', ...options });
+
+  it('range la saga de tous les films, quel que soit leur statut', async () => {
+    tmdb.getCardInfo.mockResolvedValue(sagaDe(10, 'Star Wars - Saga'));
+    await ajouter(1, 'a_voir');
+    await ajouter(2, 'vu');
+    await ajouter(3, 'abandonne');
+    expect(await relever()).toBe(3);
+    for (const id of [1, 2, 3]) {
+      expect(await ligne(id)).toMatchObject({ sagaId: 10, sagaNom: 'Star Wars - Saga' });
+    }
+  });
+
+  it('un film sans saga est marqué relevé (0) : sagaId nul, et il n’est pas redemandé', async () => {
+    tmdb.getCardInfo.mockResolvedValue({ ...RELEVE, saga: null });
+    await ajouter(1, 'vu');
+    expect(await relever()).toBe(1);
+    expect((await ligne(1)).sagaId).toBeNull();
+
+    tmdb.getCardInfo.mockClear();
+    expect(await relever()).toBe(0);
+    expect(tmdb.getCardInfo).not.toHaveBeenCalled();
+  });
+
+  it('un film déjà relevé n’est jamais redemandé (pas de renouvellement)', async () => {
+    tmdb.getCardInfo.mockResolvedValue(sagaDe(10, 'Saga'));
+    await ajouter(1, 'vu');
+    await relever();
+    tmdb.getCardInfo.mockClear();
+    expect(await relever({ maximum: 80 })).toBe(0);
+    expect(tmdb.getCardInfo).not.toHaveBeenCalled();
+  });
+
+  it('les séries n’ont pas de saga : jamais relevées', async () => {
+    await store.addToSuivi(profil.id, { id: 100, mediaType: 'tv', title: 'Une série' });
+    expect(await relever()).toBe(0);
+    expect(tmdb.getCardInfo).not.toHaveBeenCalled();
+  });
+
+  it('plafonné à 80 films par appel', async () => {
+    tmdb.getCardInfo.mockResolvedValue(sagaDe(10, 'Saga'));
+    for (let id = 1; id <= 85; id += 1) await ajouter(id, 'vu');
+    expect(await relever()).toBe(80);
+    expect(await relever()).toBe(5);
+    expect(await relever()).toBe(0);
+  });
+
+  it('un échec réseau ne marque rien : retenté au prochain relevé', async () => {
+    tmdb.getCardInfo.mockResolvedValue(sagaDe(10, 'Saga'));
+    await ajouter(1, 'vu');
+    tmdb.getCardInfo.mockRejectedValueOnce(new TypeError('Failed to fetch'));
+    expect(await relever()).toBe(0);
+    expect((await ligne(1)).sagaId).toBeNull();
+    expect(await relever()).toBe(1);
+    expect((await ligne(1)).sagaId).toBe(10);
+  });
+
+  it('le relevé de disponibilité marque aussi « pas de saga » (0) pour un titre à voir', async () => {
+    await ajouter(1, 'a_voir'); // RELEVE : saga null
+    await store.backfillDisponibilite(profil.id, { maintenant: JOUR, region: 'FR' });
+    tmdb.getCardInfo.mockClear();
+    expect(await relever()).toBe(0); // déjà relevé : pas redemandé
+    expect(tmdb.getCardInfo).not.toHaveBeenCalled();
+  });
+});
+
 describe('sauvegarde', () => {
   it('les offres ne sont pas dans la sauvegarde : une restauration les refait', async () => {
     await ajouter(1);

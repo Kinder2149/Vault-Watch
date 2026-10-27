@@ -1924,6 +1924,23 @@ Décisions figées : `PROJET_CONTEXTE.md` (« Décision du 2026-10-27 — feuill
 **Questions pour Kinder** : (1) l'en-tête « Saga Star Wars — 6 titres » te convient-il ? (2) regroupement actif par défaut, dans tous les statuts et toutes tes
 listes, mais pas dans Ce soir ni Découvrir : d'accord ?
 
+**B3-1 codée et vérifiée à l'écran (2026-10-27)** — 454 tests verts (26 nouveaux : `sagas` 19, relevé des sagas 7), build OK. Capture dans
+`essais/2026-10-27_B3-1/`. Navigateur en largeur téléphone, vrai catalogue : 5 Star Wars, 2 Dune, 3 films isolés (Amélie, Inception, Parasite),
+statuts mêlés, une liste créée « Soirée science-fiction ». Les sagas ont été relevées **toutes seules au lancement** (aucune saga n'avait été
+posée à la main) :
+- **À voir** : « Saga Star Wars — 3 titres » (La Guerre des étoiles 1977, Le Réveil de la Force 2015, L'Ascension de Skywalker 2019, **dans l'ordre de
+  sortie**), à côté de trois films libres ; Dune n'a plus qu'un film à voir dans la vue : il reste libre (règle « au moins deux films de la vue »).
+- **Vu** : « Saga Dune — 2 titres » et « Saga Star Wars — 2 titres ». **Liste créée** : « Saga Star Wars — 3 titres » et « Saga Dune — 2 titres »,
+  Inception libre, chaque groupe à la place de son premier membre.
+- **Réglage « Sagas »** (rangée d'outils) : coupé → liste à plat, même ordre qu'avant ; **retenu après relance** (0 en-tête après rechargement,
+  réglage lu `0`), réactivé → les en-têtes reviennent. Actif par défaut. Les groupes n'apparaissent ni dans Ce soir, ni dans Découvrir, ni pendant
+  une recherche dans la bibliothèque.
+- Ajustement au cadrage : les listes créées (`getListeItems`) portent maintenant la saga ; le relevé de disponibilité écrit 0 (pas de saga) pour
+  ne pas redemander ces films au relevé des sagas.
+- **Reste** : l'essai réseau coupé sur l'émulateur et la clôture B3-2 (checklist, prompt de vérification, capture finale de Kinder). Les groupes
+  se lisent dans la base locale (aucun appel TMDB à l'affichage), donc ils tiennent hors connexion.
+Case B3-1 à cocher après validation de Kinder.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les

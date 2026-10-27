@@ -265,6 +265,12 @@ export async function mettreAJourDisponibilite() {
   return store.backfillDisponibilite(requireProfile());
 }
 
+// Relève la saga de tous les films suivis (une fois chacun), pour les regrouper dans les listes.
+// Renvoie le nombre de films relevés. Voir store.backfillSagas.
+export async function mettreAJourSagas() {
+  return store.backfillSagas(requireProfile());
+}
+
 // Cycle de vérification des notifications de sortie (figé le 2026-09-27) :
 // ne revérifie que les titres suivis « en attente » d'une date. Le rythme
 // « une fois par jour » est géré par l'appelant (App.jsx).
