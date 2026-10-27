@@ -2264,6 +2264,54 @@ CÔTÉ KINDER :
 (`4-mot-cle-reseau-coupe.png`). Non essayé sur émulateur : le panneau de filtres et « Sur mes plateformes » en mode Mot-clé (vus dans le navigateur en B2-1 ; le compte de test n'a pas de plateformes cochées).
 Cases B2-1 et B2-2 à cocher après validation de Kinder.
 
+### Mission « Fusion des conflits de sauvegarde » (B6) — PLAN (phase 4, 2026-10-27, à valider par Kinder)
+Décisions figées : `PROJET_CONTEXTE.md` (« Décision du 2026-10-27 — feuille de route »), règles de fusion rappelées plus bas.
+
+**Constat** : quand un autre appareil a modifié la sauvegarde Drive, l'envoi s'arrête (`ConflitSauvegarde`, rien n'est écrit) et Réglages > Sauvegarde propose deux choix seulement : « Garder ce téléphone »
+(le Drive est écrasé) ou « Reprendre le Drive » (le téléphone est remplacé). Dans les deux cas, ce qui a été fait de l'autre côté est perdu. Une sauvegarde est un fichier par profil (`exportProfile` : titres, épisodes vus,
+visionnages, listes, partage, amis) ; `importProfile` remplace entièrement le profil du même identifiant.
+
+**Critère de fin de B6 (brouillon, à réécrire par Kinder)** : « Quand deux appareils ont modifié ma sauvegarde, l'écran de conflit me propose « Fusionner » en premier ; je vois ce qui va être ajouté dans chaque sens,
+j'accepte, et je retrouve la somme des deux (titres, épisodes vus, listes), sans rien perdre — sauf un titre que j'avais supprimé d'un côté, qui peut revenir (c'est annoncé). »
+
+**Règles de fusion (figées le 2026-10-27)** : union des titres, des épisodes vus, des visionnages et des listes ; statut = le plus avancé (Vu > En cours > À voir) ; « Abandonné », note et avis en désaccord = la valeur de
+**ce téléphone** ; un résumé s'affiche avant d'appliquer ; le résultat fusionné remplace le profil local puis part sur le Drive. Limite assumée : sans horodatage par ligne, un titre supprimé d'un côté peut revenir.
+
+| Étape | Contenu | Dépend de | Critère |
+|---|---|---|---|
+| B6-1 | **La règle de fusion**, seule, sans écran : une fonction qui prend le profil de ce téléphone et celui du Drive et rend le profil fusionné et un résumé chiffré | — | Tests de code : chaque règle ci-dessus sur des profils d'exemple ; la fusion de deux profils identiques ne change rien ; fusionner deux fois donne le même résultat |
+| B6-2 | **Branchement dans l'écran de conflit** : 3ᵉ choix « Fusionner » (proposé en premier), résumé avant d'appliquer, application (profil local remplacé par la fusion, puis envoi au Drive), plusieurs profils en conflit, erreurs | B6-1 | Écran de conflit : « Fusionner » en tête avec un résumé du type « +12 titres du Drive, +3 titres de ce téléphone, +40 épisodes » ; après acceptation, le bandeau de conflit disparaît et Réglages dit « Sauvegardé » |
+| B6-3 | **Clôture** : essai sur émulateur (deux versions réelles : le Drive modifié d'un côté, le téléphone de l'autre), checklist, prompt de vérification, capture finale de Kinder | B6-1, B6-2 | Verdict réussi sur chaque critère ; capture finale de Kinder |
+
+**Ce qu'on ne fait pas dans B6** : horodatage par ligne ou « pierres tombales » pour les titres supprimés (limite assumée) ; fusion automatique sans demander (le conflit reste un choix de l'utilisateur) ;
+fusion de deux profils différents ; fusion des amis au-delà de l'union par code ; changement du format de sauvegarde (la version reste 4).
+
+#### B6-1 — La règle de fusion (phase 5, cadrage d'étape, 2026-10-27)
+**Critère de B6-1** : une fonction pure rend, pour deux profils au format de sauvegarde, le profil fusionné et un résumé ; couverte par des tests. **Vérifiable à l'écran** : non, cette étape n'a pas d'écran ; elle se ferme par
+les tests de code, l'écran vient en B6-2 (le critère de fin de mission, lui, se vérifie à l'écran en B6-3).
+
+**Ce qu'on construit** : un nouveau fichier `client/src/fusion.js` (logique pure, aucun accès à la base ni au Drive) : `fusionnerProfils(local, drive)` → `{ data, resume }`, où `local` et `drive` sont des sauvegardes
+déjà validées (`validateBackup`). `data` est une sauvegarde complète (même format, version 4) que `importProfile` sait appliquer telle quelle.
+- **Titres** (clé : type + numéro TMDB) : union. Statut identique : inchangé. Statuts différents : le plus avancé (Vu > En cours > À voir) ; si l'un des deux est « Abandonné », la valeur **de ce téléphone**.
+  Note (texte) et étoiles : celle de ce téléphone si elle existe, sinon celle du Drive ; si les deux existent et diffèrent : **celle de ce téléphone** (compté dans le résumé). Les autres champs (titre, affiche, dates, durée,
+  genres) : ceux de ce téléphone, complétés par ceux du Drive quand ils manquent. Date d'ajout : la plus ancienne.
+- **Épisodes vus** (série + saison + épisode) : union, date de marquage la plus ancienne. **Visionnages** (titre + saison + épisode + date) : union sans doublon.
+- **Listes** : deux listes de même nom (sans tenir compte des majuscules) sont **une seule liste** : éléments réunis, date de création la plus ancienne, **privée si l'une des deux l'est**. Les autres listes sont conservées.
+  Un élément de liste dont le titre n'existe pas dans la fusion est écarté (contrainte de la base, comme à l'import).
+- **Profil, partage, amis** : nom, avatar et partage (code, clé, pseudo) de ce téléphone, complétés par ceux du Drive s'ils manquent ; amis : union par code.
+- **Résumé** : par catégorie, ce qui s'ajoute **à ce téléphone** (venant du Drive) et ce qui s'ajoute **au Drive** (venant du téléphone) : titres, épisodes vus, visionnages, listes et éléments de liste ; statuts changés par la
+  règle « le plus avancé » (de chaque côté) ; notes ou avis en désaccord (valeur du téléphone gardée). Une ligne fixe annonce qu'un titre supprimé d'un côté peut revenir.
+
+**Fichiers touchés** : `client/src/fusion.js` (nouveau), `client/tests/fusion.test.js` (nouveau). Rien d'autre : `backup.js`, `Backup.jsx` et l'écran ne bougent pas avant B6-2.
+**Ce qu'on ne fait pas dans B6-1** : écran, lecture du Drive, écriture en base, envoi ; horodatage ; fusion de profils d'identifiants différents.
+
+**Vérification** : tests de code sur des profils d'exemple — union simple ; statuts (À voir / En cours / Vu dans les deux sens, « Abandonné » d'un côté ou de l'autre) ; note et avis (présent d'un seul côté, en désaccord) ;
+épisodes et visionnages communs et propres à chaque côté ; listes de même nom (casse différente, privée d'un côté) et listes distinctes ; élément de liste orphelin écarté ; partage et amis ; deux profils identiques → rien ne
+change et résumé à zéro ; fusionner le résultat avec chacun des deux d'origine donne le même résultat (idempotence) ; le résultat passe `validateBackup`. Suite complète verte (474 + nouveaux), build propre.
+
+**Questions pour Kinder** : (1) deux listes de **même nom** sur les deux appareils deviennent **une seule liste**, **privée si l'une l'est** : d'accord ? (2) la **date d'ajout** d'un titre et la date de marquage d'un épisode
+gardent la **plus ancienne** : d'accord ? (3) quand les notes ou avis **divergent**, c'est **celui de ce téléphone** qui gagne, même si celui du Drive est plus récent (on n'a pas de date par note) : d'accord ?
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
