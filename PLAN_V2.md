@@ -1977,6 +1977,50 @@ tuée puis relancée** : `navigator.onLine` faux, **même groupe, même ordre, m
 comportement existant hors mission). Le thème de l'émulateur étant « Automatique », cette série est en thème clair.
 Case B3-1 à cocher après validation de Kinder.
 
+### Missions « Filtres unifiés » (B1) puis « Recherche par mot-clé » (B2) — PLAN (phase 4, 2026-10-27, à valider par Kinder)
+Décisions figées : `PROJET_CONTEXTE.md` (« Décision du 2026-10-27 — feuille de route »). Deux missions, une à la fois, chaque étape testée avant la suivante.
+
+**Constat** : aujourd'hui quatre façons de filtrer, qui ne se ressemblent pas. *Recherche* : année + tri + plateformes (Explorer seulement). *Mes listes* : année +
+genre + note + tri, sans plateformes. *Découvrir* : une rangée de puces « Sur mes plateformes » à part, mémorisée sous sa propre clé. *Suggestions* de Ce soir :
+rien. Les plateformes se choisissent à chaque écran, jamais une fois pour toutes.
+
+**Critère de fin de B1 (brouillon, à réécrire par Kinder)** : « Je choisis mes plateformes une fois dans Réglages, et partout où je cherche ou je trie (mes listes,
+découvrir, suggestions, recherche) je retrouve le même panneau de filtres : films ou séries, année, genre, tri, et « sur mes plateformes » quand c'est possible. »
+**Critère de fin de B2 (brouillon)** : « Dans la recherche, je tape un thème comme « marvel », on me propose des mots-clés, j'en touche un et je vois les films et séries
+qui s'y rattachent, avec les mêmes filtres. »
+
+| Étape | Contenu | Dépend de | Critère (vérifiable sur capture) |
+|---|---|---|---|
+| B1-1 | **Panneau commun, « Mes plateformes » dans Réglages, Mes listes** : choix des plateformes une fois (partagé avec Découvrir) ; puce « Sur mes plateformes » dans le panneau ; appliquée à la bibliothèque d'après les offres déjà rangées | — | Réglages > Mes plateformes : j'en choisis deux ; Mes listes > Filtres > « Sur mes plateformes » ne garde que les titres dont un abonnement y est ; sans plateforme choisie, la puce m'invite à en choisir ; Découvrir montre les mêmes plateformes cochées |
+| B1-2 | **Découvrir** : le panneau commun (films / séries, année, genre, tri, sur mes plateformes) sur les rangées et sur « Tout voir » | B1-1 | Découvrir : « Sur mes plateformes » filtre les rangées par TMDB ; un rayon qui ne sait pas filtrer par plateforme est masqué avec une ligne qui le dit |
+| B1-3 | **Suggestions de Ce soir** : le même panneau, sans plateformes (TMDB ne les connaît pas pour des recommandations) | B1-1 | Ce soir > Suggestion : année, genre, tri, films / séries ; une ligne explique l'absence de « sur mes plateformes » |
+| B1-4 | **Recherche (Titre, Acteur)** : le panneau commun à la place de l'ancien | B1-1 | Recherche : mêmes filtres, même présentation que Mes listes ; « Explorer » reste jusqu'à B2 |
+| B1-5 | **Clôture** : checklist, prompt de vérification, essai réseau coupé, capture finale de Kinder | B1-1 à B1-4 | Verdict réussi sur chaque critère ; capture finale |
+| B2-1 | **Mode « Mot-clé »** à la place d'« Explorer » : saisie → mots-clés TMDB proposés → films et séries du mot-clé (`with_keywords`), pagination, panneau commun ; les genres d'« Explorer » passent dans le filtre Genre | B1-4 | Taper « marvel », toucher un mot-clé : des films et séries Marvel, filtrables ; plus d'onglet « Explorer » |
+| B2-2 | **Clôture** | B2-1 | Verdict réussi ; capture finale de Kinder |
+
+**Cadrage de B1-1**
+- *Constat dans le code* : `Filtres.jsx` sert Recherche et Mes listes avec des interrupteurs (`avecPlateformes`, `avecNote`, `genres`…) ; la sélection de plateformes de Découvrir
+  vit dans `Decouvrir.jsx` (clé `decouvrir-plateformes`, identifiants TMDB) ; les offres rangées dans le suivi (A3-2) ne portent que les **noms** des plateformes.
+- *Logique pure* (nouveau `client/src/plateformes.js`, testé) : lecture / écriture de « Mes plateformes » (identifiants TMDB, clé unique `mes-plateformes`, reprise de
+  l'ancienne clé de Découvrir au premier lancement) ; `filtrerSurMesPlateformes(items, noms)` garde les titres dont une offre **d'abonnement** porte l'un de ces noms ;
+  un titre aux offres inconnues est écarté (on ne l'affirme pas), le panneau dit combien. `filtres.js` : `surMesPlateformes` (faux au départ) dans l'état de la bibliothèque,
+  compté parmi les filtres actifs, appliqué par `appliquerFiltresBiblio`.
+- *Écran* : nouvelle ligne « Mes plateformes » dans Réglages (« 2 choisies ») qui ouvre un écran de choix (logos, 12 plateformes les plus courantes de la région, comme
+  Découvrir) ; `Filtres.jsx` gagne un groupe « Plateformes » à une puce « Sur mes plateformes » (avec « Choisir mes plateformes » quand la liste est vide) ; `Lists.jsx` la passe et
+  convertit les identifiants en noms (liste des plateformes lue une fois, comme Découvrir). `Decouvrir.jsx` lit et écrit la même clé (sélection partagée), son affichage ne change
+  qu'en B1-2.
+- *Fichiers touchés* : `client/src/plateformes.js` (nouveau), `client/src/filtres.js`, `client/src/components/Filtres.jsx`, `client/src/components/Lists.jsx`,
+  `client/src/components/Settings.jsx`, `client/src/components/MesPlateformes.jsx` (nouveau), `client/src/components/Decouvrir.jsx` (clé partagée), `client/src/App.jsx`
+  (écran et bouton retour), `client/src/styles.css`, `client/tests/plateformes.test.js` (nouveau), `client/tests/recherche.test.js` ou équivalent (filtres de la bibliothèque).
+- *Ce qu'on ne fait pas dans B1-1* : Découvrir et Suggestions (étapes suivantes), Recherche, mot-clé, sauvegarde du réglage (local à l'appareil), location / achat dans « sur mes plateformes ».
+- *Vérification* : tests — clé partagée et reprise de l'ancienne ; filtre d'abonnement par nom ; titre aux offres inconnues écarté et compté ; état « actif » ; réinitialisation.
+  Navigateur en largeur téléphone, vrai catalogue : une dizaine de titres relevés, deux plateformes choisies, Mes listes filtrée (capture), puce sans plateforme choisie (capture),
+  Découvrir qui montre les mêmes plateformes cochées. Coupure réseau complète : à la clôture B1-5.
+
+**Questions pour Kinder** : (1) « Sur mes plateformes » = **abonnement seulement** (pas location ni achat) : d'accord ? (2) avec ce filtre dans Mes listes, un titre dont on ne connaît pas encore les
+offres est **masqué** (et le panneau le dit) plutôt que montré : d'accord ? (3) Réglages > « Mes plateformes » : le nom te convient ?
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
