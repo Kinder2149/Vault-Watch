@@ -4,6 +4,7 @@ import Icon from './Icon.jsx';
 import Upcoming from './Upcoming.jsx';
 import Suggestions from './Suggestions.jsx';
 import Rubriques from './Rubriques.jsx';
+import { FILTRES_DECOUVERTE_VIDES, filtresDecouverteActifs } from '../filtres.js';
 import Hero from './Hero.jsx';
 import Vide from './Vide.jsx';
 import VueRayon from './VueRayon.jsx';
@@ -41,6 +42,9 @@ export default function Tonight({
   onSearch,
   profileId,
   onSurcouche,
+  filtres, // panneau de filtres « Ce soir », gardé par l'application, commun à Découverte et Suggestion
+  onFiltres,
+  genres = [],
 }) {
   // « Pas encore sorti » part replié : rien à y regarder ce soir. On retient s'il a été ouvert.
   const [sortiesOuvert, setSortiesOuvert] = useState(() => {
@@ -60,6 +64,13 @@ export default function Tonight({
       return !o;
     });
   }
+
+  const barre = {
+    vides: FILTRES_DECOUVERTE_VIDES,
+    actifs: filtresDecouverteActifs,
+    genres,
+    note: 'Pas de filtre par plateforme ici : TMDB ne le permet pas pour des suggestions.',
+  };
 
   const [toutVoir, setToutVoir] = useState(false);
 
@@ -310,6 +321,9 @@ export default function Tonight({
           suggestionsLoading={suggestionsLoading}
           onRefreshSuggestions={onRefreshSuggestions}
           cardProps={cardProps}
+          filtres={filtres}
+          onFiltres={onFiltres}
+          barre={barre}
           embedded
         />
       </div>
@@ -323,6 +337,9 @@ export default function Tonight({
           dejaChezMoi={dejaChezMoi}
           cardProps={cardProps}
           resetKey={catalogLang}
+          filtres={filtres}
+          onFiltres={onFiltres}
+          barre={barre}
         />
       </div>
     

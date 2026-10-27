@@ -4,6 +4,8 @@ import HorsLigne from './HorsLigne.jsx';
 import { GrilleFantome } from './Fantomes.jsx';
 import { estErreurReseau } from '../reseau.js';
 import MovieCard from './MovieCard.jsx';
+import BarreFiltres from './BarreFiltres.jsx';
+import { appliquerFiltresDecouverte } from '../filtres.js';
 import { getRubrique } from '../api.js';
 
 // Rubriques TMDB (Tendances, Nouveautés, À venir) : grille paginée, titres déjà
@@ -14,7 +16,8 @@ import { getRubrique } from '../api.js';
 // Sert deux écrans :
 //  - la recherche à vide : une seule rubrique (Tendances), le filtre Films /
 //    Séries est celui de la recherche (`mediaFilter` fourni) ;
-//  - « Ce soir > Suggestion » : les trois rubriques, avec son propre filtre.
+//  - « Ce soir > Suggestion » : les trois rubriques, avec le panneau de filtres « Ce soir » (`filtres`,
+//    `onFiltres`, `barre`) ; sans lui, l'ancien sélecteur Tout / Films / Séries.
 const TOUTES = [
   ['tendances', 'Tendances'],
   ['nouveautes', 'Nouveautés'],
@@ -29,10 +32,13 @@ export default function Rubriques({
   dejaChezMoi,
   cardProps,
   resetKey, // change quand le catalogue change de langue : on recharge
+  filtres, // panneau commun (voir BarreFiltres) : type, année, genre, tri
+  onFiltres,
+  barre,
 }) {
   const [rubrique, setRubrique] = useState(rubriques[0][0]);
   const [filtrePropre, setFiltrePropre] = useState('all');
-  const mediaFilter = filtreFourni ?? filtrePropre;
+  const mediaFilter = filtreFourni ?? (filtres ? filtres.media : filtrePropre);
 
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(0); // dernière page chargée
@@ -81,9 +87,12 @@ export default function Rubriques({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rubrique, mediaFilter, resetKey]);
 
-  const visibles = (
-    mediaFilter === 'all' ? items : items.filter((r) => r.mediaType === mediaFilter)
-  ).filter((r) => !dejaChezMoi(r));
+  const filtrees = filtres
+    ? appliquerFiltresDecouverte(items, filtres)
+    : mediaFilter === 'all'
+      ? items
+      : items.filter((r) => r.mediaType === mediaFilter);
+  const visibles = filtrees.filter((r) => !dejaChezMoi(r));
 
   return (
     <>
@@ -101,7 +110,8 @@ export default function Rubriques({
           ))}
         </div>
       )}
-      {filtreFourni === undefined && (
+      {filtres && <BarreFiltres filtres={filtres} onChange={onFiltres} {...barre} />}
+      {filtreFourni === undefined && !filtres && (
         <div className="seg seg--sm">
           {[
             ['all', 'Tout'],
@@ -120,7 +130,15 @@ export default function Rubriques({
       )}
       {visibles.length === 0 && charge && <GrilleFantome />}
       {visibles.length === 0 && !charge && horsLigne && <HorsLigne onRetry={() => charger()} />}
-      {visibles.length === 0 && !charge && !horsLigne && (
+      {visibles.length === 0 && !charge && !horsLigne && filtres && items.length > 0 && (
+        <Vide
+          icone="film"
+          titre="Aucun titre ne correspond"
+          texte="Tes filtres écartent tout ce qui est chargé : réinitialise-les ou charge-en davantage."
+          action={{ label: 'Réinitialiser', onClick: () => onFiltres(barre.vides) }}
+        />
+      )}
+      {visibles.length === 0 && !charge && !horsLigne && !(filtres && items.length > 0) && (
         <Vide icone="film" titre="Rien à afficher pour le moment" texte="Reviens un peu plus tard, ou change de rubrique." />
       )}
       <section className="grid">
@@ -134,7 +152,7 @@ export default function Rubriques({
           />
         ))}
       </section>
-      {plus && visibles.length > 0 && (
+      {plus && (visibles.length > 0 || (filtres && items.length > 0)) && (
         <div className="voirplus">
           <button className="btn btn--ghost" onClick={() => charger(true)}>
             Voir plus

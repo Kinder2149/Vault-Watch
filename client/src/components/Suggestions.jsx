@@ -3,6 +3,8 @@ import Icon from './Icon.jsx';
 import Vide from './Vide.jsx';
 import HorsLigne from './HorsLigne.jsx';
 import { GrilleFantome } from './Fantomes.jsx';
+import BarreFiltres from './BarreFiltres.jsx';
+import { appliquerFiltresDecouverte } from '../filtres.js';
 import { useEnLigne } from '../reseau.js';
 
 // Section « Parce que tu as aimé… » : recommandations TMDB agrégées depuis
@@ -15,15 +17,28 @@ export default function Suggestions({
   onRefreshSuggestions,
   cardProps,
   embedded = false,
+  filtres, // le panneau « Ce soir » (partagé avec l'onglet Suggestion) ; sans lui, pas de filtre
+  onFiltres,
+  barre,
 }) {
   const byKey = new Map(items.map((i) => [`${i.mediaType}-${i.id}`, i]));
 
   // Films et séries mélangés dans une seule grille : le tirage les alterne déjà.
+  // Les filtres s'appliquent à l'affichage, sur ce qui est déjà calculé : aucun nouvel appel.
   const enLigne = useEnLigne();
+  const tout = suggestions;
+  suggestions = filtres ? appliquerFiltresDecouverte(tout, filtres) : tout;
   const body = suggestionsLoading ? (
     <GrilleFantome />
-  ) : suggestions.length === 0 && !enLigne ? (
+  ) : tout.length === 0 && !enLigne ? (
     <HorsLigne onRetry={onRefreshSuggestions} />
+  ) : tout.length > 0 && suggestions.length === 0 ? (
+    <Vide
+      icone="star"
+      titre="Aucun titre ne correspond"
+      texte="Tes filtres écartent toutes les suggestions du moment."
+      action={{ label: 'Réinitialiser', onClick: () => onFiltres(barre.vides) }}
+    />
   ) : suggestions.length === 0 ? (
     <Vide
       icone="star"
@@ -72,6 +87,7 @@ export default function Suggestions({
         </div>
         {actualiser(false)}
       </header>
+      {filtres && <BarreFiltres filtres={filtres} onChange={onFiltres} {...barre} />}
       {body}
       {/* Même bouton en pied de liste : on n'a pas à remonter pour relancer. */}
       {!suggestionsLoading && suggestions.length > 0 && (

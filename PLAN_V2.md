@@ -2106,6 +2106,13 @@ est inchangée. Coupure réseau : à la clôture B1-5.
 **Questions pour Kinder** : (1) un **seul panneau partagé** entre Découverte et Suggestion : d'accord ? (2) quand les filtres ne laissent rien dans Découverte, on affiche « Aucun titre ne correspond » avec
 « Réinitialiser » (la grille n'est pas rechargée) : d'accord ? (3) le filtre par plateforme reste absent de Suggestion (Tendances / Nouveautés / À venir) : d'accord, ou veux-tu l'avoir sur Nouveautés et À venir ?
 
+**B1-3 codée et vérifiée (2026-10-27, phase 6)** : 480 tests verts, build propre (la logique de filtre est celle de B1-2, déjà testée : pas de nouveau test). Navigateur en largeur téléphone, vrai catalogue :
+Ce soir > Suggestion et Découverte montrent la barre commune sans le groupe « Plateformes » (`essais/2026-10-27_B1-3/01-suggestion-panneau.jpg`) ; la ligne « Pas de filtre par plateforme ici… »
+s'affiche sous le panneau ouvert ; « Films » + « 2010s » sur les Tendances ne laisse rien (les Tendances sont récentes) : « Aucun titre ne correspond » avec « Réinitialiser » et « Voir plus »
+(`02-aucun-titre-et-ligne-plateforme.jpg`) ; « Réinitialiser » rend les 51 titres ; « 2020s » ne garde aucun titre plus ancien ; « Plus ancien » range par année croissante ; « Films » relance l'appel et ne laisse
+que des films ; le réglage passe à Découverte (« Films » actif, point sur Filtres, un film de 2024 restant) (`03-decouverte-reglage-partage.jpg`). La recherche à vide n'est pas touchée. Non vu : le genre
+(même code que Découvrir), l'état « Aucun titre » de Découverte (profil de test : peu de suggestions). Coupure réseau : B1-5.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les

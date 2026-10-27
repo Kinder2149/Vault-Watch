@@ -9,7 +9,8 @@ import { TRIS } from '../filtres.js';
 //  - `filtres` / `onChange` : l'état des filtres (voir FILTRES_DECOUVERTE_VIDES dans filtres.js) ;
 //  - `vides` / `actifs` : l'état de départ et le test « un filtre est actif » de l'écran ;
 //  - `genres` : [{ key, name }] ; `tris` : les tris proposés ;
-//  - `surMesPlateformes` : { nbChoisies, masques, onChoisir } ou null (écran qui ne sait pas filtrer par plateforme).
+//  - `surMesPlateformes` : { nbChoisies, masques, onChoisir } ou null (écran qui ne sait pas filtrer par plateforme) ;
+//  - `note` : une ligne d'explication affichée sous le panneau ouvert.
 export default function BarreFiltres({
   filtres,
   onChange,
@@ -19,6 +20,7 @@ export default function BarreFiltres({
   tris = TRIS,
   surMesPlateformes = null,
   avecType = true,
+  note = null, // une ligne sous le panneau ouvert (par exemple pourquoi la plateforme n'y est pas)
 }) {
   const [ouvert, setOuvert] = useState(false);
   const enCours = actifs(filtres);
@@ -65,6 +67,7 @@ export default function BarreFiltres({
           surMesPlateformes={surMesPlateformes}
         />
       )}
+      {ouvert && note && <p className="hint hint--small barre-filtres__note">{note}</p>}
     </div>
   );
 }

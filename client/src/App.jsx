@@ -184,6 +184,7 @@ export default function App() {
   const [filtresListes, setFiltresListes] = useState(FILTRES_BIBLIO_VIDES);
   // Filtres de Découvrir : gardés ici pour survivre au changement d'onglet (l'écran est recréé à chaque fois).
   const [filtresDecouverte, setFiltresDecouverte] = useState(FILTRES_DECOUVERTE_VIDES);
+  const [filtresSoir, setFiltresSoir] = useState(FILTRES_DECOUVERTE_VIDES); // Ce soir : Découverte et Suggestion
   // Sous-onglet actif de « Ce soir ». Mémorisé tant que l'application tourne
   // (on retrouve son sous-onglet en revenant depuis un autre onglet), mais
   // jamais enregistré : à la réouverture on repart toujours d'« En attente ».
@@ -1216,6 +1217,9 @@ export default function App() {
           onSearch={() => goTo('search')}
           profileId={activeProfile}
           onSurcouche={setSurcouche}
+          filtres={filtresSoir}
+          onFiltres={setFiltresSoir}
+          genres={genres}
         />
       )}
 
