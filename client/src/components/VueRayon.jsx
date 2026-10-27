@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import Icon from './Icon.jsx';
 import MovieCard from './MovieCard.jsx';
 import Vide from './Vide.jsx';
+import BarreFiltres from './BarreFiltres.jsx';
 import HorsLigne from './HorsLigne.jsx';
 import { GrilleFantome } from './Fantomes.jsx';
 import { useEnLigne } from '../reseau.js';
@@ -11,8 +12,25 @@ const keyOf = (item) => `${item.mediaType}-${item.id}`;
 // « Tout voir » d'une rangée de Découvrir : la grille complète du rayon, avec le filtre
 // Films / Séries et « Voir plus ». S'ouvre par-dessus la page, comme les autres écrans.
 // `lot(media, page)` rend les titres d'une page ; `pagine` dit s'il y en a d'autres.
-export default function VueRayon({ titre, sous, lot, pagine, suivi, dejaChezMoi, cardProps, legende, onClose }) {
-  const [media, setMedia] = useState('all');
+export default function VueRayon({
+  titre,
+  sous,
+  lot,
+  pagine,
+  suivi,
+  dejaChezMoi,
+  cardProps,
+  legende,
+  onClose,
+  filtres, // les filtres de Découvrir (état partagé avec la page)
+  onFiltres,
+  barre, // props de la barre commune : vides, actifs, genres, surMesPlateformes
+  appliquer = (l) => l, // (liste) → liste filtrée / triée côté application
+}) {
+  // Sans `filtres` (le « Tout voir » de Ce soir), l'écran garde son sélecteur Tout / Films / Séries propre.
+  const [mediaLocal, setMedia] = useState('all');
+  const media = filtres ? filtres.media : mediaLocal;
+  const plateforme = !!filtres?.surMesPlateformes;
   const [liste, setListe] = useState([]);
   const [page, setPage] = useState(0);
   const [plus, setPlus] = useState(pagine);
@@ -47,9 +65,9 @@ export default function VueRayon({ titre, sous, lot, pagine, suivi, dejaChezMoi,
     setListe([]);
     charger(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [media]);
+  }, [media, plateforme]);
 
-  const visibles = liste.filter((r) => !dejaChezMoi(r));
+  const visibles = appliquer(liste).filter((r) => !dejaChezMoi(r));
 
   return (
     <div className="overlay" onClick={onClose}>
@@ -63,17 +81,21 @@ export default function VueRayon({ titre, sous, lot, pagine, suivi, dejaChezMoi,
 
         <div className="detail-pad vue-rayon">
           {sous && <p className="vue-rayon__sous">{sous}</p>}
-          <div className="seg seg--sm">
-            {[
-              ['all', 'Tout'],
-              ['movie', 'Films'],
-              ['tv', 'Séries'],
-            ].map(([v, label]) => (
-              <button key={v} className={media === v ? 'on' : ''} onClick={() => setMedia(v)}>
-                {label}
-              </button>
-            ))}
-          </div>
+          {filtres ? (
+            <BarreFiltres filtres={filtres} onChange={onFiltres} {...barre} />
+          ) : (
+            <div className="seg seg--sm">
+              {[
+                ['all', 'Tout'],
+                ['movie', 'Films'],
+                ['tv', 'Séries'],
+              ].map(([v, label]) => (
+                <button key={v} className={media === v ? 'on' : ''} onClick={() => setMedia(v)}>
+                  {label}
+                </button>
+              ))}
+            </div>
+          )}
 
           {charge && visibles.length === 0 && <GrilleFantome />}
           {!charge && visibles.length === 0 && !enLigne && <HorsLigne onRetry={() => charger(false)} />}

@@ -23,6 +23,7 @@ export default function Rail({
   dejaChezMoi,
   cardProps,
   legende,
+  appliquer = (liste) => liste, // filtres et tri côté application, appliqués à l'affichage (pas de nouvel appel)
 }) {
   const racine = useRef(null);
   const [visible, setVisible] = useState(false);
@@ -71,7 +72,7 @@ export default function Rail({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible, ...deps]);
 
-  const visibles = (items || []).filter((r) => !dejaChezMoi(r)).slice(0, MAX);
+  const visibles = appliquer(items || []).filter((r) => !dejaChezMoi(r)).slice(0, MAX);
   if (items && visibles.length === 0) return <span ref={racine} />; // rien à proposer : on s'efface
 
   return (

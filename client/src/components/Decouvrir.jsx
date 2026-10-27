@@ -2,14 +2,18 @@ import { useEffect, useState } from 'react';
 import Rail from './Rail.jsx';
 import HorsLigne from './HorsLigne.jsx';
 import { useEnLigne } from '../reseau.js';
-import { lirePlateformes, ecrirePlateformes } from '../plateformes.js';
+import { lirePlateformes } from '../plateformes.js';
+import BarreFiltres from './BarreFiltres.jsx';
+import {
+  FILTRES_DECOUVERTE_VIDES,
+  filtresDecouverteActifs,
+  appliquerFiltresDecouverte,
+} from '../filtres.js';
 import VueRayon from './VueRayon.jsx';
-import Icon from './Icon.jsx';
 import {
   getMoods,
   discoverMood,
   getRecommendations,
-  getPlateformes,
   getAmis,
   getRecommandationsAmis,
   cartesDe,
@@ -55,13 +59,21 @@ const legendeAmis = (item) =>
         .join(' · ') + (item.amis.length > 2 ? ` +${item.amis.length - 2}` : '')
     : null;
 
-export default function Decouvrir({ items, suivi, dejaChezMoi, cardProps, resetKey, onSurcouche }) {
+export default function Decouvrir({
+  items,
+  suivi,
+  dejaChezMoi,
+  cardProps,
+  resetKey,
+  onSurcouche,
+  filtres, // l'état des filtres, gardé par l'application (il survit au changement d'onglet)
+  onFiltres,
+  genres = [], // [{ key, name }]
+  onOpenPlateformes, // ouvre Réglages > Mes plateformes
+}) {
   const enLigne = useEnLigne();
   const [essai, setEssai] = useState(0); // « Réessayer » : on remonte les rangées
   const [moods, setMoods] = useState([]);
-  const [plateformes, setPlateformes] = useState([]); // proposées
-  const [mesPlateformes, setMesPlateformes] = useState(lirePlateformes);
-  const [filtreOuvert, setFiltreOuvert] = useState(false);
   const [nbAmis, setNbAmis] = useState(0);
   const [ouvert, setOuvert] = useState(null); // rayon affiché en grille
 
@@ -74,7 +86,6 @@ export default function Decouvrir({ items, suivi, dejaChezMoi, cardProps, resetK
 
   useEffect(() => {
     getMoods().then(setMoods).catch(() => {});
-    getPlateformes().then(setPlateformes).catch(() => {});
     getAmis().then((a) => setNbAmis(a.length)).catch(() => {});
   }, [resetKey]);
 
@@ -112,16 +123,26 @@ export default function Decouvrir({ items, suivi, dejaChezMoi, cardProps, resetK
     .filter(Boolean)
     .map((r) => (r.type ? r : { cle: r.key, type: 'mood', key: r.key, titre: r.name }));
 
-  function basculePlateforme(id) {
-    setMesPlateformes((prev) => {
-      const next = prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id];
-      // « Mes plateformes » est un réglage commun à tous les écrans (Réglages > Mes plateformes).
-      ecrirePlateformes(next);
-      return next;
-    });
-  }
+  // « Sur mes plateformes » : le choix se fait une fois, dans Réglages > Mes plateformes (relu à chaque
+  // affichage). Actif seulement si l'interrupteur est allumé ET qu'au moins une plateforme est choisie.
+  const mesPlateformes = lirePlateformes();
+  const plateformeActive = !!filtres.surMesPlateformes && mesPlateformes.length > 0;
+  const idsPlateformes = plateformeActive ? mesPlateformes : [];
+  const cleChargement = `${filtres.media}|${idsPlateformes.join(',')}`;
 
+  // TMDB ne filtre pas des recommandations par plateforme : avec le filtre actif, ces rangées sont masquées
+  // (et une ligne le dit) plutôt que montrées sans filtre.
+  const rayonsVisibles = plateformeActive ? rayons.filter((r) => r.type === 'mood') : rayons;
+  const rayonsMasques = rayons.length - rayonsVisibles.length;
+
+  const appliquer = (liste) => appliquerFiltresDecouverte(liste, filtres);
   const commun = { suivi, dejaChezMoi, cardProps };
+  const barre = {
+    vides: FILTRES_DECOUVERTE_VIDES,
+    actifs: filtresDecouverteActifs,
+    genres,
+    surMesPlateformes: { nbChoisies: mesPlateformes.length, masques: 0, onChoisir: onOpenPlateformes },
+  };
 
   return (
     <>
@@ -130,46 +151,30 @@ export default function Decouvrir({ items, suivi, dejaChezMoi, cardProps, resetK
         <p>Des idées pour ta prochaine soirée, choisies pour toi.</p>
       </header>
 
-      {plateformes.length > 0 && (
-        <div className="filtre-plateformes">
-          <button
-            className={`chip ${mesPlateformes.length > 0 ? 'on' : ''}`}
-            aria-expanded={filtreOuvert}
-            onClick={() => setFiltreOuvert((o) => !o)}
-          >
-            <Icon name="play" size={12} />
-            {mesPlateformes.length > 0
-              ? `Sur mes plateformes · ${mesPlateformes.length}`
-              : 'Sur mes plateformes'}
-          </button>
-          {filtreOuvert && (
-            <div className="chips-scroll">
-              {plateformes.map((p) => (
-                <button
-                  key={p.id}
-                  className={`chip ${mesPlateformes.includes(p.id) ? 'on' : ''}`}
-                  aria-pressed={mesPlateformes.includes(p.id)}
-                  onClick={() => basculePlateforme(p.id)}
-                >
-                  {p.name}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+      <BarreFiltres filtres={filtres} onChange={onFiltres} {...barre} />
+
+      {plateformeActive && rayonsMasques > 0 && (
+        <p className="hint hint--small rayons-masques" role="status">
+          {rayonsMasques === 1
+            ? '1 rayon masqué : il ne sait pas filtrer par plateforme.'
+            : `${rayonsMasques} rayons masqués : ils ne savent pas filtrer par plateforme.`}
+        </p>
       )}
 
       {!enLigne && (
         <HorsLigne onRetry={() => setEssai((n) => n + 1)} />
       )}
 
-      {enLigne && rayons.map((r) => (
+      {enLigne && rayonsVisibles.map((r) => (
         <Rail
           key={`${r.cle}:${essai}`}
           titre={r.titre}
           sous={r.sous}
-          deps={[r.type === 'mood' ? mesPlateformes.join(',') : '', resetKey]}
-          charger={() => titresDe(r, { plateformes: r.type === 'mood' ? mesPlateformes : [] })}
+          deps={[cleChargement, resetKey]}
+          charger={() =>
+            titresDe(r, { media: filtres.media, plateformes: r.type === 'mood' ? idsPlateformes : [] })
+          }
+          appliquer={appliquer}
           onToutVoir={() => setOuvert(r)}
           legende={r.type === 'amis' ? legendeAmis : undefined}
           {...commun}
@@ -183,11 +188,15 @@ export default function Decouvrir({ items, suivi, dejaChezMoi, cardProps, resetK
           titre={ouvert.titre}
           sous={ouvert.sous}
           pagine={ouvert.type === 'mood'}
+          filtres={filtres}
+          onFiltres={onFiltres}
+          barre={barre}
+          appliquer={appliquer}
           lot={(media, page) =>
             titresDe(ouvert, {
               media,
               page,
-              plateformes: ouvert.type === 'mood' ? mesPlateformes : [],
+              plateformes: ouvert.type === 'mood' ? idsPlateformes : [],
             })
           }
           legende={ouvert.type === 'amis' ? legendeAmis : undefined}

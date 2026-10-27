@@ -1170,6 +1170,10 @@ button { font-family: inherit; }
 .dispo--location_achat, .dispo-mini--location_achat { --dispo-c: #D98B2B; }
 .dispo--sorti_sans_streaming, .dispo-mini--sorti_sans_streaming { --dispo-c: var(--muted); }
 
+/* Barre de filtres commune (Découvrir et « Tout voir ») : sous l'en-tête, avec un peu d'air avant les rangées. */
+.barre-filtres { margin-bottom: var(--s-3); }
+.rayons-masques { margin: 0 0 var(--s-3); }
+
 /* Écran « Mes plateformes » : une ligne par service, logo + nom + coche. */
 .plateformes-liste { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
 .plateformes-liste__ligne {

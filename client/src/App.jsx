@@ -83,6 +83,7 @@ import {
 import {
   FILTRES_VIDES,
   FILTRES_BIBLIO_VIDES,
+  FILTRES_DECOUVERTE_VIDES,
   filtresActifs,
   appliquerFiltres,
 } from './filtres.js';
@@ -181,6 +182,8 @@ export default function App() {
   // séance (on les retrouve en changeant de statut, de liste ou d'onglet),
   // jamais enregistrés d'une session à l'autre.
   const [filtresListes, setFiltresListes] = useState(FILTRES_BIBLIO_VIDES);
+  // Filtres de Découvrir : gardés ici pour survivre au changement d'onglet (l'écran est recréé à chaque fois).
+  const [filtresDecouverte, setFiltresDecouverte] = useState(FILTRES_DECOUVERTE_VIDES);
   // Sous-onglet actif de « Ce soir ». Mémorisé tant que l'application tourne
   // (on retrouve son sous-onglet en revenant depuis un autre onglet), mais
   // jamais enregistré : à la réouverture on repart toujours d'« En attente ».
@@ -1249,6 +1252,10 @@ export default function App() {
           cardProps={cardProps}
           resetKey={catalogLang}
           onSurcouche={setSurcouche}
+          filtres={filtresDecouverte}
+          onFiltres={setFiltresDecouverte}
+          genres={genres}
+          onOpenPlateformes={() => setShowPlateformes(true)}
         />
       )}
       </div>

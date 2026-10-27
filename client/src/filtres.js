@@ -148,6 +148,35 @@ export function filtresActifs(f) {
   return !!f && (!!f.periode || f.tri !== 'popularite' || f.plateformes.length > 0);
 }
 
+// --- Découvrir (mission B1) ---
+//
+// Mêmes filtres que partout, appliqués aux titres que chaque rangée a chargés : le type (films / séries),
+// l'année, le genre et le tri. La **plateforme** n'est pas ici : elle part chez TMDB (`with_watch_providers`),
+// qui sait la gérer pour les thèmes et les sélections.
+export const FILTRES_DECOUVERTE_VIDES = Object.freeze({
+  media: 'all', // 'all' | 'movie' | 'tv'
+  periode: null,
+  genre: null, // clé de la liste unique de genres (tmdb.js)
+  tri: 'popularite',
+  surMesPlateformes: false,
+});
+
+export function filtresDecouverteActifs(f) {
+  return (
+    !!f &&
+    (f.media !== 'all' || !!f.periode || !!f.genre || !!f.surMesPlateformes || f.tri !== 'popularite')
+  );
+}
+
+// Un titre sans genre connu est écarté par le filtre de genre (on ne devine pas).
+export function appliquerFiltresDecouverte(items, filtres, aujourdhui = new Date()) {
+  const { media, genre } = filtres;
+  let liste = items;
+  if (media && media !== 'all') liste = liste.filter((it) => it.mediaType === media);
+  if (genre) liste = liste.filter((it) => (it.genreKeys || []).includes(genre));
+  return appliquerFiltres(liste, filtres, aujourdhui);
+}
+
 // Filtre et trie une liste déjà affichée (modes Titre et Acteur).
 //  - Période : on garde les titres dont la date de sortie y tombe ; sans date, on écarte.
 //  - Popularité : on ne touche pas à l'ordre reçu (pertinence ou popularité de TMDB).
