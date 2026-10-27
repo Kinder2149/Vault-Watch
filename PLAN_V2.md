@@ -1767,6 +1767,66 @@ l'émulateur : à la clôture A3-4.
 **Questions pour Kinder** : (1) le plafond de 60 titres par lancement et le renouvellement à 7 jours te vont-ils ? (2) les libellés courts
 des cartes (« À venir », « Pas en streaming »…) ; (3) pas de pastille sur les résultats de la Recherche : d'accord ?
 
+**A3-2 codée et vérifiée à l'écran (2026-10-27)** — 413 tests verts (16 nouveaux : `disponibilite-stockage`, plus 3 cas
+« offres inconnues » dans `disponibilite`), build OK. Navigateur en largeur téléphone, vrai catalogue :
+- 5 titres ajoutés **sans relevé**, page rechargée : le relevé du lancement a posé tout seul « Location / achat », « Pas en
+  streaming » (film et série), « Au cinéma », « Disponible » + logo (Grey's Anatomy). **Boucle les deux séries restées sans capture
+  en A3-1** (série disponible, série sans streaming).
+- Rechargement suivant : pastilles présentes tout de suite et **0 appel TMDB de détail** (tout vient du suivi) : c'est ce qui les
+  fait tenir hors connexion. La coupure complète du réseau sur l'émulateur reste à faire en A3-4.
+- Ajout depuis la Recherche (Matchbox – Le film) puis Mes listes : « Disponible » apparaît **1,5 s plus tard, sans rechargement**.
+- Deux défauts trouvés à l'écran et corrigés : « Pas en streaming » coupé (le libellé passe maintenant à la ligne) ; logo étiré à toute
+  la largeur de l'affiche (dimensions imposées à 16 px).
+- Ajustement au cadrage : un film à l'affiche aux offres inconnues est « Au cinéma » (vrai dans tous les cas) ; « Disponible » reste
+  prioritaire quand les offres sont connues. Pastille absente de la Recherche et de « Tendances » ; présente dans Mes listes, Ce soir
+  (À voir, Reprendre, Découverte, Suggestion), sorties à venir et Découvrir (rangées et « Tout voir »).
+- Incident de parcours, réparé : une commande a préfixé chaque ligne de `PLAN_V2.md` d'un accent grave (commit `2db002e`).
+Cases A3-1 et A3-2 à cocher après validation de Kinder.
+
+#### A3-3 — Ce soir et listes : ne montrer à regarder que ce qui est regardable (phase 5, cadrage d'étape, 2026-10-27)
+**Critère de A3-3 (repris du plan)** : dans Ce soir, un film au cinéma n'est plus dans « À voir ce soir » et apparaît dans « Pas encore
+disponible » avec la pastille « Au cinéma » ; un titre à disponibilité **inconnue** reste visible dans « À voir ce soir ».
+
+**Constat dans le code**
+- Aujourd'hui « regardable » = « pas de date de sortie future » (`isUpcoming`), appliqué à quatre endroits : `Tonight.jsx` (« À voir ce
+  soir » et le bloc « Pas encore sorti »), `Upcoming.jsx`, `idee.js` (l'idée du soir) et `Lists.jsx` (statut « À voir »).
+- **Dans Mes listes, un titre pas encore sorti disparaît du statut « À voir »** (compteur et grille) sans apparaître ailleurs : le
+  commentaire du code parle d'un onglet « Sorties à venir » qui n'existe pas. Un titre suivi qui n'est visible nulle part dans la bibliothèque
+  est une surprise ; il reste compté dans « titres ».
+
+**Règle unique** (`status.js`, pure, testée) : `estRegardable(etat)` — vrai si l'état est inconnu (`null`), « Disponible » ou
+« En location / achat » ; faux pour « Pas encore sorti », « Au cinéma » et « Sorti, pas en streaming » (les trois états du plan). Les
+quatre endroits ci-dessus l'utilisent à la place de `isUpcoming`, avec l'état calculé par `etatDisponibilite` depuis le suivi (offres,
+date de la région) et la liste « au cinéma » du jour (hook partagé, exporté de `PastilleCarte.jsx`).
+
+**Stratégie technique**
+- *Ce soir* : « À voir ce soir » = titres à voir **regardables** ; le bloc devient **« Pas encore disponible »** et réunit les trois
+  états, chacun avec sa pastille ; sa ligne de résumé dit le nombre de titres, dont combien « au cinéma », et la prochaine sortie. L'idée du
+  soir ne tire que parmi les regardables (`candidatsIdee` reçoit la liste « au cinéma »).
+- *Mes listes* (**choix à valider, voir plus bas**) : le statut « À voir » montre **tous** les titres à voir, la pastille disant où en est
+  chacun ; plus rien ne disparaît de la bibliothèque.
+- *Fiche* : quand une pastille dit déjà où en est le titre (« Pas encore sorti », « Au cinéma », « Sorti, pas en streaming »), la section
+  « Où le regarder » n'ajoute plus « Pas d'info de disponibilité » (redite signalée en A3-1) ; elle ne garde cette note que si l'état est inconnu.
+- *Pendant la lecture de la liste « au cinéma »* ou hors connexion le lendemain : l'état d'un film sans offre reste **inconnu**, donc visible
+  dans « À voir ce soir » ; il passe dans « Pas encore disponible » dès que la liste est lue (une seule fois par jour, mémorisée).
+
+**Fichiers touchés** : `client/src/status.js`, `client/src/idee.js`, `client/src/components/PastilleCarte.jsx` (export du hook),
+`Tonight.jsx`, `Upcoming.jsx`, `Lists.jsx`, `Detail.jsx`, `client/tests/regardable.test.js` (nouveau), `client/tests/idee.test.js` (adapté).
+**Pas de changement** de base, de sauvegarde, de notifications.
+
+**Ce qu'on ne fait pas dans A3-3** : filtres (B1), sagas (B3), fusion (B6), pastille dans la Recherche.
+
+**Vérification** : tests — `estRegardable` pour chacun des cinq états et pour l'inconnu ; l'idée du soir n'est jamais un titre non regardable sur
+plusieurs tirages ; un titre sans relevé reste candidat. Navigateur en largeur téléphone, vrai catalogue : suivi mêlant un film au cinéma
+(Clayface), un film à venir (Avengers : Doomsday), un film sorti sans streaming (Spider-Man : Brand New Day), un film disponible
+(Matchbox), un film en location (Projet Dernière Chance) et une série disponible (Grey's Anatomy) — Ce soir : « À voir ce soir » ne montre que les
+trois derniers ; « Pas encore disponible » montre les trois autres avec leur pastille et le bon résumé ; un titre ajouté sans relevé reste
+dans « À voir ce soir » ; Mes listes montre les six.
+
+**Question pour Kinder** : dans **Mes listes**, le statut « À voir » doit-il montrer **tous** tes titres à voir (recommandé : la pastille dit où
+ils en sont, rien ne disparaît) ou, comme aujourd'hui, cacher ceux qui ne sont pas encore sortis (et désormais aussi ceux au cinéma ou sans
+streaming) ?
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
