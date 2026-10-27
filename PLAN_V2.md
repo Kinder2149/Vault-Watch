@@ -2113,6 +2113,35 @@ s'affiche sous le panneau ouvert ; « Films » + « 2010s » sur les Tendances n
 que des films ; le réglage passe à Découverte (« Films » actif, point sur Filtres, un film de 2024 restant) (`03-decouverte-reglage-partage.jpg`). La recherche à vide n'est pas touchée. Non vu : le genre
 (même code que Découvrir), l'état « Aucun titre » de Découverte (profil de test : peu de suggestions). Coupure réseau : B1-5.
 
+#### B1-4 — Recherche (Titre, Acteur) avec le panneau commun (phase 5, cadrage d'étape, 2026-10-27)
+**Critère de B1-4 (repris du plan)** : dans Recherche, les modes Titre et Acteur ont les mêmes filtres et la même présentation que Mes listes et Découvrir ; « Explorer » reste jusqu'à B2.
+
+**État réel** : la recherche a deux commandes séparées (`App.jsx`) : un sélecteur Tout / Films / Séries (`mediaFilter`), puis une puce « Filtres » à part (période, tri : l'ancien panneau, avec une
+phrase sur l'absence de plateforme), qui n'apparaît qu'une fois des résultats affichés. Le genre n'existe que dans « Explorer ». L'accueil (recherche vide) montre les Tendances via `Rubriques.jsx`
+avec le seul sélecteur Films / Séries.
+
+**Ce qu'on construit**
+1. **Titre et Acteur** : la barre commune (Tout / Films / Séries + Filtres) remplace le sélecteur et la puce séparés ; le panneau offre année, genre et tri, sans « Plateformes » (la ligne d'explication de
+   B1-3, adaptée aux résultats de recherche). Les filtres jouent sur les résultats déjà reçus (TMDB ne filtre pas une recherche par titre ni une filmographie) ; aucun nouvel appel.
+2. **Un état à part pour Titre / Acteur** (au même format que Découvrir), remis à zéro quand on change de mode ou qu'on arrive sur un acteur depuis une fiche, comme aujourd'hui. L'état d'« Explorer »
+   (ancien panneau, plateformes envoyées à TMDB) n'est pas touché.
+3. **Barre toujours visible dès qu'une recherche a eu lieu**, même si un filtre vide la liste (sinon on ne pourrait plus le retirer) ; dans ce cas : « Aucun titre ne correspond à ces filtres »
+   avec un bouton « Réinitialiser » (au lieu du texte seul).
+4. **Accueil (recherche vide)** : les Tendances prennent le même panneau (via `Rubriques.jsx`, déjà prêt depuis B1-3), au lieu du seul sélecteur Films / Séries.
+5. Le tri « Popularité » garde l'ordre de TMDB (pertinence de la recherche) ; « Plus récent », « Plus ancien » et « Mieux notés » réordonnent. Un titre sans genre connu est écarté quand un genre est choisi.
+
+**Fichiers touchés** : `client/src/App.jsx` (état et affichage de la recherche), `client/src/components/Rubriques.jsx` (utilisé par l'accueil avec le panneau), `client/tests/` (un cas : filtre
+« genre + type » sur des résultats de recherche).
+**Ce qu'on ne fait pas dans B1-4** : « Explorer » (supprimé en B2-1), le mot-clé (B2), un filtre par plateforme sur la recherche (TMDB n'en donne pas par titre), la fusion du panneau d'Explorer avec le nouveau.
+
+**Vérification** : tests de la logique ; navigateur en largeur téléphone, vrai catalogue : accueil avec le panneau sur les Tendances (capture) ; recherche « batman » : « Films » ne laisse que des films, « 2020s » que ces
+années, un genre (« Action & Aventure ») ne garde que ce genre, « Plus ancien » range par année croissante, un filtre qui vide la liste montre « Aucun titre ne correspond » + « Réinitialiser » (capture) ;
+recherche d'un acteur : mêmes filtres sur sa filmographie ; changer de mode remet les filtres à zéro ; « Explorer » inchangé. Coupure réseau : à la clôture B1-5.
+
+**Questions pour Kinder** : (1) le **genre** devient filtrable dans Titre et Acteur (et un titre dont le genre n'est pas connu disparaît quand on choisit un genre) : d'accord ? (2) l'accueil de la recherche
+(Tendances) reçoit **le même panneau complet** (année, genre, tri) et non plus seulement Films / Séries : d'accord ? (3) les filtres se remettent à zéro quand on **change de mode** (Titre ↔ Acteur), mais
+**pas** entre deux recherches du même mode : d'accord ?
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
