@@ -1164,11 +1164,23 @@ button { font-family: inherit; }
 .dispo__detail { font-size: var(--t-sm); color: var(--muted); flex: 1 1 8rem; min-width: 0; }
 .dispo__logos { display: inline-flex; gap: 6px; margin-left: auto; }
 .dispo__logos img { border-radius: 6px; display: block; }
-.dispo--a_venir { --dispo-c: var(--gold); }
-.dispo--au_cinema { --dispo-c: #D9534F; }
-.dispo--disponible { --dispo-c: #1FA2A8; }
-.dispo--location_achat { --dispo-c: #D98B2B; }
-.dispo--sorti_sans_streaming { --dispo-c: var(--muted); }
+.dispo--a_venir, .dispo-mini--a_venir { --dispo-c: var(--gold); }
+.dispo--au_cinema, .dispo-mini--au_cinema { --dispo-c: #D9534F; }
+.dispo--disponible, .dispo-mini--disponible { --dispo-c: #1FA2A8; }
+.dispo--location_achat, .dispo-mini--location_achat { --dispo-c: #D98B2B; }
+.dispo--sorti_sans_streaming, .dispo-mini--sorti_sans_streaming { --dispo-c: var(--muted); }
+
+/* La même information, en une ligne sous l'année d'une affiche : icône colorée + libellé court. */
+.dispo-mini {
+  --dispo-c: var(--muted);
+  display: flex; align-items: flex-start; gap: 4px; margin: 2px 0 0;
+  font-size: var(--t-xs, .72rem); font-weight: 600; line-height: 1.25; color: var(--text);
+}
+.dispo-mini .icon { flex: none; margin-top: 1px; color: var(--dispo-c); }
+/* Le libellé passe à la ligne plutôt que d'être coupé : « Pas en streaming » est plus large qu'une affiche. */
+.dispo-mini span { min-width: 0; overflow-wrap: anywhere; }
+/* Dimensions imposées : une règle d'image plus générale étirait le logo à toute la largeur de l'affiche. */
+.dispo-mini img { flex: none; width: 16px; height: 16px; max-width: 16px; object-fit: cover; border-radius: 4px; margin-left: auto; }
 
 /* Ma note + bande-annonce. */
 .fiche__note { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s-3); }

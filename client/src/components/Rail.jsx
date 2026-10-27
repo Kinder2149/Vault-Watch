@@ -103,6 +103,7 @@ export default function Rail({
               item={item}
               isFollowed={suivi.has(keyOf(item))}
               status={suivi.get(keyOf(item))?.status}
+              afficheDispo
               {...cardProps}
             />
             {legende?.(item) && <span className="rail__legende">{legende(item)}</span>}

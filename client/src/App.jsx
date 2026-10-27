@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { App as Capacitor } from '@capacitor/app';
 import SearchBar from './components/SearchBar.jsx';
+import { DispoContext } from './components/PastilleCarte.jsx';
 import MovieCard from './components/MovieCard.jsx';
 import Detail from './components/Detail.jsx';
 import Lists from './components/Lists.jsx';
@@ -54,6 +55,7 @@ import {
   changeCatalogLanguage,
   getListes,
   mettreAJourDatesDeSortie,
+  mettreAJourDisponibilite,
   verifierNotifications,
   notifierSortiesDues,
   ecouterClicsNotification,
@@ -233,15 +235,29 @@ export default function App() {
   // On complète, puis on recharge — sinon l'écran garderait l'ancienne liste.
   // En cas de coupure réseau, on ne dit rien : ce sera retenté au prochain
   // lancement, et l'application marche exactement comme avant en attendant.
+  //
+  // Puis, à la suite, le relevé de disponibilité (offres de streaming, saga) des titres encore à
+  // regarder : au plus 60 par lancement, renouvelé après 7 jours, silencieux hors connexion.
   useEffect(() => {
     if (!activeProfile) return;
     mettreAJourDatesDeSortie()
       .then((completees) => {
         if (completees > 0) loadSuivi();
       })
-      .catch(() => {});
+      .catch(() => {})
+      .then(() => releverDisponibilite());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeProfile]);
+
+  // Relevé de disponibilité, puis rechargement du suivi si quelque chose a bougé : c'est ce qui fait
+  // apparaître la pastille d'un titre qu'on vient d'ajouter, sans relancer l'application.
+  function releverDisponibilite() {
+    return mettreAJourDisponibilite()
+      .then((releves) => {
+        if (releves > 0) loadSuivi();
+      })
+      .catch(() => {});
+  }
 
   // Cycle de vérification des notifications de sortie (figé le 2026-09-27) :
   // ne revérifie que les titres suivis « en attente » d'une date, au plus une
@@ -554,6 +570,7 @@ export default function App() {
       } else {
         await addToSuivi(item);
         garderAffiche(key);
+        releverDisponibilite(); // non bloquant : la pastille arrive dès que TMDB a répondu
       }
       loadSuivi();
     } catch (err) {
@@ -577,13 +594,15 @@ export default function App() {
   async function handlePickStatus(item, newStatus) {
     setStatusMenu(null);
     try {
-      if (!suivi.has(keyOf(item))) {
+      const nouveau = !suivi.has(keyOf(item));
+      if (nouveau) {
         await addToSuivi(item);
         garderAffiche(keyOf(item));
       }
       await apiSetStatus(item.mediaType, item.id, newStatus);
       vibre();
       loadSuivi();
+      if (nouveau) releverDisponibilite();
     } catch (err) {
       setError(err.message);
     }
@@ -894,6 +913,7 @@ export default function App() {
   }
 
   return (
+    <DispoContext.Provider value={suivi}>
     <div className="app">
       <header className="appbar">
         <span className="brand__dot" aria-hidden="true"></span>
@@ -1334,5 +1354,6 @@ export default function App() {
         />
       )}
     </div>
+    </DispoContext.Provider>
   );
 }

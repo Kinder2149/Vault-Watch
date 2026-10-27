@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import Icon from './Icon.jsx';
 import { STATUS_LABEL } from '../status.js';
+import PastilleCarte from './PastilleCarte.jsx';
 
 // Une affiche dans une grille. Volontairement dépouillée : l'affiche, le titre,
 // l'année. Le suivi se fait par la pastille posée sur l'affiche, le statut se
@@ -15,6 +16,7 @@ export default function MovieCard({
   onToggleFollow,
   onOpenDetail,
   onLongPress,
+  afficheDispo = false, // pastille « disponible, au cinéma… » sous l'année (listes, Ce soir, Découvrir)
 }) {
   const typeLabel = item.mediaType === 'movie' ? 'Film' : 'Série';
   const current = status || 'a_voir';
@@ -121,6 +123,7 @@ export default function MovieCard({
         {typeLabel}
         {item.year && ` · ${item.year}`}
       </p>
+      {afficheDispo && <PastilleCarte item={item} />}
 
       {item.reason && (
         <p className="why">

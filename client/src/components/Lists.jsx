@@ -125,6 +125,7 @@ export default function Lists({
           item={item}
           isFollowed={true}
           status={item.status}
+          afficheDispo
           onToggleFollow={onToggleFollow}
           onSetStatus={onSetStatus}
           onOpenDetail={onOpenDetail}

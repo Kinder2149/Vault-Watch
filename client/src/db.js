@@ -311,6 +311,18 @@ async function migrateSchema() {
   // (backfillReleaseDates) le remplit ; '' = demandé, aucun genre connu.
   await addColumnIfMissing('suivi', 'genres', 'TEXT');
 
+  // Disponibilité (mission A3) : les offres de streaming de la région, en texte JSON compact
+  // ({"a":[…abonnement],"l":[…location et achat]}, chaque plateforme { n: nom, l: logo }), le jour du
+  // dernier relevé et la région du relevé. NULL = jamais relevé, donc **inconnu** : l'écran ne dit
+  // alors rien. Données dérivées, refaites au lancement (backfillDisponibilite) : elles ne sont
+  // ni dans la sauvegarde ni dans l'export. La saga (collection TMDB) est rangée au passage pour
+  // la mission « sagas regroupées ».
+  await addColumnIfMissing('suivi', 'offres', 'TEXT');
+  await addColumnIfMissing('suivi', 'offres_maj', 'TEXT');
+  await addColumnIfMissing('suivi', 'offres_region', 'TEXT');
+  await addColumnIfMissing('suivi', 'saga_id', 'INTEGER');
+  await addColumnIfMissing('suivi', 'saga_nom', 'TEXT');
+
   // Liste « privée » : jamais envoyée dans la fiche partagée. Publique par défaut.
   await addColumnIfMissing('listes', 'prive', 'INTEGER NOT NULL DEFAULT 0');
 }

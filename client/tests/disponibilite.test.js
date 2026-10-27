@@ -91,6 +91,20 @@ describe('etatDisponibilite', () => {
       expect(etatDisponibilite({ ...base, providers: null })).toBeNull();
     });
 
+    it('offres inconnues mais film à l’affiche : « Au cinéma », c’est vrai dans tous les cas', () => {
+      const e = etatDisponibilite({ ...base, providers: null, enSalle: new Set([42]) });
+      expect(e).toMatchObject({ etat: 'au_cinema' });
+    });
+
+    it('offres inconnues, film à l’affiche, mais date future : « Pas encore sorti » d’abord', () => {
+      const e = etatDisponibilite({ ...base, providers: null, releaseDate: '2026-10-28', enSalle: new Set([42]) });
+      expect(e.etat).toBe('a_venir');
+    });
+
+    it('offres inconnues, série : rien (une série n’est jamais au cinéma)', () => {
+      expect(etatDisponibilite({ ...base, isSeries: true, providers: null, enSalle: new Set([42]) })).toBeNull();
+    });
+
     it('liste « en salle » inconnue : un film sans offre n’est ni au cinéma ni sorti sans streaming', () => {
       expect(etatDisponibilite({ ...base, enSalle: null })).toBeNull();
     });

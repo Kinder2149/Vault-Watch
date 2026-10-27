@@ -91,6 +91,7 @@ export default function VueRayon({ titre, sous, lot, pagine, suivi, dejaChezMoi,
                   item={item}
                   isFollowed={suivi.has(keyOf(item))}
                   status={suivi.get(keyOf(item))?.status}
+                  afficheDispo
                   {...cardProps}
                 />
                 {legende?.(item) && <span className="rail__legende">{legende(item)}</span>}

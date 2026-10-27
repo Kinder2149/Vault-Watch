@@ -3,7 +3,7 @@ import Icon from './Icon.jsx';
 // Pastille de disponibilité d'un titre : où il en est, d'un coup d'œil (voir `etatDisponibilite`).
 // Une icône ET un texte, jamais la couleur seule. Les logos des plateformes accompagnent
 // « Disponible » et « En location / achat ».
-const ICONES = {
+export const ICONES = {
   a_venir: 'calendar',
   au_cinema: 'ticket',
   disponible: 'play',

@@ -21,7 +21,7 @@ export default function Upcoming({ items, cardProps, ouvert, onToggle }) {
     <div className="grid">
       {list.map((item) => (
         <div key={`${item.mediaType}-${item.id}`} className="upcoming-item">
-          <MovieCard item={item} isFollowed={true} status={item.status} {...cardProps} />
+          <MovieCard item={item} isFollowed={true} status={item.status} afficheDispo {...cardProps} />
           {item.releaseDate && (
             <p className="upcoming-item__date">Sortie le {formatReleaseDate(item.releaseDate)}</p>
           )}

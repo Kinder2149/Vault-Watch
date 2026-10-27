@@ -41,7 +41,7 @@ export default function Suggestions({
             key={key}
             style={{ animationDelay: `${Math.min(i % 12, 8) * 30}ms` }}
           >
-            <MovieCard item={item} isFollowed={!!followed} status={followed?.status} {...cardProps} />
+            <MovieCard item={item} isFollowed={!!followed} status={followed?.status} afficheDispo {...cardProps} />
           </div>
         );
       })}

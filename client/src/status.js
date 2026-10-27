@@ -105,15 +105,22 @@ export function etatDisponibilite({
     };
   }
 
-  // Les offres sont inconnues : rien d'autre à dire que la date.
-  if (!providers) return null;
+  const aLAffiche = !isSeries && enSalle instanceof Set && enSalle.has(id);
+
+  // Les offres sont inconnues (titre jamais relevé, ou hors suivi) : on ne dit que ce qui est vrai
+  // dans tous les cas — la date, et « à l'affiche » (un film dans la liste « en salle » y est,
+  // qu'il soit aussi sur une plateforme ou non).
+  if (!providers) {
+    return aLAffiche
+      ? { etat: 'au_cinema', libelle: 'Au cinéma', detail: 'À l’affiche en ce moment', plateformes: [] }
+      : null;
+  }
 
   const abonnement = providers.flatrate;
   const locationAchat = plateformesUniques(providers.rent, providers.buy);
 
   // 2. À l'affiche : seulement un film, et seulement sans abonnement (un film en salle qui est aussi
   // sur une plateforme — reprise d'un classique — est d'abord « disponible »).
-  const aLAffiche = !isSeries && enSalle instanceof Set && enSalle.has(id);
   if (!UNE_OFFRE(abonnement) && aLAffiche) {
     return { etat: 'au_cinema', libelle: 'Au cinéma', detail: 'À l’affiche en ce moment', plateformes: [] };
   }

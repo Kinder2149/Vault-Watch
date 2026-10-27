@@ -280,7 +280,7 @@ export default function Tonight({
                   key={`${item.mediaType}-${item.id}`}
                   style={{ animationDelay: `${Math.min(i, 8) * 40}ms` }}
                 >
-                  <MovieCard item={item} isFollowed={true} status={item.status} {...cardProps} />
+                  <MovieCard item={item} isFollowed={true} status={item.status} afficheDispo {...cardProps} />
                 </div>
               ))}
             </div>

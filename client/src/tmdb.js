@@ -923,8 +923,15 @@ async function chargerFilmsEnSalle(region) {
 // L'**année** reste celle de la sortie d'origine, même quand la date française
 // est plus tardive : Matrix est « 1999 » pour tout le monde, ce n'est pas au
 // réglage de langue de le changer.
+//
+// Disponibilité : les offres de streaming de la région arrivent **dans la même requête**
+// (`watch/providers`), ainsi que la saga d'un film. `offres` est `null` quand la région n'est pas
+// connue de l'appelant ; sinon `{ a: [abonnement], l: [location + achat] }` — la forme rangée dans le
+// suivi (voir db.js), chaque plateforme `{ n: nom, l: chemin du logo }`.
 export async function getCardInfo(mediaType, id, language, region) {
-  const params = mediaType === 'movie' ? { append_to_response: 'release_dates' } : {};
+  const params = {
+    append_to_response: mediaType === 'movie' ? 'release_dates,watch/providers' : 'watch/providers',
+  };
   const data = await tmdbGet(`/${mediaType}/${id}`, params, language);
   const carte = toCardItem(data, mediaType);
 
@@ -932,7 +939,25 @@ export async function getCardInfo(mediaType, id, language, region) {
     const locale = dateDeSortieRegionale(data.release_dates, region);
     if (locale) carte.releaseDate = locale;
   }
+
+  carte.offres = region ? offresCompactes(data['watch/providers']?.results?.[region]) : null;
+  carte.saga =
+    mediaType === 'movie' && data.belongs_to_collection
+      ? { id: data.belongs_to_collection.id, nom: data.belongs_to_collection.name }
+      : null;
   return carte;
+}
+
+// Offres d'une région sous la forme compacte rangée dans le suivi. Une région sans aucune offre
+// donne `{ a: [], l: [] }` (relevé fait, rien à voir), pas `null` (jamais relevé).
+function offresCompactes(offres) {
+  const reduire = (liste) =>
+    (liste || []).map((p) => ({ n: p.provider_name, l: p.logo_path || null }));
+  const location = new Map();
+  for (const p of [...reduire(offres?.rent), ...reduire(offres?.buy)]) {
+    if (!location.has(p.n)) location.set(p.n, p);
+  }
+  return { a: reduire(offres?.flatrate), l: [...location.values()] };
 }
 
 // Ce qu'il faut à un titre suivi « en attente » pour savoir s'il a désormais

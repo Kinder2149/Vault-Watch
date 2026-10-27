@@ -259,6 +259,12 @@ export async function mettreAJourDatesDeSortie() {
   return store.backfillReleaseDates();
 }
 
+// Relève la disponibilité (offres de streaming, saga) des titres encore à regarder : au lancement,
+// et après un ajout au suivi. Renvoie le nombre de titres relevés. Voir store.backfillDisponibilite.
+export async function mettreAJourDisponibilite() {
+  return store.backfillDisponibilite(requireProfile());
+}
+
 // Cycle de vérification des notifications de sortie (figé le 2026-09-27) :
 // ne revérifie que les titres suivis « en attente » d'une date. Le rythme
 // « une fois par jour » est géré par l'appelant (App.jsx).

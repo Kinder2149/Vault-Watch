@@ -96,16 +96,33 @@ export async function deleteProfile(id) {
 
 const STATUSES = ['a_voir', 'en_cours', 'vu', 'abandonne'];
 
-export function listSuivi(profileId) {
-  return query(
+// Offres rangées dans le suivi (voir db.js) → la forme que lit `etatDisponibilite`. `null` = jamais
+// relevé : inconnu, l'écran ne dit rien. Un texte illisible est traité comme inconnu.
+const URL_LOGO = 'https://image.tmdb.org/t/p/w45';
+export function offresDepuisSuivi(brut) {
+  if (!brut) return null;
+  try {
+    const { a = [], l = [] } = JSON.parse(brut);
+    const plateforme = (p) => ({ name: p.n, logoUrl: p.l ? `${URL_LOGO}${p.l}` : null });
+    return { flatrate: a.map(plateforme), rent: l.map(plateforme), buy: [] };
+  } catch {
+    return null;
+  }
+}
+
+export async function listSuivi(profileId) {
+  const lignes = await query(
     `SELECT s.tmdb_id AS id, s.media_type AS mediaType, s.title, s.year,
             s.release_date AS releaseDate, s.poster_url AS posterUrl, s.status,
-            s.note, s.rating, s.genres, s.added_at AS addedAt
+            s.note, s.rating, s.genres, s.added_at AS addedAt,
+            s.offres, s.saga_id AS sagaId, s.saga_nom AS sagaNom
      FROM suivi s
      WHERE s.profile_id = ?
      ORDER BY s.added_at DESC`,
     [profileId]
   );
+  // `providers` : les offres lues, ou null quand elles n'ont jamais été relevées.
+  return lignes.map(({ offres, ...ligne }) => ({ ...ligne, providers: offresDepuisSuivi(offres) }));
 }
 
 // --- Note personnelle ---
@@ -729,6 +746,81 @@ export async function backfillReleaseDates(region = getCatalogRegion()) {
     }
   }
   return completes;
+}
+
+// --- Disponibilité des titres (mission A3) ---
+//
+// Relève, pour les titres qu'on a encore à regarder, où ils en sont : les offres de streaming de la
+// région (et la saga d'un film), rangées dans le suivi pour que les affiches puissent dire d'un coup
+// d'œil « disponible », « en location »… sans appeler TMDB à chaque affichage ni hors connexion.
+//
+//  - **Qui** : les titres « à voir » et « en cours ». Un titre vu n'a pas besoin de pastille.
+//  - **Quand** : relevé manquant, relevé de plus de 7 jours, ou fait pour une autre région. Les titres
+//    jamais relevés passent en premier, puis les relevés les plus anciens.
+//  - **Combien** : au plus `LOT_DISPONIBILITE_MAX` titres par appel (par lots de 5 : ni un par un, ni
+//    tout d'un coup, TMDB coupe). Le reste attend le lancement suivant.
+//  - **Échec réseau** : rien n'est marqué, ce sera retenté. C'est ce qui rend un lancement hors connexion
+//    sans effet, et l'application inchangée en attendant.
+// Renvoie le nombre de titres relevés.
+export const LOT_DISPONIBILITE_MAX = 60;
+export const RENOUVELLEMENT_JOURS = 7;
+
+export async function backfillDisponibilite(
+  profileId,
+  { region = getCatalogRegion(), maximum = LOT_DISPONIBILITE_MAX, maintenant = new Date() } = {}
+) {
+  const jour = maintenant.toISOString().slice(0, 10);
+  const limite = new Date(maintenant.getTime() - RENOUVELLEMENT_JOURS * 86400000)
+    .toISOString()
+    .slice(0, 10);
+
+  const aFaire = await query(
+    `SELECT tmdb_id AS id, media_type AS mediaType
+     FROM suivi
+     WHERE profile_id = ?
+       AND status IN ('a_voir', 'en_cours')
+       AND (offres_maj IS NULL OR offres_maj <= ? OR offres_region IS NOT ?)
+     ORDER BY offres_maj IS NOT NULL, offres_maj
+     LIMIT ?`,
+    [profileId, limite, region, maximum]
+  );
+  if (aFaire.length === 0) return 0;
+
+  const langue = TMDB_LANG[getCatalogLanguage()];
+  let releves = 0;
+  const BATCH = 5;
+  for (let i = 0; i < aFaire.length; i += BATCH) {
+    const infos = await Promise.all(
+      aFaire.slice(i, i + BATCH).map((t) =>
+        getCardInfo(t.mediaType, t.id, langue, region)
+          .then((info) => ({ t, info }))
+          .catch(() => ({ t, info: null }))
+      )
+    );
+    for (const { t, info } of infos) {
+      if (!info?.offres) continue; // échec réseau : on ne marque rien
+      await run(
+        `UPDATE suivi
+            SET offres = ?, offres_maj = ?, offres_region = ?,
+                saga_id = ?, saga_nom = ?,
+                release_date = COALESCE(?, release_date)
+          WHERE profile_id = ? AND tmdb_id = ? AND media_type = ?`,
+        [
+          JSON.stringify(info.offres),
+          jour,
+          region,
+          info.saga?.id ?? null,
+          info.saga?.nom ?? null,
+          info.releaseDate ?? null,
+          profileId,
+          t.id,
+          t.mediaType,
+        ]
+      );
+      releves += 1;
+    }
+  }
+  return releves;
 }
 
 // --- Notifications de sortie : cycle de vérification (figé le 2026-09-27) ---
