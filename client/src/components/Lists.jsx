@@ -5,7 +5,7 @@ import AddToListe from './AddToListe.jsx';
 import Filtres from './Filtres.jsx';
 import Vide from './Vide.jsx';
 import { GrilleFantome } from './Fantomes.jsx';
-import { STATUSES, isUpcoming, titreCorrespond, resumeBiblio } from '../status.js';
+import { STATUSES, titreCorrespond, resumeBiblio } from '../status.js';
 import { getListeItems } from '../api.js';
 import {
   TRIS_BIBLIO,
@@ -76,22 +76,17 @@ export default function Lists({
     }
   }, [listes, selected]);
 
-  // Les titres pas encore sortis vivent dans l'onglet « Sorties à venir »,
-  // pas dans « À voir » (ils y reviennent automatiquement une fois sortis).
-  const statusCount = (v) =>
-    items.filter((i) => (i.status || 'a_voir') === v && !(v === 'a_voir' && isUpcoming(i)))
-      .length;
+  // Rien ne disparaît de la bibliothèque : « À voir » montre **tous** les titres à voir (décision de
+  // Kinder, 2026-10-27), la pastille de chaque affiche dit où il en est (pas encore sorti, au cinéma,
+  // disponible…). Seul l'écran « Ce soir » trie ce qui est regardable.
+  const statusCount = (v) => items.filter((i) => (i.status || 'a_voir') === v).length;
 
   const mainItems = cherche
     ? items
         .filter((i) => titreCorrespond(i.title, recherche))
         .sort((a, b) => a.title.localeCompare(b.title, 'fr'))
     : selected.type === 'status'
-      ? items.filter(
-          (i) =>
-            (i.status || 'a_voir') === selected.value &&
-            !(selected.value === 'a_voir' && isUpcoming(i))
-        )
+      ? items.filter((i) => (i.status || 'a_voir') === selected.value)
       : listItems;
 
   const selectedListe =

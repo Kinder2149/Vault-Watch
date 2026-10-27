@@ -46,7 +46,8 @@ function chargerSalle() {
   return memoire;
 }
 
-function useFilmsEnSalle() {
+// Liste « au cinéma » du jour : Set d'identifiants, `null` si inconnue, `undefined` tant qu'elle n'est pas lue.
+export function useFilmsEnSalle() {
   const [valeur, setValeur] = useState(() => chargerSalle().valeur);
   useEffect(() => {
     let annule = false;

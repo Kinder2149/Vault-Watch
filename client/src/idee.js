@@ -1,7 +1,7 @@
 // « Idée du soir » : un seul titre à proposer, parmi ceux qu'on a mis « à voir » et qui
 // sont déjà sortis. Pur et sans réseau.
 
-import { isUpcoming } from './status.js';
+import { estRegardable } from './status.js';
 
 // Générateur pseudo-aléatoire à graine : même graine, même suite.
 function mulberry32(graine) {
@@ -33,15 +33,16 @@ export function aujourdhui(maintenant = new Date()) {
 }
 
 // Les candidats : « à voir » et déjà sortis. Les séries en cours ont leur rangée « Reprendre ».
-export function candidatsIdee(items) {
-  return items.filter((i) => i.status === 'a_voir' && !isUpcoming(i));
+// « Regardables » : voir `estRegardable` (pas un film au cinéma, ni à venir, ni sans aucune offre).
+export function candidatsIdee(items, enSalle = null) {
+  return items.filter((i) => i.status === 'a_voir' && estRegardable(i, enSalle));
 }
 
 // Le titre proposé. `rang` passe à l'idée suivante du même tirage : tant qu'il reste des
 // candidats, deux rangs différents donnent deux titres différents ; au-delà on reboucle.
 // Le tirage ne dépend que du profil, du jour et de l'ensemble des candidats (pas de leur ordre).
-export function ideeDuSoir(items, { profileId, date, rang = 0 }) {
-  const candidats = candidatsIdee(items).sort((a, b) => (cleDe(a) < cleDe(b) ? -1 : 1));
+export function ideeDuSoir(items, { profileId, date, rang = 0, enSalle = null }) {
+  const candidats = candidatsIdee(items, enSalle).sort((a, b) => (cleDe(a) < cleDe(b) ? -1 : 1));
   if (candidats.length === 0) return null;
   const hasard = mulberry32(hachage(`${profileId}|${date}`));
   for (let i = candidats.length - 1; i > 0; i--) {

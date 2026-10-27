@@ -1827,6 +1827,20 @@ dans « À voir ce soir » ; Mes listes montre les six.
 ils en sont, rien ne disparaît) ou, comme aujourd'hui, cacher ceux qui ne sont pas encore sortis (et désormais aussi ceux au cinéma ou sans
 streaming) ?
 
+**A3-3 codée et vérifiée à l'écran (2026-10-27)** — 428 tests verts (15 nouveaux : `regardable`), build OK. Capture dans
+`essais/2026-10-27_A3-3/`. Décision de Kinder : dans Mes listes, « À voir » montre **tous** les titres à voir.
+Suivi de 8 titres à voir (vrai catalogue, navigateur en largeur téléphone) :
+- **Ce soir** : « À voir ce soir — 3 titres à regarder » = Matchbox (disponible), Grey's Anatomy (série disponible), Projet Dernière Chance
+  (location). « **Pas encore disponible** — 5 titres · 1 au cinéma · prochaine sortie le 25/11/2026 » = Clayface (Au cinéma), Avengers :
+  Doomsday et Blade Runner 2099 (À venir), Spider-Man : Brand New Day et Chicago Typewriter (Pas en streaming), chacun avec sa pastille.
+- **L'idée du soir** : Grey's Anatomy (un titre regardable) ; testé sur 15 jours × 6 rangs en test unitaire : jamais un titre non regardable.
+- **Mes listes** : « À voir 8 », les 8 cartes présentes avec leur pastille (rien ne disparaît plus de la bibliothèque).
+- **Fiche** : la note « Pas d'info de disponibilité » ne double plus une pastille « Pas encore sorti » / « Au cinéma » / « Sorti, pas en streaming ».
+- Un titre à état inconnu reste visible dans « À voir ce soir » (test unitaire ; non filmé : le relevé du lancement le complète en quelques
+  secondes).
+Case A3-3 à cocher après validation de Kinder. **Reste A3-4 : clôture** (prompt de vérification, essai réseau coupé sur l'émulateur,
+capture finale de Kinder).
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les

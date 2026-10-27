@@ -155,6 +155,32 @@ export function etatDisponibilite({
   };
 }
 
+// --- « Regardable ce soir » (mission « Disponibilité », A3-3) ---
+//
+// Une seule règle pour tout l'écran « Ce soir » et l'idée du soir. Regardable : état inconnu (on ne
+// cache jamais un titre par défaut), « Disponible », « En location / achat ». Pas regardable : « Pas encore
+// sorti », « Au cinéma », « Sorti, pas en streaming ».
+export const NON_REGARDABLES = ['a_venir', 'au_cinema', 'sorti_sans_streaming'];
+
+// L'état de disponibilité d'un titre du suivi : offres et date de la région rangées dans la ligne, liste
+// « au cinéma » du jour (Set, ou null/undefined si inconnue).
+export function etatDeTitre(titre, enSalle = null, aujourdhui) {
+  const estSerie = titre.mediaType === 'tv';
+  return etatDisponibilite({
+    isSeries: estSerie,
+    id: titre.id,
+    releaseDate: titre.releaseDate ?? null,
+    providers: titre.providers ?? null,
+    enSalle: estSerie ? null : enSalle ?? null,
+    ...(aujourdhui ? { aujourdhui } : {}),
+  });
+}
+
+export function estRegardable(titre, enSalle = null, aujourdhui) {
+  const etat = etatDeTitre(titre, enSalle, aujourdhui);
+  return !etat || !NON_REGARDABLES.includes(etat.etat);
+}
+
 // Ce que le cycle de vérification (store.checkNotifications) doit retenir
 // pour un titre : la date à surveiller, et s'il faut encore le revérifier au
 // prochain lancement. Une fois une date trouvée, l'élément reste en attente

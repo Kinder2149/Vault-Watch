@@ -713,7 +713,9 @@ export default function Detail({
                   <p className="attn">Disponibilité fournie par JustWatch (via TMDB).</p>
                 </>
               ) : (
-                <p className="panel__note">Pas d’info de disponibilité pour le moment.</p>
+                // Quand la pastille dit déjà où en est le titre (pas encore sorti, au cinéma, sorti sans
+                // streaming), pas de redite : la note ne reste que pour une disponibilité inconnue.
+                !dispo && <p className="panel__note">Pas d’info de disponibilité pour le moment.</p>
               )}
             </section>
           )}

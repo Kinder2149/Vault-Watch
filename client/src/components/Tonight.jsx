@@ -8,7 +8,8 @@ import Hero from './Hero.jsx';
 import Vide from './Vide.jsx';
 import VueRayon from './VueRayon.jsx';
 import { getProgress } from '../api.js';
-import { isUpcoming, libelleProchain } from '../status.js';
+import { estRegardable, libelleProchain } from '../status.js';
+import { useFilmsEnSalle } from './PastilleCarte.jsx';
 import { ideeDuSoir, depuisLibelle, aujourdhui } from '../idee.js';
 
 // Page « Quoi regarder ce soir ? », en deux sous-onglets :
@@ -84,11 +85,14 @@ export default function Tonight({
 
   const enCours = items.filter((i) => i.mediaType === 'tv' && i.status === 'en_cours');
 
-  // « À voir » ne montre que ce qu'on peut regarder ce soir : les titres pas
-  // encore sortis en sont écartés, ils ont leur propre section « Pas encore
-  // sorti » en bas de page. Sans ce filtre le même film apparaissait deux
-  // fois sur la page. Même règle que dans « Mes listes ».
-  const aVoir = items.filter((i) => i.status === 'a_voir' && !isUpcoming(i));
+  // « À voir ce soir » ne montre que ce qu'on peut regarder : un titre pas encore sorti, au cinéma ou
+  // sorti sans aucune offre en est écarté, il a sa propre section « Pas encore disponible » en bas de
+  // page (une seule règle : `estRegardable`). Un titre dont on ne sait pas encore où il en est
+  // (jamais relevé, ou liste « au cinéma » pas encore lue) reste visible ici.
+  const enSalle = useFilmsEnSalle();
+  const aVoirTous = items.filter((i) => i.status === 'a_voir');
+  const aVoir = aVoirTous.filter((i) => estRegardable(i, enSalle));
+  const pasDisponibles = aVoirTous.filter((i) => !estRegardable(i, enSalle));
 
   // Prochain épisode de chaque série en cours.
   const [progress, setProgress] = useState({});
@@ -132,7 +136,7 @@ export default function Tonight({
       return 0;
     }
   });
-  const idee = ideeDuSoir(items, { profileId, date, rang });
+  const idee = ideeDuSoir(items, { profileId, date, rang, enSalle });
   function autreIdee() {
     const suivant = rang + 1;
     setRang(suivant);
@@ -154,8 +158,7 @@ export default function Tonight({
         .join(' · ')
     : '';
 
-  const aDesSorties = items.some((i) => (i.status || 'a_voir') === 'a_voir' && isUpcoming(i));
-  const nothing = aReprendre.length === 0 && aVoir.length === 0 && !aDesSorties;
+  const nothing = aReprendre.length === 0 && aVoir.length === 0 && pasDisponibles.length === 0;
 
   const lotAVoir = async (media) =>
     media === 'all' ? aVoir : aVoir.filter((i) => i.mediaType === media);
@@ -262,7 +265,7 @@ export default function Tonight({
               <div className="sec__txt">
                 <h3 className="sec__title">À voir ce soir</h3>
                 <p className="sec__sub">
-                  {aVoir.length} {aVoir.length > 1 ? 'titres déjà sortis' : 'titre déjà sorti'}
+                  {aVoir.length} {aVoir.length > 1 ? 'titres à regarder' : 'titre à regarder'}
                 </p>
               </div>
               {aVoir.length > 6 && (
@@ -287,9 +290,10 @@ export default function Tonight({
           </section>
         )}
 
-        {/* En dernier : ce qui n'est pas encore sorti ne se regarde pas ce soir. */}
+        {/* En dernier : ce qui n'est pas encore disponible (pas sorti, au cinéma, sans offre) ne se regarde pas ce soir. */}
         <Upcoming
-          items={items}
+          items={pasDisponibles}
+          enSalle={enSalle}
           cardProps={cardProps}
           ouvert={sortiesOuvert}
           onToggle={basculeSorties}
@@ -325,7 +329,7 @@ export default function Tonight({
       {toutVoir && (
         <VueRayon
           titre="À voir ce soir"
-          sous="Ce qui est déjà sorti dans ta liste « à voir »."
+          sous="Ce que tu peux regarder dans ta liste « à voir »."
           lot={lotAVoir}
           pagine={false}
           suivi={suivi}
