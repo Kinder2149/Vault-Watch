@@ -1885,6 +1885,45 @@ d'abord échoué pour manque de place et n'a réussi qu'après la désinstallati
 dédié (`VaultWatch_Test`, 6 Go) a été créé mais n'a pas démarré (adb resté « offline ») ; supprimable : `avdmanager delete avd -n VaultWatch_Test`.
 Cases A3-1 à A3-3 à cocher après validation de Kinder.
 
+### Mission « Sagas regroupées » (B3) — PLAN et cadrage (phases 4 et 5, 2026-10-27, à valider par Kinder)
+Décisions figées : `PROJET_CONTEXTE.md` (« Décision du 2026-10-27 — feuille de route »). Deux étapes : B3-1 (tout le travail), B3-2 (clôture).
+
+**Critère de fin de mission (brouillon, à réécrire par Kinder)** : « Dans mes listes, les films d'une même saga sont regroupés sous un en-tête
+« Saga … — N titres », dans l'ordre de sortie, et je peux désactiver ce regroupement. »
+
+| Étape | Contenu | Critère (vérifiable sur capture) |
+|---|---|---|
+| B3-1 | Saga rangée pour **tous** les films suivis (pas seulement « à voir » / « en cours »), fonction pure de regroupement, affichage dans Mes listes (statuts et listes créées), réglage « Regrouper les sagas » (actif par défaut, retenu) | Mes listes avec 6 Star Wars, 2 Dune et 3 films isolés : la section Films montre « Saga Star Wars — 6 titres » (6 films dans l'ordre de sortie), « Saga Dune — 2 titres », puis les films isolés ; même chose dans « Vu » et dans une liste créée ; réglage coupé : liste à plat ; réglage retenu après relance ; après relance **sans réseau**, toujours groupé |
+| B3-2 | **Clôture** : checklist, prompt de vérification pour une autre IA, capture finale de Kinder | Verdict réussi sur chaque critère ; capture finale de Kinder |
+
+**Cadrage de B3-1**
+- *Constat* : le relevé de A3-2 (`backfillDisponibilite`) range `saga_id` / `saga_nom`, mais **seulement pour les titres à voir ou en cours**, et
+  n'écrit rien quand il n'y a pas de saga : on ne sait pas distinguer « pas de saga » de « jamais relevé ». Or le regroupement doit marcher dans
+  **toutes** les vues (dont « Vu »).
+- *Données* (`store.js`) : `saga_id = 0` signifie « relevé, pas de saga » ; NULL reste « jamais relevé ». `backfillDisponibilite` écrit 0 quand il n'y a
+  pas de saga. Nouveau `backfillSagas` : les **films** de tout statut dont `saga_id` est NULL, un appel chacun (le même `getCardInfo`), lots de 5,
+  **au plus 80 par lancement** (relevé unique : l'appartenance d'un film à une saga ne bouge pratiquement jamais, donc pas de renouvellement) ;
+  échec réseau = rien de marqué. Branché au lancement après le relevé de disponibilité. `listSuivi` rend `sagaId` (nul quand 0) et `sagaNom`.
+  Une série n'a pas de saga chez TMDB : jamais relevée. Aucun changement de sauvegarde (données dérivées).
+- *Logique pure* (nouveau `client/src/sagas.js`, testée) : `regrouperSagas(films, { actif })` renvoie une suite de blocs, `{ film }` ou
+  `{ saga: { id, nom, films } }`. Une saga n'est un groupe que si **≥ 2 films de la vue** en font partie (un seul : il reste libre). Les films d'un
+  groupe sont dans l'ordre de **sortie** ; le groupe prend la place de son **premier membre** dans l'ordre de tri en cours (le tri de la vue est
+  respecté). `nomDeSaga` retire les suffixes « - Saga » / « Collection » de TMDB, et l'en-tête dit « Saga <nom> — N titres ».
+- *Écran* (`Lists.jsx`, `styles.css`) : seule la section **Films** regroupe ; l'en-tête occupe toute la largeur de la grille, les affiches du groupe
+  suivent dans la même grille. **Pas de regroupement pendant une recherche** dans la bibliothèque (liste A→Z d'un titre précis). Un interrupteur
+  « Regrouper les sagas » dans la rangée d'outils (à côté de Films / Séries et de Filtres), actif par défaut, retenu dans le stockage local de
+  l'appareil. **Pas** dans Ce soir, Découvrir ni la Recherche : la demande portait sur les vues de liste.
+- *Fichiers touchés* : `client/src/store.js`, `client/src/api.js`, `client/src/App.jsx` (lancement), `client/src/sagas.js` (nouveau),
+  `client/src/components/Lists.jsx`, `client/src/styles.css`, `client/tests/sagas.test.js` (nouveau), `client/tests/disponibilite-stockage.test.js` (adapté).
+- *Ce qu'on ne fait pas* : ordre de lecture des mangas (B7, abandonné), filtres (B1), sagas dans Ce soir, regroupement des séries, saga dans la sauvegarde.
+- *Vérification* : tests — groupes à partir de deux films, un seul reste libre, ordre de sortie dans le groupe, position du groupe selon le tri,
+  réglage coupé = liste à plat, nom nettoyé, relevé de saga (tout statut, sentinelle 0, plafond de 80, échec réseau, séries ignorées).
+  Navigateur en largeur téléphone, vrai catalogue : 6 Star Wars, 2 Dune, 3 films isolés (statuts « à voir » et « vu », et une liste créée) ; capture du
+  groupe, du réglage coupé, relance. Coupure réseau complète : à la clôture, sur l'émulateur.
+
+**Questions pour Kinder** : (1) l'en-tête « Saga Star Wars — 6 titres » te convient-il ? (2) regroupement actif par défaut, dans tous les statuts et toutes tes
+listes, mais pas dans Ce soir ni Découvrir : d'accord ?
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
