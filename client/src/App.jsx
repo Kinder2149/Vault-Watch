@@ -70,6 +70,7 @@ import {
 import {
   sauvegardeAutomatique,
   surChangementDeSauvegarde,
+  demarrerEcouteReseau,
   lireEtatSauvegarde,
   bandeauSauvegarde,
 } from './backup.js';
@@ -758,6 +759,8 @@ export default function App() {
   // envoi réussi ou raté) relance le calcul. Tant qu'une attente est en cours on le relance aussi
   // toutes les 30 s, pour franchir le seuil des 10 min sans qu'il se passe autre chose.
   useEffect(() => surChangementDeSauvegarde(() => setVersionSauvegarde((n) => n + 1)), []);
+  // Retour de la connexion : un envoi raté faute de réseau repart tout seul (voir `reprendreApresReseau`).
+  useEffect(() => demarrerEcouteReseau(), []);
   const etatSauvegarde = lireEtatSauvegarde();
   const enAttente = etatSauvegarde.enAttente;
   useEffect(() => {

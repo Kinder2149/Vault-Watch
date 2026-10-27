@@ -1513,6 +1513,28 @@ Kinder : l'émulateur l'a perdu) : Wi-Fi et données coupés, j'ajoute un titre,
 connexion »), je rétablis le réseau sans toucher l'application : « Sauvegardé à HH:MM » en quelques secondes ; capture avant
 et après. Ceci boucle aussi le cas « modification normale, 35 s, sans bandeau » laissé ouvert en S3.
 
+**S4 codée et essayée sur émulateur avec un vrai compte Google (2026-10-27)** — 370 tests verts (8 nouveaux). Captures dans
+`essais/2026-10-27_S4/`.
+- *Modification normale* (vrai compte) : aucun bandeau à 5 s ni à 37 s ; envoi à 08:22:42, `fait: true`, drapeau levé. Boucle le
+  cas laissé ouvert en S3.
+- *Conflit réel* (pas simulé) rencontré à la première connexion : l'installation neuve de l'émulateur recrée le profil de
+  démonstration, dont l'identifiant est le même que celui déjà sur le Drive. Le bandeau « Un autre appareil a modifié ta
+  sauvegarde » est apparu à 30 s ; résolu par « Garder ce téléphone ». C'est exactement le scénario « réinstallation sans avoir
+  restauré », probable cause de A1 sur le téléphone de Kinder (à confirmer par S0).
+- *Retour du réseau* : Wi-Fi et données coupés, un titre ajouté, échec à 08:26:24 (« En attente : pas de connexion »), réseau
+  rétabli : « Sauvegardé à 08:26 » **7 s plus tard**, sans rien toucher.
+- **Découverte importante — permission Android manquante.** Premier essai : réseau rétabli, **aucune reprise en 26 s**. Cause :
+  le manifeste ne déclare pas `ACCESS_NETWORK_STATE`, et sans elle le WebView ne voit **jamais** la connexion changer
+  (`navigator.onLine` reste `true`, aucun évènement `online` / `offline`). Avec la permission, les évènements arrivent
+  (`offline` 08:25:24, `online` 08:25:30). Conséquence plus large : `useEnLigne()` (écrans « hors connexion » de toute
+  l'application) n'a jamais pu se déclencher sur téléphone.
+- **Décision à prendre par Kinder** : ajouter `<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />`
+  dans `AndroidManifest.xml`. Permission « normale » : accordée à l'installation, **aucune fenêtre de demande**, sans lien avec
+  le formulaire « Sécurité des données », mais elle apparaît dans la liste des autorisations de la fiche Play Store. Elle est
+  isolée dans son propre commit pour pouvoir être écartée. Sans elle, S4 ne reprend pas toute seule (filets restants :
+  retour dans l'application, nouvelle modification, bandeau des 10 min).
+- Case S4 à cocher après validation de Kinder.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les

@@ -495,14 +495,15 @@ export function reglerSauvegardeAuto(active) {
 //  - **Écart** : jamais deux tentatives automatiques à moins de `ecart` ms l'une de l'autre.
 //  - **Pas de boucle** : un échec ne programme rien tout seul. Conflit et autorisation refusée
 //    ne se reprogramment pas non plus (même résultat tant que l'utilisateur n'a pas agi).
-let delais = { calme: 30_000, max: 120_000, ecart: 60_000 };
+let delais = { calme: 30_000, max: 120_000, ecart: 60_000, reseau: 3_000 };
 let minuterie = null;
 let debutLot = 0; // première modification du lot en cours
+let repriseProgrammee = false; // un envoi est déjà prévu pour le retour du réseau
 let dernierEssaiAuto = 0; // début de la dernière tentative automatique
 
 // Pour les tests : des délais courts, et une minuterie remise à zéro.
 export function reglerDelaisEnvoi(nouveaux) {
-  delais = { calme: 30_000, max: 120_000, ecart: 60_000, ...nouveaux };
+  delais = { calme: 30_000, max: 120_000, ecart: 60_000, reseau: 3_000, ...nouveaux };
   dernierEssaiAuto = 0;
   annulerEnvoi();
 }
@@ -511,6 +512,7 @@ function annulerEnvoi() {
   clearTimeout(minuterie);
   minuterie = null;
   debutLot = 0;
+  repriseProgrammee = false;
 }
 
 // Vrai si le dernier essai a buté sur quelque chose que seul l'utilisateur peut lever.
@@ -538,6 +540,7 @@ function programmerEnvoi() {
 async function declencherEnvoi() {
   minuterie = null;
   debutLot = 0;
+  repriseProgrammee = false;
   // Une modification arrivée pendant l'envoi a déjà reprogrammé le suivant (`markChanged`).
   await sauvegardeAutomatique();
 }
@@ -737,6 +740,35 @@ export function bandeauSauvegarde({
 function dureeLisible(ms) {
   const minutes = Math.max(0, Math.floor(ms / 60000));
   return minutes < 60 ? `${minutes} min` : `${Math.floor(minutes / 60)} h`;
+}
+
+// --- Retour du réseau ---
+//
+// Un envoi raté faute de réseau ne se relance pas tout seul : il attendait la modification
+// suivante, un passage par la sortie de l'application, ou le bandeau des 10 min. Au retour de la
+// connexion on le relance, une fois, quelques secondes plus tard (le temps qu'elle se stabilise).
+//  - le dernier essai a échoué faute de réseau : il n'a rien consommé, l'écart minimal est ignoré ;
+//  - une connexion qui sautille donne un seul envoi programmé ;
+//  - conflit et autorisation refusée ne se relancent pas : rien n'aurait changé.
+export function reprendreApresReseau() {
+  if (!getAccount() || !sauvegardeAutoActive() || !hasPendingChanges() || envoiBloque()) return;
+  const essai = dernierEssaiAutomatique();
+  if (!(essai && !essai.fait && essai.raison === 'hors-ligne')) {
+    // Pas d'échec réseau en cause : les règles ordinaires de l'envoi différé s'appliquent.
+    if (!minuterie) programmerEnvoi();
+    return;
+  }
+  if (repriseProgrammee) return;
+  repriseProgrammee = true;
+  clearTimeout(minuterie);
+  minuterie = setTimeout(declencherEnvoi, delais.reseau);
+}
+
+// Écoute le retour de la connexion ; rend la fonction qui retire l'écoute.
+export function demarrerEcouteReseau() {
+  if (typeof window === 'undefined') return () => {};
+  window.addEventListener('online', reprendreApresReseau);
+  return () => window.removeEventListener('online', reprendreApresReseau);
 }
 
 // Date de la dernière sauvegarde réussie, ou null. Affichée en clair : c'est
