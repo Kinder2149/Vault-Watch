@@ -88,12 +88,19 @@ describe('application Android', () => {
     console.info(`Version déclarée : ${versionName} (versionCode ${versionCode})`);
   });
 
-  it('demande l’accès à internet, et rien de plus', () => {
+  it('ne demande que l’accès à internet et à l’état de la connexion, rien de plus', () => {
+    // ACCESS_NETWORK_STATE ajoutée le 2026-10-27, validée par Kinder : sans elle le WebView ne voit
+    // jamais la connexion changer (navigator.onLine reste vrai, aucun évènement online / offline),
+    // donc la sauvegarde ne peut pas reprendre au retour du réseau. Permission « normale » : aucune
+    // fenêtre de demande. Toute autre permission doit être décidée de la même façon.
     const manifeste = lire('../android/app/src/main/AndroidManifest.xml');
     const permissions = [...manifeste.matchAll(/uses-permission android:name="([^"]+)"/g)].map(
       (m) => m[1]
     );
-    expect(permissions).toEqual(['android.permission.INTERNET']);
+    expect(permissions.sort()).toEqual([
+      'android.permission.ACCESS_NETWORK_STATE',
+      'android.permission.INTERNET',
+    ]);
   });
 
   it('ne laisse pas Android copier le suivi vers le compte Google du téléphone', () => {

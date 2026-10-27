@@ -1535,6 +1535,44 @@ et après. Ceci boucle aussi le cas « modification normale, 35 s, sans bandeau 
   retour dans l'application, nouvelle modification, bandeau des 10 min).
 - Case S4 à cocher après validation de Kinder.
 
+#### S5 — Clôture (2026-10-27)
+```
+CLÔTURE DE MISSION — SAUVEGARDE CLOUD (S1 à S4)
+
+CÔTÉ IA QUI A CODÉ :
+☑ C1 — Build : passe (`vite build` normal et `VITE_PARTAGE=1`, APK de debug construit)
+☑ C2 — Périmètre : fichiers listés ci-dessous ; `google.js` et le code natif Java inchangés ; seule ajout natif : une
+        permission dans `AndroidManifest.xml` (validée par Kinder)
+☑ C3 — Tests de code : S1 « états lisibles » → réussi (13 tests) ; S2 « envoi différé » → réussi (11) ; S3 « bandeau
+        seulement si bloqué » → réussi (13 + 1) ; S4 « reprise au retour du réseau » → réussi (8) ; tests existants :
+        370 au total, tous verts (un test de garde sur les permissions a été mis à jour avec la décision de Kinder)
+☑ C4 — CHANGELOG : bloc « Sauvegarde cloud — logique reprise en entier » ajouté
+☑ C5 — PROJET_CONTEXTE : « Point du 2026-10-27 » ajouté (ce projet n'a pas de numérotation « section 8 »)
+☑ C6 — Graphify : mis à jour (AST de `client/src` et `client/tests` rafraîchi : 327 → 545 nœuds ; extraction sémantique des
+        documents non refaite)
+☑ C7 — Synchronisation : « Périmètre construit » point 9 mis à jour ; décisions du 2026-10-26 (logique) et du 2026-10-27
+        (permission) figées ; aucune décision figée antérieure levée sauf « aucune permission en plus » (validée)
+☑ C8 — Prompt de vérification rédigé : `essais/prompt-verification-sauvegarde-cloud.txt`
+
+FICHIERS MODIFIÉS (en langage fonctionnel) :
+- la logique de sauvegarde (états, envoi différé, bandeau, reprise réseau) → client/src/backup.js
+- l'écran Sauvegarde (bloc d'état, choix de conflit amené à l'écran) → client/src/components/Backup.jsx
+- la barre du haut de l'application (bandeau d'alerte, écoute du réseau) → client/src/App.jsx
+- l'apparence du bloc d'état → client/src/styles.css
+- les droits de l'application Android (état du réseau) → client/android/app/src/main/AndroidManifest.xml
+- les tests → client/tests (etat-sauvegarde, envoi-differe, bandeau-sauvegarde, reprise-reseau, cloud.auto, configuration)
+
+CÔTÉ IA DE VÉRIFICATION :
+☐ V1-V4 — Rapport rendu : [critère → capture → réussi / échoué]
+
+CÔTÉ KINDER :
+☐ K1 — Liste des fichiers lue et comprise
+☐ K2 — Capture finale sur son téléphone : Réglages > Sauvegarde après avoir coché un épisode et attendu ~35 s
+☐ K3 — Résultat : ✅ Mission validée / ❌ Problème détecté → [décrire]
+```
+Hors périmètre de cette clôture (restent ouverts) : S0 (téléphone de Kinder), B6 (fusion en cas de conflit), les autres points
+des retours du 25/10 (A3, A6, B1, B2, B3, B7).
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les

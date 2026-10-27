@@ -1,442 +1,634 @@
-# Graph Report - .  (2026-09-19)
+# Graph Report - .  (2026-10-27)
 
 ## Corpus Check
-- 70 files · ~0 words
-- Verdict: corpus is large enough that graph structure adds value.
+- Large corpus: 183 files · ~849,211 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder, or use --no-semantic to run AST-only.
 
 ## Summary
-- 327 nodes · 434 edges · 64 communities detected
+- 545 nodes · 779 edges · 98 communities detected
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
-- [[_COMMUNITY_Porte API (api.js)|Porte API (api.js)]]
-- [[_COMMUNITY_Règles métier (store.js)|Règles métier (store.js)]]
-- [[_COMMUNITY_Sauvegarde (backup.js)|Sauvegarde (backup.js)]]
-- [[_COMMUNITY_Connexion Google Drive|Connexion Google Drive]]
-- [[_COMMUNITY_Catalogue TMDB|Catalogue TMDB]]
-- [[_COMMUNITY_Base embarquée (db.js)|Base embarquée (db.js)]]
-- [[_COMMUNITY_Serveur  listes (archivé)|Serveur : listes (archivé)]]
-- [[_COMMUNITY_Avatars de profil|Avatars de profil]]
-- [[_COMMUNITY_Serveur  base (archivé)|Serveur : base (archivé)]]
-- [[_COMMUNITY_Langue du catalogue|Langue du catalogue]]
-- [[_COMMUNITY_Statuts et dates (status.js)|Statuts et dates (status.js)]]
-- [[_COMMUNITY_Tests  stockage simulé|Tests : stockage simulé]]
-- [[_COMMUNITY_Serveur  épisodes (archivé)|Serveur : épisodes (archivé)]]
-- [[_COMMUNITY_Serveur  profils (archivé)|Serveur : profils (archivé)]]
-- [[_COMMUNITY_Serveur  suivi (archivé)|Serveur : suivi (archivé)]]
-- [[_COMMUNITY_Plugin Drive Android (Java)|Plugin Drive Android (Java)]]
-- [[_COMMUNITY_Écran Sauvegarde|Écran Sauvegarde]]
-- [[_COMMUNITY_Écran Statistiques|Écran Statistiques]]
-- [[_COMMUNITY_Fichiers locaux|Fichiers locaux]]
-- [[_COMMUNITY_Test de configuration|Test de configuration]]
-- [[_COMMUNITY_Coque Android|Coque Android]]
-- [[_COMMUNITY_Test Android d exemple|Test Android d exemple]]
-- [[_COMMUNITY_Application (App.jsx)|Application (App.jsx)]]
-- [[_COMMUNITY_Écran Profils|Écran Profils]]
-- [[_COMMUNITY_Tests des règles|Tests des règles]]
-- [[_COMMUNITY_Tests  stockage simulé (idb)|Tests : stockage simulé (idb)]]
-- [[_COMMUNITY_Export vers l app|Export vers l app]]
-- [[_COMMUNITY_About()|About()]]
-- [[_COMMUNITY_AddToListe()|AddToListe()]]
-- [[_COMMUNITY_Bloc()|Bloc()]]
-- [[_COMMUNITY_CatalogLanguage()|CatalogLanguage()]]
-- [[_COMMUNITY_Detail.jsx|Detail.jsx]]
-- [[_COMMUNITY_Icon.jsx|Icon.jsx]]
-- [[_COMMUNITY_Lists.jsx|Lists.jsx]]
-- [[_COMMUNITY_MovieCard.jsx|MovieCard.jsx]]
-- [[_COMMUNITY_SearchBar.jsx|SearchBar.jsx]]
-- [[_COMMUNITY_Settings.jsx|Settings.jsx]]
-- [[_COMMUNITY_StatusMenu.jsx|StatusMenu.jsx]]
-- [[_COMMUNITY_Suggestions.jsx|Suggestions.jsx]]
-- [[_COMMUNITY_Tonight.jsx|Tonight.jsx]]
-- [[_COMMUNITY_Upcoming.jsx|Upcoming.jsx]]
-- [[_COMMUNITY_remplirProfil()|remplirProfil()]]
-- [[_COMMUNITY_cloud.test.js|cloud.test.js]]
-- [[_COMMUNITY_vitest.config.js|vitest.config.js]]
-- [[_COMMUNITY_requireProfile()|requireProfile()]]
-- [[_COMMUNITY_sw.js|sw.js]]
-- [[_COMMUNITY_main.jsx|main.jsx]]
-- [[_COMMUNITY_cloud.auto.test.js|cloud.auto.test.js]]
-- [[_COMMUNITY_db.test.js|db.test.js]]
-- [[_COMMUNITY_reglages.test.js|reglages.test.js]]
-- [[_COMMUNITY_tmdb.live.test.js|tmdb.live.test.js]]
-- [[_COMMUNITY_capacitor.js|capacitor.js]]
-- [[_COMMUNITY_sqljs.js|sqljs.js]]
-- [[_COMMUNITY_vite.config.js|vite.config.js]]
-- [[_COMMUNITY_vitest.services.config.js|vitest.services.config.js]]
-- [[_COMMUNITY_index.js|index.js]]
-- [[_COMMUNITY_browse.js|browse.js]]
-- [[_COMMUNITY_details.js|details.js]]
-- [[_COMMUNITY_listes.js|listes.js]]
-- [[_COMMUNITY_profiles.js|profiles.js]]
-- [[_COMMUNITY_search.js|search.js]]
-- [[_COMMUNITY_series.js|series.js]]
-- [[_COMMUNITY_suggestions.js|suggestions.js]]
-- [[_COMMUNITY_suivi.js|suivi.js]]
+- [[_COMMUNITY_Community 0|Community 0]]
+- [[_COMMUNITY_Community 1|Community 1]]
+- [[_COMMUNITY_Community 2|Community 2]]
+- [[_COMMUNITY_Community 3|Community 3]]
+- [[_COMMUNITY_Community 4|Community 4]]
+- [[_COMMUNITY_Community 5|Community 5]]
+- [[_COMMUNITY_Community 6|Community 6]]
+- [[_COMMUNITY_Community 7|Community 7]]
+- [[_COMMUNITY_Community 8|Community 8]]
+- [[_COMMUNITY_Community 9|Community 9]]
+- [[_COMMUNITY_Community 10|Community 10]]
+- [[_COMMUNITY_Community 11|Community 11]]
+- [[_COMMUNITY_Community 12|Community 12]]
+- [[_COMMUNITY_Community 13|Community 13]]
+- [[_COMMUNITY_Community 14|Community 14]]
+- [[_COMMUNITY_Community 15|Community 15]]
+- [[_COMMUNITY_Community 16|Community 16]]
+- [[_COMMUNITY_Community 17|Community 17]]
+- [[_COMMUNITY_Community 18|Community 18]]
+- [[_COMMUNITY_Community 19|Community 19]]
+- [[_COMMUNITY_Community 20|Community 20]]
+- [[_COMMUNITY_Community 21|Community 21]]
+- [[_COMMUNITY_Community 22|Community 22]]
+- [[_COMMUNITY_Community 23|Community 23]]
+- [[_COMMUNITY_Community 24|Community 24]]
+- [[_COMMUNITY_Community 25|Community 25]]
+- [[_COMMUNITY_Community 26|Community 26]]
+- [[_COMMUNITY_Community 27|Community 27]]
+- [[_COMMUNITY_Community 28|Community 28]]
+- [[_COMMUNITY_Community 29|Community 29]]
+- [[_COMMUNITY_Community 30|Community 30]]
+- [[_COMMUNITY_Community 31|Community 31]]
+- [[_COMMUNITY_Community 32|Community 32]]
+- [[_COMMUNITY_Community 33|Community 33]]
+- [[_COMMUNITY_Community 34|Community 34]]
+- [[_COMMUNITY_Community 35|Community 35]]
+- [[_COMMUNITY_Community 36|Community 36]]
+- [[_COMMUNITY_Community 37|Community 37]]
+- [[_COMMUNITY_Community 38|Community 38]]
+- [[_COMMUNITY_Community 39|Community 39]]
+- [[_COMMUNITY_Community 40|Community 40]]
+- [[_COMMUNITY_Community 41|Community 41]]
+- [[_COMMUNITY_Community 42|Community 42]]
+- [[_COMMUNITY_Community 43|Community 43]]
+- [[_COMMUNITY_Community 44|Community 44]]
+- [[_COMMUNITY_Community 45|Community 45]]
+- [[_COMMUNITY_Community 46|Community 46]]
+- [[_COMMUNITY_Community 47|Community 47]]
+- [[_COMMUNITY_Community 48|Community 48]]
+- [[_COMMUNITY_Community 49|Community 49]]
+- [[_COMMUNITY_Community 50|Community 50]]
+- [[_COMMUNITY_Community 51|Community 51]]
+- [[_COMMUNITY_Community 52|Community 52]]
+- [[_COMMUNITY_Community 53|Community 53]]
+- [[_COMMUNITY_Community 54|Community 54]]
+- [[_COMMUNITY_Community 55|Community 55]]
+- [[_COMMUNITY_Community 56|Community 56]]
+- [[_COMMUNITY_Community 57|Community 57]]
+- [[_COMMUNITY_Community 58|Community 58]]
+- [[_COMMUNITY_Community 59|Community 59]]
+- [[_COMMUNITY_Community 60|Community 60]]
+- [[_COMMUNITY_Community 61|Community 61]]
+- [[_COMMUNITY_Community 62|Community 62]]
+- [[_COMMUNITY_Community 63|Community 63]]
+- [[_COMMUNITY_Community 64|Community 64]]
+- [[_COMMUNITY_Community 65|Community 65]]
+- [[_COMMUNITY_Community 66|Community 66]]
+- [[_COMMUNITY_Community 67|Community 67]]
+- [[_COMMUNITY_Community 68|Community 68]]
+- [[_COMMUNITY_Community 69|Community 69]]
+- [[_COMMUNITY_Community 70|Community 70]]
+- [[_COMMUNITY_Community 71|Community 71]]
+- [[_COMMUNITY_Community 72|Community 72]]
+- [[_COMMUNITY_Community 73|Community 73]]
+- [[_COMMUNITY_Community 74|Community 74]]
+- [[_COMMUNITY_Community 75|Community 75]]
+- [[_COMMUNITY_Community 76|Community 76]]
+- [[_COMMUNITY_Community 77|Community 77]]
+- [[_COMMUNITY_Community 78|Community 78]]
+- [[_COMMUNITY_Community 79|Community 79]]
+- [[_COMMUNITY_Community 80|Community 80]]
+- [[_COMMUNITY_Community 81|Community 81]]
+- [[_COMMUNITY_Community 82|Community 82]]
+- [[_COMMUNITY_Community 83|Community 83]]
+- [[_COMMUNITY_Community 84|Community 84]]
+- [[_COMMUNITY_Community 85|Community 85]]
+- [[_COMMUNITY_Community 86|Community 86]]
+- [[_COMMUNITY_Community 87|Community 87]]
+- [[_COMMUNITY_Community 88|Community 88]]
+- [[_COMMUNITY_Community 89|Community 89]]
+- [[_COMMUNITY_Community 90|Community 90]]
+- [[_COMMUNITY_Community 91|Community 91]]
+- [[_COMMUNITY_Community 92|Community 92]]
+- [[_COMMUNITY_Community 93|Community 93]]
+- [[_COMMUNITY_Community 94|Community 94]]
+- [[_COMMUNITY_Community 95|Community 95]]
+- [[_COMMUNITY_Community 96|Community 96]]
+- [[_COMMUNITY_Community 97|Community 97]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `requireProfile()` - 26 edges
-2. `ecriture()` - 20 edges
-3. `tmdbGet()` - 15 edges
-4. `writeLocal()` - 8 edges
-5. `getAccessToken()` - 8 edges
-6. `backupToDrive()` - 7 edges
-7. `readLocal()` - 6 edges
-8. `prevenir()` - 6 edges
-9. `ensureInitialized()` - 6 edges
-10. `connect()` - 6 edges
+1. `requireProfile()` - 46 edges
+2. `ecriture()` - 32 edges
+3. `tmdbGet()` - 20 edges
+4. `backupToDrive()` - 11 edges
+5. `readLocal()` - 10 edges
+6. `writeLocal()` - 9 edges
+7. `getAccessToken()` - 8 edges
+8. `discoverByGenre()` - 7 edges
+9. `prevenir()` - 7 edges
+10. `sauvegardeAutomatique()` - 7 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `chargeStructure()` --calls--> `tmdbGet()`  [EXTRACTED]
-  client\src\tmdb.js → server\src\services\tmdb.js
-- `getCollection()` --calls--> `tmdbGet()`  [EXTRACTED]
-  client\src\tmdb.js → server\src\services\tmdb.js
-- `getRuntime()` --calls--> `tmdbGet()`  [EXTRACTED]
-  client\src\tmdb.js → server\src\services\tmdb.js
-- `getCardInfo()` --calls--> `tmdbGet()`  [EXTRACTED]
-  client\src\tmdb.js → server\src\services\tmdb.js
-- `getEpisodes()` --calls--> `memo()`  [EXTRACTED]
-  server\src\services\tmdb.js → client\src\tmdb.js
+- None detected - all connections are within the same source files.
 
 ## Communities
 
-### Community 0 - "Porte API (api.js)"
-Cohesion: 0.08
-Nodes (31): addToListe(), addToSuivi(), createListe(), createProfile(), deleteListe(), deleteProfile(), ecriture(), getItemListes() (+23 more)
+### Community 0 - "Community 0"
+Cohesion: 0.05
+Nodes (51): activerPartage(), addToListe(), addToSuivi(), addVisionnage(), ajouterAmi(), changerPseudoPartage(), createListe(), createProfile() (+43 more)
 
-### Community 1 - "Règles métier (store.js)"
+### Community 1 - "Community 1"
 Cohesion: 0.06
-Nodes (21): addToListe(), addToSuivi(), airedOnly(), backfillReleaseDates(), countAired(), countPendingLanguage(), deleteProfile(), getProgress() (+13 more)
+Nodes (28): addToListe(), addToSuivi(), addVisionnage(), airedOnly(), backfillReleaseDates(), compterGenres(), countAired(), countPendingLanguage() (+20 more)
 
-### Community 2 - "Sauvegarde (backup.js)"
-Cohesion: 0.17
-Nodes (24): backupToDrive(), cloudFileName(), cloudRestoreSuggestions(), csvCell(), dernierEssaiAutomatique(), exportProfile(), forgetCloudState(), hasPendingChanges() (+16 more)
+### Community 2 - "Community 2"
+Cohesion: 0.11
+Nodes (43): annulerEnvoi(), backupToDrive(), bandeauSauvegarde(), cloudFileName(), cloudRestoreSuggestions(), ConflitSauvegarde, csvCell(), declencherEnvoi() (+35 more)
 
-### Community 3 - "Connexion Google Drive"
+### Community 3 - "Community 3"
+Cohesion: 0.13
+Nodes (34): chargeStructure(), dateDeSortieRegionale(), discoverByGenre(), discoverByMood(), fenetreDeRubrique(), filmographie(), fusionner(), genreKeysOf() (+26 more)
+
+### Community 4 - "Community 4"
 Cohesion: 0.2
 Nodes (19): connect(), deleteDriveFile(), disconnect(), downloadDriveFile(), driveFetch(), ensureInitialized(), forgetAccount(), getAccessToken() (+11 more)
 
-### Community 4 - "Catalogue TMDB"
-Cohesion: 0.23
-Nodes (19): chargeStructure(), dateDeSortieRegionale(), discoverByGenre(), getCardInfo(), getCollection(), getDetails(), getEpisodes(), getGenres() (+11 more)
+### Community 5 - "Community 5"
+Cohesion: 0.2
+Nodes (19): activer(), aleatoire(), avatarDe(), changerPseudo(), codeValide(), construireFiche(), desactiver(), empreinte() (+11 more)
 
-### Community 5 - "Base embarquée (db.js)"
+### Community 6 - "Community 6"
+Cohesion: 0.23
+Nodes (7): dateEnToutesLettres(), formatReleaseDate(), isUpcoming(), libelleProchain(), plat(), releaseBadge(), titreCorrespond()
+
+### Community 7 - "Community 7"
+Cohesion: 0.31
+Nodes (8): ajouterAmi(), avatarSur(), decoder(), listerAmis(), maintenant(), ouvrirAmi(), recommandationsAmis(), texte()
+
+### Community 8 - "Community 8"
 Cohesion: 0.36
 Nodes (7): addColumnIfMissing(), ensureDefaultProfile(), initDb(), migrateSchema(), query(), run(), runMany()
 
-### Community 6 - "Serveur : listes (archivé)"
+### Community 9 - "Community 9"
 Cohesion: 0.22
 Nodes (0): 
 
-### Community 7 - "Avatars de profil"
+### Community 10 - "Community 10"
 Cohesion: 0.39
-Nodes (5): Avatar(), couleurCss(), estPhoto(), initiale(), parseAvatar()
+Nodes (5): appliquerFiltres(), appliquerFiltresBiblio(), bornesDePeriode(), dateRelative(), iso()
 
-### Community 8 - "Serveur : base (archivé)"
+### Community 11 - "Community 11"
+Cohesion: 0.57
+Nodes (7): demarrer(), isConfigured(), lire(), publier(), refusee(), retirer(), traduire()
+
+### Community 12 - "Community 12"
+Cohesion: 0.36
+Nodes (4): candidatsIdee(), hachage(), ideeDuSoir(), mulberry32()
+
+### Community 13 - "Community 13"
 Cohesion: 0.52
 Nodes (5): columnExists(), ensureDefaultProfile(), initDb(), migrateToProfiles(), tableExists()
 
-### Community 9 - "Langue du catalogue"
+### Community 14 - "Community 14"
+Cohesion: 0.33
+Nodes (2): idNotification(), notifierSortie()
+
+### Community 15 - "Community 15"
+Cohesion: 0.33
+Nodes (2): filtrer(), titresDe()
+
+### Community 16 - "Community 16"
+Cohesion: 0.29
+Nodes (0): 
+
+### Community 17 - "Community 17"
 Cohesion: 0.33
 Nodes (0): 
 
-### Community 10 - "Statuts et dates (status.js)"
-Cohesion: 0.4
-Nodes (2): plat(), titreCorrespond()
+### Community 18 - "Community 18"
+Cohesion: 0.6
+Nodes (4): appliquer(), poser(), requeteSysteme(), resoudre()
 
-### Community 11 - "Tests : stockage simulé"
-Cohesion: 0.33
-Nodes (1): MemoryStorage
-
-### Community 12 - "Serveur : épisodes (archivé)"
-Cohesion: 0.33
-Nodes (0): 
-
-### Community 13 - "Serveur : profils (archivé)"
+### Community 19 - "Community 19"
 Cohesion: 0.4
 Nodes (0): 
 
-### Community 14 - "Serveur : suivi (archivé)"
+### Community 20 - "Community 20"
 Cohesion: 0.4
 Nodes (0): 
 
-### Community 15 - "Plugin Drive Android (Java)"
+### Community 21 - "Community 21"
+Cohesion: 0.4
+Nodes (0): 
+
+### Community 22 - "Community 22"
+Cohesion: 0.4
+Nodes (0): 
+
+### Community 23 - "Community 23"
 Cohesion: 0.67
 Nodes (1): DriveAuthPlugin
 
-### Community 16 - "Écran Sauvegarde"
-Cohesion: 1.0
-Nodes (3): Backup(), dateLisible(), texteEssaiAuto()
-
-### Community 17 - "Écran Statistiques"
-Cohesion: 0.67
-Nodes (2): formatDuree(), Stats()
-
-### Community 18 - "Fichiers locaux"
+### Community 24 - "Community 24"
 Cohesion: 0.5
 Nodes (0): 
 
-### Community 19 - "Test de configuration"
+### Community 25 - "Community 25"
+Cohesion: 0.5
+Nodes (0): 
+
+### Community 26 - "Community 26"
+Cohesion: 0.67
+Nodes (2): formatDuree(), Stats()
+
+### Community 27 - "Community 27"
+Cohesion: 0.67
+Nodes (2): aujourdhui(), Visionnages()
+
+### Community 28 - "Community 28"
 Cohesion: 0.67
 Nodes (2): chemin(), lire()
 
-### Community 20 - "Coque Android"
+### Community 29 - "Community 29"
+Cohesion: 0.5
+Nodes (0): 
+
+### Community 30 - "Community 30"
 Cohesion: 0.67
 Nodes (1): MainActivity
 
-### Community 21 - "Test Android d exemple"
+### Community 31 - "Community 31"
 Cohesion: 0.67
 Nodes (1): ExampleUnitTest
 
-### Community 22 - "Application (App.jsx)"
+### Community 32 - "Community 32"
+Cohesion: 0.67
+Nodes (0): 
+
+### Community 33 - "Community 33"
 Cohesion: 1.0
 Nodes (2): App(), keyOf()
 
-### Community 23 - "Écran Profils"
+### Community 34 - "Community 34"
 Cohesion: 0.67
 Nodes (0): 
 
-### Community 24 - "Tests des règles"
+### Community 35 - "Community 35"
 Cohesion: 0.67
 Nodes (0): 
 
-### Community 25 - "Tests : stockage simulé (idb)"
+### Community 36 - "Community 36"
 Cohesion: 0.67
 Nodes (0): 
 
-### Community 26 - "Export vers l app"
+### Community 37 - "Community 37"
+Cohesion: 1.0
+Nodes (2): Hero(), teinte()
+
+### Community 38 - "Community 38"
 Cohesion: 0.67
 Nodes (0): 
 
-### Community 27 - "About()"
+### Community 39 - "Community 39"
+Cohesion: 0.67
+Nodes (0): 
+
+### Community 40 - "Community 40"
+Cohesion: 0.67
+Nodes (0): 
+
+### Community 41 - "Community 41"
+Cohesion: 0.67
+Nodes (0): 
+
+### Community 42 - "Community 42"
+Cohesion: 0.67
+Nodes (0): 
+
+### Community 43 - "Community 43"
+Cohesion: 0.67
+Nodes (0): 
+
+### Community 44 - "Community 44"
+Cohesion: 0.67
+Nodes (0): 
+
+### Community 45 - "Community 45"
+Cohesion: 0.67
+Nodes (0): 
+
+### Community 46 - "Community 46"
+Cohesion: 1.0
+Nodes (2): attendre(), echecReseau()
+
+### Community 47 - "Community 47"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 28 - "AddToListe()"
+### Community 48 - "Community 48"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 29 - "Bloc()"
+### Community 49 - "Community 49"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 30 - "CatalogLanguage()"
+### Community 50 - "Community 50"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 31 - "Detail.jsx"
+### Community 51 - "Community 51"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 32 - "Icon.jsx"
+### Community 52 - "Community 52"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 33 - "Lists.jsx"
+### Community 53 - "Community 53"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 34 - "MovieCard.jsx"
+### Community 54 - "Community 54"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 35 - "SearchBar.jsx"
+### Community 55 - "Community 55"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 36 - "Settings.jsx"
+### Community 56 - "Community 56"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 37 - "StatusMenu.jsx"
+### Community 57 - "Community 57"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 38 - "Suggestions.jsx"
+### Community 58 - "Community 58"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 39 - "Tonight.jsx"
+### Community 59 - "Community 59"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 40 - "Upcoming.jsx"
+### Community 60 - "Community 60"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 41 - "remplirProfil()"
+### Community 61 - "Community 61"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 42 - "cloud.test.js"
+### Community 62 - "Community 62"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 43 - "vitest.config.js"
+### Community 63 - "Community 63"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 44 - "requireProfile()"
+### Community 64 - "Community 64"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 45 - "sw.js"
+### Community 65 - "Community 65"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 46 - "main.jsx"
+### Community 66 - "Community 66"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 47 - "cloud.auto.test.js"
+### Community 67 - "Community 67"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 48 - "db.test.js"
+### Community 68 - "Community 68"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 49 - "reglages.test.js"
+### Community 69 - "Community 69"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 50 - "tmdb.live.test.js"
+### Community 70 - "Community 70"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 51 - "capacitor.js"
+### Community 71 - "Community 71"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 52 - "sqljs.js"
+### Community 72 - "Community 72"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 53 - "vite.config.js"
+### Community 73 - "Community 73"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 54 - "vitest.services.config.js"
+### Community 74 - "Community 74"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 55 - "index.js"
+### Community 75 - "Community 75"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 56 - "browse.js"
+### Community 76 - "Community 76"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 57 - "details.js"
+### Community 77 - "Community 77"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 58 - "listes.js"
+### Community 78 - "Community 78"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 59 - "profiles.js"
+### Community 79 - "Community 79"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 60 - "search.js"
+### Community 80 - "Community 80"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 61 - "series.js"
+### Community 81 - "Community 81"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 62 - "suggestions.js"
+### Community 82 - "Community 82"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 63 - "suivi.js"
+### Community 83 - "Community 83"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 84 - "Community 84"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 85 - "Community 85"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 86 - "Community 86"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 87 - "Community 87"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 88 - "Community 88"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 89 - "Community 89"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 90 - "Community 90"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 91 - "Community 91"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 92 - "Community 92"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 93 - "Community 93"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 94 - "Community 94"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 95 - "Community 95"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 96 - "Community 96"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 97 - "Community 97"
 Cohesion: 1.0
 Nodes (0): 
 
 ## Knowledge Gaps
-- **Thin community `About()`** (2 nodes): `About()`, `About.jsx`
+- **Thin community `Community 47`** (2 nodes): `vitest.config.js`, `ici()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `AddToListe()`** (2 nodes): `AddToListe()`, `AddToListe.jsx`
+- **Thin community `Community 48`** (2 nodes): `requireProfile()`, `requireProfile.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Bloc()`** (2 nodes): `Bloc()`, `Bloc.jsx`
+- **Thin community `Community 49`** (2 nodes): `photo.js`, `reduirePhoto()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `CatalogLanguage()`** (2 nodes): `CatalogLanguage()`, `CatalogLanguage.jsx`
+- **Thin community `Community 50`** (2 nodes): `tactile.js`, `vibre()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Detail.jsx`** (2 nodes): `Detail.jsx`, `Detail()`
+- **Thin community `Community 51`** (2 nodes): `About()`, `About.jsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Icon.jsx`** (2 nodes): `Icon.jsx`, `Icon()`
+- **Thin community `Community 52`** (2 nodes): `AddToListe()`, `AddToListe.jsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Lists.jsx`** (2 nodes): `Lists.jsx`, `Lists()`
+- **Thin community `Community 53`** (2 nodes): `Amis()`, `Amis.jsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `MovieCard.jsx`** (2 nodes): `MovieCard.jsx`, `MovieCard()`
+- **Thin community `Community 54`** (2 nodes): `CatalogLanguage()`, `CatalogLanguage.jsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `SearchBar.jsx`** (2 nodes): `SearchBar.jsx`, `SearchBar()`
+- **Thin community `Community 55`** (2 nodes): `FicheEntete.jsx`, `FicheEntete()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Settings.jsx`** (2 nodes): `Settings.jsx`, `Settings()`
+- **Thin community `Community 56`** (2 nodes): `FicheProgression.jsx`, `FicheProgression()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `StatusMenu.jsx`** (2 nodes): `StatusMenu.jsx`, `StatusMenu()`
+- **Thin community `Community 57`** (2 nodes): `FicheSaisons.jsx`, `FicheSaisons()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Suggestions.jsx`** (2 nodes): `Suggestions.jsx`, `Suggestions()`
+- **Thin community `Community 58`** (2 nodes): `FicheStatut.jsx`, `FicheStatut()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Tonight.jsx`** (2 nodes): `Tonight.jsx`, `Tonight()`
+- **Thin community `Community 59`** (2 nodes): `Filtres.jsx`, `Filtres()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Upcoming.jsx`** (2 nodes): `Upcoming.jsx`, `Upcoming()`
+- **Thin community `Community 60`** (2 nodes): `HorsLigne.jsx`, `HorsLigne()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `remplirProfil()`** (2 nodes): `remplirProfil()`, `backup.test.js`
+- **Thin community `Community 61`** (2 nodes): `Icon.jsx`, `Icon()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `cloud.test.js`** (2 nodes): `cloud.test.js`, `creerFauxDrive()`
+- **Thin community `Community 62`** (2 nodes): `Lists.jsx`, `Lists()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `vitest.config.js`** (2 nodes): `vitest.config.js`, `ici()`
+- **Thin community `Community 63`** (2 nodes): `Notifications.jsx`, `Notifications()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `requireProfile()`** (2 nodes): `requireProfile()`, `requireProfile.js`
+- **Thin community `Community 64`** (2 nodes): `Partage.jsx`, `Partage()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `sw.js`** (1 nodes): `sw.js`
+- **Thin community `Community 65`** (2 nodes): `SearchBar.jsx`, `SearchBar()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `main.jsx`** (1 nodes): `main.jsx`
+- **Thin community `Community 66`** (2 nodes): `Settings.jsx`, `Settings()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `cloud.auto.test.js`** (1 nodes): `cloud.auto.test.js`
+- **Thin community `Community 67`** (2 nodes): `Suggestions.jsx`, `Suggestions()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `db.test.js`** (1 nodes): `db.test.js`
+- **Thin community `Community 68`** (2 nodes): `Tonight.jsx`, `Tonight()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `reglages.test.js`** (1 nodes): `reglages.test.js`
+- **Thin community `Community 69`** (2 nodes): `Upcoming.jsx`, `Upcoming()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `tmdb.live.test.js`** (1 nodes): `tmdb.live.test.js`
+- **Thin community `Community 70`** (2 nodes): `Vide.jsx`, `Vide()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `capacitor.js`** (1 nodes): `capacitor.js`
+- **Thin community `Community 71`** (2 nodes): `cloud.conflit.test.js`, `fauxDrive()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `sqljs.js`** (1 nodes): `sqljs.js`
+- **Thin community `Community 72`** (2 nodes): `cloud.test.js`, `creerFauxDrive()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `vite.config.js`** (1 nodes): `vite.config.js`
+- **Thin community `Community 73`** (2 nodes): `envoi-differe.test.js`, `attendre()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `vitest.services.config.js`** (1 nodes): `vitest.services.config.js`
+- **Thin community `Community 74`** (2 nodes): `idee.test.js`, `film()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `index.js`** (1 nodes): `index.js`
+- **Thin community `Community 75`** (2 nodes): `interrupteur.test.js`, `cles()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `browse.js`** (1 nodes): `browse.js`
+- **Thin community `Community 76`** (2 nodes): `moods.test.js`, `fauxTmdb()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `details.js`** (1 nodes): `details.js`
+- **Thin community `Community 77`** (2 nodes): `theme.test.js`, `matches()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `listes.js`** (1 nodes): `listes.js`
+- **Thin community `Community 78`** (1 nodes): `sw.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `profiles.js`** (1 nodes): `profiles.js`
+- **Thin community `Community 79`** (1 nodes): `vite.config.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `search.js`** (1 nodes): `search.js`
+- **Thin community `Community 80`** (1 nodes): `vitest.services.config.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `series.js`** (1 nodes): `series.js`
+- **Thin community `Community 81`** (1 nodes): `index.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `suggestions.js`** (1 nodes): `suggestions.js`
+- **Thin community `Community 82`** (1 nodes): `browse.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `suivi.js`** (1 nodes): `suivi.js`
+- **Thin community `Community 83`** (1 nodes): `details.js`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 84`** (1 nodes): `listes.js`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 85`** (1 nodes): `profiles.js`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 86`** (1 nodes): `search.js`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 87`** (1 nodes): `series.js`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 88`** (1 nodes): `suggestions.js`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 89`** (1 nodes): `suivi.js`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 90`** (1 nodes): `main.jsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 91`** (1 nodes): `cloud.auto.test.js`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 92`** (1 nodes): `etat-sauvegarde.test.js`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 93`** (1 nodes): `fiche.test.js`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 94`** (1 nodes): `genres.test.js`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 95`** (1 nodes): `reseau.test.js`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 96`** (1 nodes): `schema-telephone.test.js`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 97`** (1 nodes): `visionnages.test.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Should `Porte API (api.js)` be split into smaller, more focused modules?**
-  _Cohesion score 0.08 - nodes in this community are weakly interconnected._
-- **Should `Règles métier (store.js)` be split into smaller, more focused modules?**
+- **Should `Community 0` be split into smaller, more focused modules?**
+  _Cohesion score 0.05 - nodes in this community are weakly interconnected._
+- **Should `Community 1` be split into smaller, more focused modules?**
   _Cohesion score 0.06 - nodes in this community are weakly interconnected._
+- **Should `Community 2` be split into smaller, more focused modules?**
+  _Cohesion score 0.11 - nodes in this community are weakly interconnected._
+- **Should `Community 3` be split into smaller, more focused modules?**
+  _Cohesion score 0.13 - nodes in this community are weakly interconnected._

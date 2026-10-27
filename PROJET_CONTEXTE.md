@@ -17,6 +17,13 @@ dans un SQLite embarqué, et la sauvegarde va dans le Google Drive de l'utilisat
 Le dossier `server/` est conservé dans le dépôt comme base d'une éventuelle mise en ligne
 future — il n'est plus utilisé par l'application.
 
+### Point du 2026-10-27 — sauvegarde cloud
+- Mission « Sauvegarde cloud » (A1 / A2 des retours du 25/10) : étapes S1 à S4 **codées et essayées sur émulateur**
+  (370 tests verts) ; S5 (vérification par une autre IA, puis capture finale de Kinder sur téléphone) à faire.
+  Détail, critères et captures : `PLAN_V2.md`.
+- Restent ouverts : S0 (lire « Dernière tentative » sur le téléphone de Kinder), B6 (fusion en cas de conflit), et les
+  points des retours du 25/10 non traités.
+
 ### Point du 2026-10-06
 - **2.3 envoyée en examen chez Google** (en attente de validation ; ne plus la modifier).
 - **Correctif « Ce soir » codé** sur la branche `correctif-ce-soir` (balayage trop sensible, « Tout voir » décalé) :
@@ -59,7 +66,8 @@ Les services de streaming n'exposent pas ces données : TMDB est la seule source
 8. **« Quoi regarder ce soir ? »** : reprendre une série, à voir, pas encore sorti (en
    dernier, replié), et suggestions à parts égales films / séries.
 9. **Sauvegarde** : fichier local, export CSV Letterboxd, et Drive de l'utilisateur —
-   manuelle ou automatique en quittant l'application.
+   manuelle, ou automatique (30 s après une modification, en quittant, au retour, au retour du réseau). L'état et la cause
+   d'un blocage sont dits en clair dans Réglages > Sauvegarde ; un bandeau n'alerte que si quelque chose est bloqué.
 10. **Saga** : dans la fiche d'un film, les autres films de sa saga dans l'ordre de sortie.
 
 ## Architecture (3 couches, strict)
@@ -190,3 +198,9 @@ des échecs réels (conflit, autorisation, réseau) sans message clair.
 - **Hors de cette mission** : la fusion de deux versions en conflit (B6) — à cadrer à part, règles écrites avant tout code.
 - **Inconnue restante** : sur le téléphone de Kinder, l'échec vient-il d'un conflit ou de la clé de signature du Play Store
   (clé de debug enregistrée chez Google : essai émulateur réussi) ? Lecture de « Dernière tentative » demandée (étape S0).
+
+## Décision du 2026-10-27 — permission Android ACCESS_NETWORK_STATE (validée par Kinder)
+La permission est ajoutée à `AndroidManifest.xml` (le test `configuration.test.js` la liste explicitement). Raison, constatée
+sur émulateur : sans elle le WebView ne voit jamais la connexion changer, donc la sauvegarde ne reprend pas au retour du
+réseau. Permission « normale » : aucune fenêtre de demande à l'utilisateur, aucun lien avec le formulaire « Sécurité des
+données », mais elle figure dans la liste des autorisations de la fiche Play Store. Tout ajout de permission se décide ainsi.

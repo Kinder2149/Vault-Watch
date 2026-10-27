@@ -8,6 +8,18 @@
 - 18 points relevés par Kinder (sauvegarde automatique, recherche, navigation, listes, découvertes, suivi des
   épisodes, fusion Drive…). Aucun code modifié. Liste complète dans `PLAN_V2.md`, « Retours d'essai du 2026-10-25 ».
 
+## Sauvegarde cloud — logique reprise en entier (2026-10-26 / 27, codée et essayée sur émulateur, non validée sur téléphone)
+- **Envoi automatique pendant l'usage** : une modification part 30 s plus tard (regroupée, plafonnée à 2 min, au moins 60 s
+  entre deux envois), en plus de « en quittant » et « au retour ». Avant, rien ne partait tant qu'on utilisait l'application.
+- **Bandeau seulement si bloqué** : plus d'alerte en cas normal. Conflit et autorisation : tout de suite ; hors connexion,
+  erreur, interrupteur coupé, attente anormale : après 10 min. La croix masque jusqu'à ce que la cause change.
+- **Réglages > Sauvegarde** dit l'état en clair et en direct : « Sauvegardé à HH:MM » ou « En attente : conflit / Google doit
+  te reconnaître / pas de connexion / erreur », avec le bouton qui y mène.
+- **Reprise au retour du réseau** : un envoi raté faute de connexion repart seul ~3 s après son retour.
+- **Android** : permission `ACCESS_NETWORK_STATE` ajoutée (validée par Kinder) — sans elle le WebView ne voit jamais la connexion
+  changer, ce qui rendait aussi les écrans « hors connexion » inopérants sur téléphone.
+- Plan, critères et captures : `PLAN_V2.md` (mission « Sauvegarde cloud »), `essais/2026-10-26_S1` à `2026-10-27_S4`.
+
 ## Retours d'essai du 2026-10-25 — groupe « faciles » codé (2026-10-26, non validé sur téléphone)
 - Recherche : bouton ✕ pour effacer ; « Voir plus » sur la recherche par titre (avant, 20 résultats maximum).
 - « Ce soir » : plus de balayage entre sous-onglets. Série passée à « Vu » : ses épisodes diffusés sont cochés.

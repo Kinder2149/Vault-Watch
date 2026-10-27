@@ -1,0 +1,89 @@
+PROMPT DE VÉRIFICATION — Sauvegarde cloud (étapes S1 à S4) — projet Vault Watch
+
+Tu es l'IA de vérification. Tu n'as pas codé cette mission. Tu ne corriges rien.
+Tu rends des captures et des verdicts, en français, en termes fonctionnels (pas de logs bruts).
+
+CRITÈRE DE FIN DE MISSION (écrit par Kinder) :
+« Je coche un épisode, je ne vois aucun message inquiétant, et quelques secondes plus tard c'est sauvegardé ;
+  si ça bloque, l'application me le dit en clair. »
+
+CE QUI A ÉTÉ FAIT ET TESTÉ (test de code : réussi pour chacun ; 370 tests automatiques verts, build OK) :
+- S1 États lisibles — Réglages > Sauvegarde affiche « Sauvegardé à HH:MM » ou « En attente : <cause> » (conflit /
+  Google doit te reconnaître / pas de connexion / erreur) avec le bouton qui y mène. Mis à jour en direct.
+- S2 Envoi différé — une modification part toute seule 30 s après la dernière (regroupée ; plafond 2 min ; 60 s minimum
+  entre deux envois).
+- S3 Bandeau seulement si bloqué — aucun bandeau en cas normal. Conflit et autorisation : tout de suite. Hors connexion,
+  erreur, interrupteur coupé, attente anormale : après 10 min. La croix masque jusqu'à ce que la cause change.
+- S4 Reprise au retour du réseau — un envoi raté faute de connexion repart ~3 s après le retour du réseau.
+- Android : permission ACCESS_NETWORK_STATE ajoutée (sans elle le WebView ne voit pas la connexion changer).
+
+NOUVEAUTÉS À VÉRIFIER EN PRIORITÉ (un verdict + une capture chacune) :
+ V-A  Cocher UN ÉPISODE d'une série suivie (fiche série > saison > coche ronde), rester dans l'application.
+      Attendu : aucun bandeau, ni à 5 s ni à 40 s. Réglages > Sauvegarde dit « Sauvegardé à HH:MM » (heure du moment).
+ V-B  Cocher 5 épisodes à quelques secondes d'intervalle. Attendu : UN seul envoi, ~30 s après la dernière coche.
+ V-C  Hors connexion : couper Wi-Fi et données (voir ci-dessous), cocher un épisode, attendre 40 s.
+      Attendu : pas de bandeau ; Réglages > Sauvegarde : « En attente : pas de connexion ».
+      Rétablir le réseau SANS toucher l'application. Attendu : « Sauvegardé à HH:MM » en moins de 15 s.
+ V-D  Conflit : même profil modifié ailleurs. Attendu : bandeau « Un autre appareil a modifié ta sauvegarde » +
+      [Choisir la version] ; le bouton mène au choix « Reprendre la version du Drive / Garder ce téléphone » (rien n'est
+      écrasé avant le choix). Voir la recette plus bas.
+ V-E  Autorisation : Attendu : bandeau « Google doit te reconnaître pour sauvegarder » + [Reconnecter] (recette plus bas).
+ V-F  Interrupteur « Sauvegarde automatique » coupé : une coche ne part pas ; après 10 min d'attente, bandeau
+      « Des modifications ne sont pas sauvegardées » + [Sauvegarder] (reculer le début d'attente, recette plus bas).
+ V-G  La croix du bandeau le masque ; il revient si la cause change.
+ V-H  Quitter l'application (touche Accueil) juste après une coche, rouvrir : « Sauvegardé » ; idem application tuée depuis
+      les applications récentes avant 30 s.
+
+FONCTIONS VOISINES À SURVEILLER (déjà dans le même APK, non validées sur téléphone) :
+ - « Sauvegarder maintenant » (bouton manuel) et « Restaurer depuis Drive… » (inchangés : doivent marcher comme avant).
+ - Recherche : bouton ✕ pour effacer ; « Voir plus » sous les résultats d'une recherche par titre (taper « marvel »).
+ - « Ce soir » : plus de balayage latéral entre sous-onglets ; l'idée du soir montre l'affiche nette ;
+   « Tout voir » plein écran et bouton retour d'Android qui le ferme.
+ - Fiche série : après avoir coché un épisode en milieu de saison, l'encadré « Les cocher aussi ? » propose les précédents.
+ - Marquer une série « Vu » depuis une carte coche ses épisodes diffusés.
+
+COMMENT LANCER LE PROJET (domaine : application Android, WebView Capacitor) :
+ - Émulateur : AVD « Medium_Phone_API_36.1 » (Play Store). Lancer :
+   C:\Users\vcout\AppData\Local\Android\Sdk\emulator\emulator.exe -avd Medium_Phone_API_36.1
+ - APK de test : V:\DEV\PROJETS\applications_web\Vault Watch\apk-test\vault-watch-test-2.3.2-retours.apk
+   adb install -r <ce fichier> ; lancer : adb shell monkey -p com.kinder.suivifilmsseries -c android.intent.category.LAUNCHER 1
+   (adb : C:\Users\vcout\AppData\Local\Android\Sdk\platform-tools\adb.exe)
+ - Compte Google de test : il doit être ajouté dans l'émulateur (Réglages Android > Comptes) ET connecté dans
+   Vault Watch (Réglages > Sauvegarde > Se connecter). Tu ne peux pas saisir de mot de passe : DEMANDE À KINDER de le faire
+   s'il n'est pas déjà connecté. Si le compte n'est pas connecté, ne conclus rien sur la sauvegarde.
+ - Écran à capturer : adb shell screencap -p /sdcard/s.png puis adb pull.
+ - Navigation : avatar en haut à droite > « Sauvegarder / restaurer ». Attention : le bouton Retour d'Android depuis
+   l'onglet Recherche QUITTE l'application.
+ - Base de données : aucune migration dans cette mission.
+ - Il faut quelques titres suivis et au moins une série avec des épisodes cochables : ajouter via la Recherche (bouton +).
+
+RECETTES POUR PROVOQUER LES CAUSES (adb + débogage distant de la WebView) :
+ - Réseau : adb shell svc wifi disable ; adb shell svc data disable  (rétablir : enable).
+ - Lecture/écriture du stockage de l'application :
+     SOCK=$(adb shell "cat /proc/net/unix" | grep -o "webview_devtools_remote_[0-9]*" | head -1)
+     adb forward tcp:9222 localabstract:$SOCK   puis ws://localhost:9222/devtools/page/<id> de http://localhost:9222/json
+     (cible de type « page » ; commande Runtime.evaluate). Clés : cloud-pending, cloud-pending-since, cloud-last-auto,
+     cloud-versions, cloud-auto-off, google-account.
+ - Conflit (V-D) : mettre chaque valeur de cloud-versions à '2026-01-01T00:00:00.000Z', poser cloud-pending (ex. une date),
+   puis quitter et rouvrir l'application.
+ - Autorisation (V-E) : remplacer window.fetch pour répondre 401 aux adresses contenant « googleapis.com », poser
+   cloud-pending, quitter / rouvrir. (Le vrai retrait d'accès Google n'est pas simulable sans mot de passe.)
+ - Attente de 10 min (V-F) : poser cloud-auto-off = '1', cloud-pending, et cloud-pending-since = il y a 11 min (ISO), puis
+   attendre ≤ 30 s (le bandeau se recalcule toutes les 30 s).
+ - Remettre à zéro à la fin : supprimer ces clés de test.
+
+RÈGLES :
+ - Ne corrige rien. Un critère non atteint = « échoué » avec capture et description de ce qui était attendu / vu.
+ - Ne pas modifier le code ni les réglages du projet.
+ - Ne jamais saisir d'identifiants Google.
+
+RENDU :
+ - Tableau : critère | capture | verdict (réussi / échoué) | ce que tu as vu, en français — pour V-A à V-H, puis pour chaque
+   fonction voisine.
+ - L'écran exact que Kinder doit regarder pour sa capture finale : Réglages > Sauvegarde, sur SON téléphone, après avoir
+   coché un épisode et attendu ~35 s (attendu : « Sauvegardé à HH:MM », aucun bandeau).
+ - Un point à signaler à Kinder s'il y a lieu : sur son téléphone, si la sauvegarde ne se fait pas, noter le texte exact du
+   bloc d'état en tête de Réglages > Sauvegarde (« En attente : … »).
+
+Références : PLAN_V2.md (mission « Sauvegarde cloud », S1 à S4), PROJET_CONTEXTE.md (décisions du 2026-10-26 et 2026-10-27),
+captures de mes essais dans essais/2026-10-26_S1, 2026-10-26_S2, 2026-10-27_S3, 2026-10-27_S4.
