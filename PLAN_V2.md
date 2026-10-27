@@ -1425,6 +1425,48 @@ Captures dans `essais/2026-10-26_S2/`.
   pendant ces 30 s : c'est S3.
 - Case S2 à cocher après validation de Kinder.
 
+#### S3 — Bandeau seulement si bloqué (phase 5, cadrage d'étape, 2026-10-27)
+**Critère de S3 (repris du plan)** : après une modification normale, aucun bandeau. Avec chaque cause provoquée, un
+bandeau avec le bon texte et le bon bouton.
+
+**Constat** (`App.jsx`) : le bandeau est un simple booléen « il y a du nouveau » (`rappelSauvegarde`). Il s'allume à
+chaque modification et dit « elles partiront quand tu quitteras l'application », ce qui est faux depuis S2. Il ne connaît
+ni la cause du blocage, ni l'ancienneté de l'attente. Sa croix le masque jusqu'à la modification suivante.
+
+**Règles** (issues de la décision figée du 2026-10-26)
+| Situation | Bandeau |
+|---|---|
+| Modification normale, envoi automatique actif | **aucun** |
+| Conflit | **tout de suite** : « Un autre appareil a modifié ta sauvegarde » + [Choisir la version] |
+| Autorisation (Google doit te reconnaître) | **tout de suite** : « Google doit te reconnaître pour sauvegarder » + [Reconnecter] |
+| Hors connexion ou erreur | seulement si l'attente dure **plus de 10 min** : « Pas sauvegardé depuis N min : <cause> » + [Réessayer] |
+| Interrupteur automatique coupé, du nouveau en attente | seulement après **10 min** : « Des modifications ne sont pas sauvegardées » + [Sauvegarder] |
+Tous les boutons ouvrent l'écran Sauvegarde, où le bloc d'état de S1 porte l'action (pas de nouvelle logique d'envoi). La
+croix masque le bandeau **jusqu'à ce que la cause change** (plus « jusqu'à la prochaine modification »).
+
+**Stratégie technique (3 couches)**
+- *Données* (`backup.js`) : une clé `cloud-pending-since` = début de l'attente, posée à la première modification non
+  envoyée, effacée avec le drapeau (envoi réussi, restauration, oubli du compte). Aujourd'hui le drapeau est réécrit à chaque
+  modification : il ne dit pas depuis quand on attend.
+- *Logique* (`backup.js`) : `bandeauSauvegarde({ ... , maintenant })` pure, bâtie sur `etatSauvegarde` (S1), qui rend `null`
+  ou `{ cause, texte, action }` selon le tableau. `lireEtatSauvegarde()` rassemble les entrées lues sur l'appareil.
+- *Écran* (`App.jsx`) : le booléen est remplacé par ce calcul, relancé à chaque changement de la sauvegarde (abonnement
+  existant, qui fait désormais un simple « rafraîchis ») et toutes les 30 s tant qu'une attente est en cours (pour franchir
+  les 10 min). Le bandeau reçoit `useEnLigne()`. Les appels `setRappelSauvegarde` éparpillés (envoi auto, fermeture de
+  l'écran) disparaissent.
+
+**Fichiers touchés** : `client/src/backup.js`, `client/src/App.jsx`, `client/tests/bandeau-sauvegarde.test.js` (nouveau).
+Pas de style nouveau : le bandeau `.rappel` existant est gardé.
+
+**Ce qu'on ne fait pas dans S3** : écoute du retour du réseau (S4), fusion (B6), notification Android, rien dans l'écran
+Sauvegarde (déjà fait en S1).
+
+**Vérification** : tests unitaires, une ligne par ligne du tableau (aucun bandeau en cas normal et pendant les 30 s ;
+conflit et autorisation immédiats ; hors connexion et erreur avant / après 10 min ; interrupteur coupé avant / après ;
+masqué puis cause changée). Émulateur, une capture par cas : modification normale (aucun bandeau, ni à 5 s ni à 35 s) ;
+conflit ; autorisation (401 simulée) ; hors connexion **après 10 min** (début d'attente reculé de 11 min dans le stockage par
+le débogage de la WebView, attendre 10 min réelles serait inutile) ; interrupteur coupé après 10 min.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
