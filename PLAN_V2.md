@@ -2078,6 +2078,34 @@ s'affichent dans Découvrir (`essais/2026-10-27_B1-2/01-panneau-filtres.jpg`) ; 
 filtres, point actif compris (`03-tout-voir-filtres-partages.jpg`). **Non vu à l'écran** : la ligne « N rayons masqués » (le profil de test n'a ni titre aimé ni ami, donc aucune rangée
 « Comme … » / « Chez tes amis » à masquer) ; à voir sur le téléphone de Kinder, qui a des titres notés. Coupure réseau : à la clôture B1-5.
 
+#### B1-3 — Suggestions de Ce soir avec le panneau commun (phase 5, cadrage d'étape, 2026-10-27)
+**Critère de B1-3 (repris du plan)** : dans Ce soir, année, genre, tri et films / séries se règlent avec le même panneau que partout ; une ligne explique pourquoi « Sur mes plateformes » n'y est pas.
+
+**État réel** : Ce soir a deux sous-onglets qui proposent des titres du catalogue. **Découverte** (`Suggestions.jsx`) : une grille de « Parce que tu as aimé… » calculée au lancement et gardée en
+mémoire par l'application, avec son bouton « Actualiser », sans aucun filtre. **Suggestion** (`Rubriques.jsx`) : Tendances / Nouveautés / À venir, avec son propre sélecteur Tout / Films / Séries et
+« Voir plus ». La recherche à vide réutilise aussi `Rubriques.jsx` (Tendances) : elle n'est pas touchée avant B1-4.
+
+**Ce qu'on construit**
+1. **Un seul panneau « Ce soir », commun aux deux sous-onglets** (même barre Tout / Films / Séries + Filtres que Découvrir, sans le groupe « Plateformes »). Un seul réglage pour les deux : si je
+   choisis « Films » et « 2010s » dans Découverte, je les retrouve dans Suggestion. Il est gardé par l'application (survit au changement d'onglet), éteint au départ.
+2. **Découverte** : type, année, genre et tri s'appliquent aux titres déjà calculés (appliqués à l'affichage, aucun nouvel appel ; « Actualiser » garde les filtres). Tri « Popularité » = l'ordre
+   actuel de la grille (le tirage alterne déjà films et séries). Si les filtres ne laissent rien : « Aucun titre ne correspond », avec un bouton « Réinitialiser » (au lieu du message « Pas encore de suggestion »).
+3. **Suggestion** : le sélecteur propre de `Rubriques.jsx` est remplacé par la barre commune quand elle est fournie ; « Films / Séries » continue de relancer l'appel (TMDB sait le faire), année /
+   genre / tri s'appliquent aux titres chargés, « Voir plus » en ajoute d'autres. Sans barre fournie (recherche), le comportement actuel reste identique.
+4. **Ligne d'explication** sous la barre : « Pas de filtre par plateforme ici : TMDB ne le permet pas pour des suggestions. » (une ligne discrète, visible quand le panneau est ouvert).
+
+**Fichiers touchés** : `client/src/components/Suggestions.jsx`, `client/src/components/Rubriques.jsx`, `client/src/components/Tonight.jsx`, `client/src/components/BarreFiltres.jsx` (groupe
+Plateformes facultatif + ligne d'explication), `client/src/App.jsx` (état des filtres « Ce soir »), `client/tests/` (cas « filtres sans plateforme »).
+**Ce qu'on ne fait pas dans B1-3** : « En attente » (c'est déjà ma liste, filtrable dans Mes listes), la recherche (B1-4), le filtre par plateforme sur Nouveautés / À venir (possible côté TMDB, mais
+le plan le laisse de côté : à rouvrir si tu le veux), mot-clé (B2).
+
+**Vérification** : tests de la logique ; navigateur en largeur téléphone, vrai catalogue : barre et panneau dans Découverte puis dans Suggestion (capture), « Films » ne laisse que des films, « 2010s » que
+des titres de ces années, un genre ne garde que ce genre, le tri « Plus récent » range par date, le réglage reste d'un sous-onglet à l'autre, la ligne d'explication s'affiche (capture), la recherche à vide
+est inchangée. Coupure réseau : à la clôture B1-5.
+
+**Questions pour Kinder** : (1) un **seul panneau partagé** entre Découverte et Suggestion : d'accord ? (2) quand les filtres ne laissent rien dans Découverte, on affiche « Aucun titre ne correspond » avec
+« Réinitialiser » (la grille n'est pas rechargée) : d'accord ? (3) le filtre par plateforme reste absent de Suggestion (Tendances / Nouveautés / À venir) : d'accord, ou veux-tu l'avoir sur Nouveautés et À venir ?
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
