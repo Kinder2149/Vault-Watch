@@ -1646,6 +1646,51 @@ n'accepte ni commentaire SQL ni point-virgule (piège connu, test `schema-teleph
 **Questions de cadrage à trancher en phase 5, étape A3-2** : taille du lot et fréquence du rafraîchissement (7 jours proposé) ; texte
 exact des pastilles ; mention d'attribution TMDB / JustWatch (déjà sur la fiche) à reprendre ou non sur les cartes.
 
+#### A3-1 — Fiche : pastille de disponibilité (phase 5, cadrage d'étape, 2026-10-27)
+**Plan A3 et critère de fin validés par Kinder le 2026-10-27.** Critère de fin : « sur chaque film ou série, je vois d'un coup d'œil
+s'il n'est pas encore sorti, au cinéma, sorti sans streaming, en location ou achat, ou disponible et sur quelle plateforme ; dans
+Ce soir je ne vois que ce qui est regardable ».
+
+**Critère de A3-1 (repris du plan)** : cinq fiches (film à venir, film au cinéma, film sorti sans streaming, film en location seulement,
+film en streaming) + une série en streaming + une série à venir : chacune montre la bonne pastille, et les logos pour « Disponible ».
+
+**Constat dans le code** (`Detail.jsx`, `tmdb.js`, `status.js`)
+- La fiche a déjà « Où le regarder » (abonnement, location et achat, logos) mais **codé en dur sur la France** (`results.FR`, titre
+  « En France »), alors que la décision figée suit la région du catalogue (`getCatalogRegion()`).
+- Le seul indicateur de sortie est `releaseBadge` (« Sort le … »), affiché **seulement si le titre est suivi** et sans notion de
+  cinéma ni de streaming.
+- Rien ne sait si un film est actuellement en salle.
+
+**Stratégie technique (3 couches)**
+- *Logique pure* (`status.js`) : `etatDisponibilite({ isSeries, releaseDate, status, providers, enSalle, aujourdhui })` →
+  `{ etat, libelle, detail, plateformes }`. Règles, dans cet ordre : date future (ou statut TMDB « annoncé » sans date) →
+  `a_venir` ; film présent dans la liste « en salle » **et** sans abonnement → `au_cinema` ; abonnement → `disponible` (logos) ;
+  location / achat seulement → `location_achat` ; sinon → `sorti_sans_streaming` (série : « Pas disponible en streaming » ; une
+  série n'est jamais « au cinéma »). Tests dans `tests/disponibilite.test.js`.
+- *Données* (`tmdb.js`) : `getDetails` lit les offres de **la région du catalogue** au lieu de `FR` ; `getFilmsEnSalle()` lit
+  `/movie/now_playing?region=…` (jusqu'à 6 pages), renvoie l'ensemble des identifiants, **mémorisé pour la journée** (clé
+  région + date, dans `localStorage`) ; un échec réseau renvoie un ensemble vide **sans** le mémoriser (on ne prétend jamais
+  « au cinéma » ni son contraire sans données). Tests avec un faux `fetch` : pages, mémoire du jour, échec.
+- *Écran* (`Detail.jsx`) : un bloc de pastille sous le choix de statut, **pour tout titre, suivi ou non** ; le titre de la section
+  « Où le regarder » suit la région (« En France » / « Aux États-Unis »). Pour un film, la pastille remplace l'ancien badge
+  « Sort le … » ; pour une série, `releaseBadge` (prochain épisode) reste, **à côté** de la pastille. Pastille = icône + texte
+  (jamais la couleur seule), teintes à fixer à l'écran **sans reprendre** les 4 couleurs de statut (bleu, violet, vert, gris).
+
+**Fichiers touchés** : `client/src/status.js`, `client/src/tmdb.js`, `client/src/components/Detail.jsx` (+ un petit composant de
+pastille si `Detail.jsx` grossit trop), `client/src/styles.css`, `client/tests/disponibilite.test.js` (nouveau),
+`client/tests/ensalle.test.js` (nouveau). **Pas de changement** de schéma, de sauvegarde ni de notifications.
+
+**Ce qu'on ne fait pas dans A3-1** : stockage en base et rattrapage (A3-2), pastille sur les affiches (A3-2), regroupement de Ce soir
+(A3-3), saga (B3). Une disponibilité **inconnue** (échec réseau sur la fiche) n'affiche aucune pastille plutôt qu'une fausse.
+
+**À vérifier avant de coder** (sondage réel, pas une supposition) : la fenêtre de dates de `now_playing` pour la France et le fait
+qu'un film récent y figure bien (ex. un film sorti en salle il y a quelques jours) ; si elle s'avère trop large ou trop étroite,
+on le dit à Kinder avant de continuer.
+
+**Vérification** : tests unitaires (une ligne par état, série, inconnu, région). À l'écran, navigateur largeur téléphone avec le vrai
+catalogue : je choisis dans TMDB, le jour même, un titre pour chacun des cinq états et deux séries (script de recherche), j'ouvre
+chaque fiche, une capture par fiche. L'émulateur sert à la clôture (A3-4).
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
