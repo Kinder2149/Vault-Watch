@@ -1717,7 +1717,57 @@
 `ou « Sorti, pas en streaming » ; à harmoniser en A3-3.
 `Case A3-1 à cocher après validation de Kinder.
 `
-`## Hors périmètre V2 (noté, pas construit)
+`#### A3-2 — Cartes : stockage et pastille sur les affiches (phase 5, cadrage d'étape, 2026-10-27)
+**Critère de A3-2 (repris du plan)** : Mes listes avec des titres variés : pastilles visibles sur les affiches ; après relance **sans
+réseau**, elles sont toujours là ; un titre ajouté prend sa pastille sans relance.
+
+**Constat dans le code**
+- Les cartes (`MovieCard`) n'ont que l'affiche, le titre, l'année. Elles sont utilisées partout (Recherche, Découvrir, listes, Ce soir,
+  fiches d'amis…).
+- Le suivi (`suivi`) sait déjà se compléter en silence : colonnes `release_region` et `genres`, rattrapé au lancement par
+  `backfillReleaseDates` (lots de 5, échec réseau = on retentera, rien n'est marqué). `getCardInfo` demande déjà `release_dates` pour
+  un film ; il suffit d'y ajouter `watch/providers` (et la saga, déjà dans la réponse de base) : **aucun appel de plus par titre**.
+- Les titres de Recherche et de Découvrir **ne sont pas dans le suivi** : leurs offres sont inconnues et ne seront pas demandées une
+  à une (un appel par affiche affichée serait absurde).
+
+**Stratégie technique**
+- *Données* (`db.js`, `addColumnIfMissing`) : `offres` (texte JSON compact : abonnement, location + achat réunis), `offres_maj`
+  (jour du dernier relevé), `offres_region`, `saga_id`, `saga_nom` (la saga sert à B3 ; rangée ici, **non affichée**). Pas de commentaire ni
+  de point-virgule dans le SQL du schéma (piège connu, test `schema-telephone`).
+- *Rattrapage* (`store.js`, `backfillDisponibilite`, sur le modèle de `backfillReleaseDates`) : titres **à voir ou en cours**
+  seulement (un titre « vu » n'a pas besoin de pastille) dont le relevé manque, date de plus de **7 jours** ou d'une autre région.
+  Les jamais relevés d'abord. Lots de 5, **au plus 60 titres par lancement** ; un échec réseau ne marque rien. Appelé au lancement
+  à côté de `mettreAJourDatesDeSortie`, puis rechargement du suivi si quelque chose a bougé. Un **ajout** au suivi relance le même
+  rattrapage (non bloquant) : le titre ajouté prend sa pastille sans relance.
+- *Lecture* (`listSuivi`) : renvoie `providers` (ou `null` = inconnu), `sagaId`, `sagaNom`.
+- *Écran* : `MovieCard` reçoit `afficheDispo` (Mes listes, Ce soir, Upcoming, Découvrir : rangées et « Tout voir » ; **pas** la
+  Recherche, pour la garder propre) et rend une ligne **icône + libellé court** sous l'année : « Au cinéma », « À venir », « Disponible »
+  (+ logo de la première plateforme), « Location / achat », « Pas en streaming ». Un hook `useFilmsEnSalle` partage la liste du jour ;
+  un contexte donne à la carte le suivi (offres, date de la région). Pour un titre **hors suivi** (Découvrir) : seules les deux
+  affirmations **gratuites et vraies** — « À venir » (date future) et « Au cinéma » (liste du jour) ; jamais « Disponible » ni
+  « pas en streaming » sans relevé. `etatDisponibilite` s'adapte : un film à l'affiche sans offres connues est « Au cinéma » (c'est
+  vrai dans tous les cas) ; avec offres connues, la priorité de A3-1 (« Disponible » d'abord) reste.
+- *Sauvegarde* : ces colonnes sont **dérivées**, hors sauvegarde et hors export (aucun changement de format) ; une restauration les
+  refait au lancement.
+
+**Fichiers touchés** : `client/src/db.js`, `client/src/store.js`, `client/src/tmdb.js` (`getCardInfo`), `client/src/api.js`,
+`client/src/status.js`, `client/src/App.jsx` (lancement, ajout, contexte), `client/src/components/MovieCard.jsx`,
+`Disponibilite.jsx` (version courte), `Rail.jsx`, `VueRayon.jsx`, `Lists.jsx`, `Tonight.jsx`, `Upcoming.jsx`, `client/src/styles.css`,
+`client/tests/disponibilite-stockage.test.js` (nouveau), `client/tests/disponibilite.test.js` (cas « sans offres connues »).
+
+**Ce qu'on ne fait pas dans A3-2** : le regroupement de Ce soir (A3-3), l'affichage des sagas (B3), les filtres (B1), la sauvegarde
+des colonnes, les notifications de sortie (leur logique reste sur `release_date`).
+
+**Vérification** : tests — relevé stocké et relu ; déjà frais → rien ; plus de 7 jours → redemandé ; autre région → redemandé ; échec réseau →
+rien de marqué ; « vu » ignoré ; plafond de 60 ; ajout → relevé ; lecture sans relevé → `providers` nul. Navigateur en largeur
+téléphone, vrai catalogue : une dizaine de titres variés ajoutés, Mes listes avec les pastilles (capture) ; données relues depuis la base
+**sans réseau** (appels TMDB coupés dans la page) ; un titre ajouté prend sa pastille sans recharger. Coupure complète du réseau sur
+l'émulateur : à la clôture A3-4.
+
+**Questions pour Kinder** : (1) le plafond de 60 titres par lancement et le renouvellement à 7 jours te vont-ils ? (2) les libellés courts
+des cartes (« À venir », « Pas en streaming »…) ; (3) pas de pastille sur les résultats de la Recherche : d'accord ?
+
+## Hors périmètre V2 (noté, pas construit)
 `- Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
 `  *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
 `  titres suivis dont la sortie est à venir, sans calendrier ni notification.)*
