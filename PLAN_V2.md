@@ -1622,6 +1622,30 @@ horodatage par ligne, un titre **supprimé** sur un appareil peut revenir après
 **B7** : pas de moyen simple — TMDB n'a pas d'ordre de lecture. Proposé : **abandonné** (« tant pis »), à rouvrir via Wikidata si besoin.
 Ordre proposé : (1) socle A3 ; (2) B3 ; (3) B1 puis B2 ; (4) B6 — chacun en mission à part, phases 3 à 6, critère écrit par Kinder.
 
+### Mission « Disponibilité des titres » (A3) — PLAN (phase 4, 2026-10-27, à valider par Kinder)
+Décisions figées : `PROJET_CONTEXTE.md` (« Décision du 2026-10-27 — feuille de route »). Première des cinq missions ; **B3 en profite**
+(la saga est rattrapée dans le même appel que la disponibilité, mais son affichage est la mission suivante).
+
+**Critère de fin de mission (brouillon, à réécrire par Kinder)** : « Sur chaque film ou série, je vois d'un coup d'œil s'il n'est pas
+encore sorti, s'il est au cinéma, sorti mais pas en streaming, en location ou achat, ou disponible, et sur quelle plateforme. Dans
+Ce soir, je ne vois à regarder que ce qui est regardable. »
+
+| Étape | Contenu | Dépend de | Critère (vérifiable sur capture) |
+|---|---|---|---|
+| A3-1 | **Fiche** : fonction pure `etatDisponibilite` (5 états, tests) + pastille d'état et logos dans la fiche d'un film et d'une série ; liste « au cinéma » du jour relue au plus une fois par jour | — | Cinq fiches de titres connus : un film pas encore sorti, un film au cinéma, un film sorti sans streaming, un film en location seulement, un film en streaming — chacune montre la bonne pastille (et les logos pour le dernier). Une série en streaming et une série à venir : idem |
+| A3-2 | **Cartes** : disponibilité (et saga) rangées dans le suivi, rattrapées au lancement par petits lots (au plus 30 titres par lancement, rafraîchies après 7 jours) ; pastille sur les affiches des listes, de Ce soir et de Découvrir | A3-1 | Mes listes avec des titres variés : pastilles visibles sur les affiches ; après relance **sans réseau**, elles sont toujours là ; un titre ajouté prend sa pastille sans relance |
+| A3-3 | **Ce soir et listes** : « À voir ce soir » = regardables seulement ; bloc « Pas encore sorti » renommé « Pas encore disponible », avec les trois états non regardables et leur pastille ; l'onglet « Sorties à venir » des listes suit la même règle | A3-2 | Ce soir : un film au cinéma n'est plus dans « À voir ce soir » et apparaît dans « Pas encore disponible » avec la pastille « Au cinéma » ; un titre à disponibilité inconnue reste visible dans « À voir ce soir » |
+| A3-4 | **Clôture** : checklist C1 à C8, prompt de vérification pour une autre IA, capture finale de Kinder | A3-1 à A3-3 | Verdict réussi sur chaque critère ; capture finale de Kinder sur son téléphone |
+
+**Points techniques déjà repérés** (à détailler en phase 5, étape par étape) : `tmdb.js` (`getCardInfo` : ajouter `watch/providers` à
+`release_dates`, qui est déjà demandé ; collection de saga), `store.js` (colonnes du suivi et rattrapage sur le modèle de
+`backfillReleaseDates`), `status.js` (`isUpcoming` et `releaseBadge` à rapprocher de la nouvelle fonction), `MovieCard.jsx`,
+`Detail.jsx`, `Tonight.jsx`, `Upcoming.jsx`, `Lists.jsx`, `idee.js`. Aucune migration de format de sauvegarde. Le schéma de `db.js`
+n'accepte ni commentaire SQL ni point-virgule (piège connu, test `schema-telephone`).
+
+**Questions de cadrage à trancher en phase 5, étape A3-2** : taille du lot et fréquence du rafraîchissement (7 jours proposé) ; texte
+exact des pastilles ; mention d'attribution TMDB / JustWatch (déjà sur la fiche) à reprendre ou non sur les cartes.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les

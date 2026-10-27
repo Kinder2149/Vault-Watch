@@ -204,3 +204,28 @@ La permission est ajoutée à `AndroidManifest.xml` (le test `configuration.test
 sur émulateur : sans elle le WebView ne voit jamais la connexion changer, donc la sauvegarde ne reprend pas au retour du
 réseau. Permission « normale » : aucune fenêtre de demande à l'utilisateur, aucun lien avec le formulaire « Sécurité des
 données », mais elle figure dans la liste des autorisations de la fiche Play Store. Tout ajout de permission se décide ainsi.
+
+## Décision du 2026-10-27 — feuille de route des retours du 25/10 (FIGÉE, validée par Kinder)
+Cinq missions, **une à la fois**, dans cet ordre, chacune avec ses phases 3 à 6 et un critère de fin écrit par Kinder :
+1. **A3 — Disponibilité des titres** (socle commun).
+2. **B3 — Sagas regroupées** dans les vues de liste.
+3. **B1 + B2 — Filtres unifiés, puis recherche par mot-clé.**
+4. **B6 — Fusion des conflits de sauvegarde.**
+**B7 (ordre de lecture des mangas) : ABANDONNÉ** — TMDB ne le fournit pas ; à rouvrir seulement via Wikidata si Kinder le redemande.
+Décisions de fond :
+- **Cinq états de disponibilité**, affichés en pastille : Pas encore sorti (avec la date) · Au cinéma · Sorti, pas en streaming ·
+  En location / achat · Disponible (logos des plateformes). Pour une série : Pas encore sorti · Disponible · Pas disponible en streaming.
+- **« Au cinéma »** = le film figure dans la liste TMDB « en salle » de la **région du catalogue** (`/movie/now_playing`), relue au plus
+  une fois par jour. Pas d'heuristique sur les dates.
+- **Disponibilité** = offres de la région (`watch/providers`), rangées dans le suivi et rafraîchies par petits lots au lancement (même
+  mécanique que `backfillReleaseDates`, **dans le même appel** : aucun appel de plus par titre). Données **dérivées** : elles ne sont
+  **pas** dans la sauvegarde (pas de changement de format) ; une restauration les refait au lancement.
+- **« À voir ce soir »** ne garde que ce qui est regardable maintenant ; le bloc « Pas encore sorti » devient « Pas encore disponible »
+  et réunit les trois états non regardables, chacun avec sa pastille. Une disponibilité encore **inconnue** ne cache jamais un titre.
+- **B1** : un panneau de filtres partagé (Films/Séries, « seulement sur mes plateformes » choisies **une fois** dans Réglages, genre,
+  année, tri) sur Recherche, Découvrir, Suggestions et Mes listes. **B2** : « Explorer » devient « Mot-clé » (mots-clés TMDB).
+- **B3** : saga rangée par film (`belongs_to_collection`, rattrapée dans le même appel que la disponibilité) ; en liste, ≥ 2 titres d'une
+  même saga sont regroupés sous « Saga — N titres », dans l'ordre de sortie ; réglage « Regrouper les sagas » actif par défaut.
+- **B6** : 3ᵉ choix du conflit, « Fusionner », proposé en premier ; union des titres, épisodes vus, visionnages, listes ; statut le plus
+  avancé ; abandon et notes : valeur du téléphone ; résumé avant d'appliquer ; résultat renvoyé au Drive. Limite assumée : un titre
+  supprimé sur un appareil peut revenir.
