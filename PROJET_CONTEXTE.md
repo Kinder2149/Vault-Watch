@@ -17,6 +17,11 @@ dans un SQLite embarqué, et la sauvegarde va dans le Google Drive de l'utilisat
 Le dossier `server/` est conservé dans le dépôt comme base d'une éventuelle mise en ligne
 future — il n'est plus utilisé par l'application.
 
+### Point du 2026-10-27 — disponibilité des titres (mission A3)
+- Mission « Disponibilité des titres » **codée et essayée** (428 tests verts) : cinq états sur fiche et affiches, « Ce soir » trié par
+  « regardable », relevé rangé dans le suivi. Reste la vérification par une autre IA et la capture finale de Kinder (étape A3-4).
+- Suite figée : B3 (sagas), B1 + B2 (filtres, mot-clé), B6 (fusion) — voir « Décision du 2026-10-27 — feuille de route ».
+
 ### Point du 2026-10-27 — sauvegarde cloud
 - Mission « Sauvegarde cloud » (A1 / A2 des retours du 25/10) : étapes S1 à S4 **codées et essayées sur émulateur**
   (370 tests verts) ; S5 (vérification par une autre IA, puis capture finale de Kinder sur téléphone) à faire.
@@ -69,6 +74,8 @@ Les services de streaming n'exposent pas ces données : TMDB est la seule source
    manuelle, ou automatique (30 s après une modification, en quittant, au retour, au retour du réseau). L'état et la cause
    d'un blocage sont dits en clair dans Réglages > Sauvegarde ; un bandeau n'alerte que si quelque chose est bloqué.
 10. **Saga** : dans la fiche d'un film, les autres films de sa saga dans l'ordre de sortie.
+11. **Disponibilité** : cinq états (pas encore sorti, au cinéma, sorti sans streaming, location / achat, disponible + plateformes) sur la
+    fiche et les affiches ; « Ce soir » ne montre à regarder que le regardable ; « Mes listes » montre tout.
 
 ## Architecture (3 couches, strict)
 Tout tient dans `client/`, il n'y a plus de séparation par processus :

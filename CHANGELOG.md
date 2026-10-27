@@ -8,6 +8,19 @@
 - 18 points relevés par Kinder (sauvegarde automatique, recherche, navigation, listes, découvertes, suivi des
   épisodes, fusion Drive…). Aucun code modifié. Liste complète dans `PLAN_V2.md`, « Retours d'essai du 2026-10-25 ».
 
+## Disponibilité des titres (A3) — 2026-10-27, codée et essayée sur émulateur, non validée par Kinder sur téléphone
+- **Cinq états sur chaque titre**, en pastille (icône + texte) : Pas encore sorti (avec la date) · Au cinéma · Sorti, pas en streaming ·
+  En location / achat · Disponible (logos des plateformes). Sur la fiche, pour tout titre ; sur les affiches de Mes listes, Ce soir et
+  Découvrir. « Au cinéma » vient de la liste TMDB « en salle » de la région, relue une fois par jour.
+- **Ce soir** : « À voir ce soir » ne garde que le regardable ; « Pas encore sorti » devient « Pas encore disponible » (pas sorti, au
+  cinéma, sans offre) ; l'idée du soir ne tire que parmi le regardable. **Mes listes** montre tous les titres à voir.
+- La fiche d'un film utilise la **date de sortie de la région** (un film sorti en juillet dans le monde mais en salle chez nous demain
+  n'est plus « sorti »).
+- Les offres sont rangées dans le suivi (relevé au lancement, 60 titres au plus, renouvelé après 7 jours) : les pastilles tiennent
+  hors connexion. Rien dans la sauvegarde ni l'export.
+- Correctif au passage : « Tout voir » et la fiche d'un ami ne se décalent plus (transition d'écran en fondu seul).
+- Détail et captures : `PLAN_V2.md` (mission « Disponibilité des titres »), `essais/2026-10-27_A3-1` à `A3-4`.
+
 ## Sauvegarde cloud — logique reprise en entier (2026-10-26 / 27, codée et essayée sur émulateur, non validée sur téléphone)
 - **Envoi automatique pendant l'usage** : une modification part 30 s plus tard (regroupée, plafonnée à 2 min, au moins 60 s
   entre deux envois), en plus de « en quittant » et « au retour ». Avant, rien ne partait tant qu'on utilisait l'application.

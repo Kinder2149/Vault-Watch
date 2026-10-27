@@ -1841,6 +1841,50 @@ Suivi de 8 titres à voir (vrai catalogue, navigateur en largeur téléphone) :
 Case A3-3 à cocher après validation de Kinder. **Reste A3-4 : clôture** (prompt de vérification, essai réseau coupé sur l'émulateur,
 capture finale de Kinder).
 
+#### A3-4 — Clôture (2026-10-27)
+```
+CLÔTURE DE MISSION — DISPONIBILITÉ DES TITRES (A3-1 à A3-3)
+
+CÔTÉ IA QUI A CODÉ :
+☑ C1 — Build : passe (vite build avec et sans VITE_PARTAGE ; APK de debug construit et installé sur l'émulateur)
+☑ C2 — Périmètre : fichiers listés ci-dessous ; code natif Java, sauvegarde, notifications, google.js inchangés
+☑ C3 — Tests de code : A3-1 « états de la fiche » → réussi (20 + 7 « en salle ») ; A3-2 « relevé stocké, renouvelé, plafonné » → réussi
+        (16) ; A3-3 « regardable » → réussi (15) ; tests existants : 428 au total, tous verts
+☑ C4 — CHANGELOG : bloc « Disponibilité des titres (A3) » ajouté
+☑ C5 — PROJET_CONTEXTE : « Point du 2026-10-27 — disponibilité des titres » ajouté (pas de numérotation « section 8 » dans ce projet)
+☑ C6 — Graphify : mis à jour (AST de client/src et client/tests : 545 → 604 nœuds ; analyse des documents non refaite)
+☑ C7 — Synchronisation : « Périmètre construit » point 11 ajouté ; décisions du 2026-10-27 (feuille de route) déjà figées ; aucune
+        décision antérieure levée
+☑ C8 — Prompt de vérification rédigé : essais/prompt-verification-disponibilite.txt
+
+FICHIERS MODIFIÉS (en langage fonctionnel) :
+- la règle des cinq états et du « regardable » → client/src/status.js, idee.js
+- le relevé des offres rangé dans le suivi, et sa lecture → client/src/db.js, store.js, tmdb.js, api.js
+- la pastille sur la fiche et sur les affiches → client/src/components/Disponibilite.jsx, PastilleCarte.jsx, MovieCard.jsx, Icon.jsx
+- Ce soir, sorties à venir, Mes listes, fiche → Tonight.jsx, Upcoming.jsx, Lists.jsx, Detail.jsx, Rail.jsx, VueRayon.jsx, Suggestions.jsx
+- le lancement et l'ajout d'un titre → client/src/App.jsx
+- l'apparence → client/src/styles.css
+- les tests → client/tests (disponibilite, disponibilite-stockage, ensalle, regardable, setup)
+
+CÔTÉ IA DE VÉRIFICATION :
+☐ V1-V4 — Rapport rendu : [critère → capture → réussi / échoué]
+
+CÔTÉ KINDER :
+☐ K1 — Liste des fichiers lue et comprise
+☐ K2 — Capture finale sur son téléphone : Ce soir > En attente
+☐ K3 — Résultat : ✅ Mission validée / ❌ Problème détecté → [décrire]
+```
+**Essai sur émulateur Android (moteur réel), 2026-10-27** — captures dans `essais/2026-10-27_A3-4/` : six titres ajoutés par l'interface,
+pastilles posées en quelques secondes (Disponible + logo Apple TV / Netflix / Disney+, Location / achat, Pas en streaming, À venir, Au
+cinéma) ; **Wi-Fi et données coupés, application tuée puis relancée** : `navigator.onLine` = faux (grâce à la permission réseau),
+Mes listes montre les **12 cartes avec leur pastille** (12 sur 12), Ce soir montre « À voir ce soir — 9 titres à regarder » et
+« Pas encore disponible — 3 titres · 1 au cinéma · prochaine sortie le 16/12/2026 ». Les affiches jamais téléchargées retombent sur
+« Pas d'affiche » hors connexion (comportement existant, hors mission).
+Incident d'environnement : l'émulateur « Medium_Phone » est plein à 94 % (autres applications de test de Kinder) ; l'installation a
+d'abord échoué pour manque de place et n'a réussi qu'après la désinstallation de **Vault Watch seul** puis un redémarrage. Un émulateur
+dédié (`VaultWatch_Test`, 6 Go) a été créé mais n'a pas démarré (adb resté « offline ») ; supprimable : `avdmanager delete avd -n VaultWatch_Test`.
+Cases A3-1 à A3-3 à cocher après validation de Kinder.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
