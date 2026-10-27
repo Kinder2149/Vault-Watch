@@ -2319,6 +2319,42 @@ les listes de même nom (casse différente) fusionnées, privées si l'une l'est
 deux profils identiques sans changement, résumé à zéro ; fusion du résultat avec chacune des versions d'origine (idempotence) ; résultat valide pour `validateBackup` ; sauvegardes d'origine non modifiées ; deux profils
 d'identifiants différents refusés. Pas d'écran : cette étape se ferme par les tests, l'écran vient en B6-2.
 
+#### B6-2 — « Fusionner » dans l'écran de conflit (phase 5, cadrage d'étape, 2026-10-27)
+**Critère de fin de la mission (Kinder, reçu coupé après « je vois ce qui s'ajoute dans chaque sens, » ; fin reprise du brouillon du plan, à confirmer)** : « Quand deux appareils ont modifié ma sauvegarde, l'écran de conflit me propose
+Fusionner en premier, je vois ce qui s'ajoute dans chaque sens, [et je retrouve la somme des deux]. »
+**Critère de B6-2 (déduit du plan)** : dans Réglages > Sauvegarde, l'écran de conflit montre « Fusionner » en tête, avec, par profil, ce qui s'ajoute à ce téléphone et ce qui s'ajoute au Drive ; après un appui, le profil de ce
+téléphone contient la somme des deux, le Drive aussi, le bandeau de conflit disparaît et Réglages dit « Sauvegardé ».
+
+**État réel** : l'écran de conflit (`Backup.jsx`) liste chaque profil en conflit (date sur le Drive, nombre de titres et d'épisodes) et offre « Reprendre la version du Drive », « Garder ce téléphone » (en rouge) et « Décider plus tard ».
+`backupToDrive` s'arrête au premier conflit sans rien écrire ; `restoreFromDrive` remplace un profil par le fichier du Drive. B6-1 a posé `fusionnerProfils(local, drive)` (pure, 18 tests).
+
+**Ce qu'on construit**
+1. **Deux fonctions dans `backup.js`** : `previsualiserFusion(jeton, conflits)` — télécharge chaque fichier en conflit, exporte le profil local, fusionne **sans rien écrire** et rend, par profil, le résumé ; `fusionnerAvecDrive(jeton,
+   conflits)` — refait la fusion à partir de l'état du moment, remplace le profil local par le résultat en **un seul bloc** (`importProfile` : tout ou rien), note la version du Drive lue, puis lance l'envoi normal (`backupToDrive`)
+   pour que le résultat parte sur le Drive.
+2. **L'écran de conflit** : « Fusionner » devient le **premier bouton, mis en avant** ; « Reprendre la version du Drive », « Garder ce téléphone » (rouge) et « Décider plus tard » restent dessous, inchangés. Sous la liste des profils,
+   le **résumé de la fusion est déjà affiché** (calculé à l'ouverture du conflit, comme le sont déjà les nombres de titres) : par profil, en clair, par exemple
+   « Marie : ce téléphone reçoit 12 titres, 40 épisodes vus, 2 listes ; le Drive reçoit 3 titres, 5 épisodes vus ; 2 statuts passent à « Vu » ; 1 note différente : celle de ce téléphone est gardée. »
+   et une ligne fixe : « Un titre supprimé d'un côté peut revenir. » Si rien ne s'ajoute d'un côté, la phrase le dit (« rien à ajouter au Drive »). Un appui sur « Fusionner » applique.
+3. **Plusieurs profils en conflit** : un seul appui fusionne tous les profils en conflit, un résumé par profil ; les profils qui ne sont pas en conflit sont envoyés normalement.
+4. **Après l'appui** : bouton « Fusion… » le temps du travail (pas de double appui) ; au succès, l'écran se referme, Réglages dit « Sauvegardé à HH:MM », le bandeau de conflit disparaît et le suivi affiché se recharge
+   (comme après « Reprendre le Drive ») ; message : « Fusion faite : les deux versions sont réunies, sur ce téléphone et sur le Drive. »
+5. **Cas d'échec, rien n'est perdu** : fichier du Drive illisible ou d'une version plus récente de l'application → message, rien n'est changé ; le Drive a encore changé entre l'affichage et l'appui → le conflit
+   revient avec le nouveau résumé (aucun écrasement) ; l'envoi échoue après la fusion locale (réseau coupé) → la fusion reste sur le téléphone, la modification est marquée « à envoyer » et le bandeau habituel (hors connexion)
+   prend le relais ; l'envoi repart au retour du réseau.
+
+**Fichiers touchés** : `client/src/backup.js`, `client/src/components/Backup.jsx` (+ `client/src/styles.css` si le bouton principal le demande), `client/tests/cloud.conflit.test.js` (ou un nouveau `fusion.cloud.test.js`).
+**Ce qu'on ne fait pas dans B6-2** : fusion automatique sans demander (le conflit reste un choix) ; fusion à la restauration depuis Drive ou au premier branchement d'un compte ; fusion de profils d'identifiants différents ;
+changement du format de sauvegarde ; notification ; essai sur émulateur et prompt de vérification (clôture B6-3).
+
+**Vérification** : tests de code sur le faux Drive existant — l'aperçu n'écrit rien (ni en base, ni sur le Drive) ; la fusion réunit titres, épisodes et listes des deux côtés, remplace le profil local, envoie le résultat, note la version
+(pas de nouveau conflit juste après) et vide le marqueur « à envoyer » ; deux profils en conflit dont un seul fusionnable ; Drive modifié entre l'aperçu et l'appui → nouveau conflit, rien d'écrasé ; fichier illisible → rien
+changé ; envoi qui échoue → fusion gardée, marqueur « à envoyer » conservé ; « Garder ce téléphone » et « Reprendre le Drive » inchangés. Rendu dans le navigateur en largeur téléphone avec un Drive simulé : écran de conflit avec
+« Fusionner » en tête et le résumé (capture), appui, message de succès et bandeau disparu (capture). Le vrai Drive et le compte de test sur émulateur : clôture B6-3. Suite verte (492 + nouveaux), build propre.
+
+**Questions pour Kinder** : (1) le **résumé est affiché directement** sous la liste des profils, et **un seul appui** sur « Fusionner » applique (pas de seconde confirmation : la fusion ne retire rien, sauf le retour possible d'un titre
+supprimé, annoncé) : d'accord ? (2) « Fusionner » est **en tête et mis en avant**, « Garder ce téléphone » reste en rouge : d'accord ? (3) **un seul appui fusionne tous les profils** en conflit : d'accord ?
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
