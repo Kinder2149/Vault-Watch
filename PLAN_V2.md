@@ -1595,6 +1595,33 @@ des retours du 25/10 (A3, A6, B1, B2, B3, B7).
 Aucun de ces points n'est « validé » au sens de la méthode tant que la vérification par une autre IA et la capture finale de
 Kinder ne sont pas faites.
 
+### Retours du 25/10 non faits — réponses de Kinder et proposition (phase 2, 2026-10-27, À VALIDER)
+**A6 / A7 — corrigé.** Cause mesurée (pas supposée) : la transition d'écran `.view-enter` animait un `transform`. Un ancêtre en
+transform devient le repère des écrans `position: fixed` : « Tout voir » et la fiche d'un ami se calaient sur la page (décalage
+mesuré : 16 px à gauche, −396 px en haut) au lieu de l'écran. Transition en fondu seul : « Tout voir » de Ce soir et de Découvrir
+mesurés **exactement plein cadre (0, 0, 375 × 812)**. Les captures de Kinder (2.3 publiée) montraient ce défaut.
+
+**Socle commun A3 + B1 + B3 : une donnée de disponibilité par titre.** Aujourd'hui l'application ne connaît que la date de sortie.
+- *Au cinéma* : liste TMDB « en salle » de la région (`/movie/now_playing?region=FR`, quelques pages, **un appel par jour pour tout
+  le catalogue**) — exact, sans heuristique.
+- *Disponible* : offres de streaming FR du titre (`watch/providers`, abonnement / location / achat), rangées dans le suivi et
+  rafraîchies par petits lots au lancement (même mécanique que les dates de sortie).
+- Cinq états affichés en pastille sur les cartes et la fiche : **Pas encore sorti — date** · **Au cinéma** · **Sorti, pas en
+  streaming** · **En location / achat** · **Disponible : logos des plateformes**.
+**A3** = ces cinq états (remplace la règle actuelle « date future = pas encore sorti »). **B1** = un seul panneau de filtres partagé :
+Films / Séries, « seulement sur mes plateformes » (choisies **une fois** dans Réglages), genre, année, tri ; branché sur Recherche,
+Découvrir (rangées et « Tout voir »), Suggestions et Mes listes (filtres locaux sur les données ci-dessus). **B2** = le mode
+« Explorer » de la Recherche devient « Mot-clé » : on tape « marvel », des mots-clés TMDB sont proposés, on en touche un → films et
+séries (`with_keywords`), avec le panneau de filtres ; les genres passent dans les filtres. **B3** = collection de saga rangée par
+film (`belongs_to_collection`, rattrapage silencieux comme les dates) ; dans les listes, les titres d'une même saga (≥ 2) sont
+regroupés sous un en-tête « Saga — N titres », dans l'ordre de sortie ; réglage « Regrouper les sagas », actif par défaut.
+**B6 = fusion** (3ᵉ choix du conflit, proposé en premier) : union des titres, des épisodes vus, des visionnages et des listes ;
+statut : le plus avancé (Vu > En cours > À voir), « Abandonné » et notes : la valeur de ce téléphone en cas de désaccord ; résumé
+avant d'appliquer (« +12 titres du Drive, +40 épisodes ») ; le résultat fusionné est envoyé au Drive. Limite assumée : sans
+horodatage par ligne, un titre **supprimé** sur un appareil peut revenir après fusion (annoncé dans le résumé).
+**B7** : pas de moyen simple — TMDB n'a pas d'ordre de lecture. Proposé : **abandonné** (« tant pis »), à rouvrir via Wikidata si besoin.
+Ordre proposé : (1) socle A3 ; (2) B3 ; (3) B1 puis B2 ; (4) B6 — chacun en mission à part, phases 3 à 6, critère écrit par Kinder.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
