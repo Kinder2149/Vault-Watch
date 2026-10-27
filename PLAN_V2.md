@@ -2142,6 +2142,13 @@ recherche d'un acteur : mêmes filtres sur sa filmographie ; changer de mode rem
 (Tendances) reçoit **le même panneau complet** (année, genre, tri) et non plus seulement Films / Séries : d'accord ? (3) les filtres se remettent à zéro quand on **change de mode** (Titre ↔ Acteur), mais
 **pas** entre deux recherches du même mode : d'accord ?
 
+**B1-4 codée et vérifiée (2026-10-27, phase 6)** : 480 tests verts, build propre (pas de nouveau test : la logique de filtre est celle de B1-2, déjà testée, genre et type compris). Navigateur en largeur téléphone,
+vrai catalogue : l'accueil de la recherche montre les Tendances avec la barre commune (`essais/2026-10-27_B1-4/01-accueil-recherche.jpg`) ; recherche « batman » : « Films » ne laisse que des films, « 2020s »
+aucun titre plus ancien, « Action & Aventure » réduit la liste, « Plus ancien » range par année croissante, la ligne « Pas de filtre par plateforme ici… » s'affiche (`03-panneau-titre.jpg`) ; un filtre qui
+vide la liste montre « Aucun titre ne correspond » avec « Réinitialiser », qui rend les 20 résultats (`02-aucun-titre-ne-correspond.jpg`) ; recherche d'acteur (Keanu Reeves) : « Séries » ne laisse que des séries,
+« Plus récent » range par année décroissante, genre appliqué ; changer de mode remet les filtres à zéro ; « Explorer » garde son ancien panneau et son sélecteur, inchangés. Un titre à date inconnue (2027)
+se range en dernier avec « Plus récent » : comportement du tri commun, pas touché ici. Coupure réseau : B1-5.
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les

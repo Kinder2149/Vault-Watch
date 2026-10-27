@@ -14,6 +14,7 @@ import Settings from './components/Settings.jsx';
 import StatusMenu from './components/StatusMenu.jsx';
 import CatalogLanguage from './components/CatalogLanguage.jsx';
 import Filtres from './components/Filtres.jsx';
+import BarreFiltres from './components/BarreFiltres.jsx';
 import Icon from './components/Icon.jsx';
 import About from './components/About.jsx';
 import Backup from './components/Backup.jsx';
@@ -84,8 +85,9 @@ import {
   FILTRES_VIDES,
   FILTRES_BIBLIO_VIDES,
   FILTRES_DECOUVERTE_VIDES,
+  filtresDecouverteActifs,
+  appliquerFiltresDecouverte,
   filtresActifs,
-  appliquerFiltres,
 } from './filtres.js';
 
 const keyOf = (item) => `${item.mediaType}-${item.id}`;
@@ -128,6 +130,8 @@ export default function App() {
   // dans Explorer seulement, plateformes. Remis à zéro à chaque changement de mode.
   const [filtres, setFiltres] = useState(FILTRES_VIDES);
   const [filtresOuverts, setFiltresOuverts] = useState(false);
+  // Titre et Acteur : le panneau commun (type, année, genre, tri). Explorer garde `filtres` et `mediaFilter`.
+  const [filtresRecherche, setFiltresRecherche] = useState(FILTRES_DECOUVERTE_VIDES);
   const [plateformes, setPlateformes] = useState([]);
   // Suivi complet : clé -> item (avec status et listStatus).
   const [suivi, setSuivi] = useState(() => new Map());
@@ -459,6 +463,7 @@ export default function App() {
     setOpenDetail(null);
     showTab('search');
     setFiltres(FILTRES_VIDES);
+    setFiltresRecherche(FILTRES_DECOUVERTE_VIDES);
     setFiltresOuverts(false);
     setSearchMode('actor');
     setSelectedGenre(null);
@@ -501,6 +506,7 @@ export default function App() {
     setFicheOrigine(null);
     // Les filtres d'un mode ne suivent pas dans l'autre : leur effet n'est pas le même.
     setFiltres(FILTRES_VIDES);
+    setFiltresRecherche(FILTRES_DECOUVERTE_VIDES);
     setFiltresOuverts(false);
     setSearchMode(mode);
     setSelectedGenre(null);
@@ -851,8 +857,16 @@ export default function App() {
     onLongPress: setStatusMenu,
   };
 
+  const barreRecherche = {
+    vides: FILTRES_DECOUVERTE_VIDES,
+    actifs: filtresDecouverteActifs,
+    genres,
+    note: 'Pas de filtre par plateforme ici : TMDB ne le permet pas pour une recherche.',
+  };
+  // Titre et Acteur : le panneau commun (type compris). Explorer : son sélecteur Films / Séries.
+  const recherche = searchMode !== 'genre';
   const resultsDuType =
-    mediaFilter === 'all'
+    recherche || mediaFilter === 'all'
       ? results
       : results.filter((r) => r.mediaType === mediaFilter);
 
@@ -860,7 +874,7 @@ export default function App() {
   // affiché — TMDB ne filtre pas ces listes. Explorer, lui, les envoie
   // directement à TMDB (voir tmdb.js) : `results` en tient déjà compte.
   const resultsAffiches =
-    searchMode !== 'genre' ? appliquerFiltres(resultsDuType, filtres) : resultsDuType;
+    recherche ? appliquerFiltresDecouverte(resultsDuType, filtresRecherche) : resultsDuType;
 
   // Par genre et par acteur, on cherche à découvrir : ce qu'on a déjà est
   // masqué. Par titre, on le garde — on y cherche souvent un titre précis
@@ -873,8 +887,8 @@ export default function App() {
   // Un filtre (Titre / Acteur) qui vide une liste pourtant non vide : message
   // différent de « Aucun résultat » (qui, lui, dit que la recherche n'a rien donné).
   const filtresToutEcarte =
-    searchMode !== 'genre' &&
-    filtresActifs(filtres) &&
+    recherche &&
+    filtresDecouverteActifs(filtresRecherche) &&
     resultsDuType.length > 0 &&
     resultsAffiches.length === 0;
 
@@ -1013,7 +1027,7 @@ export default function App() {
             </div>
           )}
 
-          {(hasSearched || isDefault) && (
+          {searchMode === 'genre' && (hasSearched || isDefault) && (
             <div className="seg seg--sm">
               {[
                 ['all', 'Tout'],
@@ -1033,8 +1047,14 @@ export default function App() {
 
           {/* Filtres : dans Explorer dès l'entrée ; dans Titre et Acteur, une fois
               qu'il y a des résultats à filtrer. */}
-          {(searchMode === 'genre' ||
-            (hasSearched && searchMode !== 'genre' && resultsDuType.length > 0)) && (
+          {recherche && hasSearched && (
+            <BarreFiltres
+              filtres={filtresRecherche}
+              onChange={setFiltresRecherche}
+              {...barreRecherche}
+            />
+          )}
+          {searchMode === 'genre' && (
             <>
               <div className="filtres-bar">
                 <button
@@ -1051,8 +1071,8 @@ export default function App() {
                   filtres={filtres}
                   onChange={setFiltres}
                   plateformes={plateformes}
-                  avecPlateformes={searchMode === 'genre'}
-                  indicationPlateforme={searchMode !== 'genre'}
+                  avecPlateformes
+                  indicationPlateforme={false}
                 />
               )}
             </>
@@ -1097,10 +1117,21 @@ export default function App() {
             !(searchMode === 'actor' && !person) && (
               <Vide
                 icone="search"
-                titre={masques > 0 && !filtresToutEcarte ? 'Tu as déjà tout' : 'Aucun résultat'}
+                titre={
+                  filtresToutEcarte
+                    ? 'Aucun titre ne correspond'
+                    : masques > 0
+                      ? 'Tu as déjà tout'
+                      : 'Aucun résultat'
+                }
+                action={
+                  filtresToutEcarte
+                    ? { label: 'Réinitialiser', onClick: () => setFiltresRecherche(FILTRES_DECOUVERTE_VIDES) }
+                    : undefined
+                }
                 texte={
                   filtresToutEcarte
-                    ? 'Aucun titre ne correspond à ces filtres.'
+                    ? 'Tes filtres écartent tous les résultats de cette recherche.'
                     : masques > 0
                       ? 'Tu as déjà tous ces titres dans ton suivi.'
                       : 'Essaie une autre orthographe, ou cherche par acteur.'
@@ -1135,7 +1166,9 @@ export default function App() {
               </header>
               <Rubriques
                 rubriques={[['tendances', 'Tendances']]}
-                mediaFilter={mediaFilter}
+                filtres={filtresRecherche}
+                onFiltres={setFiltresRecherche}
+                barre={barreRecherche}
                 suivi={suivi}
                 dejaChezMoi={dejaChezMoi}
                 cardProps={cardProps}
