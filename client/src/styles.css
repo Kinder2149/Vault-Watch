@@ -1413,12 +1413,15 @@ button { font-family: inherit; }
 .welcome__restaurer { margin-top: var(--s-6); }
 
 /* --- Dynamique (M7) : un mouvement qui sert, jamais décoratif --- */
-/* Pas de « both » : une animation qui garde son état final fait de son élément le repère des
-   écrans en plein écran (position: fixed) — « Tout voir » se retrouvait enfermé dans la page. */
+/* Fondu seul, **jamais de transform** sur cet élément : tout écran en plein écran (« Tout voir »,
+   fiche d'un ami…) est posé en `position: fixed` À L'INTÉRIEUR de lui, et un ancêtre animé en
+   transform devient son repère — l'écran se décale (marges, vide en haut, colonne coupée). Mesuré le
+   2026-10-27 : tant que l'animation tourne, `transform: translateY(6px)` décalait l'écran de 16 px et de
+   -396 px ; en fondu seul, l'écran est exactement plein cadre (0, 0, 375 × 812) même animation figée. */
 .view-enter { animation: vue-entre 180ms var(--ease) backwards; }
 @keyframes vue-entre {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: none; }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 .settings__line--btn:active, .ligne-ami:active, .statbtn:active, .liste-carte:active, .choix-theme__ligne:active,
 .profil__main:active { background: var(--surface2); }
