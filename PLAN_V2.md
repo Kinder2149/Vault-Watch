@@ -2189,6 +2189,38 @@ plateformes » qui dit « Aucune plateforme choisie : le filtre ne retire rien �
 avec des plateformes choisies (vu dans le navigateur en B1-2 ; le compte de test de l'émulateur n'en a pas), l'état « N rayons masqués » (aucun titre aimé ni ami sur ce jeu de données).
 Cases B1-1 à B1-4 et B1-5 à cocher après validation de Kinder.
 
+#### B2-1 — Mode « Mot-clé » à la place d'« Explorer » (phase 5, cadrage d'étape, 2026-10-27)
+**Critère de B2 (repris du plan, brouillon à réécrire par Kinder)** : « Dans la recherche, je tape un thème comme « marvel », on me propose des mots-clés, j'en touche un et je vois les films et séries qui s'y
+rattachent, avec les mêmes filtres. » **Critère de B2-1** : taper « marvel », toucher un mot-clé : des films et séries Marvel, filtrables ; plus d'onglet « Explorer ».
+
+**État réel** : la Recherche a trois modes (Titre, Acteur, **Explorer**). Explorer = une rangée de 12 genres + l'ancien panneau (année, tri, choix de plateformes propre à l'écran) ; il envoie genre, année, tri et
+plateformes à TMDB (`discoverByGenre`) et parcourt tout le catalogue, sans saisie. TMDB sait chercher un mot-clé (`/search/keyword`) et lister les titres qui en portent un (`/discover` avec `with_keywords`) ;
+les rayons de Découvrir utilisent déjà `with_keywords` et `with_watch_providers`.
+
+**Ce qu'on construit**
+1. **Le mode « Mot-clé » remplace « Explorer »** dans le sélecteur (Titre / Acteur / Mot-clé) ; le champ de recherche reste en haut, avec « Un thème : marvel, zombie, time travel… ».
+2. **Saisie → mots-clés proposés** : sous le champ, une rangée de puces (jusqu'à 10 mots-clés TMDB qui correspondent) ; s'il n'y en a qu'un, il s'ouvre directement. Aucun résultat : « Aucun mot-clé pour « … » »
+   avec une ligne : les mots-clés TMDB sont en anglais.
+3. **Toucher un mot-clé** : films et séries qui le portent (TMDB, `with_keywords`), en-tête « Mot-clé : marvel » (comme « Films & séries avec … » pour un acteur), titres déjà suivis masqués avec la ligne
+   « N titres que tu as déjà sont masqués », « Voir plus » (on enchaîne les pages jusqu'à 12 nouveaux titres, 4 au plus, comme Explorer). Retoucher la puce la retire (retour aux propositions).
+4. **Le panneau commun** (celui de Titre et Acteur) : Tout / Films / Séries (envoyé à TMDB : relance l'appel) ; année, genre, tri appliqués aux titres chargés ; **« Sur mes plateformes »** (choisies dans
+   Réglages) envoyé à TMDB comme dans Découvrir, avec l'invitation à choisir ses plateformes si aucune. Réglage remis à zéro au changement de mode, comme B1-4.
+5. **Les genres d'Explorer** deviennent le filtre Genre du panneau ; le sélecteur propre d'Explorer, son panneau, son choix de plateformes et la parcours « un genre sans mot-clé » disparaissent. Le code
+   devenu inutile (`discoverByGenre`, état d'Explorer dans `App.jsx`) est retiré ; les tests qui l'utilisaient (`genres.test.js`, `recherche.test.js`) sont adaptés, pas supprimés en bloc.
+6. **Hors connexion** : « Pas de connexion » avec « Réessayer », comme ailleurs.
+
+**Fichiers touchés** : `client/src/tmdb.js` et `api.js` (recherche de mots-clés, titres d'un mot-clé ; retrait de la découverte par genre), `client/src/App.jsx` (mode, saisie, puces, état), `client/src/components/Filtres.jsx`
+(retrait de la branche « plateformes d'Explorer »), `client/tests/` (mots-clés : paramètres envoyés, plateformes, pagination ; adaptation des tests d'Explorer).
+**Ce qu'on ne fait pas dans B2-1** : traduction des mots-clés du français vers l'anglais ; mot-clé sur Mes listes ou Découvrir ; combiner plusieurs mots-clés ; mémoriser les dernières recherches de mot-clé.
+
+**Vérification** : tests de code ; navigateur en largeur téléphone, vrai catalogue : « Explorer » n'existe plus (capture du sélecteur) ; « marvel » propose des mots-clés (capture) ; en toucher un montre des films et
+séries (capture) ; « Films » ne laisse que des films ; « 2020s », un genre et « Plus récent » agissent ; « Sur mes plateformes » envoie `with_watch_providers` ; « voyage dans le temps » : aucun mot-clé + ligne sur
+l'anglais ; Titre et Acteur inchangés. Émulateur et coupure réseau : à la clôture B2-2.
+
+**Questions pour Kinder** : (1) les mots-clés TMDB sont **en anglais** (« marvel », « zombie », « time travel ») : en français on trouve peu ; une ligne le dit, sans traduction. D'accord ? (2) on **perd** le
+parcours « un genre seul, sans mot-clé » d'Explorer (tout le catalogue par genre) : le genre devient un filtre sur les titres d'un mot-clé ; Découvrir garde ses rayons par thème. D'accord ? (3) « Sur mes plateformes »
+est **ajouté** dans Mot-clé (envoyé à TMDB) et remplace le choix de plateformes propre à Explorer : d'accord ?
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
