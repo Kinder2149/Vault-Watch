@@ -197,3 +197,36 @@ export function fusionnerProfils(local, drive) {
     resume: { ...resume, changeLeTelephone: versTelephone > 0, changeLeDrive: versDrive > 0 },
   };
 }
+
+// Le résumé en français, pour l'écran de conflit : ce qui s'ajoute à ce téléphone, ce qui s'ajoute au Drive.
+const pluriel = (n, un, plusieurs) => `${n} ${n > 1 ? plusieurs : un}`;
+
+function enumerer(r, cote) {
+  const morceaux = [];
+  if (r.titres[cote]) morceaux.push(pluriel(r.titres[cote], 'titre', 'titres'));
+  if (r.episodes[cote]) morceaux.push(pluriel(r.episodes[cote], 'épisode vu', 'épisodes vus'));
+  if (r.visionnages[cote]) morceaux.push(pluriel(r.visionnages[cote], 'visionnage', 'visionnages'));
+  if (r.listes[cote]) morceaux.push(pluriel(r.listes[cote], 'liste', 'listes'));
+  if (r.elements[cote]) morceaux.push(pluriel(r.elements[cote], 'ajout à une liste', 'ajouts à des listes'));
+  return morceaux;
+}
+
+export function decrireFusion(resume) {
+  const versTelephone = enumerer(resume, 'duDrive');
+  if (resume.statuts.surTelephone) {
+    versTelephone.push(pluriel(resume.statuts.surTelephone, 'statut mis à niveau', 'statuts mis à niveau'));
+  }
+  const versDrive = enumerer(resume, 'duTelephone');
+  if (resume.statuts.surDrive) {
+    versDrive.push(pluriel(resume.statuts.surDrive, 'statut mis à niveau', 'statuts mis à niveau'));
+  }
+  return {
+    telephone: versTelephone.length
+      ? `Ce téléphone reçoit : ${versTelephone.join(', ')}.`
+      : 'Rien à ajouter à ce téléphone.',
+    drive: versDrive.length ? `Le Drive reçoit : ${versDrive.join(', ')}.` : 'Rien à ajouter au Drive.',
+    notes: resume.notesEnDesaccord
+      ? `${pluriel(resume.notesEnDesaccord, 'note ou avis diffère', 'notes ou avis diffèrent')} : celui de ce téléphone est gardé.`
+      : null,
+  };
+}

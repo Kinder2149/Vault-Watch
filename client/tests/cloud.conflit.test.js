@@ -177,3 +177,130 @@ describe('deux appareils sur le même Drive', () => {
     await expect(backup.backupToDrive('jeton')).rejects.toBeInstanceOf(backup.ConflitSauvegarde);
   });
 });
+
+// --- Fusion (mission B6) ---
+
+// Ce que « l'autre appareil » ajoute dans le fichier du Drive.
+function ajouterAilleurs(profileId, titres) {
+  const donnees = JSON.parse(drive.files.find((f) => f.name === `profil-${profileId}.json`).contents);
+  donnees.suivi.push(...titres);
+  drive.ecrireAilleurs(profileId, JSON.stringify(donnees));
+}
+const dansDrive = (tmdbId, extra = {}) => ({
+  tmdbId,
+  mediaType: 'movie',
+  title: `Drive ${tmdbId}`,
+  status: 'a_voir',
+  ...extra,
+});
+
+async function conflitsDe() {
+  try {
+    await backup.backupToDrive('jeton');
+  } catch (e) {
+    if (e instanceof backup.ConflitSauvegarde) return e.conflits;
+    throw e;
+  }
+  throw new Error('un conflit était attendu');
+}
+
+describe('fusion en cas de conflit', () => {
+  it("l'aperçu annonce ce qui s'ajoute dans chaque sens et n'écrit rien", async () => {
+    await backup.backupToDrive('jeton');
+    ajouterAilleurs(profil.id, [dansDrive(9), dansDrive(10)]);
+    await store.addToSuivi(profil.id, { id: 2, mediaType: 'movie', title: 'Ici' });
+    const conflits = await conflitsDe();
+    const driveAvant = drive.files.map((f) => f.contents);
+    const localAvant = await backup.exportProfile(profil.id);
+
+    const [apercu] = await backup.previsualiserFusion('jeton', conflits);
+    expect(apercu.profileName).toBeTruthy();
+    expect(apercu.resume.titres).toEqual({ duDrive: 2, duTelephone: 1 });
+    expect(drive.files.map((f) => f.contents)).toEqual(driveAvant);
+    const localApres = await backup.exportProfile(profil.id);
+    expect({ ...localApres, exportedAt: 0 }).toEqual({ ...localAvant, exportedAt: 0 });
+  });
+
+  it('la fusion réunit les deux versions, part sur le Drive, et ne laisse ni conflit ni rappel', async () => {
+    await backup.backupToDrive('jeton');
+    ajouterAilleurs(profil.id, [dansDrive(9)]);
+    await store.addToSuivi(profil.id, { id: 2, mediaType: 'movie', title: 'Ici' });
+    const conflits = await conflitsDe();
+
+    const id = await backup.fusionnerAvecDrive('jeton', conflits);
+    expect(id).toBe(profil.id);
+    await expect(backup.backupToDrive('jeton')).resolves.toMatchObject({ profils: 1 });
+
+    const local = await backup.exportProfile(profil.id);
+    expect(local.suivi.map((s) => s.title).sort()).toEqual(['Drive 9', 'Ici']);
+    const surDrive = JSON.parse(drive.files[0].contents);
+    expect(surDrive.suivi.map((s) => s.title).sort()).toEqual(['Drive 9', 'Ici']);
+    expect(backup.hasPendingChanges()).toBe(false);
+    // Rien ne reste en conflit ensuite.
+    await expect(backup.backupToDrive('jeton')).resolves.toMatchObject({ profils: 1 });
+  });
+
+  it('plusieurs profils en conflit : tous sont fusionnés', async () => {
+    const marie = await store.createProfile('Marie');
+    await backup.backupToDrive('jeton');
+    ajouterAilleurs(profil.id, [dansDrive(9)]);
+    ajouterAilleurs(marie.id, [dansDrive(20)]);
+    const conflits = await conflitsDe();
+    expect(conflits).toHaveLength(2);
+
+    const apercus = await backup.previsualiserFusion('jeton', conflits);
+    expect(apercus.map((a) => a.resume.titres.duDrive)).toEqual([1, 1]);
+    await backup.fusionnerAvecDrive('jeton', conflits);
+    expect((await backup.exportProfile(profil.id)).suivi.map((s) => s.title)).toEqual(['Drive 9']);
+    expect((await backup.exportProfile(marie.id)).suivi.map((s) => s.title)).toEqual(['Drive 20']);
+  });
+
+  it('un fichier du Drive illisible : rien n\'est changé, aucun profil à moitié fusionné', async () => {
+    const marie = await store.createProfile('Marie');
+    await backup.backupToDrive('jeton');
+    ajouterAilleurs(profil.id, [dansDrive(9)]);
+    drive.ecrireAilleurs(marie.id, JSON.stringify({ format: 'autre chose' }));
+    const conflits = await conflitsDe();
+    const avant = [await backup.exportProfile(profil.id), await backup.exportProfile(marie.id)];
+
+    await expect(backup.fusionnerAvecDrive('jeton', conflits)).rejects.toThrow(/pas une sauvegarde/);
+    const apres = [await backup.exportProfile(profil.id), await backup.exportProfile(marie.id)];
+    expect(apres.map((d) => ({ ...d, exportedAt: 0 }))).toEqual(avant.map((d) => ({ ...d, exportedAt: 0 })));
+  });
+
+  it("l'envoi qui échoue après la fusion : la fusion reste, le rappel « à envoyer » aussi", async () => {
+    await backup.backupToDrive('jeton');
+    ajouterAilleurs(profil.id, [dansDrive(9)]);
+    const conflits = await conflitsDe();
+    await backup.fusionnerAvecDrive('jeton', conflits);
+
+    const reseau = globalThis.fetch;
+    globalThis.fetch = vi.fn(async () => {
+      throw new TypeError('Failed to fetch');
+    });
+    await expect(backup.backupToDrive('jeton')).rejects.toThrow();
+    globalThis.fetch = reseau;
+
+    expect((await backup.exportProfile(profil.id)).suivi.map((s) => s.title)).toEqual(['Drive 9']);
+    expect(backup.hasPendingChanges()).toBe(true);
+    // Le réseau revenu, l'envoi passe sans conflit.
+    await expect(backup.backupToDrive('jeton')).resolves.toMatchObject({ profils: 1 });
+  });
+
+  it("le Drive a encore changé entre l'affichage et l'appui : le conflit revient, rien n'est écrasé", async () => {
+    await backup.backupToDrive('jeton');
+    ajouterAilleurs(profil.id, [dansDrive(9)]);
+    const conflits = await conflitsDe();
+    ajouterAilleurs(profil.id, [dansDrive(10)]); // un troisième geste, après l'affichage du conflit
+    const driveAvant = drive.files[0].contents;
+
+    await backup.fusionnerAvecDrive('jeton', conflits);
+    await expect(backup.backupToDrive('jeton')).rejects.toBeInstanceOf(backup.ConflitSauvegarde);
+    expect(drive.files[0].contents).toBe(driveAvant); // le Drive n'a pas été écrasé
+    // La nouvelle fusion reprend tout.
+    const nouveaux = await conflitsDe();
+    await backup.fusionnerAvecDrive('jeton', nouveaux);
+    await backup.backupToDrive('jeton');
+    expect((await backup.exportProfile(profil.id)).suivi.map((s) => s.title).sort()).toEqual(['Drive 10', 'Drive 9']);
+  });
+});

@@ -1,6 +1,6 @@
 // Fusion de deux versions d'un profil (mission B6-1) : les règles figées le 2026-10-27, sur des profils d'exemple.
 import { describe, it, expect } from 'vitest';
-import { fusionnerProfils, statutFusionne } from '../src/fusion.js';
+import { fusionnerProfils, statutFusionne, decrireFusion } from '../src/fusion.js';
 import { validateBackup, BACKUP_FORMAT, BACKUP_VERSION } from '../src/backup.js';
 
 const titre = (tmdbId, extra = {}) => ({
@@ -260,5 +260,28 @@ describe('propriétés de la fusion', () => {
     const avant = JSON.stringify([local, drive]);
     fusionnerProfils(local, drive);
     expect(JSON.stringify([local, drive])).toBe(avant);
+  });
+});
+
+describe('le résumé en français', () => {
+  it('dit ce qui s\'ajoute à ce téléphone et au Drive, avec les bons pluriels', () => {
+    const local = profil({ suivi: [titre(1), titre(2, { status: 'a_voir' })] });
+    const drive = profil({
+      suivi: [titre(2, { status: 'vu' }), titre(3), titre(4)],
+      episodesVus: [{ seriesId: 5, season: 1, episode: 1, markedAt: '2026-05-01' }],
+    });
+    const texte = decrireFusion(fusionnerProfils(local, drive).resume);
+    expect(texte.telephone).toBe('Ce téléphone reçoit : 2 titres, 1 épisode vu, 1 statut mis à niveau.');
+    expect(texte.drive).toBe('Le Drive reçoit : 1 titre.');
+    expect(texte.notes).toBeNull();
+  });
+
+  it('dit quand il n\'y a rien à ajouter d\'un côté, et signale les notes en désaccord', () => {
+    const local = profil({ suivi: [titre(1, { note: 'a' }), titre(2, { note: 'x' })] });
+    const drive = profil({ suivi: [titre(1, { note: 'b' }), titre(2, { note: 'y' })] });
+    const texte = decrireFusion(fusionnerProfils(local, drive).resume);
+    expect(texte.telephone).toBe('Rien à ajouter à ce téléphone.');
+    expect(texte.drive).toBe('Rien à ajouter au Drive.');
+    expect(texte.notes).toBe('2 notes ou avis diffèrent : celui de ce téléphone est gardé.');
   });
 });

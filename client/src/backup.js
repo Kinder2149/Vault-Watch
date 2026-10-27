@@ -11,6 +11,7 @@
 
 import { query, run, runMany } from './db.js';
 import { estErreurReseau } from './reseau.js';
+import { fusionnerProfils } from './fusion.js';
 
 export const BACKUP_FORMAT = 'suivi-films-series';
 // Version 2 : les sauvegardes emportent la note personnelle (avis + étoiles).
@@ -899,6 +900,49 @@ export async function restoreFromDrive(token, sauvegardes) {
     if (!premier) premier = id;
   }
   viderEnAttente();
+  return premier;
+}
+
+// --- Fusion en cas de conflit (mission B6) ---
+//
+// Plutôt que de choisir un côté, on réunit les deux versions (règles : `fusion.js`).
+
+// Ce que donnerait la fusion de chaque profil en conflit, **sans rien écrire** ni sur l'appareil ni sur le Drive :
+// de quoi annoncer à l'utilisateur ce qui s'ajoute dans chaque sens.
+export async function previsualiserFusion(token, conflits) {
+  const apercus = [];
+  for (const c of conflits) {
+    const drive = validateBackup(await downloadDriveFile(token, c.fileId));
+    const local = await exportProfile(c.profileId);
+    apercus.push({
+      profileId: c.profileId,
+      profileName: c.profileName,
+      resume: fusionnerProfils(local, drive).resume,
+    });
+  }
+  return apercus;
+}
+
+// Remplace chaque profil en conflit, sur l'appareil, par la fusion de sa version locale et de celle du Drive.
+// Toutes les fusions sont calculées avant la première écriture : un fichier du Drive illisible n'en laisse
+// aucune à moitié faite. Chaque profil est ensuite réécrit en un seul bloc (tout ou rien). Le résultat est
+// marqué « à envoyer » : l'envoi (`backupToDrive`) le porte au Drive, et le reprendra seul s'il échoue.
+// Renvoie l'id du premier profil fusionné, à recharger dans l'UI.
+export async function fusionnerAvecDrive(token, conflits) {
+  const fusions = [];
+  for (const c of conflits) {
+    const drive = validateBackup(await downloadDriveFile(token, c.fileId));
+    const local = await exportProfile(c.profileId);
+    fusions.push({ conflit: c, ...fusionnerProfils(local, drive) });
+  }
+  let premier = null;
+  for (const f of fusions) {
+    const id = await importProfile(f.data);
+    // La version lue : si le Drive a encore changé depuis, l'envoi le verra comme un nouveau conflit.
+    noterVersions({ [f.conflit.profileId || id]: f.conflit.version });
+    if (!premier) premier = id;
+  }
+  markChanged();
   return premier;
 }
 

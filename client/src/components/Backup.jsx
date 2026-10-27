@@ -9,6 +9,8 @@ import {
   backupToDrive,
   listCloudBackups,
   restoreFromDrive,
+  previsualiserFusion,
+  fusionnerAvecDrive,
   ConflitSauvegarde,
   resumerSauvegardeDrive,
   lastCloudBackup,
@@ -21,6 +23,7 @@ import {
   forgetCloudState,
   cloudRestoreSuggestions,
 } from '../backup.js';
+import { decrireFusion } from '../fusion.js';
 import { saveTextFile, readTextFile, backupFileName } from '../files.js';
 import { useEnLigne } from '../reseau.js';
 import {
@@ -184,7 +187,47 @@ export default function Backup({ profileId, profileName, onRestored, onClose }) 
         }
       })
     );
-    setConflit({ jeton, conflits: detail });
+    // Ce que donnerait la fusion, montré avant tout choix. Si on ne peut pas le calculer (fichier illisible),
+    // le bouton « Fusionner » n'est pas proposé : les deux autres choix restent.
+    let fusion = null;
+    try {
+      fusion = await previsualiserFusion(jeton, conflits);
+    } catch {
+      fusion = null;
+    }
+    setConflit({ jeton, conflits: detail, fusion });
+  }
+
+  // « Fusionner » : les deux versions sont réunies sur ce téléphone, puis le résultat part sur le Drive.
+  async function fusionner() {
+    setBusy('cloud');
+    setError('');
+    try {
+      const id = await fusionnerAvecDrive(conflit.jeton, conflit.conflits);
+      try {
+        await backupToDrive(conflit.jeton);
+      } catch (e) {
+        if (e instanceof ConflitSauvegarde) {
+          // Le Drive a encore changé depuis l'affichage : la fusion locale est faite, on repart d'un nouveau conflit.
+          if (id) onRestored(id);
+          await presenterConflit(e.conflits);
+          return;
+        }
+        setConflit(null);
+        if (id) onRestored(id);
+        setError(`La fusion est faite sur ce téléphone, mais l'envoi vers le Drive n'a pas abouti (${e.message}). Il sera retenté.`);
+        return;
+      }
+      setConflit(null);
+      setLastBackup(lastCloudBackup());
+      setPendingChanges(false);
+      setNote('Fusion faite : les deux versions sont réunies, sur ce téléphone et sur le Drive.');
+      if (id) onRestored(id);
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setBusy('');
+    }
   }
 
   // « Garder ce téléphone » : choix explicite d'écraser le Drive.
@@ -414,7 +457,7 @@ export default function Backup({ profileId, profileName, onRestored, onClose }) 
                 <div className="backup__confirm" ref={conflitRef}>
                   <p>
                     <strong>Un autre appareil a modifié ta sauvegarde Drive</strong> depuis la
-                    dernière fois. Rien n'a été écrasé. Que veux-tu garder ?
+                    dernière fois. Rien n'a été écrasé. Que veux-tu faire ?
                   </p>
                   <ul>
                     {conflit.conflits.map((c) => (
@@ -426,7 +469,32 @@ export default function Backup({ profileId, profileName, onRestored, onClose }) 
                       </li>
                     ))}
                   </ul>
+                  {conflit.fusion && (
+                    <div className="backup__fusion">
+                      <p>
+                        <strong>Fusionner</strong> réunit les deux versions : rien de ce qui a été fait d'un côté
+                        n'est perdu.
+                      </p>
+                      <ul>
+                        {conflit.fusion.map((f) => {
+                          const t = decrireFusion(f.resume);
+                          return (
+                            <li key={f.profileId}>
+                              « {f.profileName} » — {t.telephone} {t.drive}
+                              {t.notes && ` ${t.notes}`}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                      <p className="hint hint--small">Un titre supprimé d'un côté peut revenir.</p>
+                    </div>
+                  )}
                   <div className="backup__actions">
+                    {conflit.fusion && (
+                      <button className="btn btn--primary" onClick={fusionner} disabled={!!busy}>
+                        {busy === 'cloud' ? 'Fusion…' : 'Fusionner'}
+                      </button>
+                    )}
                     <button className="btn" onClick={reprendreLeDrive} disabled={!!busy}>
                       Reprendre la version du Drive
                     </button>

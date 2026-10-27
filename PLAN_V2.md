@@ -2355,6 +2355,19 @@ changé ; envoi qui échoue → fusion gardée, marqueur « à envoyer » conser
 **Questions pour Kinder** : (1) le **résumé est affiché directement** sous la liste des profils, et **un seul appui** sur « Fusionner » applique (pas de seconde confirmation : la fusion ne retire rien, sauf le retour possible d'un titre
 supprimé, annoncé) : d'accord ? (2) « Fusionner » est **en tête et mis en avant**, « Garder ce téléphone » reste en rouge : d'accord ? (3) **un seul appui fusionne tous les profils** en conflit : d'accord ?
 
+**B6-2 codée et vérifiée par les tests (2026-10-27, phase 6)** : **500 tests verts** (492 + 8), build propre.
+- `client/src/backup.js` : `previsualiserFusion(jeton, conflits)` (calcule, n'écrit rien) et `fusionnerAvecDrive(jeton, conflits)` (calcule **toutes** les fusions avant la première écriture, remplace chaque profil en un seul bloc,
+  note la version du Drive lue, marque « à envoyer »). L'envoi reste `backupToDrive`.
+- `client/src/fusion.js` : `decrireFusion(résumé)` — le résumé en français (« Ce téléphone reçoit : 2 titres, 1 épisode vu… », « Le Drive reçoit : … », « Rien à ajouter au Drive. », notes en désaccord).
+- `client/src/components/Backup.jsx` + `styles.css` : « Fusionner » en **premier bouton, mis en avant**, au-dessus de « Reprendre la version du Drive », « Garder ce téléphone » (rouge) et « Décider plus tard » ; le résumé par profil est
+  affiché dans un encadré, avec « Un titre supprimé d'un côté peut revenir » ; un appui fusionne tous les profils en conflit ; « Fusion… » pendant le travail ; au succès : message « Fusion faite : les deux versions sont réunies,
+  sur ce téléphone et sur le Drive. », bandeau de conflit disparu, suivi rechargé. Si le résumé ne peut pas être calculé (fichier du Drive illisible), « Fusionner » n'est pas proposé et les deux autres choix restent.
+- Tests ajoutés (faux Drive existant, `cloud.conflit.test.js`) : l'aperçu n'écrit rien ; la fusion réunit les deux versions, part sur le Drive, ne laisse ni conflit ni rappel ; deux profils en conflit tous fusionnés ; fichier illisible :
+  aucun profil à moitié fusionné ; envoi qui échoue : fusion gardée, rappel « à envoyer » gardé, l'envoi repasse au retour du réseau ; Drive modifié entre l'affichage et l'appui : le conflit revient, rien n'est écrasé.
+  Dans `fusion.test.js` : 2 cas pour le résumé français.
+**Écart avec le cadrage** : le rendu à l'écran n'a **pas** été fait dans le navigateur avec un Drive simulé : le jeton Google et le Drive passent par le plugin Android, rien à simuler sans toucher au code. L'écran de conflit est
+donc vérifié **sur l'émulateur avec le compte de test et le vrai Drive** (même chose qu'en S4), à la clôture B6-3 (captures).
+
 ## Hors périmètre V2 (noté, pas construit)
 - Calendrier des prochaines sorties (vue par date) / notifications de nouvel épisode.
   *(Le bloc « Pas encore sorti » de « Ce soir » — `Upcoming.jsx` — existe : il liste les
