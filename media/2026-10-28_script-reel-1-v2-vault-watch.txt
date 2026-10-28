@@ -1,0 +1,108 @@
+SCRIPT V2 — Reel 1 Vault Watch « Parasite, mais où le regarder ? » (REMPLACE le Reel publié le 28/10/2026 ; gabarit commun GABARIT_REELS.txt)
+Écrit par Claude Code le 28/10/2026, d'après le gabarit commun validé par Kinder le même jour (instagram/GABARIT_REELS.txt) et le script du Reel publié (instagram/scripts-brouillons/2026-10-27_script-reel-2.txt, nom de montage vault-watch-reel-2). Statut : VALIDÉ PAR KINDER le 28/10/2026.
+L'agent Instagram monte exactement ce script. Il ne réécrit aucun texte, ne change ni l'ordre, ni les durées, ni les captures. S'il ne peut pas respecter un point, il s'arrête et le signale à Kinder.
+
+======================================================================
+1. L'IDÉE (une seule) ET CE QUI CHANGE PAR RAPPORT AU REEL PUBLIÉ
+======================================================================
+Problème : un film t'attend dans ta liste, mais tu ne sais pas où le regarder.
+Réponse : tu ouvres sa fiche, tu fais défiler, et Vault Watch te montre toutes les plateformes où il est disponible, avec la source juste en dessous.
+Ce qui change : le Reel publié disait « Vault Watch le rappelle. » et « La réponse et sa source. » : phrases que l'on ne comprend pas sans connaître l'appli, et pas de logo. La V2 dit les choses dans l'ordre, en phrases complètes, avec le logo en fin. La séquence « Ce soir » (idée du soir, autre idée) est réservée au Reel 6 : ici, l'écran « Ce soir » n'est qu'un point de passage pour ouvrir la fiche (il est montré 1 s au plus).
+Relecture « spectateur qui ne connaît pas l'appli » : « Parasite, mais où le regarder ? » → question claire ; « Tu ouvres sa fiche. » → on voit le tap ; (le défilement parle seul) ; « Toutes les plateformes au même endroit. » → on voit les logos des plateformes. Chaque carton répond à la question du précédent.
+
+======================================================================
+2. RÉGLAGES GÉNÉRAUX (gabarit commun)
+======================================================================
+- Format : vertical 1080x1920, 30 images/s. Durée : 20 s (40 temps à 120 BPM, 1 temps = 0,5 s).
+- Musique : « Fly Away (120 BPM) » — ThisIsBeatKitchen (Pixabay), à partir de 19,5 s, volume 0,9. Coupes sur les temps. Pas de voix.
+- Images de l'appli : ÉCRAN ENTIER, sans cadre de téléphone, fond #0F1018 sur les côtés. AUCUN zoom.
+- Textes : police Inter, gras, 64 px, bandeau sombre presque opaque (85 %), mot clé en doré #D4AF37 (noté *ainsi*), deux lignes au plus. Chaque carton reste pendant tout son plan (durée d'un carton de 6 mots : 4 s).
+- Zone de texte : de 290 à 1440 px. Jamais sur un défilement, jamais sur le titre « Parasite », les logos des plateformes ou la ligne « Disponibilité fournie par JustWatch (via TMDB) ». L'agent vérifie la place avec « aperçu » ; si un texte ne tient pas sans couvrir un de ces éléments, il s'ARRÊTE et le dit.
+- Mention « Données et images : TMDB » : sur l'écran de fin seulement.
+- Logo : champ « logo » du plan = play-store/icone-512.png (dépôt Vault-Watch, convention du connecteur).
+- Vitesse : captures à environ 10 images/s (fiche) et 15 images/s (Mes listes) ; le montage les rend à 30 images/s en répétant les images. On ralentit le moins possible.
+
+======================================================================
+3. DÉROULÉ, PLAN PAR PLAN (5 plans, 8 + 8 + 8 + 8 + 8 = 40 temps)
+======================================================================
+Les instants renvoient aux vidéos d'écran sources (media/ du dépôt Vault-Watch), relevés image par image le 28/10/2026 (écart d'image à image).
+
+PLAN 1 — La question (0 → 4 s, 8 temps)
+  Capture : 2026-10-24_mes-listes.mp4, de 4,25 s à 5,25 s (grille « À voir » immobile, avec Parasite), ralentie ×0,25 pour durer 4 s (l'image est fixe).
+  Texte (présent DÈS la première image) : « Parasite, mais *où* le regarder ? » (6 mots, 4 s)
+  Emplacement : haut de la zone de texte (de 290 px), au-dessus de la rangée d'affiches.
+
+PLAN 2 — On ouvre la fiche (4 → 8 s, 8 temps)
+  Capture : 2026-10-24_fiche-ou-regarder.mp4, de 0,9 s à 2,9 s, ralentie ×0,5 pour durer 4 s (« Idée du soir : Parasite » immobile, puis tap sur « Voir la fiche » à 2,1 s, la fiche de Parasite s'ouvre).
+  Texte : « Tu ouvres sa *fiche*. » (4 mots)
+  Emplacement : bas de la zone de texte (jusqu'à 1440 px), sur les affiches « Reprendre », jamais sur la carte « Idée du soir ».
+
+PLAN 3 — On cherche : la fiche, puis le défilement (8 → 12 s, 8 temps)
+  Capture : 2026-10-24_fiche-ou-regarder.mp4, de 2,9 s à 5,7 s, ralentie ×0,7 pour durer 4 s (la fiche s'affiche, les emplacements des plateformes se remplissent, la fiche défile vers « Où le regarder »).
+  Texte : AUCUN (pas de texte sur un défilement ; le mouvement parle seul).
+
+PLAN 4 — Le moment fort : la réponse (12 → 16 s, 8 temps)
+  Capture : 2026-10-24_fiche-ou-regarder.mp4, de 5,75 s à 7,5 s (la fiche est immobile : bloc « Où le regarder » avec les logos des plateformes ET la ligne « Disponibilité fournie par JustWatch (via TMDB). » visibles), ralentie ×0,44 pour durer 4 s (l'image est fixe).
+  Texte : « Toutes les *plateformes* au même endroit. » (6 mots, 4 s)
+  Emplacement : haut de la zone de texte (de 290 px), AU-DESSUS du bloc « Où le regarder » ; le texte ne couvre NI les logos NI la ligne JustWatch.
+  Moment fort : de 12 s à 16 s, soit entre 60 et 80 % du Reel (le carton est complet vers 15 s, à 75 %).
+
+PLAN 5 — Fin avec le logo (16 → 20 s, 8 temps)
+  Fond : la dernière image du plan 4, assombrie et floutée (on voit encore l'appli derrière). PAS d'écran noir vide.
+  Par-dessus, centrés dans la zone de texte :
+    - le LOGO de Vault Watch en grand (il « tombe » en place) ;
+    - « *Vault Watch* » (Caladea, doré) ;
+    - « *Gratuit* sur Google Play » ;
+    - « Lien en bio » ;
+    - en petit, sous le reste : « Données et images : TMDB ».
+  La vidéo s'arrête net sur le dernier temps : la boucle relance « Parasite, mais où le regarder ? ».
+
+======================================================================
+4. LÉGENDE (à copier telle quelle)
+======================================================================
+Parasite, mais où le regarder ? 🎬
+
+Dans Vault Watch, tu ouvres la fiche du film, tu fais défiler, et tu vois toutes les plateformes où il est disponible, avec la source juste en dessous.
+
+Gratuit sur Google Play. Lien en bio.
+
+Données et images : TMDB. Disponibilité : JustWatch (via TMDB).
+
+#streaming #quoiregarder #films #appandroid #indiedev
+
+======================================================================
+5. LISTE DES CAPTURES ET FICHIERS
+======================================================================
+Déjà dans media/ du dépôt Vault-Watch (branche principale), copie du serveur ~/montage-instagram/depots/vault-watch/ ; version de l'application : celle du Play Store (mise à jour du 5/10/2026), captures du 24/10/2026 :
+  - media/2026-10-24_mes-listes.mp4          (plan 1, de 4,25 à 5,25 s)
+  - media/2026-10-24_fiche-ou-regarder.mp4   (plans 2, 3 et 4, de 0,9 à 2,9 s, de 2,9 à 5,7 s et de 5,75 à 7,5 s)
+  - play-store/icone-512.png                 (logo, plan 5)
+  - Musique : thisisbeatkitchen_fly-away-120bpm.mp3 (sur le serveur : ~/montage-instagram/musique/).
+Nom de montage proposé : vault-watch-reel-1-v2. Aucune donnée personnelle visible (profil de démonstration).
+
+======================================================================
+6. CONTRÔLE AVANT DE SOUMETTRE À KINDER (par l'agent)
+======================================================================
+[ ] Le texte « Parasite, mais où le regarder ? » est lisible sur la toute première image.
+[ ] Les trois textes, dans l'ordre : plan 1 « Parasite, mais où le regarder ? », plan 2 « Tu ouvres sa fiche. », plan 4 « Toutes les plateformes au même endroit. » ; le plan 3 n'a pas de texte.
+[ ] Aucun cadre de téléphone ; aucun zoom ; tout l'écran de l'appli est visible.
+[ ] Aucun texte sur le titre « Parasite », sur les logos des plateformes, sur la ligne JustWatch ou sur un défilement.
+[ ] Aucun texte dans les 290 px du haut ni les 480 px du bas.
+[ ] Plan 4 : les logos des plateformes ET la ligne « Disponibilité fournie par JustWatch (via TMDB) » sont entièrement visibles.
+[ ] Fin : fond flouté, pas d'écran noir ; le logo de Vault Watch en grand ; titre doré, « Gratuit sur Google Play », « Lien en bio », mention TMDB ; la vidéo boucle sur l'accroche.
+[ ] Mention TMDB sur la fin seulement.
+[ ] Durée 20 s ; cinq plans de 4 s ; coupes sur les temps de la musique.
+[ ] Légende et hashtags identiques au point 4. Aucune donnée personnelle visible.
+
+======================================================================
+7. RÈGLES SUIVIES ET LIMITES
+======================================================================
+Gabarit commun : A (phrases complètes, 4 à 6 mots, deux lignes au plus, 64 px), B (20 s), C (zone 290-1440), D (aucun zoom), E (fin identique avec logo), F (doré et logo de Vault Watch), G (accroche dès la première image), H (version publiée), I (une idée : « où le regarder »).
+Socle : 1.1 et 1.2, 2.1, 2.2, 3.1 à 3.3, 4.1, 4.4 (moment fort de 60 à 80 %, carton complet à 75 %), 5.4, 6.1 à 6.5 bis, 7.1, 8.2, 9.3, 10.1.
+Limites :
+  - La capture de la fiche est à environ 10 images/s : les plans 2 et 3, qui contiennent un mouvement (tap, défilement), restent un peu moins fluides qu'une capture à 30 images/s. Si Kinder les refuse, on refilme ces deux passages à l'émulateur.
+  - Le plan 1 part de « Mes listes » et le plan 2 de « Ce soir » : deux écrans différents, avec Parasite dans les deux ; la coupe est franche.
+  - Le plan 3 n'a pas de texte : 4 s de mouvement sans carton (règle : jamais de texte sur un défilement).
+  - Le plan 4 est une image fixe pendant 4 s : c'est le moment de lecture de la réponse.
+Test de ce Reel (un seul) : règle 5.4 (zone de texte de 290 à 1440 px), déjà validée sur les Reels 1 et 2.
+Notes pour le montage : si l'outil ne peut pas poser un texte à l'endroit voulu, c'est au montage de s'adapter, pas au script.
