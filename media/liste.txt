@@ -16,3 +16,4 @@ reel-plan-v2.json | plan de montage du Reel v2 | 24/10/2026
 2026-10-25_script-reel-v3.txt | script du Reel V3.1 « 21h, rien à regarder » (textes, légende, hashtags, captures), validé par Kinder (V3.1 : écran entier, zooms 1,2, 18 s) | 25/10/2026
 2026-10-27_script-reel-2.txt | script du Reel 2 « Parasite attend. Mais où ? » (angle A, 18 s, six plans, textes, légende, hashtags, captures et passages), validé par Kinder | 27/10/2026
 2026-10-28_script-reel-1-v2-vault-watch.txt | script V2 du Reel 1 « Parasite, mais où le regarder ? » (remplace le Reel publié le 28/10/2026), validé par Kinder | 28/10/2026
+2026-10-28_script-reel-1-v2-vault-watch.txt | script V2 du Reel 1 « Parasite, mais où le regarder ? » (remplace le Reel publié le 28/10/2026), validé par Kinder | 28/10/2026
