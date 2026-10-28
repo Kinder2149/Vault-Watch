@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Filtres from './Filtres.jsx';
+import { PlateformesChip, PlateformesNote } from './PlateformesChip.jsx';
 import { TRIS } from '../filtres.js';
 
 // La rangée d'outils commune des écrans qui filtrent : le sélecteur Tout / Films / Séries à gauche, la puce
@@ -56,6 +57,14 @@ export default function BarreFiltres({
           {enCours && <span className="filtres-bar__dot" aria-hidden="true" />}
         </button>
       </div>
+      {surMesPlateformes && (
+        <>
+          <div className="toolbar__puces">
+            <PlateformesChip filtres={filtres} onChange={onChange} />
+          </div>
+          <PlateformesNote filtres={filtres} info={surMesPlateformes} />
+        </>
+      )}
       {ouvert && (
         <Filtres
           filtres={filtres}
@@ -64,7 +73,6 @@ export default function BarreFiltres({
           genres={genres}
           vides={vides}
           actifs={actifs}
-          surMesPlateformes={surMesPlateformes}
         />
       )}
       {ouvert && note && <p className="hint hint--small barre-filtres__note">{note}</p>}

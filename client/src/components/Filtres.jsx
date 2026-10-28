@@ -6,8 +6,8 @@ import {
   NOTES_BIBLIO,
 } from '../filtres.js';
 
-// Panneau de filtres : période, tri et, selon l'écran, plateformes (« Explorer »,
-// où TMDB sait les appliquer) ou filtre de note (« Mes listes »). Il ne garde
+// Panneau de filtres : période, genre, tri et, selon l'écran, filtre de note (« Mes listes »). La puce
+// « Sur mes plateformes » est dans la rangée d'outils de l'écran (voir PlateformesChip). Il ne garde
 // aucun état : tout vit chez le parent, qui refait la liste quand les filtres
 // changent.
 //
@@ -21,46 +21,12 @@ export default function Filtres({
   genres = null, // [{ key, name }] : filtre par genre (Mes listes)
   vides = FILTRES_VIDES,
   actifs = filtresActifs,
-  // « Sur mes plateformes » : { nbChoisies, masques, onChoisir }. `masques` = titres sans offres connues,
-  // cachés tant que le filtre est actif. Absent : pas de groupe (l'écran ne sait pas filtrer par plateforme).
-  surMesPlateformes = null,
+  avecTri = true, // « Trier par » : Mes listes a le sien dans sa rangée d'outils
 }) {
   const maj = (patch) => onChange({ ...filtres, ...patch });
 
   return (
     <div className="filtres" role="group" aria-label="Filtres">
-      {surMesPlateformes && (
-        <div className="filtres__groupe">
-          <span className="filtres__label">Plateformes</span>
-          <div className="filtres__chips">
-            <button
-              className={`chip ${filtres.surMesPlateformes ? 'on' : ''}`}
-              aria-pressed={!!filtres.surMesPlateformes}
-              onClick={() => maj({ surMesPlateformes: !filtres.surMesPlateformes })}
-            >
-              Sur mes plateformes
-            </button>
-          </div>
-          {surMesPlateformes.nbChoisies === 0 ? (
-            <p className="hint hint--small">
-              Aucune plateforme choisie : le filtre ne retire rien.{' '}
-              <button className="lien" onClick={surMesPlateformes.onChoisir}>
-                Choisir mes plateformes
-              </button>
-            </p>
-          ) : (
-            filtres.surMesPlateformes &&
-            surMesPlateformes.masques > 0 && (
-              <p className="hint hint--small">
-                {surMesPlateformes.masques === 1
-                  ? '1 titre dont on ne connaît pas encore les offres est masqué.'
-                  : `${surMesPlateformes.masques} titres dont on ne connaît pas encore les offres sont masqués.`}
-              </p>
-            )
-          )}
-        </div>
-      )}
-
       <div className="filtres__groupe">
         <span className="filtres__label">Année</span>
         <div className="filtres__chips">
@@ -113,6 +79,7 @@ export default function Filtres({
         </div>
       )}
 
+      {avecTri && (
       <div className="filtres__groupe">
         <span className="filtres__label">Trier par</span>
         <div className="filtres__chips">
@@ -128,6 +95,7 @@ export default function Filtres({
           ))}
         </div>
       </div>
+      )}
 
       {actifs(filtres) && (
         <button className="btn btn--ghost filtres__reset" onClick={() => onChange(vides)}>

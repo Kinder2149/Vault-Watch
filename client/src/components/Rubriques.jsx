@@ -7,6 +7,7 @@ import MovieCard from './MovieCard.jsx';
 import BarreFiltres from './BarreFiltres.jsx';
 import { appliquerFiltresDecouverte } from '../filtres.js';
 import { getRubrique } from '../api.js';
+import { lirePlateformes } from '../plateformes.js';
 
 // Rubriques TMDB (Tendances, Nouveautés, À venir) : grille paginée, titres déjà
 // suivis masqués. Une page TMDB (20 titres), une fois masqué ce qu'on a déjà,
@@ -39,6 +40,11 @@ export default function Rubriques({
   const [rubrique, setRubrique] = useState(rubriques[0][0]);
   const [filtrePropre, setFiltrePropre] = useState('all');
   const mediaFilter = filtreFourni ?? (filtres ? filtres.media : filtrePropre);
+  // « Sur mes plateformes » part chez TMDB (discover) : actif si l'interrupteur est allumé ET qu'au moins une
+  // plateforme est choisie.
+  const choisies = lirePlateformes();
+  const plateformes = filtres?.surMesPlateformes ? choisies : [];
+  const clePlateformes = plateformes.join(',');
 
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(0); // dernière page chargée
@@ -56,7 +62,7 @@ export default function Rubriques({
       let derniereErreur = null;
       const lots = await Promise.all(
         [depuis, depuis + 1, depuis + 2].map((p) =>
-          getRubrique({ rubrique, mediaType: mediaFilter, page: p }).catch((e) => {
+          getRubrique({ rubrique, mediaType: mediaFilter, page: p, plateformes }).catch((e) => {
             echecs += 1;
             derniereErreur = e;
             return [];
@@ -85,7 +91,7 @@ export default function Rubriques({
     setItems([]);
     charger();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rubrique, mediaFilter, resetKey]);
+  }, [rubrique, mediaFilter, resetKey, clePlateformes]);
 
   const filtrees = filtres
     ? appliquerFiltresDecouverte(items, filtres)

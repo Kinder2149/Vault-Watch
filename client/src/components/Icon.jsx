@@ -35,6 +35,7 @@ const PATHS = {
   info: <><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7.6v.2" /></>,
   chart: <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" />,
   chevron: <path d="m9 5 7 7-7 7" />,
+  sort: <path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3" />,
   offline: <path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 19.5v.1M3 3l18 18" />,
   plus: <path d="M12 5v14M5 12h14" />,
   check: <path d="m5 13 4.5 4.5L19 7" />,

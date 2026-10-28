@@ -291,6 +291,14 @@ button { font-family: inherit; }
   text-transform: uppercase; letter-spacing: .06em;
 }
 .subhead__count { color: var(--gold); font-weight: 700; }
+/* Section repliable : tout l'en-tête se touche, la flèche dit si c'est ouvert. */
+.subhead--pli {
+  width: 100%; padding: var(--s-2) 0; border: 0; background: transparent; cursor: pointer;
+  text-align: left; min-height: 40px;
+}
+.subhead__fleche { margin-left: auto; display: grid; color: var(--muted); transition: transform var(--dur) var(--ease); }
+.subhead__fleche.on { transform: rotate(90deg); }
+.films-flux { display: flex; flex-direction: column; gap: 1rem; }
 
 .card { display: flex; flex-direction: column; min-width: 0; }
 .card__poster { position: relative; }
@@ -1047,6 +1055,17 @@ button { font-family: inherit; }
 /* Rangée d'outils : sélecteur à gauche, bouton à droite. */
 .toolbar { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--s-3); margin-bottom: var(--s-4); }
 .toolbar .seg { margin-bottom: 0; }
+.toolbar__puces {
+  display: flex; flex-wrap: wrap; gap: var(--s-2); margin: calc(var(--s-2) * -1) 0 var(--s-4);
+}
+.toolbar__puces > .chip { flex: none; display: inline-flex; align-items: center; gap: var(--s-2); min-height: 34px; padding: 0 var(--s-4); font-size: var(--t-xs); white-space: nowrap; }
+.chip--tri { position: relative; }
+.chip--tri select {
+  appearance: none; -webkit-appearance: none; border: 0; background: transparent; color: inherit;
+  font: inherit; padding: 0 2px; cursor: pointer; max-width: 11rem;
+}
+.chip--tri select option { color: initial; }
+.plateformes-note { margin: calc(var(--s-2) * -1) 0 var(--s-4); }
 .chip--filtres { display: inline-flex; align-items: center; gap: var(--s-2); min-height: 34px; padding: 0 var(--s-4); font-size: var(--t-xs); }
 .panel__texte { font-size: .95rem; }
 
@@ -1189,13 +1208,14 @@ button { font-family: inherit; }
 .plateformes-liste__ligne .icon { color: var(--gold-strong); }
 
 /* En-tête d'un groupe de saga dans une grille de liste : sur toute la largeur, les affiches suivent. */
-.grid__saga {
-  grid-column: 1 / -1;
-  margin: var(--s-3) 0 0; padding-top: var(--s-3);
-  border-top: 1px solid var(--border);
-  font-family: var(--serif); font-size: var(--t-md, 1rem); font-weight: 700; color: var(--text);
+/* Une saga est un bloc à part, sur toute la largeur : son en-tête, ses films, puis la suite commence en dessous. */
+.saga-groupe {
+  padding: var(--s-3); border: 1px solid var(--border); border-left: 3px solid var(--gold);
+  border-radius: 12px; background: color-mix(in srgb, var(--gold) 5%, transparent);
 }
-.grid__saga:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+.saga-groupe__titre {
+  margin: 0 0 var(--s-3); font-family: var(--serif); font-size: var(--t-md, 1rem); font-weight: 700; color: var(--text);
+}
 
 /* La même information, en une ligne sous l'année d'une affiche : icône colorée + libellé court. */
 .dispo-mini {

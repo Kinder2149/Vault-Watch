@@ -9,6 +9,7 @@ import Hero from './Hero.jsx';
 import Vide from './Vide.jsx';
 import VueRayon from './VueRayon.jsx';
 import { getProgress } from '../api.js';
+import { lirePlateformes } from '../plateformes.js';
 import { estRegardable, libelleProchain } from '../status.js';
 import { useFilmsEnSalle } from './PastilleCarte.jsx';
 import { ideeDuSoir, depuisLibelle, aujourdhui } from '../idee.js';
@@ -42,6 +43,7 @@ export default function Tonight({
   onSearch,
   profileId,
   onSurcouche,
+  onOpenPlateformes, // ouvre Réglages > Mes plateformes
   filtres, // panneau de filtres « Ce soir », gardé par l'application, commun à Découverte et Suggestion
   onFiltres,
   genres = [],
@@ -69,7 +71,7 @@ export default function Tonight({
     vides: FILTRES_DECOUVERTE_VIDES,
     actifs: filtresDecouverteActifs,
     genres,
-    note: 'Pas de filtre par plateforme ici : TMDB ne le permet pas pour des suggestions.',
+    surMesPlateformes: { nbChoisies: lirePlateformes().length, masques: 0, onChoisir: onOpenPlateformes },
   };
 
   const [toutVoir, setToutVoir] = useState(false);

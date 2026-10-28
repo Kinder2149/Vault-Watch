@@ -855,13 +855,17 @@ export default function App() {
     onLongPress: setStatusMenu,
   };
 
-  // Le panneau commun de la recherche. Un mot-clé part chez TMDB, qui sait filtrer par plateforme ;
-  // une recherche par titre ou par acteur, non : une ligne le dit.
+  // Écran de recherche à vide (titre / acteur, avant toute frappe) : on propose
+  // l'accueil (Tendances / Nouveautés / À venir) plutôt qu'un écran vide.
+  const isDefault = searchMode !== 'keyword' && !hasSearched;
+
+  // Le panneau commun de la recherche. Un mot-clé et l'accueil (Tendances) partent chez TMDB, qui sait filtrer
+  // par plateforme ; une recherche par titre ou par acteur, non : une ligne le dit.
   const barreRecherche = {
     vides: FILTRES_DECOUVERTE_VIDES,
     actifs: filtresDecouverteActifs,
     genres,
-    ...(searchMode === 'keyword'
+    ...(searchMode === 'keyword' || isDefault
       ? {
           surMesPlateformes: {
             nbChoisies: lirePlateformes().length,
@@ -869,7 +873,11 @@ export default function App() {
             onChoisir: () => setShowPlateformes(true),
           },
         }
-      : { note: 'Pas de filtre par plateforme ici : TMDB ne le permet pas pour une recherche.' }),
+      : {
+          // Pas de plateforme ici : un interrupteur resté allumé depuis l'accueil ne doit pas allumer le point.
+          actifs: (f) => filtresDecouverteActifs({ ...f, surMesPlateformes: false }),
+          note: 'Pas de filtre par plateforme ici : TMDB ne le permet pas pour une recherche.',
+        }),
   };
 
   // Les filtres (année, genre, tri) jouent sur ce qui est déjà affiché : TMDB ne filtre pas ces listes.
@@ -890,9 +898,6 @@ export default function App() {
     results.length > 0 &&
     resultsAffiches.length === 0;
 
-  // Écran de recherche à vide (titre / acteur, avant toute frappe) : on propose
-  // l'accueil (Tendances / Nouveautés / À venir) plutôt qu'un écran vide.
-  const isDefault = searchMode !== 'keyword' && !hasSearched;
   // Le panneau : dès qu'il y a une recherche ; pour un mot-clé, une fois un mot-clé ouvert.
   const barreVisible = hasSearched && (searchMode !== 'keyword' || !!motCle);
   // Passage d'un onglet à l'autre : on rafraîchit les données dont il a besoin.
@@ -1229,6 +1234,7 @@ export default function App() {
           filtres={filtresSoir}
           onFiltres={setFiltresSoir}
           genres={genres}
+          onOpenPlateformes={() => setShowPlateformes(true)}
         />
       )}
 

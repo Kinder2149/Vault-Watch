@@ -173,9 +173,15 @@ export async function getPlateformes() {
 }
 
 // Rubrique de l'accueil de la recherche : 'tendances', 'nouveautes' ou 'avenir'.
-// { rubrique, mediaType, page }.
+// { rubrique, mediaType, page, plateformes }.
 export async function getRubrique(options) {
   return tmdb.getRubrique(options);
+}
+
+// Ne garde des titres du catalogue que ceux qui sont en abonnement sur mes plateformes (`noms` : voir
+// plateformes.js). Relève les offres titre par titre : pour des listes courtes (suggestions, rayons).
+export async function garderSurMesPlateformes(items, noms) {
+  return tmdb.garderSurMesPlateformes(items, noms);
 }
 
 // Rayons « moods » de l'accueil (Super-héros, Braquage, Halloween, Romance).

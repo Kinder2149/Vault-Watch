@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import MovieCard from './MovieCard.jsx';
 import Icon from './Icon.jsx';
 import Vide from './Vide.jsx';
@@ -6,6 +7,8 @@ import { GrilleFantome } from './Fantomes.jsx';
 import BarreFiltres from './BarreFiltres.jsx';
 import { appliquerFiltresDecouverte } from '../filtres.js';
 import { useEnLigne } from '../reseau.js';
+import { garderSurMesPlateformes } from '../api.js';
+import { usePlateformes } from '../usePlateformes.js';
 
 // Section « Parce que tu as aimé… » : recommandations TMDB agrégées depuis
 // les titres marqués vus / en cours du profil. Affichée à l'intérieur de
@@ -27,8 +30,27 @@ export default function Suggestions({
   // Les filtres s'appliquent à l'affichage, sur ce qui est déjà calculé : aucun nouvel appel.
   const enLigne = useEnLigne();
   const tout = suggestions;
-  suggestions = filtres ? appliquerFiltresDecouverte(tout, filtres) : tout;
-  const body = suggestionsLoading ? (
+
+  // « Sur mes plateformes » : TMDB ne filtre pas ces suggestions, on relève les offres de chaque titre
+  // (quelques dizaines, mémorisées). `gardes` : les clés retenues, `null` tant que le relevé est en cours.
+  const { noms, cle: clePlateformes } = usePlateformes();
+  const surPlateformes = !!filtres?.surMesPlateformes && noms.size > 0;
+  const [gardes, setGardes] = useState(null);
+  useEffect(() => {
+    if (!surPlateformes || tout.length === 0) return undefined;
+    let courant = true;
+    setGardes(null);
+    garderSurMesPlateformes(tout, noms).then((l) => courant && setGardes(new Set(l.map((r) => `${r.mediaType}-${r.id}`))));
+    return () => {
+      courant = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [surPlateformes, tout, clePlateformes]);
+  const enReleve = surPlateformes && tout.length > 0 && gardes === null;
+
+  const deLaSelection = surPlateformes && gardes ? tout.filter((r) => gardes.has(`${r.mediaType}-${r.id}`)) : tout;
+  suggestions = filtres ? appliquerFiltresDecouverte(deLaSelection, filtres) : deLaSelection;
+  const body = suggestionsLoading || enReleve ? (
     <GrilleFantome />
   ) : tout.length === 0 && !enLigne ? (
     <HorsLigne onRetry={onRefreshSuggestions} />
@@ -90,7 +112,7 @@ export default function Suggestions({
       {filtres && <BarreFiltres filtres={filtres} onChange={onFiltres} {...barre} />}
       {body}
       {/* Même bouton en pied de liste : on n'a pas à remonter pour relancer. */}
-      {!suggestionsLoading && suggestions.length > 0 && (
+      {!suggestionsLoading && !enReleve && suggestions.length > 0 && (
         <div className="suggestions__foot">{actualiser(true)}</div>
       )}
     </section>

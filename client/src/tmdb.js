@@ -9,6 +9,7 @@
 
 import { getCatalogLanguage, getCatalogRegion, TMDB_LANG } from './lang.js';
 import { dateRelative } from './filtres.js';
+import { estSurMesPlateformes } from './plateformes.js';
 
 const TMDB_BASE = 'https://api.themoviedb.org/3';
 
@@ -539,9 +540,11 @@ export function fenetreDeRubrique(rubrique, aujourdhui = new Date()) {
 
 // Rubriques de l'accueil de la recherche : Tendances, Nouveautés, À venir.
 // `mediaType` : 'all', 'movie' ou 'tv'. Paginé (20 titres par appel et par type).
-export async function getRubrique({ rubrique = 'tendances', mediaType = 'all', page = 1 } = {}) {
+// `plateformes` : les identifiants des plateformes choisies. TMDB ne filtre pas ses tendances par plateforme :
+// avec ce filtre, « Tendances » devient les titres les plus populaires de mes plateformes (sans fenêtre de dates).
+export async function getRubrique({ rubrique = 'tendances', mediaType = 'all', page = 1, plateformes = [] } = {}) {
   const fenetre = fenetreDeRubrique(rubrique);
-  if (!fenetre) return getTrending({ mediaType, page });
+  if (!fenetre && plateformes.length === 0) return getTrending({ mediaType, page });
 
   const types = mediaType === 'all' ? ['movie', 'tv'] : [mediaType];
   const parts = await Promise.all(
@@ -549,8 +552,10 @@ export async function getRubrique({ rubrique = 'tendances', mediaType = 'all', p
       const champ = t === 'movie' ? 'primary_release_date' : 'first_air_date';
       return tmdbGet(`/discover/${t}`, {
         sort_by: 'popularity.desc',
-        [`${champ}.gte`]: fenetre.from,
-        [`${champ}.lte`]: fenetre.to,
+        ...(fenetre ? { [`${champ}.gte`]: fenetre.from, [`${champ}.lte`]: fenetre.to } : {}),
+        ...(plateformes.length > 0
+          ? { with_watch_providers: ou(plateformes), watch_region: getCatalogRegion(), watch_monetization_types: 'flatrate' }
+          : {}),
         // Talk-shows, journaux et télé-réalité inondent les nouveautés télé.
         ...(t === 'tv' ? { without_genres: '10767,10763,10764' } : { include_adult: 'false' }),
         page,
@@ -564,6 +569,39 @@ export async function getRubrique({ rubrique = 'tendances', mediaType = 'all', p
     }
   }
   return fusionner(entries, 'popularite', 40);
+}
+
+// Garde, parmi des titres du catalogue (suggestions, recommandations des amis…), ceux qu'on peut regarder en
+// abonnement sur mes plateformes. TMDB ne sait pas filtrer ces listes : on relève les offres de chaque titre
+// (mémorisées pour la séance, 8 appels à la fois). Un titre dont les offres ne peuvent pas être relevées est
+// écarté : on ne l'affirme pas. `noms` : les noms des plateformes choisies (voir plateformes.js).
+const memoireOffres = new Map(); // langue:région:type-id -> promesse des offres d'abonnement
+export async function garderSurMesPlateformes(items, noms) {
+  if (!noms || noms.size === 0) return items;
+  const langue = getCatalogLanguage();
+  const region = getCatalogRegion(langue);
+  const offresDe = (it) => {
+    const cle = `${langue}:${region}:${it.mediaType}-${it.id}`;
+    if (!memoireOffres.has(cle)) {
+      const promesse = getCardInfo(it.mediaType, it.id, TMDB_LANG[langue], region)
+        .then((c) => (c.offres?.a || []).map((p) => ({ name: p.n })))
+        .catch(() => {
+          memoireOffres.delete(cle); // à redemander plus tard : un échec réseau ne se mémorise pas
+          return null;
+        });
+      memoireOffres.set(cle, promesse);
+    }
+    return memoireOffres.get(cle);
+  };
+  const gardes = [];
+  for (let i = 0; i < items.length; i += 8) {
+    const lot = items.slice(i, i + 8);
+    const offres = await Promise.all(lot.map(offresDe));
+    lot.forEach((it, k) => {
+      if (offres[k] && estSurMesPlateformes({ providers: { flatrate: offres[k] } }, noms)) gardes.push(it);
+    });
+  }
+  return gardes;
 }
 
 // Recommandations TMDB pour un titre (films OU séries selon le type source).

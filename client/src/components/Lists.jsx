@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect } from 'react';
 import MovieCard from './MovieCard.jsx';
 import Icon from './Icon.jsx';
 import AddToListe from './AddToListe.jsx';
@@ -6,14 +6,10 @@ import Filtres from './Filtres.jsx';
 import Vide from './Vide.jsx';
 import { GrilleFantome } from './Fantomes.jsx';
 import { STATUSES, titreCorrespond, resumeBiblio } from '../status.js';
-import { getListeItems, getPlateformes } from '../api.js';
-import {
-  lirePlateformes,
-  nomsDesPlateformes,
-  offresInconnues,
-  memoriserPlateformes,
-  plateformesMemorisees,
-} from '../plateformes.js';
+import { PlateformesChip, PlateformesNote } from './PlateformesChip.jsx';
+import { getListeItems } from '../api.js';
+import { offresInconnues } from '../plateformes.js';
+import { usePlateformes } from '../usePlateformes.js';
 import { regrouperSagas, enteteDeSaga } from '../sagas.js';
 import {
   TRIS_BIBLIO,
@@ -50,19 +46,8 @@ export default function Lists({
   const [mediaFilter, setMediaFilter] = useState('all');
   const [ajoutOuvert, setAjoutOuvert] = useState(false); // ajout en masse
   const [filtresOuverts, setFiltresOuverts] = useState(false);
-  // « Sur mes plateformes » : le choix (Réglages > Mes plateformes) et les noms qui vont avec. La liste des
-  // plateformes est gardée sur l'appareil, puis rafraîchie : le filtre marche aussi hors connexion.
-  const [proposees, setProposees] = useState(plateformesMemorisees);
-  useEffect(() => {
-    getPlateformes()
-      .then((liste) => {
-        memoriserPlateformes(liste);
-        setProposees(liste);
-      })
-      .catch(() => {});
-  }, []);
-  const mesPlateformes = lirePlateformes(); // relu à chaque affichage : on revient de Réglages
-  const nomsPlateformes = nomsDesPlateformes(mesPlateformes, proposees);
+  // « Sur mes plateformes » : le choix (Réglages > Mes plateformes) et les noms qui vont avec.
+  const { ids: mesPlateformes, noms: nomsPlateformes } = usePlateformes();
   // « Regrouper les sagas » : actif par défaut, retenu d'un lancement à l'autre.
   const [regrouper, setRegrouper] = useState(() => {
     try {
@@ -79,6 +64,26 @@ export default function Lists({
         /* stockage indisponible : le réglage vaut pour la session */
       }
       return !actif;
+    });
+  }
+  // Films / Séries : chaque section se replie (on passe aux séries sans dérouler 170 films). Le pli est
+  // retenu d'un lancement à l'autre.
+  const [replies, setReplies] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('listes-sections-repliees') || '{}');
+    } catch {
+      return {};
+    }
+  });
+  function basculePli(type) {
+    setReplies((prev) => {
+      const next = { ...prev, [type]: !prev[type] };
+      try {
+        localStorage.setItem('listes-sections-repliees', JSON.stringify(next));
+      } catch {
+        /* stockage indisponible : le pli vaut pour la session */
+      }
+      return next;
     });
   }
   // Recherche dans toute la bibliothèque, quels que soient le statut ou la
@@ -177,16 +182,28 @@ export default function Lists({
   // dans la bibliothèque (on y retrouve un titre précis, en liste A → Z).
   const renderGridFilms = (list) => {
     const blocs = regrouperSagas(list, { actif: regrouper && !cherche });
+    // Un groupe de saga prend toute la largeur et a sa propre grille : un film seul qui le suit commence une
+    // nouvelle rangée, il ne se glisse pas dans la dernière rangée de la saga. Les films libres entre deux
+    // groupes se rangent ensemble dans une grille.
+    const rangs = [];
+    for (const bloc of blocs) {
+      const dernier = rangs[rangs.length - 1];
+      if (bloc.saga) rangs.push(bloc);
+      else if (dernier && !dernier.saga) dernier.libres.push(bloc.film);
+      else rangs.push({ libres: [bloc.film] });
+    }
     return (
-      <div className="grid">
-        {blocs.map((bloc) =>
+      <div className="films-flux">
+        {rangs.map((bloc, i) =>
           bloc.saga ? (
-            <Fragment key={`saga-${bloc.saga.id}`}>
-              <h5 className="grid__saga">{enteteDeSaga(bloc.saga.nom, bloc.saga.films.length)}</h5>
-              {bloc.saga.films.map(carte)}
-            </Fragment>
+            <section key={`saga-${bloc.saga.id}`} className="saga-groupe">
+              <h5 className="saga-groupe__titre">{enteteDeSaga(bloc.saga.nom, bloc.saga.films.length)}</h5>
+              <div className="grid">{bloc.saga.films.map(carte)}</div>
+            </section>
           ) : (
-            carte(bloc.film)
+            <div className="grid" key={`libres-${i}`}>
+              {bloc.libres.map(carte)}
+            </div>
           )
         )}
       </div>
@@ -348,7 +365,8 @@ export default function Lists({
             </>
           )}
 
-          {/* Une seule rangée d'outils : le filtre Films / Séries à gauche, « Filtres » à droite. */}
+          {/* Rangée d'outils : le filtre Films / Séries à gauche, « Filtres » à droite ; dessous, le tri, les
+              sagas et « sur mes plateformes » à portée de pouce, sans ouvrir le panneau. */}
           <div className="toolbar">
             <div className="seg seg--sm">
               {[
@@ -367,16 +385,6 @@ export default function Lists({
             </div>
             {!cherche && (
               <button
-                className={`chip ${regrouper ? 'on' : ''}`}
-                aria-pressed={regrouper}
-                onClick={basculeRegrouper}
-                title="Regrouper les films d'une même saga"
-              >
-                Sagas
-              </button>
-            )}
-            {!cherche && (
-              <button
                 className={`chip chip--filtres ${filtresOuverts || filtresBiblioActifs(filtres) ? 'on' : ''}`}
                 aria-expanded={filtresOuverts}
                 onClick={() => setFiltresOuverts((o) => !o)}
@@ -388,17 +396,50 @@ export default function Lists({
               </button>
             )}
           </div>
+          {!cherche && (
+            <div className="toolbar__puces">
+              <label className={`chip chip--tri ${filtres.tri !== 'ajout' ? 'on' : ''}`}>
+                <Icon name="sort" size={14} />
+                <select
+                  value={filtres.tri}
+                  aria-label="Trier par"
+                  onChange={(e) => onFiltres({ ...filtres, tri: e.target.value })}
+                >
+                  {TRIS_BIBLIO.map((t) => (
+                    <option key={t.key} value={t.key}>
+                      {t.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <PlateformesChip filtres={filtres} onChange={onFiltres} />
+              <button
+                className={`chip ${regrouper ? 'on' : ''}`}
+                aria-pressed={regrouper}
+                onClick={basculeRegrouper}
+                title="Regrouper les films d'une même saga"
+              >
+                Sagas
+              </button>
+            </div>
+          )}
+          {!cherche && (
+            <PlateformesNote
+              filtres={filtres}
+              info={{
+                nbChoisies: mesPlateformes.length,
+                masques: masquesSansOffres,
+                onChoisir: onOpenPlateformes,
+              }}
+            />
+          )}
           {!cherche && filtresOuverts && (
             <Filtres
               filtres={filtres}
               onChange={onFiltres}
               tris={TRIS_BIBLIO}
+              avecTri={false}
               avecNote
-              surMesPlateformes={{
-                nbChoisies: mesPlateformes.length,
-                masques: masquesSansOffres,
-                onChoisir: onOpenPlateformes,
-              }}
               genres={genresPresents}
               vides={FILTRES_BIBLIO_VIDES}
               actifs={filtresBiblioActifs}
@@ -457,18 +498,32 @@ export default function Lists({
             <>
               {films.length > 0 && (
                 <section className="media-section">
-                  <h4 className="subhead">
+                  <button
+                    className="subhead subhead--pli"
+                    aria-expanded={!replies.movie}
+                    onClick={() => basculePli('movie')}
+                  >
                     Films <span className="subhead__count">{films.length}</span>
-                  </h4>
-                  {renderGridFilms(films)}
+                    <span className={`subhead__fleche ${replies.movie ? '' : 'on'}`} aria-hidden="true">
+                      <Icon name="chevron" size={16} />
+                    </span>
+                  </button>
+                  {!replies.movie && renderGridFilms(films)}
                 </section>
               )}
               {series.length > 0 && (
                 <section className="media-section">
-                  <h4 className="subhead">
+                  <button
+                    className="subhead subhead--pli"
+                    aria-expanded={!replies.tv}
+                    onClick={() => basculePli('tv')}
+                  >
                     Séries <span className="subhead__count">{series.length}</span>
-                  </h4>
-                  {renderGrid(series)}
+                    <span className={`subhead__fleche ${replies.tv ? '' : 'on'}`} aria-hidden="true">
+                      <Icon name="chevron" size={16} />
+                    </span>
+                  </button>
+                  {!replies.tv && renderGrid(series)}
                 </section>
               )}
             </>

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Rail from './Rail.jsx';
 import HorsLigne from './HorsLigne.jsx';
 import { useEnLigne } from '../reseau.js';
-import { lirePlateformes } from '../plateformes.js';
+import { usePlateformes } from '../usePlateformes.js';
 import BarreFiltres from './BarreFiltres.jsx';
 import {
   FILTRES_DECOUVERTE_VIDES,
@@ -17,6 +17,7 @@ import {
   getAmis,
   getRecommandationsAmis,
   cartesDe,
+  garderSurMesPlateformes,
 } from '../api.js';
 
 // Onglet « Découvrir » : une succession de rangées d'affiches, façon catalogue.
@@ -25,22 +26,26 @@ import {
 //   - les sélections               pépites cachées, soirée courte, classiques, l'année ;
 //   - les thèmes                   super-héros, braquage, halloween, romance.
 // Chaque rangée a son « Tout voir » (la grille complète). Le filtre « Sur mes plateformes »
-// restreint les rangées à ce qu'on peut regarder chez soi ; le choix est retenu.
+// restreint les rangées à ce qu'on peut regarder chez soi (choix fait dans Réglages > Mes plateformes).
 const keyOf = (item) => `${item.mediaType}-${item.id}`;
 const NB_COMME = 2; // rangées « Parce que tu as aimé » : les deux meilleurs titres
 
 const filtrer = (liste, media) => (media === 'all' ? liste : liste.filter((r) => r.mediaType === media));
 
 // Les titres d'un rayon. `page` ne sert qu'aux rayons TMDB paginés (sélections, thèmes).
-async function titresDe(rayon, { media = 'all', page = 1, plateformes = [] } = {}) {
+// `plateformes` : identifiants des plateformes choisies ; `noms` : leurs noms. TMDB filtre lui-même les rayons
+// de thèmes et de sélections ; pour « Chez tes amis » et « Comme … », on relève les offres des titres.
+async function titresDe(rayon, { media = 'all', page = 1, plateformes = [], noms = null } = {}) {
   if (rayon.type === 'amis') {
     const refs = await getRecommandationsAmis();
     const cartes = await cartesDe(filtrer(refs, media).slice(0, 60));
     const parCle = new Map(refs.map((r) => [keyOf(r), r.amis]));
-    return cartes.map((c) => ({ ...c, amis: parCle.get(keyOf(c)) }));
+    const liste = cartes.map((c) => ({ ...c, amis: parCle.get(keyOf(c)) }));
+    return noms ? garderSurMesPlateformes(liste, noms) : liste;
   }
   if (rayon.type === 'comme') {
-    return filtrer(await getRecommendations(rayon.mediaType, rayon.tmdbId), media);
+    const liste = filtrer(await getRecommendations(rayon.mediaType, rayon.tmdbId), media);
+    return noms ? garderSurMesPlateformes(liste, noms) : liste;
   }
   return discoverMood({
     mood: rayon.key,
@@ -125,15 +130,11 @@ export default function Decouvrir({
 
   // « Sur mes plateformes » : le choix se fait une fois, dans Réglages > Mes plateformes (relu à chaque
   // affichage). Actif seulement si l'interrupteur est allumé ET qu'au moins une plateforme est choisie.
-  const mesPlateformes = lirePlateformes();
+  const { ids: mesPlateformes, noms: nomsPlateformes, cle: clePlateformes } = usePlateformes();
   const plateformeActive = !!filtres.surMesPlateformes && mesPlateformes.length > 0;
   const idsPlateformes = plateformeActive ? mesPlateformes : [];
-  const cleChargement = `${filtres.media}|${idsPlateformes.join(',')}`;
-
-  // TMDB ne filtre pas des recommandations par plateforme : avec le filtre actif, ces rangées sont masquées
-  // (et une ligne le dit) plutôt que montrées sans filtre.
-  const rayonsVisibles = plateformeActive ? rayons.filter((r) => r.type === 'mood') : rayons;
-  const rayonsMasques = rayons.length - rayonsVisibles.length;
+  const nomsActifs = plateformeActive && nomsPlateformes.size > 0 ? nomsPlateformes : null;
+  const cleChargement = `${filtres.media}|${idsPlateformes.join(',')}|${nomsActifs ? clePlateformes : ''}`;
 
   const appliquer = (liste) => appliquerFiltresDecouverte(liste, filtres);
   const commun = { suivi, dejaChezMoi, cardProps };
@@ -153,26 +154,18 @@ export default function Decouvrir({
 
       <BarreFiltres filtres={filtres} onChange={onFiltres} {...barre} />
 
-      {plateformeActive && rayonsMasques > 0 && (
-        <p className="hint hint--small rayons-masques" role="status">
-          {rayonsMasques === 1
-            ? '1 rayon masqué : il ne sait pas filtrer par plateforme.'
-            : `${rayonsMasques} rayons masqués : ils ne savent pas filtrer par plateforme.`}
-        </p>
-      )}
-
       {!enLigne && (
         <HorsLigne onRetry={() => setEssai((n) => n + 1)} />
       )}
 
-      {enLigne && rayonsVisibles.map((r) => (
+      {enLigne && rayons.map((r) => (
         <Rail
           key={`${r.cle}:${essai}`}
           titre={r.titre}
           sous={r.sous}
           deps={[cleChargement, resetKey]}
           charger={() =>
-            titresDe(r, { media: filtres.media, plateformes: r.type === 'mood' ? idsPlateformes : [] })
+            titresDe(r, { media: filtres.media, plateformes: r.type === 'mood' ? idsPlateformes : [], noms: nomsActifs })
           }
           appliquer={appliquer}
           onToutVoir={() => setOuvert(r)}
@@ -197,6 +190,7 @@ export default function Decouvrir({
               media,
               page,
               plateformes: ouvert.type === 'mood' ? idsPlateformes : [],
+              noms: nomsActifs,
             })
           }
           legende={ouvert.type === 'amis' ? legendeAmis : undefined}

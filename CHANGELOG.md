@@ -4,6 +4,16 @@
 > `PLAN_ANDROID.md` et `PROJET_CONTEXTE.md`. Écrit le 2026-09-19 à partir de ces fichiers et de
 > l'historique de versions.
 
+## Retours du 2026-10-28 sur les listes et Découvrir — codés, vérifiés en navigateur largeur téléphone, non validés par Kinder sur téléphone
+- **Mes listes** : « Films » et « Séries » sont des sections qui se replient d'un appui (le pli est retenu) ; le **tri** est une puce visible
+  sous la barre Tout / Films / Séries (plus caché dans « Filtres »), à côté de « Sur mes plateformes » et « Sagas ».
+- **Sagas** : un groupe de saga est un bloc encadré sur toute la largeur ; le film seul qui le suit (cas « DC Showcase - Constantine » sous
+  « Saga Hannibal Lecter ») commence une nouvelle rangée au lieu de se glisser dans celle de la saga.
+- **Filtre par plateforme** : la puce « Sur mes plateformes » est visible dans la barre d'outils de Découvrir, des suggestions de Ce soir
+  (Découverte et Suggestion) et des Tendances de la recherche. Tendances / Nouveautés / À venir passent par TMDB (avec le filtre, Tendances
+  = les plus populaires de mes plateformes) ; les suggestions et les rayons « Chez tes amis » / « Comme … » relèvent les offres de chaque
+  titre au lieu d'être masqués.
+
 ## Retours d'essai de la 2.3 (2026-10-25) — notés, pas encore traités
 - 18 points relevés par Kinder (sauvegarde automatique, recherche, navigation, listes, découvertes, suivi des
   épisodes, fusion Drive…). Aucun code modifié. Liste complète dans `PLAN_V2.md`, « Retours d'essai du 2026-10-25 ».
