@@ -55,6 +55,7 @@ PLAN 5 — Fin avec le logo (16 → 20 s, 8 temps)
     - « *Gratuit* sur Google Play » ;
     - « Lien en bio » ;
     - en petit, sous le reste : « Données et images : TMDB ».
+    - le PERSONNAGE à capuche (signature du compte, charte v3.0 point 8) en petit dans un coin, en bas à droite de la zone sûre, sans toucher le logo ni les textes : plan de montage « fin.personnage » : true.
   La vidéo s'arrête net sur le dernier temps : la boucle relance « Parasite, mais où le regarder ? ».
 
 ======================================================================
@@ -89,7 +90,7 @@ Nom de montage proposé : vault-watch-reel-1-v2. Aucune donnée personnelle visi
 [ ] Aucun texte sur le titre « Parasite », sur les logos des plateformes, sur la ligne JustWatch ou sur un défilement.
 [ ] Aucun texte dans les 290 px du haut ni les 480 px du bas.
 [ ] Plan 4 : les logos des plateformes ET la ligne « Disponibilité fournie par JustWatch (via TMDB) » sont entièrement visibles.
-[ ] Fin : fond flouté, pas d'écran noir ; le logo de Vault Watch en grand ; titre doré, « Gratuit sur Google Play », « Lien en bio », mention TMDB ; la vidéo boucle sur l'accroche.
+[ ] Fin : fond flouté, pas d'écran noir ; le logo de Vault Watch en grand ; le personnage à capuche en petit dans un coin, sans couvrir logo ni texte ; titre doré, « Gratuit sur Google Play », « Lien en bio », mention TMDB ; la vidéo boucle sur l'accroche.
 [ ] Mention TMDB sur la fin seulement.
 [ ] Durée 20 s ; cinq plans de 4 s ; coupes sur les temps de la musique.
 [ ] Légende et hashtags identiques au point 4. Aucune donnée personnelle visible.
