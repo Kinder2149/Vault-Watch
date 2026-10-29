@@ -4,6 +4,9 @@
 > `PLAN_ANDROID.md` et `PROJET_CONTEXTE.md`. Écrit le 2026-09-19 à partir de ces fichiers et de
 > l'historique de versions.
 
+## Version 2.4 (versionCode 8) — 2026-10-29, paquet construit par Kinder, envoi en production à faire dans la Play Console
+- Regroupe tout ce qui est ci-dessous (filtres unifiés, mot-clé, sagas, disponibilité, fusion Drive, retours du 28 octobre).
+
 ## Retours du 2026-10-28 sur les listes et Découvrir — codés, vérifiés en navigateur largeur téléphone, non validés par Kinder sur téléphone
 - **Mes listes** : « Films » et « Séries » sont des sections qui se replient d'un appui (le pli est retenu) ; le **tri** est une puce visible
   sous la barre Tout / Films / Séries (plus caché dans « Filtres »), à côté de « Sur mes plateformes » et « Sagas ».
