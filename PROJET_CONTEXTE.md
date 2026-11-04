@@ -1,5 +1,26 @@
 # PROJET_CONTEXTE — Vault Watch
 
+## STATUT — fait foi pour les statuts (lu par Pilotage)
+
+```
+STATUT DU PROJET : En production
+MISSION : Sauvegarde cloud (S0 à S5) — En implémentation
+  Étape : S0 Lire « Dernière tentative » sur le téléphone de Kinder — Planifiée — critère : ?
+  Étape : S1 à S4 — Close — critère : codées et essayées sur émulateur (370 tests verts)
+  Étape : S5 Vérification par une autre IA puis capture de Kinder — Planifiée — critère : ?
+MISSION : Disponibilité des titres (A3) — En vérification
+MISSION : Sagas regroupées (B3) — En vérification
+MISSION : Filtres unifiés (B1) — En vérification
+MISSION : Recherche par mot-clé (B2) — En vérification
+MISSION : Fusion des conflits de sauvegarde (B6) — En vérification
+MISSION : Relais Cloudflare pour la clé TMDB — Figée
+MISSION : Notifications de sortie (figées le 2026-09-27) — ?
+IDÉES PARQUÉES :
+  - Mise en ligne et partage social (non décidé)
+  - Ordre de lecture des mangas (B7, abandonné, à rouvrir via Wikidata si Kinder le redemande)
+```
+*(Bloc ajouté le 2026-10-30, validé par Kinder.)*
+
 ## But du projet
 Application personnelle de suivi de films et séries, en remplacement de TVShowTime (arrêté).
 Permet de savoir, pour chaque film ou série, ce qu'on a vu, ce qu'on veut voir, et — pour les séries — d'en suivre la progression épisode par épisode.
