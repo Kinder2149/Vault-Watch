@@ -4,6 +4,19 @@
 > `PLAN_ANDROID.md` et `PROJET_CONTEXTE.md`. Écrit le 2026-09-19 à partir de ces fichiers et de
 > l'historique de versions.
 
+## 2026-11-10 — Une seule mission active (R29)
+- [DOC] Décision de Kinder : « Sauvegarde cloud (S0 à S5) » reste la mission active ; « Fusion des conflits de sauvegarde (B6) » passe de « En implémentation » à « En attente (1) » (reprise après la sauvegarde cloud). Rien d'autre touché.
+
+## 2026-11-10 — Missions A3, B3, B1, B2 closes
+- [DOC] Les 4 missions passent au statut Close dans le bloc STATUT : validées sur émulateur le 2026-11-10 (APK 2.3.6), réserve : essai téléphone de Kinder à sa convenance. Référence : Methode_pilotage_v2CONSTAT_T2.md §6.1. Les autres missions sont inchangées ; aucune branche touchée ni fusionnée.
+
+## 2026-11-10 — Tri des projets (lot 4)
+- [DOC] PLAN_ANDROID.md déplacé dans _archives\ (rien supprimé ; cité seulement dans des commentaires du code) : 5 .md à la racine. Missions du bloc STATUT non touchées (en attente des essais téléphone de Kinder). Branche `claude/app-fixes-improvements-aj4g6t` toujours non fusionnée (1 commit non envoyé), `correctif-ce-soir` en ligne.
+
+## 2026-11-05 — B6 renvoyée au temps 3 de la Consolidation
+- Fusion des conflits de sauvegarde (B6) : « En vérification » → « En implémentation ». Non vérifiable par une autre IA : aucun émulateur avec le compte de test Google ne démarre (VaultWatch_Test bloqué hors ligne à deux essais). Il faut un émulateur qui démarre avec le compte de test déjà ajouté.
+- A3, B3, B1, B2 vérifiées réussies par une autre IA le 2026-11-05 (APK du 29/10, code identique à main) ; restent le test et la validation de Kinder.
+
 ## Version 2.4 (versionCode 8) — 2026-10-29, paquet construit par Kinder, envoi en production à faire dans la Play Console
 - Regroupe tout ce qui est ci-dessous (filtres unifiés, mot-clé, sagas, disponibilité, fusion Drive, retours du 28 octobre).
 
