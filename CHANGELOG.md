@@ -4,6 +4,9 @@
 > `PLAN_ANDROID.md` et `PROJET_CONTEXTE.md`. Écrit le 2026-09-19 à partir de ces fichiers et de
 > l'historique de versions.
 
+## 2026-11-10 — Statut « Notifications de sortie » corrigé
+- [DOC] Mission « Notifications de sortie » : statut « ? » (hors liste) remplacé par « En attente (2) » (étapes codées le 2026-09-27, restent à valider sur téléphone) ; à confirmer par Kinder.
+
 ## 2026-11-10 — Une seule mission active (R29)
 - [DOC] Décision de Kinder : « Sauvegarde cloud (S0 à S5) » reste la mission active ; « Fusion des conflits de sauvegarde (B6) » passe de « En implémentation » à « En attente (1) » (reprise après la sauvegarde cloud). Rien d'autre touché.
 

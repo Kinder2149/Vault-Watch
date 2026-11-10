@@ -14,7 +14,7 @@ MISSION : Filtres unifiés (B1) — Close — validée sur émulateur le 2026-11
 MISSION : Recherche par mot-clé (B2) — Close — validée sur émulateur le 2026-11-10 (réserve : essai téléphone de Kinder à sa convenance) ; réf. Methode_pilotage_v2CONSTAT_T2.md §6
 MISSION : Fusion des conflits de sauvegarde (B6) — En attente (1) — reprise après la sauvegarde cloud (décision de Kinder, 2026-11-10)
 MISSION : Relais Cloudflare pour la clé TMDB — Figée
-MISSION : Notifications de sortie (figées le 2026-09-27) — ?
+MISSION : Notifications de sortie (figées le 2026-09-27) — En attente (2) — étapes codées le 2026-09-27, restent à valider sur téléphone (CHANGELOG) ; statut corrigé le 2026-11-10, à confirmer par Kinder
 IDÉES PARQUÉES :
   - Mise en ligne et partage social (non décidé)
   - Ordre de lecture des mangas (B7, abandonné, à rouvrir via Wikidata si Kinder le redemande)
