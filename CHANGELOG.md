@@ -11,7 +11,7 @@
 - [DOC] Décision de Kinder : « Sauvegarde cloud (S0 à S5) » reste la mission active ; « Fusion des conflits de sauvegarde (B6) » passe de « En implémentation » à « En attente (1) » (reprise après la sauvegarde cloud). Rien d'autre touché.
 
 ## 2026-11-10 — Missions A3, B3, B1, B2 closes
-- [DOC] Les 4 missions passent au statut Close dans le bloc STATUT : validées sur émulateur le 2026-11-10 (APK 2.3.6), réserve : essai téléphone de Kinder à sa convenance. Référence : Methode_pilotage_v2CONSTAT_T2.md §6.1. Les autres missions sont inchangées ; aucune branche touchée ni fusionnée.
+- [DOC] Les 4 missions passent au statut Close dans le bloc STATUT : validées sur émulateur le 2026-11-10 (APK 2.3.6), réserve : essai téléphone de Kinder à sa convenance. Verdict : A3, B3, B1, B2 réussis à l'écran sur émulateur (APK 2.3.6, données TMDB réelles). Les autres missions sont inchangées ; aucune branche touchée ni fusionnée.
 
 ## 2026-11-10 — Tri des projets (lot 4)
 - [DOC] PLAN_ANDROID.md déplacé dans _archives\ (rien supprimé ; cité seulement dans des commentaires du code) : 5 .md à la racine. Missions du bloc STATUT non touchées (en attente des essais téléphone de Kinder). Branche `claude/app-fixes-improvements-aj4g6t` toujours non fusionnée (1 commit non envoyé), `correctif-ce-soir` en ligne.

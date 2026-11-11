@@ -8,10 +8,10 @@ MISSION : Sauvegarde cloud (S0 à S5) — En implémentation
   Étape : S0 Lire « Dernière tentative » sur le téléphone de Kinder — Planifiée — critère : ?
   Étape : S1 à S4 — Close — critère : codées et essayées sur émulateur (370 tests verts)
   Étape : S5 Vérification par une autre IA puis capture de Kinder — Planifiée — critère : ?
-MISSION : Disponibilité des titres (A3) — Close — validée sur émulateur le 2026-11-10 (réserve : essai téléphone de Kinder à sa convenance) ; réf. Methode_pilotage_v2CONSTAT_T2.md §6
-MISSION : Sagas regroupées (B3) — Close — validée sur émulateur le 2026-11-10 (réserve : essai téléphone de Kinder à sa convenance) ; réf. Methode_pilotage_v2CONSTAT_T2.md §6
-MISSION : Filtres unifiés (B1) — Close — validée sur émulateur le 2026-11-10 (réserve : essai téléphone de Kinder à sa convenance) ; réf. Methode_pilotage_v2CONSTAT_T2.md §6
-MISSION : Recherche par mot-clé (B2) — Close — validée sur émulateur le 2026-11-10 (réserve : essai téléphone de Kinder à sa convenance) ; réf. Methode_pilotage_v2CONSTAT_T2.md §6
+MISSION : Disponibilité des titres (A3) — Close — validée sur émulateur le 2026-11-10 (réserve : essai téléphone de Kinder à sa convenance) ; vérifié à l'écran sur émulateur (APK 2.3.6) : seuls les titres regardables restent dans « À voir ce soir », les autres vont dans « Pas encore disponible » avec leur pastille — réussi
+MISSION : Sagas regroupées (B3) — Close — validée sur émulateur le 2026-11-10 (réserve : essai téléphone de Kinder à sa convenance) ; vérifié à l'écran sur émulateur (APK 2.3.6) : deux films d'une saga sous « Saga … — 2 titres » dans l'ordre de sortie, « Sagas » remet à plat — réussi
+MISSION : Filtres unifiés (B1) — Close — validée sur émulateur le 2026-11-10 (réserve : essai téléphone de Kinder à sa convenance) ; vérifié à l'écran sur émulateur (APK 2.3.6) : « Sur mes plateformes » ne garde que les titres des 2 plateformes cochées — réussi
+MISSION : Recherche par mot-clé (B2) — Close — validée sur émulateur le 2026-11-10 (réserve : essai téléphone de Kinder à sa convenance) ; vérifié à l'écran sur émulateur (APK 2.3.6) : le mot-clé « marvel » donne films et séries, le filtre plateformes réduit la liste — réussi
 MISSION : Fusion des conflits de sauvegarde (B6) — En attente (1) — reprise après la sauvegarde cloud (décision de Kinder, 2026-11-10)
 MISSION : Relais Cloudflare pour la clé TMDB — Figée
 MISSION : Notifications de sortie (figées le 2026-09-27) — En attente (2) — étapes codées le 2026-09-27, restent à valider sur téléphone (CHANGELOG) ; statut corrigé le 2026-11-10, à confirmer par Kinder
